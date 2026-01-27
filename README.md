@@ -13,6 +13,14 @@ A collection of Claude Code skills that transform Claude from a general assistan
 | [senior-software-engineer](skills/senior-software-engineer/SKILL.md) | Code review, architecture, mentoring | Any coding task, PR reviews, debugging |
 | [senior-software-analyst](skills/senior-software-analyst/SKILL.md) | Codebase auditing, system mapping | Unfamiliar codebases, documentation, tech debt |
 | [mentor-linux](skills/mentor-linux/SKILL.md) | Linux certification prep | RHCSA, Linux+, LPIC-1 study |
+| [eve-esi](skills/eve-esi/SKILL.md) | EVE Online ESI API integration | ESI endpoints, SSO auth, rate limiting |
+| [gamedev](skills/gamedev/SKILL.md) | Game dev patterns (Bevy/Rust ECS) | Building games, ECS architecture, game loops |
+| [streamlit](skills/streamlit/SKILL.md) | Streamlit app patterns | Dashboards, state management, deployment |
+| [perf](skills/perf/SKILL.md) | Performance profiling & optimization | Bottleneck hunting, benchmarking |
+| [backup](skills/backup/SKILL.md) | Backup strategy & data integrity | Backup design, disaster recovery |
+| [monitor](skills/monitor/SKILL.md) | Observability & monitoring | Logging, metrics, alerting, health checks |
+| [systemd](skills/systemd/SKILL.md) | Systemd service management | Unit files, timers, journalctl |
+| [networking](skills/networking/SKILL.md) | Linux networking & troubleshooting | DNS, firewalls, ports, connectivity |
 
 ## Usage
 
