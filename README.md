@@ -68,16 +68,41 @@ Claude is powerful but generic. For specialized work you end up re-explaining co
 | [systemd](skills/systemd/SKILL.md) | Systemd service management | Unit files, timers, journalctl |
 | [networking](skills/networking/SKILL.md) | Linux networking & troubleshooting | DNS, firewalls, ports, connectivity |
 
-## Usage
+## Installation
 
-### In Claude Code
+### Claude Code Native Skills (Recommended)
 
-Drop the skill folder into your project or reference it in your `CLAUDE.md`:
+Copy skills directly to your Claude Code skills directory for `/skill-name` invocation:
+
+```bash
+# Clone the repo
+git clone https://github.com/AreteDriver/ai_skills.git
+
+# Copy individual skills to Claude Code
+cp -r ai_skills/skills/eve-esi ~/.claude/skills/
+cp -r ai_skills/skills/gamedev ~/.claude/skills/
+cp -r ai_skills/skills/perf ~/.claude/skills/
+
+# Or copy all skills at once
+cp -r ai_skills/skills/* ~/.claude/skills/
+```
+
+Skills are immediately available as slash commands:
+- `/eve-esi` - EVE Online API patterns
+- `/gamedev` - Bevy/Rust ECS development
+- `/perf` - Performance profiling
+- `/backup` - Backup strategies
+- `/monitor` - Observability patterns
+- etc.
+
+### Project-Level Reference
+
+Reference skills in your project's `CLAUDE.md`:
 
 ```markdown
 # CLAUDE.md
 
-See skills from: https://github.com/AreteDriver/ClaudeSkills
+See skills from: https://github.com/AreteDriver/ai_skills
 
 Active skills:
 - senior-software-engineer (always on for code tasks)
@@ -86,7 +111,7 @@ Active skills:
 
 ### Direct Activation
 
-Reference the skill behavior directly:
+Reference the skill behavior directly in prompts:
 
 ```
 "Act as senior-software-engineer: review this PR"
@@ -96,7 +121,7 @@ Reference the skill behavior directly:
 ## Structure
 
 ```
-ClaudeSkills/
+ai_skills/
 ├── skills/                              # Skill definitions (27 total)
 │   ├── senior-software-engineer/        # Code review, architecture
 │   ├── senior-software-analyst/         # Codebase auditing
