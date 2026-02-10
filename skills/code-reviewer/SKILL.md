@@ -112,6 +112,51 @@ Activated when: Analyzing code for performance
 - [ ] Caching is used appropriately
 - [ ] No memory leaks or resource exhaustion risks
 
+## Agent Teams: Multi-Reviewer Pattern
+
+For large PRs or critical changes, use Agent Teams to run parallel specialized reviews that cross-reference findings:
+
+### Team Composition
+```markdown
+Team: 3 reviewers + 1 lead
+- Security Reviewer: OWASP top 10, auth, injection, secrets, data exposure
+- Performance Reviewer: complexity, N+1 queries, memory, caching, concurrency
+- Quality Reviewer: readability, patterns, tests, maintainability, error handling
+Lead: Synthesizes findings, deduplicates, assigns severity, produces unified report
+```
+
+### How It Works
+```
+┌──────────────────────────────────────────────┐
+│              Lead (Synthesis)                 │
+│  - Assigns review scope to each reviewer     │
+│  - Collects findings from all three          │
+│  - Resolves overlapping/conflicting findings │
+│  - Produces unified review report            │
+└──────┬──────────┬──────────────┬─────────────┘
+       │          │              │
+       ▼          ▼              ▼
+┌──────────┐ ┌──────────┐ ┌───────────┐
+│ Security │ │  Perf    │ │  Quality  │
+│ Reviewer │ │ Reviewer │ │  Reviewer │
+└──────────┘ └──────────┘ └───────────┘
+       │          │              │
+       └──────────┴──────────────┘
+          Cross-reference via SendMessage:
+          "Found auth bypass in auth.py:42 —
+           @Perf, check if the fix affects query speed"
+```
+
+### When to Use Multi-Reviewer vs Single Review
+- **Single reviewer:** PRs under 500 lines, single concern, routine changes
+- **Multi-reviewer:** PRs over 500 lines, security-sensitive, cross-cutting changes
+- **Full team:** Major refactors, new authentication flows, public API changes
+
+### Enabling Agent Teams
+```bash
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+```
+
 ## Constraints
 
 - Review feedback must be respectful and professional
@@ -119,3 +164,4 @@ Activated when: Analyzing code for performance
 - Don't block on style preferences alone
 - Consider the author's experience level
 - Balance thoroughness with reviewer time
+- In multi-reviewer mode, deduplicate findings across reviewers before reporting

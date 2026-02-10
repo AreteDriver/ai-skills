@@ -201,6 +201,34 @@ When analyzing code, watch for:
 - Distinguish facts from opinions
 - Prioritize recommendations by impact
 
+## Agent Teams Integration
+
+For large codebases that exceed a single context window, use Agent Teams to parallelize analysis:
+
+### Multi-Analyst Team Pattern
+```markdown
+Team: 3 analysts + 1 lead
+- Analyst A: Frontend code audit (components, state, routing)
+- Analyst B: Backend code audit (API, business logic, data layer)
+- Analyst C: Infrastructure audit (config, CI/CD, deployment, deps)
+Lead synthesizes into unified codebase report
+```
+
+### Launching Parallel Analysis
+```bash
+# Enable agent teams
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+
+# Each teammate analyzes their assigned scope independently
+# Results are written to .tasks/results/ for synthesis
+# Lead merges findings and resolves cross-cutting concerns
+```
+
+### When to Use Teams vs Solo Analysis
+- **Solo:** Codebase under ~50K lines, single language, one domain
+- **Team of 2:** Multi-language project or frontend+backend split
+- **Team of 3+:** Monorepo, microservices, or enterprise codebase with multiple modules
+
 ## When to Use This Skill
 
 - Before starting work on an unfamiliar codebase
@@ -210,3 +238,4 @@ When analyzing code, watch for:
 - When preparing technical documentation
 - When evaluating third-party code or libraries
 - During code review of large PRs
+- When coordinating multi-agent analysis of large systems

@@ -176,6 +176,46 @@ Protected branches (main, master, production) require:
 - No force pushes
 - No deletions
 
+## Plugin Publishing Workflow
+
+When publishing Claude Code plugins or skills as GitHub repos:
+
+### Publishing a Plugin
+```bash
+# 1. Initialize plugin repo
+gh repo create my-claude-plugin --public --description "Claude Code plugin for X"
+
+# 2. Ensure required structure
+# plugin.json, skills/, hooks/, README.md, LICENSE
+
+# 3. Tag release with semver
+git tag v1.0.0
+git push origin v1.0.0
+
+# 4. Create GitHub release
+gh release create v1.0.0 --title "v1.0.0" --notes "Initial release"
+
+# 5. Submit to community registries
+# buildwithclaude.com, claude-plugins.dev
+```
+
+### Plugin Repo Best Practices
+- Include installation instructions in README
+- Add topics: `claude-code`, `claude-plugin`, `claude-skill`
+- Use GitHub Actions to validate plugin.json on PR
+- Tag releases with semantic versions
+- Include a CHANGELOG.md
+
+### Skills Repo Management
+```bash
+# Install skills from a GitHub repo
+git clone https://github.com/user/ai-skills.git
+ln -s $(pwd)/ai-skills/skills/my-skill ~/.claude/skills/my-skill
+
+# Or as git submodule in a project
+git submodule add https://github.com/user/ai-skills.git .claude/external-skills
+```
+
 ## Constraints
 
 - PAT tokens must use minimum required scopes
@@ -184,3 +224,5 @@ Protected branches (main, master, production) require:
 - Always create branches from up-to-date main
 - Review all diffs before commit
 - Link commits to issues/tickets
+- Plugin repos should include plugin.json, README, and LICENSE at minimum
+- Tag all plugin releases with semantic versions

@@ -1,0 +1,38 @@
+{
+  "name": "quality-gate",
+  "version": "1.0.0",
+  "description": "Enforces code quality standards with TDD guards, force-push protection, and automated code review",
+  "author": "AreteDriver",
+  "license": "MIT",
+  "repository": "https://github.com/AreteDriver/ai_skills",
+  "skills": [
+    "skills/code-reviewer",
+    "skills/security-auditor"
+  ],
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "command": "hooks/tdd-guard.sh"
+      },
+      {
+        "matcher": "Bash",
+        "command": "hooks/no-force-push.sh"
+      },
+      {
+        "matcher": "Write,Edit",
+        "command": "hooks/protected-paths.sh"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "command": "hooks/tool-logger.sh"
+      }
+    ]
+  },
+  "mcp_servers": {},
+  "agents": [],
+  "keywords": ["quality", "tdd", "security", "code-review", "hooks"],
+  "claude_code_version": ">=2.1.0"
+}

@@ -122,6 +122,67 @@ Activated when: Planning system migrations or major refactors
 - Plan for disaster recovery
 - Automate deployment and scaling
 
+## MCP Integration Patterns
+
+Modern systems increasingly expose capabilities via Model Context Protocol (MCP) servers. Consider MCP when designing architectures that involve AI agents or tool-based automation.
+
+### When to Design with MCP
+- System components need to be accessible to AI agents
+- Internal tools should be queryable via natural language
+- Services expose structured operations (CRUD, search, analyze)
+- You need a standard interface between AI and your infrastructure
+
+### MCP Architecture Patterns
+
+**Database Gateway:**
+```
+┌──────────┐     MCP      ┌──────────┐     SQL      ┌────────┐
+│  Claude   │────────────►│  DB MCP   │────────────►│  DB     │
+│  Code     │  tools/call  │  Server   │  prepared   │         │
+└──────────┘              └──────────┘  statements  └────────┘
+```
+
+**Microservice Aggregator:**
+```
+                          ┌─── Service A MCP ──► Service A
+Claude Code ──► Gateway ──┤─── Service B MCP ──► Service B
+    MCP          MCP      └─── Service C MCP ──► Service C
+```
+
+**Agent-in-Agent:**
+```
+Orchestrator Agent ──► Claude Code MCP Server ──► Codebase
+   (plans tasks)         (executes coding)        (reads/writes)
+```
+
+### Design Principles for MCP
+- Each MCP server should have a single, clear responsibility
+- Tool names should be verb_noun (e.g., `query_users`, `create_ticket`)
+- Keep tool response payloads focused — don't dump entire API responses
+- Use lazy loading for servers with many tools to conserve context
+- Environment variables for all credentials — never hardcode
+
+## Plugin & Skill Architecture
+
+When designing systems that include Claude Code as a component, consider the plugin architecture:
+
+```
+project/
+├── .claude/
+│   ├── CLAUDE.md              # Project instructions
+│   ├── settings.json          # Hooks, MCP servers
+│   ├── skills/                # Project-specific skills
+│   │   └── domain-skill/
+│   │       └── SKILL.md
+│   └── plugins/               # Bundled skill+hook packages
+│       └── quality-gate/
+│           ├── plugin.json
+│           ├── skills/
+│           └── hooks/
+```
+
+This trifecta (skills + hooks + MCP servers) forms the standard extension architecture for Claude Code-integrated projects.
+
 ## Constraints
 
 - Architecture decisions must be documented with rationale
@@ -130,3 +191,5 @@ Activated when: Planning system migrations or major refactors
 - Consider the 80/20 rule—optimize for common cases
 - Avoid distributed transactions where possible
 - Plan for operational day-2 concerns from day-1
+- When designing AI-integrated systems, define MCP boundaries early
+- Plugin architecture should be considered for any project that uses Claude Code extensively
