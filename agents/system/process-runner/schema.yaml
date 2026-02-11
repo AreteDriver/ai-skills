@@ -1,0 +1,99 @@
+name: process-runner
+version: "1.0.0"
+description: Execute and manage subprocesses with safety controls
+category: system
+risk_level: medium
+consensus_level: none
+
+inputs:
+  operation:
+    type: string
+    required: true
+    enum: [run, run_background, kill_process, is_blocked]
+    description: The process operation to perform
+  command:
+    type: string
+    required: false
+    description: The shell command to execute
+  timeout:
+    type: integer
+    required: false
+    default: 60
+    description: Maximum execution time in seconds
+  cwd:
+    type: string
+    required: false
+    description: Working directory for the command
+  env:
+    type: object
+    required: false
+    description: Additional environment variables
+  pid:
+    type: integer
+    required: false
+    description: Process ID (for kill_process operation)
+  log_file:
+    type: string
+    required: false
+    description: Output file for background processes
+  graceful_timeout:
+    type: integer
+    required: false
+    default: 5
+    description: Seconds to wait for SIGTERM before SIGKILL
+
+outputs:
+  success:
+    type: boolean
+    description: Whether the operation completed successfully
+  command:
+    type: string
+    description: The command that was executed
+  exit_code:
+    type: integer
+    description: Process exit code (-1 for timeout/blocked)
+  stdout:
+    type: string
+    description: Standard output from the process
+  stderr:
+    type: string
+    description: Standard error from the process
+  duration_ms:
+    type: integer
+    description: Execution time in milliseconds
+  timed_out:
+    type: boolean
+    description: Whether the process exceeded its timeout
+  pid:
+    type: integer
+    description: Process ID (for background processes)
+  blocked:
+    type: boolean
+    description: Whether the command was blocked by safety controls
+  block_reason:
+    type: string
+    description: Why the command was blocked
+
+capabilities:
+  - name: run
+    risk: medium
+    consensus: none
+  - name: run_background
+    risk: medium
+    consensus: none
+  - name: kill_process
+    risk: medium
+    consensus: none
+  - name: is_blocked
+    risk: low
+    consensus: none
+
+constraints:
+  default_timeout_s: 60
+  max_timeout_s: 3600
+  blocked_patterns_overridable: false
+  audit_logging: required
+
+dependencies:
+  python: ["subprocess", "shlex", "signal", "os"]
+  system: ["bash"]

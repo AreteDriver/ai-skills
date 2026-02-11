@@ -1,0 +1,127 @@
+name: feature-implementation
+version: "1.0.0"
+description: End-to-end feature implementation using WHY/WHAT/HOW framework
+category: workflow
+risk_level: medium
+consensus_level: adaptive
+
+inputs:
+  task:
+    type: string
+    required: true
+    description: Feature description or requirement
+  codebase_path:
+    type: string
+    required: true
+    description: Root path of the target codebase
+  strategy:
+    type: string
+    required: false
+    enum: [test_first, implement_first, parallel_modules]
+    default: test_first
+    description: Implementation strategy
+  skip_phases:
+    type: array
+    items:
+      type: string
+      enum: [context_mapping, verification]
+    required: false
+    description: Phases to skip (not recommended)
+
+outputs:
+  status:
+    type: string
+    enum: [complete, blocked, failed]
+    description: Workflow completion status
+  context_map:
+    type: object
+    description: Phase 0 output — codebase context
+  requirements:
+    type: object
+    description: Phase 1 output — WHY captured
+  design:
+    type: object
+    description: Phase 2 output — WHAT defined
+  implementation:
+    type: object
+    properties:
+      files_created:
+        type: array
+        items:
+          type: string
+      files_modified:
+        type: array
+        items:
+          type: string
+      tests_added:
+        type: integer
+      tests_passing:
+        type: boolean
+    description: Phase 3 output — HOW executed
+  verification:
+    type: object
+    properties:
+      tests_pass:
+        type: boolean
+      lint_clean:
+        type: boolean
+      type_check:
+        type: boolean
+      build_succeeds:
+        type: boolean
+    description: Phase 4 output — quality verified
+  delivery:
+    type: object
+    properties:
+      branch:
+        type: string
+      pr_url:
+        type: string
+      commits:
+        type: integer
+    description: Phase 5 output — PR created
+
+phases:
+  - name: context_mapping
+    agent: context-mapper
+    required: true
+  - name: requirements
+    agent: supervisor
+    required: true
+  - name: design
+    personas: [software-architect]
+    required: true
+  - name: implementation
+    personas: [senior-software-engineer]
+    agents: [file-operations, process-runner]
+    required: true
+  - name: verification
+    personas: [testing-specialist, code-reviewer]
+    agents: [process-runner]
+    required: true
+  - name: delivery
+    agents: [github-operations]
+    required: true
+
+quality_gates:
+  - name: tests_pass
+    after_phase: implementation
+    command: "npm test"
+    on_failure: block
+  - name: lint_clean
+    after_phase: implementation
+    command: "npm run lint"
+    on_failure: warn
+  - name: type_check
+    after_phase: implementation
+    command: "npm run typecheck"
+    on_failure: block
+  - name: build_succeeds
+    after_phase: implementation
+    command: "npm run build"
+    on_failure: block
+
+dependencies:
+  personas: [software-architect, senior-software-engineer, testing-specialist, code-reviewer]
+  agents: [context-mapper, file-operations, process-runner, github-operations]
+  workflows: [context-mapping]

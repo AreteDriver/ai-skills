@@ -1,0 +1,272 @@
+# AI Skills Registry v1.0
+# Central catalog of all skills, their locations, types, and metadata.
+# Used by Gorgon's SkillLibrary loader to discover and validate skills.
+
+schema_version: "1.0.0"
+repository: AreteDriver/ai_skills
+
+# ─────────────────────────────────────────────
+# Personas — User behavior skills (how Claude acts)
+# ─────────────────────────────────────────────
+personas:
+  engineering:
+    - name: senior-software-engineer
+      path: personas/engineering/senior-software-engineer
+      description: Expert code reviewer, architect, and engineering mentor
+      has_references: true
+
+    - name: senior-software-analyst
+      path: personas/engineering/senior-software-analyst
+      description: Requirements analysis and system specification expert
+
+    - name: software-architect
+      path: personas/engineering/software-architect
+      description: System design and architectural decision specialist
+
+    - name: code-reviewer
+      path: personas/engineering/code-reviewer
+      description: Systematic code review with severity-ranked findings
+
+    - name: code-builder
+      path: personas/engineering/code-builder
+      description: Production-grade code generation with quality controls
+
+    - name: testing-specialist
+      path: personas/engineering/testing-specialist
+      description: Test strategy, TDD, and coverage optimization
+
+    - name: documentation-writer
+      path: personas/engineering/documentation-writer
+      description: Technical documentation and API reference writing
+
+  data:
+    - name: data-analyst
+      path: personas/data/data-analyst
+      description: Statistical analysis, visualization, and insight extraction
+
+    - name: data-engineer
+      path: personas/data/data-engineer
+      description: ETL pipelines, data modeling, and warehouse design
+
+    - name: data-visualizer
+      path: personas/data/data-visualizer
+      description: Chart design and data presentation specialist
+
+    - name: report-generator
+      path: personas/data/report-generator
+      description: Structured report creation from data sources
+
+  devops:
+    - name: backup
+      path: personas/devops/backup
+      description: Backup strategy, scheduling, and disaster recovery
+
+    - name: monitor
+      path: personas/devops/monitor
+      description: System monitoring, alerting, and observability
+
+    - name: networking
+      path: personas/devops/networking
+      description: Network configuration, troubleshooting, and security
+
+    - name: systemd
+      path: personas/devops/systemd
+      description: Systemd service management and unit file authoring
+
+    - name: perf
+      path: personas/devops/perf
+      description: Performance profiling and optimization
+
+    - name: process-management
+      path: personas/devops/process-management
+      description: Process lifecycle and resource management
+
+  claude-code:
+    - name: hooks-designer
+      path: personas/claude-code/hooks-designer
+      description: Claude Code hook design and lifecycle event handling
+
+    - name: plugin-builder
+      path: personas/claude-code/plugin-builder
+      description: Claude Code plugin packaging and distribution
+
+    - name: mcp-server-builder
+      path: personas/claude-code/mcp-server-builder
+      description: Model Context Protocol server implementation
+
+    - name: session-memory-manager
+      path: personas/claude-code/session-memory-manager
+      description: Cross-session context persistence and recall
+
+    - name: cicd-pipeline
+      path: personas/claude-code/cicd-pipeline
+      description: CI/CD pipeline design for Claude Code projects
+
+  security:
+    - name: security-auditor
+      path: personas/security/security-auditor
+      description: OWASP-focused security audit and vulnerability assessment
+
+    - name: accessibility-checker
+      path: personas/security/accessibility-checker
+      description: WCAG 2.2 compliance audit and remediation
+
+  domain:
+    - name: mentor-linux
+      path: personas/domain/mentor-linux
+      description: Linux certification study mentor and lab guide
+
+    - name: eve-esi
+      path: personas/domain/eve-esi
+      description: EVE Online ESI API integration specialist
+
+    - name: gamedev
+      path: personas/domain/gamedev
+      description: Game development patterns and engine integration
+
+    - name: streamlit
+      path: personas/domain/streamlit
+      description: Streamlit app development and deployment
+
+    - name: strategic-planner
+      path: personas/domain/strategic-planner
+      description: Business strategy and planning frameworks
+
+    - name: hauling-business-advisor
+      path: personas/domain/hauling-business-advisor
+      description: Junk hauling business operations advisor
+
+    - name: hauling-image-estimator
+      path: personas/domain/hauling-image-estimator
+      description: Visual load estimation for hauling jobs
+      has_references: true
+
+    - name: hauling-job-scheduler
+      path: personas/domain/hauling-job-scheduler
+      description: Hauling job scheduling and route optimization
+
+    - name: hauling-lead-qualifier
+      path: personas/domain/hauling-lead-qualifier
+      description: Hauling lead qualification and pricing guidance
+
+    - name: hauling-quote-generator
+      path: personas/domain/hauling-quote-generator
+      description: Hauling job quote generation with pricing models
+      has_references: true
+
+    - name: tie-dye-business-coach
+      path: personas/domain/tie-dye-business-coach
+      description: Tie-dye business coaching with Socratic method
+      has_references: true
+
+# ─────────────────────────────────────────────
+# Agents — Gorgon agent capabilities (what agents can do)
+# ─────────────────────────────────────────────
+agents:
+  system:
+    - name: file-operations
+      path: agents/system/file-operations
+      description: Safe filesystem operations with protection and validation
+      has_schema: true
+      risk_level: medium
+      consensus: required_for_destructive
+
+    - name: process-runner
+      path: agents/system/process-runner
+      description: Subprocess execution with safety controls and structured output
+      has_schema: true
+      risk_level: medium
+      consensus: none
+
+  browser:
+    - name: web-search
+      path: agents/browser/web-search
+      description: Web search with rate limiting and caching
+      has_schema: true
+      risk_level: low
+      consensus: none
+
+    - name: web-scrape
+      path: agents/browser/web-scrape
+      description: Ethical web scraping with robots.txt compliance
+      has_schema: true
+      risk_level: low
+      consensus: none
+
+  email:
+    - name: email-compose
+      path: agents/email/email-compose
+      description: Email composition with draft-review-send workflow
+      has_schema: true
+      risk_level: high
+      consensus: required_for_send
+
+  integrations:
+    - name: github-operations
+      path: agents/integrations/github-operations
+      description: Git CLI and GitHub API repository management
+      has_schema: true
+      risk_level: medium
+      consensus: required_for_push
+
+    - name: api-client
+      path: agents/integrations/api-client
+      description: Authenticated HTTP API client with retry and rate limiting
+      has_schema: true
+      risk_level: low
+      consensus: none
+
+  orchestration:
+    - name: multi-agent-supervisor
+      path: agents/orchestration/multi-agent-supervisor
+      description: Gorgon supervisor with triumvirate consensus
+      has_schema: true
+      risk_level: medium
+      consensus: adaptive
+
+    - name: agent-teams-orchestrator
+      path: agents/orchestration/agent-teams-orchestrator
+      description: Claude Code Agent Teams parallel coordination
+      has_schema: true
+      risk_level: medium
+      consensus: none
+
+# ─────────────────────────────────────────────
+# Workflows — Multi-step execution templates
+# ─────────────────────────────────────────────
+workflows:
+  - name: context-mapper
+    path: workflows/context-mapping
+    description: Pre-execution codebase context mapping (Blitzy-inspired)
+    has_schema: true
+    phase: pre-execution
+
+  - name: feature-implementation
+    path: workflows/feature-implementation
+    description: End-to-end feature implementation using WHY/WHAT/HOW
+    has_schema: true
+    phase: full-lifecycle
+
+# ─────────────────────────────────────────────
+# Summary Statistics
+# ─────────────────────────────────────────────
+stats:
+  total_personas: 35
+  total_agents: 9
+  total_workflows: 2
+  total_skills: 46
+  categories:
+    persona:
+      engineering: 7
+      data: 4
+      devops: 6
+      claude-code: 5
+      security: 2
+      domain: 11
+    agent:
+      system: 2
+      browser: 2
+      email: 1
+      integrations: 2
+      orchestration: 2
+    workflow: 2

@@ -1,0 +1,107 @@
+name: multi-agent-supervisor
+version: "1.0.0"
+description: Hierarchical multi-agent orchestration with triumvirate consensus
+category: orchestration
+risk_level: medium
+consensus_level: adaptive
+
+inputs:
+  task:
+    type: string
+    required: true
+    description: The high-level task to decompose and execute
+  context:
+    type: object
+    required: false
+    description: Additional context for task execution
+  agents_available:
+    type: array
+    items:
+      type: string
+    required: false
+    description: List of agent names available in the pool
+  max_retries:
+    type: integer
+    required: false
+    default: 2
+    description: Maximum retries per subtask before escalation
+  require_consensus_for:
+    type: array
+    items:
+      type: string
+    required: false
+    default: ["destructive", "external", "financial"]
+    description: Categories of operations requiring triumvirate consensus
+
+outputs:
+  status:
+    type: string
+    enum: [complete, blocked, failed, escalated]
+    description: Final status of the orchestrated task
+  steps:
+    type: array
+    items:
+      type: object
+      properties:
+        step_id:
+          type: string
+        description:
+          type: string
+        agent:
+          type: string
+        status:
+          type: string
+        result:
+          type: string
+    description: Detailed breakdown of executed steps
+  result:
+    type: string
+    description: Synthesized result from all agent outputs
+  metrics:
+    type: object
+    properties:
+      total_steps:
+        type: integer
+      completed:
+        type: integer
+      failed:
+        type: integer
+      avg_completion_time_s:
+        type: number
+    description: Execution metrics
+
+agent_pool:
+  - name: system
+    capabilities: ["bash", "process_management", "file_operations"]
+    risk_level: medium
+  - name: browser
+    capabilities: ["web_browsing", "scraping", "form_filling"]
+    risk_level: low
+  - name: email
+    capabilities: ["imap", "smtp", "gmail_api"]
+    risk_level: high
+  - name: app
+    capabilities: ["app_launch", "gui_automation"]
+    risk_level: medium
+  - name: file
+    capabilities: ["filesystem", "document_processing"]
+    risk_level: low
+
+triumvirate:
+  stheno:
+    role: validator
+    responsibility: Checks plan feasibility and safety
+  euryale:
+    role: executor
+    responsibility: Proposes execution strategy
+  medusa:
+    role: arbiter
+    responsibility: Resolves conflicts, makes final call
+  voting:
+    unanimous: proceed
+    majority: proceed_with_logging
+    split: escalate_to_human
+
+dependencies:
+  python: ["asyncio", "dataclasses"]
+  agents: ["file-operations", "web-search", "web-scrape", "email-compose", "github-operations"]

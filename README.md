@@ -2,9 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/Skills-27-blue)]()
+[![Skills](https://img.shields.io/badge/Skills-46-blue)]()
 
-**Production-ready Claude Code skills for software engineering, data analysis, DevOps, and domain-specific workflows.**
+**Production-ready skills for Claude Code personas, Gorgon agent capabilities, and orchestrated workflows.**
 
 ---
 
@@ -12,96 +12,150 @@
 
 Claude is powerful but generic. For specialized work you end up re-explaining context, missing domain best practices, and getting responses that don't match your workflow.
 
-**Skills fix this.** Each skill transforms Claude into a specialized persona with defined behaviors, constraints, and output formats. Load once, use everywhere.
+**Skills fix this.** Each skill transforms Claude into a specialized persona with defined behaviors, constraints, and output formats. Agent skills give Gorgon agents typed interfaces with risk levels and consensus requirements. Workflows coordinate them with the WHY/WHAT/HOW framework.
 
-## Skills
+## Architecture
 
-### Development Workflow Agents
+```
+┌─────────────────────────────────────────────────┐
+│                   ai_skills                      │
+├─────────────────┬───────────────┬───────────────┤
+│    Personas     │    Agents     │   Workflows   │
+│  (how Claude    │ (what Gorgon  │ (multi-step   │
+│   behaves)      │  agents do)   │  execution)   │
+├─────────────────┼───────────────┼───────────────┤
+│ 35 skills       │ 9 skills      │ 2 workflows   │
+│ SKILL.md only   │ SKILL.md +    │ SKILL.md +    │
+│                 │ schema.yaml   │ schema.yaml   │
+└─────────────────┴───────────────┴───────────────┘
+```
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| [senior-software-engineer](skills/senior-software-engineer/SKILL.md) | Code review, architecture, mentoring | Any coding task, PR reviews, debugging |
-| [senior-software-analyst](skills/senior-software-analyst/SKILL.md) | Codebase auditing, system mapping | Unfamiliar codebases, documentation, tech debt |
-| [strategic-planner](skills/strategic-planner/SKILL.md) | Feature decomposition, implementation planning | Breaking down features into actionable steps |
-| [code-builder](skills/code-builder/SKILL.md) | Production-ready code implementation | Writing new features based on plans |
-| [testing-specialist](skills/testing-specialist/SKILL.md) | Comprehensive test suite creation | Unit tests, integration tests, edge cases |
-| [code-reviewer](skills/code-reviewer/SKILL.md) | Quality, security, and best practices review | PR reviews, security audits, code quality |
-| [software-architect](skills/software-architect/SKILL.md) | System design and technical decisions | Architecture, component design, tech selection |
-| [documentation-writer](skills/documentation-writer/SKILL.md) | API docs, guides, and READMEs | Documentation, developer guides, API reference |
+## Personas — User Behavior Skills
 
-### Data & Analytics Agents
+### Engineering (7)
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| [data-engineer](skills/data-engineer/SKILL.md) | Data pipelines, schemas, ETL | Data ingestion, transformation, validation |
-| [data-analyst](skills/data-analyst/SKILL.md) | Statistical analysis, pattern finding | EDA, hypothesis testing, insights |
-| [data-visualizer](skills/data-visualizer/SKILL.md) | Charts, dashboards, visual design | Creating visualizations, dashboard layouts |
-| [report-generator](skills/report-generator/SKILL.md) | Executive summaries, analytical reports | Stakeholder reports, findings documentation |
+| Skill | Purpose | Path |
+|-------|---------|------|
+| [senior-software-engineer](personas/engineering/senior-software-engineer/SKILL.md) | Code review, architecture, mentoring | `personas/engineering/` |
+| [senior-software-analyst](personas/engineering/senior-software-analyst/SKILL.md) | Codebase auditing, system mapping | `personas/engineering/` |
+| [software-architect](personas/engineering/software-architect/SKILL.md) | System design, technical decisions | `personas/engineering/` |
+| [code-reviewer](personas/engineering/code-reviewer/SKILL.md) | Quality, security, best practices | `personas/engineering/` |
+| [code-builder](personas/engineering/code-builder/SKILL.md) | Production-ready implementation | `personas/engineering/` |
+| [testing-specialist](personas/engineering/testing-specialist/SKILL.md) | Test suite creation, TDD | `personas/engineering/` |
+| [documentation-writer](personas/engineering/documentation-writer/SKILL.md) | API docs, guides, READMEs | `personas/engineering/` |
 
-### Operational Skills
+### Data (4)
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| [file-operations](skills/file-operations/SKILL.md) | Safe filesystem operations | File CRUD with backups and validation |
-| [web-search](skills/web-search/SKILL.md) | Web search with rate limiting | Gathering current information |
-| [web-scrape](skills/web-scrape/SKILL.md) | Ethical web scraping | Content extraction, table parsing |
-| [github-operations](skills/github-operations/SKILL.md) | Git CLI and GitHub API operations | Repos, branches, PRs, issues |
-| [email-compose](skills/email-compose/SKILL.md) | Email drafting with approval workflow | Composing and sending emails safely |
-| [process-management](skills/process-management/SKILL.md) | System process control | Process monitoring, service management |
+| Skill | Purpose | Path |
+|-------|---------|------|
+| [data-engineer](personas/data/data-engineer/SKILL.md) | Pipelines, schemas, ETL | `personas/data/` |
+| [data-analyst](personas/data/data-analyst/SKILL.md) | Statistical analysis, insights | `personas/data/` |
+| [data-visualizer](personas/data/data-visualizer/SKILL.md) | Charts, dashboards | `personas/data/` |
+| [report-generator](personas/data/report-generator/SKILL.md) | Executive summaries | `personas/data/` |
 
-### Domain-Specific Skills
+### DevOps (6)
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| [mentor-linux](skills/mentor-linux/SKILL.md) | Linux certification prep | RHCSA, Linux+, LPIC-1 study |
-| [eve-esi](skills/eve-esi/SKILL.md) | EVE Online ESI API integration | ESI endpoints, SSO auth, rate limiting |
-| [gamedev](skills/gamedev/SKILL.md) | Game dev patterns (Bevy/Rust ECS) | Building games, ECS architecture, game loops |
-| [streamlit](skills/streamlit/SKILL.md) | Streamlit app patterns | Dashboards, state management, deployment |
+| Skill | Purpose | Path |
+|-------|---------|------|
+| [backup](personas/devops/backup/SKILL.md) | Backup strategy, disaster recovery | `personas/devops/` |
+| [monitor](personas/devops/monitor/SKILL.md) | Observability, alerting | `personas/devops/` |
+| [networking](personas/devops/networking/SKILL.md) | Network config, troubleshooting | `personas/devops/` |
+| [systemd](personas/devops/systemd/SKILL.md) | Service management, unit files | `personas/devops/` |
+| [perf](personas/devops/perf/SKILL.md) | Performance profiling | `personas/devops/` |
+| [process-management](personas/devops/process-management/SKILL.md) | Process lifecycle | `personas/devops/` |
 
-### Infrastructure Skills
+### Claude Code Ecosystem (5)
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| [perf](skills/perf/SKILL.md) | Performance profiling & optimization | Bottleneck hunting, benchmarking |
-| [backup](skills/backup/SKILL.md) | Backup strategy & data integrity | Backup design, disaster recovery |
-| [monitor](skills/monitor/SKILL.md) | Observability & monitoring | Logging, metrics, alerting, health checks |
-| [systemd](skills/systemd/SKILL.md) | Systemd service management | Unit files, timers, journalctl |
-| [networking](skills/networking/SKILL.md) | Linux networking & troubleshooting | DNS, firewalls, ports, connectivity |
+| Skill | Purpose | Path |
+|-------|---------|------|
+| [hooks-designer](personas/claude-code/hooks-designer/SKILL.md) | Hook design, lifecycle events | `personas/claude-code/` |
+| [plugin-builder](personas/claude-code/plugin-builder/SKILL.md) | Plugin packaging | `personas/claude-code/` |
+| [mcp-server-builder](personas/claude-code/mcp-server-builder/SKILL.md) | MCP server implementation | `personas/claude-code/` |
+| [session-memory-manager](personas/claude-code/session-memory-manager/SKILL.md) | Cross-session context | `personas/claude-code/` |
+| [cicd-pipeline](personas/claude-code/cicd-pipeline/SKILL.md) | CI/CD for Claude Code | `personas/claude-code/` |
+
+### Security (2)
+
+| Skill | Purpose | Path |
+|-------|---------|------|
+| [security-auditor](personas/security/security-auditor/SKILL.md) | OWASP audit, vulnerability assessment | `personas/security/` |
+| [accessibility-checker](personas/security/accessibility-checker/SKILL.md) | WCAG 2.2 compliance | `personas/security/` |
+
+### Domain-Specific (11)
+
+| Skill | Purpose | Path |
+|-------|---------|------|
+| [mentor-linux](personas/domain/mentor-linux/SKILL.md) | Linux cert prep (RHCSA, Linux+) | `personas/domain/` |
+| [eve-esi](personas/domain/eve-esi/SKILL.md) | EVE Online ESI API | `personas/domain/` |
+| [gamedev](personas/domain/gamedev/SKILL.md) | Game dev (Bevy/Rust ECS) | `personas/domain/` |
+| [streamlit](personas/domain/streamlit/SKILL.md) | Streamlit apps | `personas/domain/` |
+| [strategic-planner](personas/domain/strategic-planner/SKILL.md) | Business strategy | `personas/domain/` |
+| [hauling-business-advisor](personas/domain/hauling-business-advisor/SKILL.md) | Junk hauling ops | `personas/domain/` |
+| [hauling-image-estimator](personas/domain/hauling-image-estimator/SKILL.md) | Visual load estimation | `personas/domain/` |
+| [hauling-job-scheduler](personas/domain/hauling-job-scheduler/SKILL.md) | Job scheduling | `personas/domain/` |
+| [hauling-lead-qualifier](personas/domain/hauling-lead-qualifier/SKILL.md) | Lead qualification | `personas/domain/` |
+| [hauling-quote-generator](personas/domain/hauling-quote-generator/SKILL.md) | Quote generation | `personas/domain/` |
+| [tie-dye-business-coach](personas/domain/tie-dye-business-coach/SKILL.md) | Tie-dye business coaching | `personas/domain/` |
+
+## Agents — Gorgon Capabilities
+
+Agent skills define typed interfaces with inputs, outputs, risk levels, and Triumvirate consensus requirements.
+
+| Agent | Category | Risk | Consensus | Description |
+|-------|----------|------|-----------|-------------|
+| [file-operations](agents/system/file-operations/SKILL.md) | system | medium | destructive ops | Safe filesystem operations |
+| [process-runner](agents/system/process-runner/SKILL.md) | system | medium | none | Subprocess execution with safety controls |
+| [web-search](agents/browser/web-search/SKILL.md) | browser | low | none | Rate-limited web search |
+| [web-scrape](agents/browser/web-scrape/SKILL.md) | browser | low | none | Ethical web scraping |
+| [email-compose](agents/email/email-compose/SKILL.md) | email | high | send ops | Draft-review-send email workflow |
+| [github-operations](agents/integrations/github-operations/SKILL.md) | integrations | medium | push ops | Git CLI and GitHub API |
+| [api-client](agents/integrations/api-client/SKILL.md) | integrations | low | none | Authenticated HTTP API client |
+| [multi-agent-supervisor](agents/orchestration/multi-agent-supervisor/SKILL.md) | orchestration | medium | adaptive | Gorgon supervisor with Triumvirate |
+| [agent-teams-orchestrator](agents/orchestration/agent-teams-orchestrator/SKILL.md) | orchestration | medium | none | Claude Code Agent Teams |
+
+## Workflows — Multi-Step Execution
+
+Workflows use the **WHY/WHAT/HOW** framework to ensure clear intent, scope, and execution strategy.
+
+| Workflow | Phase | Description |
+|----------|-------|-------------|
+| [context-mapper](workflows/context-mapping/SKILL.md) | pre-execution | Codebase reconnaissance before agents write code |
+| [feature-implementation](workflows/feature-implementation/SKILL.md) | full-lifecycle | Requirements → context → design → implement → test → PR |
+
+### WHY/WHAT/HOW Framework
+
+Every workflow captures three dimensions:
+
+- **WHY** — Intent: goal, motivation, success criteria, anti-goals
+- **WHAT** — Scope: files in/out of scope, dependencies, data flows
+- **HOW** — Plan: strategy, step sequence, patterns, risks, quality gates
+
+See `workflow-schema.yaml` for the full schema definition.
 
 ## Installation
 
-### Claude Code Native Skills (Recommended)
-
-Copy skills directly to your Claude Code skills directory for `/skill-name` invocation:
+### Claude Code Native Skills
 
 ```bash
 # Clone the repo
 git clone https://github.com/AreteDriver/ai_skills.git
 
-# Copy individual skills to Claude Code
-cp -r ai_skills/skills/eve-esi ~/.claude/skills/
-cp -r ai_skills/skills/gamedev ~/.claude/skills/
-cp -r ai_skills/skills/perf ~/.claude/skills/
+# Copy persona skills
+cp -r ai_skills/personas/engineering/senior-software-engineer ~/.claude/skills/
 
-# Or copy all skills at once
-cp -r ai_skills/skills/* ~/.claude/skills/
+# Copy all personas
+for dir in ai_skills/personas/*/; do
+  cp -r "$dir"*/ ~/.claude/skills/ 2>/dev/null
+done
+
+# Or symlink for development
+ln -s $(pwd)/ai_skills/personas/engineering/senior-software-engineer ~/.claude/skills/senior-software-engineer
 ```
-
-Skills are immediately available as slash commands:
-- `/eve-esi` - EVE Online API patterns
-- `/gamedev` - Bevy/Rust ECS development
-- `/perf` - Performance profiling
-- `/backup` - Backup strategies
-- `/monitor` - Observability patterns
-- etc.
 
 ### Project-Level Reference
 
-Reference skills in your project's `CLAUDE.md`:
-
 ```markdown
 # CLAUDE.md
-
 See skills from: https://github.com/AreteDriver/ai_skills
 
 Active skills:
@@ -109,128 +163,79 @@ Active skills:
 - mentor-linux (when studying)
 ```
 
-### Direct Activation
+## Validation
 
-Reference the skill behavior directly in prompts:
+```bash
+# Validate all skills
+./tools/validate-skills.sh
 
-```
-"Act as senior-software-engineer: review this PR"
-"Mentor-linux failure mode: break my networking"
-```
+# Verbose output
+./tools/validate-skills.sh --verbose
 
-## Structure
-
-```
-ai_skills/
-├── skills/                              # Skill definitions (27 total)
-│   ├── senior-software-engineer/        # Code review, architecture
-│   ├── senior-software-analyst/         # Codebase auditing
-│   ├── strategic-planner/               # Feature planning
-│   ├── code-builder/                    # Code implementation
-│   ├── testing-specialist/              # Test suite creation
-│   ├── code-reviewer/                   # Code review
-│   ├── software-architect/              # System design
-│   ├── documentation-writer/            # Documentation
-│   ├── data-engineer/                   # Data pipelines
-│   ├── data-analyst/                    # Statistical analysis
-│   ├── data-visualizer/                 # Visualizations
-│   ├── report-generator/                # Reports
-│   ├── file-operations/                 # Filesystem ops
-│   ├── web-search/                      # Web search
-│   ├── web-scrape/                      # Web scraping
-│   ├── github-operations/               # GitHub/Git ops
-│   ├── email-compose/                   # Email drafting
-│   ├── process-management/              # Process control
-│   ├── mentor-linux/                    # Linux cert prep
-│   ├── eve-esi/                         # EVE Online API
-│   ├── gamedev/                         # Game development
-│   ├── streamlit/                       # Streamlit apps
-│   ├── perf/                            # Performance
-│   ├── backup/                          # Backup strategy
-│   ├── monitor/                         # Observability
-│   ├── systemd/                         # Systemd services
-│   └── networking/                      # Linux networking
-├── prompts/
-│   └── development-collection.md        # Battle-tested prompt patterns
-├── templates/
-│   └── skill-template.md               # Template for creating new skills
-├── playbooks/                           # Multi-step workflows
-│   ├── full-feature.md                  # Requirements to merge workflow
-│   └── debug-and-fix.md                # Bug report to verified fix workflow
-├── decisions/
-│   └── templates/
-│       └── adr-template.md             # Architecture Decision Record template
-├── SKILL_DEVELOPER_PROMPT.md            # Guide for building Claude skills
-├── SKILL_TECH_SPEC.md                   # Technical spec for skill filesystem access
-├── LINUX_SKILL_DEVELOPER_PROMPT_FINAL.md # Linux-specific skill dev request
-├── eve-esi-skill.skill                  # EVE Online ESI API skill package
-└── local-dev.skill                      # Local dev automation skill package
+# Auto-fix simple issues (e.g., hook permissions)
+./tools/validate-skills.sh --fix
 ```
 
-## Prompts
+## Registry
 
-The `prompts/` directory contains battle-tested prompt patterns for common workflows:
+`registry.yaml` is the central catalog of all skills. Gorgon's `SkillLibrary` loader uses it to discover, validate, and load skills at runtime.
 
-- GitHub profile optimization
-- CI/CD diagnostics
-- Project scaffolding
-- Universal prompt template
-
-## Playbooks
-
-The `playbooks/` directory contains multi-step workflows that chain skills together:
-
-- **full-feature** — End-to-end from requirements to merge (design, implement, test, review)
-- **debug-and-fix** — Bug report to verified fix (reproduce, diagnose, fix, verify)
-
-## Packaged Skills
-
-`.skill` files are self-contained skill packages with embedded references and scripts:
-
-- **eve-esi-skill.skill** — EVE Online ESI API integration skill
-- **local-dev.skill** — Local development automation skill
+```yaml
+# Query the registry
+personas.engineering        # 7 skills
+agents.system               # 2 skills (file-operations, process-runner)
+workflows                   # 2 workflows (context-mapper, feature-implementation)
+```
 
 ## Skill Development
 
-Resources for building new skills:
+### Creating a Persona
+```bash
+mkdir -p personas/<category>/<skill-name>
+cp templates/skill-template.md personas/<category>/<skill-name>/SKILL.md
+# Edit SKILL.md, add to registry.yaml
+./tools/validate-skills.sh
+```
 
-- `templates/skill-template.md` — Starting point for new skills
-- `SKILL_DEVELOPER_PROMPT.md` — Comprehensive guide for building Claude skills
-- `SKILL_TECH_SPEC.md` — Technical spec for skill filesystem access
-- `decisions/templates/adr-template.md` — ADR template for recording design choices
+### Creating an Agent
+```bash
+mkdir -p agents/<category>/<skill-name>
+# Create SKILL.md (behavior) + schema.yaml (typed interface)
+# Add to registry.yaml
+./tools/validate-skills.sh
+```
 
-### Key elements of a skill:
+### Key Elements of a Skill
 
-1. **Frontmatter** - Name and description for tooling
-2. **Role definition** - Who the skill acts as
-3. **Core behaviors** - What it always does
-4. **Constraints** - What it never does
-5. **Trigger contexts** - When to activate different modes
-6. **Output formats** - How responses should be structured
+1. **Frontmatter** — `name` and `description` for tooling
+2. **Role definition** — who the skill acts as
+3. **Core behaviors** — what it always/never does
+4. **Trigger contexts** — when to activate different modes
+5. **Output formats** — how responses are structured
+6. **Constraints** — hard limits on behavior
 
----
+Agent skills additionally require:
+7. **schema.yaml** — typed inputs, outputs, capabilities, risk levels, consensus requirements
 
-## Why Skills > System Prompts
+## Supporting Infrastructure
 
-| Aspect | System Prompts | Skills |
-|--------|---------------|--------|
-| **Portability** | Locked in platform | Version-controlled, shareable |
-| **Composability** | One blob | Mix and match |
-| **Transparency** | Hidden | Readable, auditable |
-| **Evolution** | Manual updates | Git history, branches |
-
----
+| Directory | Purpose |
+|-----------|---------|
+| `hooks/` | 4 executable hook scripts (tdd-guard, no-force-push, protected-paths, tool-logger) |
+| `plugins/` | Example quality-gate plugin bundling skills + hooks |
+| `playbooks/` | Multi-step workflow guides (full-feature, debug-and-fix) |
+| `prompts/` | 7 legacy prompt templates |
+| `templates/` | Skill and prompt templates |
+| `decisions/` | ADR template |
+| `tools/` | Validation scripts |
 
 ## Credits
 
-Several skills adapted from [Gorgon](https://github.com/AreteDriver/Gorgon) multi-agent orchestration system:
-- Development workflow agents (planner, builder, tester, reviewer, architect, documenter)
-- Data pipeline agents (data-engineer, analyst, visualizer, reporter)
-- Operational skills (file-operations, web-search, web-scrape, github-operations, email-compose, process-management)
+Skills adapted from [Gorgon](https://github.com/AreteDriver/Gorgon) multi-agent orchestration system and the original ClaudeSkills repository.
 
 ## Author
 
-**ARETE** - AI Enablement & Workflow Analyst
+**ARETE** — AI Enablement & Workflow Analyst
 
 ## License
 

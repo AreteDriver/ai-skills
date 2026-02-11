@@ -1,0 +1,334 @@
+# Gorgon Workflow Schema v1.0
+# Defines the standard structure for workflow YAML files.
+# Every workflow must capture WHY, WHAT, and HOW before execution begins.
+
+schema_version: "1.0.0"
+description: |
+  Standard schema for Gorgon workflow definitions. Workflows describe
+  multi-step operations that coordinate agents, enforce quality gates,
+  and produce structured outputs. The WHY/WHAT/HOW framework ensures
+  every workflow has clear intent, scope, and execution strategy.
+
+# ─────────────────────────────────────────────
+# Workflow Metadata
+# ─────────────────────────────────────────────
+workflow:
+  name:
+    type: string
+    required: true
+    description: Unique workflow identifier (kebab-case)
+    example: "feature-implementation"
+
+  version:
+    type: string
+    required: true
+    description: Semantic version of the workflow definition
+    example: "1.0.0"
+
+  description:
+    type: string
+    required: true
+    description: One-line summary of what the workflow accomplishes
+
+  triggers:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Events or conditions that activate this workflow
+    example: ["user_request", "pr_opened", "scheduled"]
+
+# ─────────────────────────────────────────────
+# WHY — Intent Capture
+# The most important section. If WHY is wrong, everything downstream fails.
+# ─────────────────────────────────────────────
+why:
+  goal:
+    type: string
+    required: true
+    description: |
+      The user's actual objective. Not the task description — the underlying
+      intent. "Add auth" is a task; "Prevent unauthorized access to patient
+      records" is a goal.
+    example: "Prevent unauthorized access to the admin dashboard"
+
+  motivation:
+    type: string
+    required: true
+    description: |
+      Business or technical reason this matters. Connects the goal to value.
+    example: "Security audit flagged unprotected admin routes as critical risk"
+
+  success_criteria:
+    type: array
+    items:
+      type: string
+    required: true
+    min_items: 1
+    description: |
+      Measurable conditions that define "done." Each criterion should be
+      verifiable — either by a test, a manual check, or an automated gate.
+    example:
+      - "All /admin/* routes require valid JWT token"
+      - "Unauthorized requests return 401, not 500"
+      - "Existing admin functionality works identically for authenticated users"
+
+  anti_goals:
+    type: array
+    items:
+      type: string
+    required: false
+    description: |
+      Things explicitly out of scope. Prevents scope creep and misaligned
+      effort. Be specific — "Don't change X" is better than "Keep it simple."
+    example:
+      - "Do NOT add rate limiting (separate initiative)"
+      - "Do NOT refactor the existing route structure"
+
+  stakeholders:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Who cares about the outcome and should be consulted
+    example: ["security-team", "backend-lead"]
+
+# ─────────────────────────────────────────────
+# WHAT — Scope Definition
+# Precisely defines what parts of the system are involved.
+# ─────────────────────────────────────────────
+what:
+  files_in_scope:
+    type: array
+    items:
+      type: object
+      properties:
+        path:
+          type: string
+          required: true
+        role:
+          type: string
+          required: true
+          enum: [create, modify, delete, read_only, test]
+        lines_of_interest:
+          type: array
+          items:
+            type: integer
+          required: false
+        notes:
+          type: string
+          required: false
+    required: true
+    description: Files that will be touched or referenced during execution
+
+  files_out_of_scope:
+    type: array
+    items:
+      type: object
+      properties:
+        path:
+          type: string
+        reason:
+          type: string
+    required: false
+    description: Files explicitly excluded and why
+
+  dependencies:
+    type: object
+    properties:
+      internal:
+        type: array
+        items:
+          type: string
+        description: "Internal import chains (format: source → target)"
+      external:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            version:
+              type: string
+            purpose:
+              type: string
+        description: External packages required
+    required: false
+
+  data_flows:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+          description: "Data path through system (format: A → B → C)"
+        transforms:
+          type: array
+          items:
+            type: string
+    required: false
+    description: How data moves through the affected system components
+
+  environment:
+    type: object
+    properties:
+      required_vars:
+        type: array
+        items:
+          type: string
+      config_files:
+        type: array
+        items:
+          type: string
+    required: false
+    description: Environment requirements for execution
+
+# ─────────────────────────────────────────────
+# HOW — Execution Plan
+# Step-by-step plan for downstream agents to follow.
+# ─────────────────────────────────────────────
+how:
+  strategy:
+    type: string
+    required: true
+    description: |
+      High-level approach. "Bottom-up", "outside-in", "test-first",
+      "parallel-modules", etc. This guides agent decomposition.
+    example: "Test-first: write failing tests, then implement to pass"
+
+  pre_conditions:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Conditions that must be true before execution starts
+    example:
+      - "All existing tests pass"
+      - "No uncommitted changes in working tree"
+
+  steps:
+    type: array
+    items:
+      type: object
+      properties:
+        step:
+          type: integer
+          required: true
+        action:
+          type: string
+          required: true
+          description: What this step does
+        agent:
+          type: string
+          required: true
+          description: Which agent executes this step
+        files:
+          type: array
+          items:
+            type: string
+          required: false
+        depends_on:
+          type: array
+          items:
+            type: integer
+          required: false
+          description: Step numbers that must complete first
+        risk:
+          type: string
+          enum: [low, medium, high, critical]
+          required: true
+        consensus:
+          type: string
+          enum: [none, majority, unanimous]
+          required: false
+          default: none
+        rollback:
+          type: string
+          required: false
+          description: How to undo this step if it fails
+        acceptance:
+          type: array
+          items:
+            type: string
+          required: false
+          description: Criteria for step completion
+    required: true
+    min_items: 1
+
+  patterns_to_follow:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Project conventions agents must respect
+
+  patterns_to_avoid:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Anti-patterns agents must not introduce
+
+  risks:
+    type: array
+    items:
+      type: object
+      properties:
+        description:
+          type: string
+        likelihood:
+          type: string
+          enum: [low, medium, high]
+        impact:
+          type: string
+          enum: [low, medium, high]
+        mitigation:
+          type: string
+    required: false
+    description: Known risks and their mitigations
+
+  post_conditions:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Conditions that must be true after execution completes
+    example:
+      - "All tests pass including new tests"
+      - "No new lint warnings introduced"
+      - "Build succeeds"
+
+# ─────────────────────────────────────────────
+# Quality Gates
+# Checkpoints that must pass before proceeding.
+# ─────────────────────────────────────────────
+quality_gates:
+  type: array
+  items:
+    type: object
+    properties:
+      name:
+        type: string
+      after_step:
+        type: integer
+        description: Run this gate after the specified step number
+      check:
+        type: string
+        description: Command or validation to run
+      on_failure:
+        type: string
+        enum: [block, warn, retry]
+  required: false
+  description: Automated quality checkpoints during execution
+  example:
+    - name: "Tests pass"
+      after_step: 3
+      check: "npm test"
+      on_failure: block
+    - name: "No lint errors"
+      after_step: 3
+      check: "npm run lint"
+      on_failure: warn

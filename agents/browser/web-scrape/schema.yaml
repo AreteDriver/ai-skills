@@ -1,0 +1,82 @@
+name: web-scrape
+version: "1.0.0"
+description: Fetch and parse web content with ethical scraping practices
+category: browser
+risk_level: low
+consensus_level: none
+
+inputs:
+  url:
+    type: string
+    required: true
+    description: The URL to scrape
+  operation:
+    type: string
+    required: true
+    enum: [fetch_page, extract_text, extract_tables, extract_links, extract_metadata, screenshot]
+    description: The scraping operation to perform
+  selector:
+    type: string
+    required: false
+    description: CSS selector to target specific elements
+  output_format:
+    type: string
+    required: false
+    enum: [json, markdown, text, html]
+    default: json
+    description: Format for the extracted content
+
+outputs:
+  success:
+    type: boolean
+    description: Whether the operation completed
+  url:
+    type: string
+    description: The URL that was scraped
+  status_code:
+    type: integer
+    description: HTTP status code of the response
+  content:
+    type: string
+    description: Extracted content in the requested format
+  content_type:
+    type: string
+    description: MIME type of the response
+  fetch_time_ms:
+    type: integer
+    description: Time taken to fetch the page in milliseconds
+  robots_allowed:
+    type: boolean
+    description: Whether robots.txt allows scraping this URL
+
+capabilities:
+  - name: fetch_page
+    risk: low
+    consensus: none
+    rate_limit: "1s per domain"
+  - name: extract_text
+    risk: low
+    consensus: none
+  - name: extract_tables
+    risk: low
+    consensus: none
+  - name: extract_links
+    risk: low
+    consensus: none
+  - name: extract_metadata
+    risk: low
+    consensus: none
+  - name: screenshot
+    risk: low
+    consensus: none
+
+constraints:
+  rate_limit_per_domain_ms: 1000
+  cache_ttl_seconds: 86400
+  max_page_size_bytes: 10485760
+  timeout_seconds: 30
+  respect_robots_txt: true
+
+dependencies:
+  python: ["requests", "beautifulsoup4", "urllib"]
+  optional: ["playwright", "selenium"]

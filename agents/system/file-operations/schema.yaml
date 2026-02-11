@@ -1,0 +1,115 @@
+name: file-operations
+version: "1.0.0"
+description: Safe filesystem operations with protection and validation
+category: system
+risk_level: medium
+consensus_level: required_for_destructive
+
+inputs:
+  operation:
+    type: string
+    required: true
+    enum: [read_file, create_file, update_file, delete_file, delete_directory, move_file, copy_file, search_files, set_permissions]
+    description: The filesystem operation to perform
+  path:
+    type: string
+    required: true
+    description: Absolute path to the target file or directory
+  content:
+    type: string
+    required: false
+    description: File content (for create/update operations)
+  destination:
+    type: string
+    required: false
+    description: Destination path (for move/copy operations)
+  pattern:
+    type: string
+    required: false
+    description: Search pattern (for search operations)
+  create_backup:
+    type: boolean
+    required: false
+    default: true
+    description: Whether to create a backup before destructive operations
+  permissions:
+    type: string
+    required: false
+    description: File permissions in octal (e.g., "644")
+  recursive:
+    type: boolean
+    required: false
+    default: false
+    description: Whether to operate recursively on directories
+
+outputs:
+  success:
+    type: boolean
+    description: Whether the operation completed successfully
+  path:
+    type: string
+    description: The absolute path that was operated on
+  content:
+    type: string
+    description: File content (for read operations)
+  bytes_read:
+    type: integer
+    description: Number of bytes read (for read operations)
+  backup_path:
+    type: string
+    description: Path to backup file if one was created
+  error:
+    type: string
+    description: Error message if operation failed
+
+capabilities:
+  - name: read_file
+    risk: low
+    consensus: none
+  - name: create_file
+    risk: low
+    consensus: none
+  - name: update_file
+    risk: medium
+    consensus: none
+  - name: delete_file
+    risk: high
+    consensus: majority
+  - name: delete_directory
+    risk: critical
+    consensus: unanimous
+  - name: move_file
+    risk: medium
+    consensus: none
+  - name: copy_file
+    risk: low
+    consensus: none
+  - name: search_files
+    risk: low
+    consensus: none
+  - name: set_permissions
+    risk: high
+    consensus: majority
+
+protected_paths:
+  - /boot
+  - /etc/fstab
+  - /etc/passwd
+  - /etc/shadow
+  - /etc/sudoers
+  - /usr/bin
+  - /usr/lib
+  - /usr/sbin
+  - /lib
+  - /lib64
+  - /sbin
+  - /bin
+  - /proc
+  - /sys
+  - /dev
+  - ~/.ssh/id_*
+  - ~/.ssh/authorized_keys
+
+dependencies:
+  python: ["pathlib", "shutil", "os"]
+  system: ["stat", "find"]

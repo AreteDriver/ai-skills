@@ -1,0 +1,125 @@
+name: context-mapper
+version: "1.0.0"
+description: Pre-execution context mapping — maps codebase before agents write code
+category: workflow
+risk_level: low
+consensus_level: none
+
+inputs:
+  task:
+    type: string
+    required: true
+    description: The task description to map context for
+  codebase_path:
+    type: string
+    required: true
+    description: Root path of the codebase to analyze
+  mapping_mode:
+    type: string
+    required: false
+    enum: [full, incremental, conflict_detection]
+    default: full
+    description: Depth of context mapping to perform
+  focus_paths:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Specific paths to focus on (for incremental mode)
+
+outputs:
+  context_map:
+    type: object
+    properties:
+      project:
+        type: object
+        description: Project metadata (name, language, framework, structure)
+      why:
+        type: object
+        properties:
+          goal:
+            type: string
+          motivation:
+            type: string
+          success_criteria:
+            type: array
+            items:
+              type: string
+          anti_goals:
+            type: array
+            items:
+              type: string
+      what:
+        type: object
+        properties:
+          files_in_scope:
+            type: array
+            items:
+              type: object
+              properties:
+                path:
+                  type: string
+                role:
+                  type: string
+                lines_of_interest:
+                  type: array
+                  items:
+                    type: integer
+          files_out_of_scope:
+            type: array
+          dependencies:
+            type: object
+            properties:
+              internal:
+                type: array
+              external:
+                type: array
+          data_flows:
+            type: array
+      how:
+        type: object
+        properties:
+          strategy:
+            type: string
+          sequence:
+            type: array
+          patterns_to_follow:
+            type: array
+          patterns_to_avoid:
+            type: array
+          risks:
+            type: array
+      confidence:
+        type: string
+        enum: [high, medium, low]
+      unknowns:
+        type: array
+        items:
+          type: string
+    description: Complete context map for downstream agents
+
+capabilities:
+  - name: directory_scan
+    risk: low
+    consensus: none
+  - name: dependency_analysis
+    risk: low
+    consensus: none
+  - name: convention_detection
+    risk: low
+    consensus: none
+  - name: change_impact_analysis
+    risk: low
+    consensus: none
+  - name: conflict_detection
+    risk: low
+    consensus: none
+
+constraints:
+  read_only: true
+  evidence_required: true
+  output_format: yaml
+
+dependencies:
+  agents: []
+  system: ["find", "grep"]

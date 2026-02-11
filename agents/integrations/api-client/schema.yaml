@@ -1,0 +1,110 @@
+name: api-client
+version: "1.0.0"
+description: Authenticated HTTP API client with retry and rate limiting
+category: integrations
+risk_level: low
+consensus_level: none
+
+inputs:
+  operation:
+    type: string
+    required: true
+    enum: [request, paginate, batch]
+    description: The API operation to perform
+  method:
+    type: string
+    required: false
+    enum: [GET, POST, PUT, PATCH, DELETE]
+    default: GET
+    description: HTTP method
+  base_url:
+    type: string
+    required: true
+    description: Base URL for the API
+  path:
+    type: string
+    required: true
+    description: API endpoint path
+  auth_method:
+    type: string
+    required: false
+    enum: [none, bearer, api_key_header, api_key_query, oauth2, basic]
+    default: none
+    description: Authentication method
+  params:
+    type: object
+    required: false
+    description: Query parameters
+  json_body:
+    type: object
+    required: false
+    description: JSON request body
+  headers:
+    type: object
+    required: false
+    description: Additional request headers
+  timeout:
+    type: integer
+    required: false
+    default: 30
+    description: Request timeout in seconds
+  page_param:
+    type: string
+    required: false
+    default: page
+    description: Pagination parameter name
+  per_page:
+    type: integer
+    required: false
+    default: 100
+    description: Items per page for pagination
+  results_key:
+    type: string
+    required: false
+    description: JSON key containing results array
+
+outputs:
+  success:
+    type: boolean
+    description: Whether the request succeeded
+  status_code:
+    type: integer
+    description: HTTP status code
+  headers:
+    type: object
+    description: Response headers
+  body:
+    type: any
+    description: Parsed response body
+  duration_ms:
+    type: integer
+    description: Request duration in milliseconds
+  retries:
+    type: integer
+    description: Number of retries performed
+  error:
+    type: string
+    description: Error message if request failed
+
+capabilities:
+  - name: request
+    risk: low
+    consensus: none
+  - name: paginate
+    risk: low
+    consensus: none
+  - name: batch
+    risk: medium
+    consensus: none
+
+constraints:
+  default_timeout_s: 30
+  max_pagination_pages: 100
+  max_retries: 3
+  require_tls: true
+  credentials_from_env_only: true
+  max_response_size_mb: 50
+
+dependencies:
+  python: ["requests", "urllib3"]
+  optional: ["aiohttp"]

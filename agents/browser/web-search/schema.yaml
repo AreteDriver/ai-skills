@@ -1,0 +1,85 @@
+name: web-search
+version: "1.0.0"
+description: Search the web for information with rate limiting and caching
+category: browser
+risk_level: low
+consensus_level: none
+
+inputs:
+  query:
+    type: string
+    required: true
+    description: The search query to execute
+  search_type:
+    type: string
+    required: false
+    enum: [web_search, news_search, image_search, site_search]
+    default: web_search
+    description: Type of search to perform
+  num_results:
+    type: integer
+    required: false
+    default: 10
+    description: Maximum number of results to return
+  domain_filter:
+    type: string
+    required: false
+    description: Restrict results to a specific domain
+  recency:
+    type: string
+    required: false
+    enum: [day, week, month, any]
+    default: any
+    description: Filter results by publication recency
+
+outputs:
+  results:
+    type: array
+    items:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        snippet:
+          type: string
+        date:
+          type: string
+    description: List of search results
+  query:
+    type: string
+    description: The query that was executed
+  result_count:
+    type: integer
+    description: Number of results returned
+  cached:
+    type: boolean
+    description: Whether results were served from cache
+
+capabilities:
+  - name: web_search
+    risk: low
+    consensus: none
+    rate_limit: "2s minimum between requests"
+  - name: news_search
+    risk: low
+    consensus: none
+    rate_limit: "2s minimum between requests"
+  - name: image_search
+    risk: low
+    consensus: none
+    rate_limit: "3s minimum between requests"
+  - name: site_search
+    risk: low
+    consensus: none
+    rate_limit: "2s minimum between requests"
+
+constraints:
+  rate_limit_ms: 2000
+  cache_ttl_seconds: 3600
+  max_results_per_query: 20
+
+dependencies:
+  python: ["requests", "beautifulsoup4"]
+  system: []

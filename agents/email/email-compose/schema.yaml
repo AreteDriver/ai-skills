@@ -1,0 +1,104 @@
+name: email-compose
+version: "1.0.0"
+description: Compose and send emails with safety controls and approval workflow
+category: email
+risk_level: high
+consensus_level: required_for_send
+
+inputs:
+  operation:
+    type: string
+    required: true
+    enum: [create_draft, review_draft, approve_draft, send_email, add_attachment, use_template]
+    description: The email operation to perform
+  to:
+    type: array
+    items:
+      type: string
+    required: false
+    description: List of recipient email addresses
+  cc:
+    type: array
+    items:
+      type: string
+    required: false
+    description: List of CC recipients
+  bcc:
+    type: array
+    items:
+      type: string
+    required: false
+    description: List of BCC recipients
+  subject:
+    type: string
+    required: false
+    description: Email subject line
+  body:
+    type: string
+    required: false
+    description: Email body content
+  draft_id:
+    type: string
+    required: false
+    description: ID of existing draft (for review/approve/send)
+  template_name:
+    type: string
+    required: false
+    description: Name of template to use
+  attachment_path:
+    type: string
+    required: false
+    description: Path to file to attach
+
+outputs:
+  draft_id:
+    type: string
+    description: Unique draft identifier
+  status:
+    type: string
+    enum: [drafted, reviewed, approved, sent, failed]
+    description: Current status of the email
+  to:
+    type: array
+    items:
+      type: string
+    description: Validated recipient list
+  validation_errors:
+    type: array
+    items:
+      type: string
+    description: Any validation issues found
+  sent_at:
+    type: string
+    description: ISO timestamp when email was sent
+
+capabilities:
+  - name: create_draft
+    risk: low
+    consensus: none
+  - name: review_draft
+    risk: low
+    consensus: none
+  - name: approve_draft
+    risk: medium
+    consensus: majority
+  - name: send_email
+    risk: critical
+    consensus: unanimous
+  - name: add_attachment
+    risk: low
+    consensus: none
+  - name: use_template
+    risk: low
+    consensus: none
+
+constraints:
+  max_attachment_size_mb: 25
+  max_recipients: 100
+  draft_expiry_days: 7
+  require_approval_before_send: true
+  require_tls: true
+
+dependencies:
+  python: ["smtplib", "email", "imaplib"]
+  config: ["smtp_host", "smtp_port", "email_user", "email_pass"]

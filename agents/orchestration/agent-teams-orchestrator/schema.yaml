@@ -1,0 +1,92 @@
+name: agent-teams-orchestrator
+version: "1.0.0"
+description: Claude Code Agent Teams coordination with parallel execution
+category: orchestration
+risk_level: medium
+consensus_level: none
+
+inputs:
+  task:
+    type: string
+    required: true
+    description: The task to decompose across teammates
+  team_template:
+    type: string
+    required: false
+    enum: [multi_reviewer, parallel_debug, multi_module, documentation_sprint, custom]
+    description: Pre-built team template to use
+  teammates:
+    type: array
+    items:
+      type: object
+      properties:
+        role:
+          type: string
+        specialization:
+          type: string
+        scope:
+          type: array
+          items:
+            type: string
+    required: false
+    description: Custom team composition (if template is custom)
+  max_teammates:
+    type: integer
+    required: false
+    default: 5
+    description: Maximum number of parallel teammates
+
+outputs:
+  status:
+    type: string
+    enum: [complete, partial, failed]
+    description: Overall team execution status
+  team_results:
+    type: array
+    items:
+      type: object
+      properties:
+        role:
+          type: string
+        status:
+          type: string
+        findings:
+          type: string
+        conflicts:
+          type: array
+          items:
+            type: string
+    description: Per-teammate results
+  synthesis:
+    type: string
+    description: Unified deliverable synthesized from all teammate outputs
+  conflicts_resolved:
+    type: array
+    items:
+      type: string
+    description: List of conflicts identified and how they were resolved
+
+team_templates:
+  multi_reviewer:
+    size: 3
+    roles: [security_reviewer, performance_reviewer, quality_reviewer]
+  parallel_debug:
+    size: 3
+    roles: [hypothesis_a, hypothesis_b, hypothesis_c]
+  multi_module:
+    size: 3
+    roles: [frontend, backend, data]
+  documentation_sprint:
+    size: 3
+    roles: [api_docs, architecture_docs, user_docs]
+
+constraints:
+  max_teammates: 5
+  cost_multiplier: "~5x tokens vs single agent"
+  teammates_share_context: false
+  teammates_load_project_context: true
+  file_conflicts_resolved_by_lead: true
+
+dependencies:
+  env: ["CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS"]
+  system: ["claude"]

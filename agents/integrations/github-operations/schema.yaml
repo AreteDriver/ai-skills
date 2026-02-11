@@ -1,0 +1,118 @@
+name: github-operations
+version: "1.0.0"
+description: Repository management through Git CLI and GitHub API
+category: integrations
+risk_level: medium
+consensus_level: required_for_push
+
+inputs:
+  operation:
+    type: string
+    required: true
+    enum: [clone_repo, pull_repo, create_branch, commit_changes, push_branch, create_issue, create_pull_request, merge_pr]
+    description: The GitHub operation to perform
+  repository:
+    type: string
+    required: false
+    description: "Repository in owner/repo format"
+  branch:
+    type: string
+    required: false
+    description: Branch name for branch operations
+  message:
+    type: string
+    required: false
+    description: Commit message or PR/issue title
+  body:
+    type: string
+    required: false
+    description: PR or issue body content
+  files:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Files to stage for commit
+  base_branch:
+    type: string
+    required: false
+    default: main
+    description: Base branch for PR or new branch
+  labels:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Labels for issues or PRs
+  reviewers:
+    type: array
+    items:
+      type: string
+    required: false
+    description: Requested reviewers for PR
+
+outputs:
+  success:
+    type: boolean
+    description: Whether the operation completed
+  operation:
+    type: string
+    description: The operation that was performed
+  repository:
+    type: string
+    description: The repository that was operated on
+  branch:
+    type: string
+    description: The branch involved
+  url:
+    type: string
+    description: URL to the created resource (PR, issue, etc.)
+  commit_sha:
+    type: string
+    description: SHA of the created commit
+  error:
+    type: string
+    description: Error message if operation failed
+
+capabilities:
+  - name: clone_repo
+    risk: low
+    consensus: none
+  - name: pull_repo
+    risk: low
+    consensus: none
+  - name: create_branch
+    risk: low
+    consensus: none
+  - name: commit_changes
+    risk: medium
+    consensus: none
+  - name: push_branch
+    risk: high
+    consensus: majority
+  - name: create_issue
+    risk: low
+    consensus: none
+  - name: create_pull_request
+    risk: medium
+    consensus: none
+  - name: merge_pr
+    risk: high
+    consensus: majority
+
+protected_branches:
+  - main
+  - master
+  - production
+  - release/*
+
+constraints:
+  require_feature_branches: true
+  require_conventional_commits: true
+  no_force_push_protected: true
+  no_secrets_in_commits: true
+  token_rotation_days: 90
+
+dependencies:
+  system: ["git", "gh"]
+  env: ["GITHUB_TOKEN"]
