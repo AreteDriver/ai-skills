@@ -153,7 +153,7 @@ def run(
     timeout: int = 60,
     cwd: Optional[str] = None,
     env: Optional[dict] = None,
-    shell: bool = True,
+    shell: bool = False,
 ) -> ProcessResult:
     """
     Execute a command with safety controls.
