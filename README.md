@@ -1,5 +1,6 @@
 # AI_Skills
 
+[![Validate Skills](https://github.com/AreteDriver/ai_skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/AreteDriver/ai_skills/actions/workflows/validate-skills.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai/code)
 [![Skills](https://img.shields.io/badge/Skills-46-blue)]()
@@ -13,6 +14,23 @@
 Claude is powerful but generic. For specialized work you end up re-explaining context, missing domain best practices, and getting responses that don't match your workflow.
 
 **Skills fix this.** Each skill transforms Claude into a specialized persona with defined behaviors, constraints, and output formats. Agent skills give Gorgon agents typed interfaces with risk levels and consensus requirements. Workflows coordinate them with the WHY/WHAT/HOW framework.
+
+## Quickstart
+
+```bash
+git clone https://github.com/AreteDriver/ai_skills.git
+cd ai_skills
+
+# Copy a skill into Claude Code
+cp -r personas/engineering/code-reviewer ~/.claude/skills/
+
+# Validate all skills
+./tools/validate-skills.sh
+```
+
+**See it in action:** Ask Claude to review a function with SQL injection — with the skill loaded, you get severity-ranked findings with line references and concrete fixes instead of vague suggestions.
+
+See the full [Quickstart Guide](examples/quickstart/README.md) with before/after comparisons for code review, architecture advice, and feature implementation workflows.
 
 ## Architecture
 
@@ -221,6 +239,7 @@ Agent skills additionally require:
 
 | Directory | Purpose |
 |-----------|---------|
+| `examples/` | Quickstart guide with before/after demos |
 | `hooks/` | 4 executable hook scripts (tdd-guard, no-force-push, protected-paths, tool-logger) |
 | `plugins/` | Example quality-gate plugin bundling skills + hooks |
 | `playbooks/` | Multi-step workflow guides (full-feature, debug-and-fix) |

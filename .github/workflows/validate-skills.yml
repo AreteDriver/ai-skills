@@ -1,0 +1,25 @@
+name: Validate Skills
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate All Skills
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make validator executable
+        run: chmod +x ./tools/validate-skills.sh
+
+      - name: Run skill validation
+        run: ./tools/validate-skills.sh --verbose
