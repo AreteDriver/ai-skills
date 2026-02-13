@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# validate-skills.sh — Validates all skills in the ai_skills repository.
+# validate-skills.sh — Validates all skills in the ai-skills repository.
 # Usage: ./tools/validate-skills.sh [--verbose] [--fix]
 #
 # Checks:

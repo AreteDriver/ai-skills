@@ -1,9 +1,9 @@
-# AI_Skills
+# AI Skills
 
-[![Validate Skills](https://github.com/AreteDriver/ai_skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/AreteDriver/ai_skills/actions/workflows/validate-skills.yml)
+[![Validate Skills](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/Skills-46-blue)]()
+[![Skills](https://img.shields.io/badge/Skills-54-blue)]()
 
 **Production-ready skills for Claude Code personas, Gorgon agent capabilities, and orchestrated workflows.**
 
@@ -18,8 +18,8 @@ Claude is powerful but generic. For specialized work you end up re-explaining co
 ## Quickstart
 
 ```bash
-git clone https://github.com/AreteDriver/ai_skills.git
-cd ai_skills
+git clone https://github.com/AreteDriver/ai-skills.git
+cd ai-skills
 
 # Copy a skill into Claude Code
 cp -r personas/engineering/code-reviewer ~/.claude/skills/
@@ -36,13 +36,13 @@ See the full [Quickstart Guide](examples/quickstart/README.md) with before/after
 
 ```
 ┌─────────────────────────────────────────────────┐
-│                   ai_skills                      │
+│                   ai-skills                      │
 ├─────────────────┬───────────────┬───────────────┤
 │    Personas     │    Agents     │   Workflows   │
 │  (how Claude    │ (what Gorgon  │ (multi-step   │
 │   behaves)      │  agents do)   │  execution)   │
 ├─────────────────┼───────────────┼───────────────┤
-│ 35 skills       │ 9 skills      │ 2 workflows   │
+│ 36 skills       │ 16 skills     │ 2 workflows   │
 │ SKILL.md only   │ SKILL.md +    │ SKILL.md +    │
 │                 │ schema.yaml   │ schema.yaml   │
 └─────────────────┴───────────────┴───────────────┘
@@ -99,7 +99,7 @@ See the full [Quickstart Guide](examples/quickstart/README.md) with before/after
 | [security-auditor](personas/security/security-auditor/SKILL.md) | OWASP audit, vulnerability assessment | `personas/security/` |
 | [accessibility-checker](personas/security/accessibility-checker/SKILL.md) | WCAG 2.2 compliance | `personas/security/` |
 
-### Domain-Specific (11)
+### Domain-Specific (12)
 
 | Skill | Purpose | Path |
 |-------|---------|------|
@@ -114,6 +114,7 @@ See the full [Quickstart Guide](examples/quickstart/README.md) with before/after
 | [hauling-lead-qualifier](personas/domain/hauling-lead-qualifier/SKILL.md) | Lead qualification | `personas/domain/` |
 | [hauling-quote-generator](personas/domain/hauling-quote-generator/SKILL.md) | Quote generation | `personas/domain/` |
 | [tie-dye-business-coach](personas/domain/tie-dye-business-coach/SKILL.md) | Tie-dye business coaching | `personas/domain/` |
+| [apple-dev-best-practices](personas/domain/apple-dev-best-practices/SKILL.md) | Apple platform dev (Swift, SwiftUI) | `personas/domain/` |
 
 ## Agents — Gorgon Capabilities
 
@@ -130,6 +131,13 @@ Agent skills define typed interfaces with inputs, outputs, risk levels, and Triu
 | [api-client](agents/integrations/api-client/SKILL.md) | integrations | low | none | Authenticated HTTP API client |
 | [multi-agent-supervisor](agents/orchestration/multi-agent-supervisor/SKILL.md) | orchestration | medium | adaptive | Gorgon supervisor with Triumvirate |
 | [agent-teams-orchestrator](agents/orchestration/agent-teams-orchestrator/SKILL.md) | orchestration | medium | none | Claude Code Agent Teams |
+| [technical-debt-auditor](agents/analysis/technical-debt-auditor/SKILL.md) | analysis | low | none | Repo health scoring (5 sub-agents) |
+| [release-engineer](agents/analysis/release-engineer/SKILL.md) | analysis | medium | publish | Last-mile shipping automation |
+| [entity-resolver](agents/analysis/entity-resolver/SKILL.md) | analysis | low | none | Fuzzy entity matching + dedup |
+| [context-mapper](agents/analysis/context-mapper/SKILL.md) | analysis | low | none | Pre-execution project mapping |
+| [workflow-debugger](agents/analysis/workflow-debugger/SKILL.md) | analysis | low | none | Gorgon failure diagnosis |
+| [document-forensics](agents/analysis/document-forensics/SKILL.md) | analysis | low | none | Investigative document analysis |
+| [intent-author](agents/analysis/intent-author/SKILL.md) | analysis | low | none | Convergent intent authoring |
 
 ## Workflows — Multi-Step Execution
 
@@ -156,25 +164,25 @@ See `workflow-schema.yaml` for the full schema definition.
 
 ```bash
 # Clone the repo
-git clone https://github.com/AreteDriver/ai_skills.git
+git clone https://github.com/AreteDriver/ai-skills.git
 
 # Copy persona skills
-cp -r ai_skills/personas/engineering/senior-software-engineer ~/.claude/skills/
+cp -r ai-skills/personas/engineering/senior-software-engineer ~/.claude/skills/
 
 # Copy all personas
-for dir in ai_skills/personas/*/; do
+for dir in ai-skills/personas/*/; do
   cp -r "$dir"*/ ~/.claude/skills/ 2>/dev/null
 done
 
 # Or symlink for development
-ln -s $(pwd)/ai_skills/personas/engineering/senior-software-engineer ~/.claude/skills/senior-software-engineer
+ln -s $(pwd)/ai-skills/personas/engineering/senior-software-engineer ~/.claude/skills/senior-software-engineer
 ```
 
 ### Project-Level Reference
 
 ```markdown
 # CLAUDE.md
-See skills from: https://github.com/AreteDriver/ai_skills
+See skills from: https://github.com/AreteDriver/ai-skills
 
 Active skills:
 - senior-software-engineer (always on for code tasks)
