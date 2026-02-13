@@ -3,7 +3,7 @@
 # Used by Gorgon's SkillLibrary loader to discover and validate skills.
 
 schema_version: "1.0.0"
-repository: AreteDriver/ai_skills
+repository: AreteDriver/ai-skills
 
 # ─────────────────────────────────────────────
 # Personas — User behavior skills (how Claude acts)
@@ -159,6 +159,11 @@ personas:
       description: Tie-dye business coaching with Socratic method
       has_references: true
 
+    - name: apple-dev-best-practices
+      path: personas/domain/apple-dev-best-practices
+      description: Apple platform development best practices (Swift, SwiftUI, Xcode)
+      has_references: true
+
 # ─────────────────────────────────────────────
 # Agents — Gorgon agent capabilities (what agents can do)
 # ─────────────────────────────────────────────
@@ -231,6 +236,59 @@ agents:
       risk_level: medium
       consensus: none
 
+  analysis:
+    - name: technical-debt-auditor
+      path: agents/analysis/technical-debt-auditor
+      description: Systematic repo health assessment with 6-axis scoring and 5 sub-agents
+      has_schema: false
+      has_workflow: true
+      has_sub_agents: true
+      sub_agents: [scanner, executor, analyzer, reporter, aggregator]
+      risk_level: low
+      consensus: none
+
+    - name: release-engineer
+      path: agents/analysis/release-engineer
+      description: Last-mile shipping automation — preflight checks, versioning, changelog, publish
+      has_schema: false
+      risk_level: medium
+      consensus: required_for_publish
+
+    - name: entity-resolver
+      path: agents/analysis/entity-resolver
+      description: Fuzzy entity matching, deduplication, and identity consolidation
+      has_schema: false
+      risk_level: low
+      consensus: none
+
+    - name: context-mapper
+      path: agents/analysis/context-mapper
+      description: Pre-execution codebase and corpus mapping for agent context
+      has_schema: false
+      risk_level: low
+      consensus: none
+
+    - name: workflow-debugger
+      path: agents/analysis/workflow-debugger
+      description: Root-cause analysis for failed Gorgon workflows
+      has_schema: false
+      risk_level: low
+      consensus: none
+
+    - name: document-forensics
+      path: agents/analysis/document-forensics
+      description: Investigative methodology for document analysis and provenance
+      has_schema: false
+      risk_level: low
+      consensus: none
+
+    - name: intent-author
+      path: agents/analysis/intent-author
+      description: Teaches agents to publish well-structured Convergent intents
+      has_schema: false
+      risk_level: low
+      consensus: none
+
 # ─────────────────────────────────────────────
 # Workflows — Multi-step execution templates
 # ─────────────────────────────────────────────
@@ -251,10 +309,10 @@ workflows:
 # Summary Statistics
 # ─────────────────────────────────────────────
 stats:
-  total_personas: 35
-  total_agents: 9
+  total_personas: 36
+  total_agents: 16
   total_workflows: 2
-  total_skills: 46
+  total_skills: 54
   categories:
     persona:
       engineering: 7
@@ -262,11 +320,12 @@ stats:
       devops: 6
       claude-code: 5
       security: 2
-      domain: 11
+      domain: 12
     agent:
       system: 2
       browser: 2
       email: 1
       integrations: 2
       orchestration: 2
+      analysis: 7
     workflow: 2

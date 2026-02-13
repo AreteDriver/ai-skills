@@ -5,20 +5,21 @@ Production-ready skills for Claude Code personas, Gorgon agent capabilities, and
 ## Project Structure
 
 ```
-ai_skills/
+ai-skills/
 ├── personas/              # User behavior skills (how Claude acts)
 │   ├── engineering/       # SSE, architect, code-reviewer, etc.
 │   ├── data/              # data-analyst, data-engineer, etc.
 │   ├── devops/            # backup, monitor, networking, etc.
 │   ├── claude-code/       # hooks-designer, plugin-builder, etc.
 │   ├── security/          # security-auditor, accessibility-checker
-│   └── domain/            # hauling-*, eve-esi, gamedev, etc.
+│   └── domain/            # hauling-*, eve-esi, gamedev, apple-dev, etc.
 ├── agents/                # Gorgon agent capabilities (what agents can do)
 │   ├── system/            # file-operations, process-runner
 │   ├── browser/           # web-search, web-scrape
 │   ├── email/             # email-compose
 │   ├── integrations/      # github-operations, api-client
-│   └── orchestration/     # multi-agent-supervisor, agent-teams-orchestrator
+│   ├── orchestration/     # multi-agent-supervisor, agent-teams-orchestrator
+│   └── analysis/          # tech-debt-auditor, release-engineer, entity-resolver, etc.
 ├── workflows/             # Multi-step workflow templates
 │   ├── context-mapping/   # Pre-execution codebase reconnaissance
 │   └── feature-implementation/  # End-to-end feature lifecycle

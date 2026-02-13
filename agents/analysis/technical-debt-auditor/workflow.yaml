@@ -1,0 +1,161 @@
+# Technical Debt Audit — Gorgon Workflow Definition
+#
+# Usage:
+#   gorgon run workflow.yaml --repo /path/to/repo
+#   gorgon run workflow.yaml --portfolio /path/to/repos/ --mode portfolio
+#
+# This workflow audits a single repo or an entire portfolio for technical debt,
+# producing DEBT.md per repo and optionally PORTFOLIO-HEALTH.md for cross-repo analysis.
+
+workflow:
+  name: technical_debt_audit
+  version: "1.0.0"
+  description: >
+    Systematic technical debt assessment with sandboxed execution,
+    evidence-based scoring, and career-weighted portfolio analysis.
+
+  # ─── Global Config ───
+  config:
+    checkpoint_enabled: true
+    checkpoint_store: sqlite
+    max_retries: 1
+    log_level: info
+
+    # Docker settings for executor agent
+    docker:
+      timeout_seconds: 300
+      memory_limit: "512m"
+      network_mode: "none"  # No network during test execution
+      cleanup: true
+
+    # Scoring settings
+    scoring:
+      security_cap: 3.0     # Max score when critical security issue found
+      career_weight_docs: 2.0
+      career_weight_infra: 2.0
+
+  # ─── Input Parameters ───
+  inputs:
+    repo_path:
+      type: string
+      required: true
+      description: "Path to repo (single mode) or directory of repos (portfolio mode)"
+    mode:
+      type: string
+      default: "single"
+      enum: ["single", "portfolio"]
+      description: "Audit mode: single repo or full portfolio"
+    career_repos:
+      type: list
+      default: []
+      description: "Repo names flagged as career-relevant (2x weight on docs/infra)"
+
+  # ─── Agent Pipeline ───
+  agents:
+
+    # ── Stage 1: Static Analysis (read-only) ──
+    - role: scanner
+      agent_ref: agents/scanner.md
+      task: >
+        Perform read-only static analysis of the repository.
+        Scan for secrets, dependency vulnerabilities, test presence,
+        CI/CD configuration, documentation quality, and code metrics.
+      budget:
+        max_tokens: 1500
+      timeout: 60
+      inputs:
+        repo_path: "{{ inputs.repo_path }}"
+      output: scan-results.json
+      checkpoint: true
+
+    # ── Stage 2: Sandboxed Execution (Docker) ──
+    - role: executor
+      agent_ref: agents/executor.md
+      task: >
+        Build Docker container for the repo, attempt install,
+        run entry point, and execute test suite. All inside sandbox.
+      depends_on: [scanner]
+      budget:
+        max_tokens: 500       # Mostly shell commands, low LLM usage
+      timeout: 300              # 5 min for Docker build + tests
+      inputs:
+        repo_path: "{{ inputs.repo_path }}"
+        scan_results: "{{ agents.scanner.output }}"
+      output: execution-results.json
+      on_failure: continue      # Pipeline continues even if Docker fails
+      checkpoint: true
+
+    # ── Stage 3: Analysis & Scoring ──
+    - role: analyzer
+      agent_ref: agents/analyzer.md
+      task: >
+        Score each category (0-10) per the scoring rubric.
+        Categorize findings by severity. Apply security blocker if needed.
+        Apply career-weight modifier if in portfolio mode.
+        Generate fix recommendations sorted by ROI.
+      depends_on: [scanner, executor]
+      budget:
+        max_tokens: 2000
+      timeout: 120
+      inputs:
+        scan_results: "{{ agents.scanner.output }}"
+        execution_results: "{{ agents.executor.output }}"
+        mode: "{{ inputs.mode }}"
+        career_repos: "{{ inputs.career_repos }}"
+        rubric: references/scoring-rubric.md
+      output: analysis.json
+      checkpoint: true
+
+    # ── Stage 4: Report Generation ──
+    - role: reporter
+      agent_ref: agents/reporter.md
+      task: >
+        Generate human-readable DEBT.md from analysis results.
+        Include score breakdown, findings by severity, fix recommendations.
+        If previous DEBT.md exists, include diff section.
+      depends_on: [analyzer]
+      budget:
+        max_tokens: 1000
+      timeout: 60
+      inputs:
+        analysis: "{{ agents.analyzer.output }}"
+        repo_path: "{{ inputs.repo_path }}"
+        template: templates/DEBT.md
+      output: DEBT.md
+      output_path: "{{ inputs.repo_path }}/DEBT.md"
+      checkpoint: true
+
+    # ── Stage 5: Portfolio Aggregation (conditional) ──
+    - role: aggregator
+      agent_ref: agents/aggregator.md
+      task: >
+        Synthesize all per-repo analysis files into a cross-repo
+        comparison matrix. Identify systemic patterns. Generate
+        career risk assessment and time-bounded action plan.
+      depends_on: [reporter]      # Waits for ALL repos to complete
+      condition: "{{ inputs.mode == 'portfolio' }}"
+      budget:
+        max_tokens: 2000
+      timeout: 120
+      inputs:
+        analysis_files: "{{ collect(agents.analyzer.output, all_repos=true) }}"
+        career_repos: "{{ inputs.career_repos }}"
+      output: PORTFOLIO-HEALTH.md
+      output_path: "{{ inputs.repo_path }}/PORTFOLIO-HEALTH.md"
+
+  # ─── Feedback Loops ───
+  feedback:
+    # If analyzer finds the scanner missed something (e.g., detected a
+    # language the scanner didn't scan for), it can request a re-scan
+    - from: analyzer
+      to: scanner
+      condition: "analyzer detects uncovered language or framework"
+      max_iterations: 1
+
+  # ─── Quality Gates ───
+  gates:
+    # Halt and notify if critical security finding detected
+    - after: scanner
+      condition: "scan-results.security.secrets_found is not empty"
+      action: warn
+      message: "⚠️ CRITICAL: Active secrets detected in repository. Review before proceeding."
