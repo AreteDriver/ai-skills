@@ -1,0 +1,325 @@
+# schema.yaml v2 Template
+#
+# Key changes from v1:
+# - Metadata: added type, trust, parallel_safe, tools (from SKILL.md v2 frontmatter alignment)
+# - Capabilities: expanded from flat list to full definitions with intent, guidance,
+#   parallel flags, validation rules, and post-execution protocols (Cursor patterns)
+# - Routing: new section for when-to-use / when-not-to-use with alternatives (Cursor/Claude Code)
+# - Error handling: escalation ladder with bounded retries per error class (Devin/Cursor)
+# - Verification: structured pre/post conditions and checkpoint triggers (Devin)
+# - Inter-agent contracts: input/output boundary contracts for agent handoffs (Manus)
+#
+# See intel/ for full pattern analysis.
+
+# ─────────────────────────────────────────────
+# Metadata
+# ─────────────────────────────────────────────
+name: skill-name                       # kebab-case identifier (required)
+version: "1.0.0"                       # semver (required)
+description: >                         # under 300 chars (required)
+  One-line description of what this skill does.
+
+type: agent                            # agent | workflow (required — personas don't have schemas)
+category: system                       # system | browser | email | integrations | orchestration | analysis (required)
+
+risk_level: medium                     # low | medium | high | critical — skill-wide default (required)
+consensus_level: adaptive              # none | majority | unanimous | adaptive (required)
+                                       # adaptive = per-capability override (most common)
+
+trust: supervised                      # supervised | autonomous (optional, default: supervised)
+                                       # supervised = user approval for destructive ops
+                                       # autonomous = all ops auto-approved (maps to Antigravity // turbo-all)
+
+parallel_safe: false                   # Can this skill run concurrently with other skills? (optional)
+
+tools:                                 # Allowed tool set — restricts agent capabilities (optional)
+  - Read                               # Claude Code sub-agent pattern: list allowed tools
+  - Edit                               # Omit for full access ("*")
+  - Glob
+  - Grep
+  - Bash
+
+# ─────────────────────────────────────────────
+# Routing — When to use / when NOT to use
+# ─────────────────────────────────────────────
+# Negative routing examples prevent misuse and over-delegation.
+# Every "instead" should name the better alternative.
+routing:
+  use_when:
+    - "Performing filesystem operations that need safety controls"
+    - "Operations on files in protected directories"
+  do_not_use_when:
+    - condition: "Simple file read with known path"
+      instead: "Use Read tool directly"
+      reason: "Skill overhead is unnecessary for single deterministic reads"
+    - condition: "Searching file contents by pattern"
+      instead: "Use Grep tool directly"
+      reason: "Grep is faster and more targeted for content search"
+
+# ─────────────────────────────────────────────
+# Inputs — Skill-level input contract
+# ─────────────────────────────────────────────
+inputs:
+  operation:
+    type: string
+    required: true
+    description: The operation to perform
+    enum: [read_file, create_file, update_file, delete_file]
+    # Enums constrain the option space (Cursor pattern)
+
+  path:
+    type: string
+    required: true
+    description: Absolute path to the target file or directory
+    # Validation rules — behavioral constraints that go beyond JSON Schema types
+    validation:
+      - "MUST be an absolute path (starts with /)"
+      - "MUST NOT match any protected_paths entry"
+
+  content:
+    type: string
+    required: false
+    description: File content (for create/update operations)
+
+  create_backup:
+    type: boolean
+    required: false
+    default: true
+    description: Whether to create a backup before destructive operations
+
+  # intent field — agent must state WHY before invoking (Cursor explanation pattern)
+  intent:
+    type: string
+    required: true
+    description: >
+      One-sentence explanation of WHY this operation is being performed.
+      Forces the agent to articulate purpose before execution, making
+      logs auditable and reducing hallucinated invocations.
+
+# ─────────────────────────────────────────────
+# Outputs — Skill-level output contract
+# ─────────────────────────────────────────────
+outputs:
+  success:
+    type: boolean
+    description: Whether the operation completed successfully
+
+  path:
+    type: string
+    description: The absolute path that was operated on
+
+  content:
+    type: string
+    description: File content (for read operations)
+
+  backup_path:
+    type: string
+    description: Path to backup file if one was created
+
+  error:
+    type: string
+    description: Error message if operation failed
+
+# ─────────────────────────────────────────────
+# Capabilities — Per-operation definitions
+# ─────────────────────────────────────────────
+# v2 expands capabilities from flat name/risk/consensus lists to full definitions.
+# Each capability is a self-contained action contract.
+capabilities:
+  - name: read_file
+    description: >
+      Read file contents with encoding support.
+      Use when checking file contents, analyzing logs, or reading configuration.
+    # "What + When" dual description (Manus pattern)
+
+    risk: low
+    consensus: any
+    parallel_safe: true
+    intent_required: true              # Agent must provide intent field (Cursor)
+
+    inputs:
+      path:
+        type: string
+        required: true
+      encoding:
+        type: string
+        required: false
+        enum: [utf-8, ascii, binary]
+        default: utf-8
+      lines:
+        type: string
+        required: false
+        description: "Line range (e.g., '1-50')"
+
+    outputs:
+      content:
+        type: string
+      bytes_read:
+        type: integer
+      encoding:
+        type: string
+
+    post_execution:                    # What to DO with results (Cursor read_file protocol)
+      - "Assess if returned content is sufficient for the task"
+      - "If file was truncated, call again for remaining lines"
+      - "When in doubt about completeness, re-read with explicit line range"
+
+  - name: delete_file
+    description: >
+      Permanently remove a file.
+      Use ONLY when the file is confirmed unnecessary. Do NOT use for temporary cleanup
+      during active work — use move_file to a temp directory instead.
+    # "When NOT to use" embedded in description (Cursor negative example pattern)
+
+    risk: high
+    consensus: majority
+    parallel_safe: false
+    intent_required: true
+
+    inputs:
+      path:
+        type: string
+        required: true
+        validation:
+          - "MUST NOT match any protected_paths entry"
+          - "MUST NOT be a directory (use delete_directory instead)"
+      create_backup:
+        type: boolean
+        required: false
+        default: true
+      force:
+        type: boolean
+        required: false
+        default: false
+
+    outputs:
+      success:
+        type: boolean
+      backup_path:
+        type: string
+
+    post_execution:
+      - "Verify file no longer exists"
+      - "If backup was created, confirm backup_path is accessible"
+      - "Check for broken references (imports, configs) that pointed to deleted file"
+
+  # - name: create_file
+  #   [same structure as above]
+  #
+  # - name: update_file
+  #   [same structure as above]
+
+# ─────────────────────────────────────────────
+# Verification — Checkpoints and completion criteria
+# ─────────────────────────────────────────────
+verification:
+  pre_conditions:                      # Must be true before skill executes
+    - "Target path exists (for read/update/delete)"
+    - "Parent directory exists (for create)"
+    - "Sufficient disk space (for create/update/copy)"
+
+  post_conditions:                     # Must be true after skill completes
+    - "All outputs are populated"
+    - "No protected paths were modified"
+    - "Backups exist for all destructive operations"
+
+  checkpoints:                         # Structured think-triggers (Devin pattern)
+    - trigger: "Before any destructive operation (delete, overwrite)"
+      action: "Verify path is not protected and backup exists"
+    - trigger: "After multiple failed operations on same path"
+      action: "Check permissions, disk space, and path validity"
+    - trigger: "Before reporting completion"
+      action: "Verify all requested operations succeeded and outputs are valid"
+
+  completion_checklist:                # Mandatory pre-completion review (Devin pattern)
+    - "All requested operations executed successfully"
+    - "No partial writes or incomplete operations"
+    - "Backup paths returned for all destructive ops"
+    - "Error field populated for any failures"
+
+# ─────────────────────────────────────────────
+# Error Handling — Escalation ladder with bounded retries
+# ─────────────────────────────────────────────
+error_handling:
+  escalation:
+    - error_class: recoverable         # Permission denied, file locked
+      action: retry
+      max_retries: 3
+      fallback: "Report error with context, suggest manual resolution"
+
+    - error_class: environment         # Disk full, filesystem read-only
+      action: report
+      max_retries: 0
+      fallback: "Report immediately, do not attempt to fix environment"
+
+    - error_class: permission          # Protected path, insufficient privileges
+      action: escalate
+      max_retries: 0
+      fallback: "Escalate to user with path and required permissions"
+
+    - error_class: repeated_failure    # Same error after max_retries
+      action: stop
+      fallback: "Stop, report what was attempted and what failed"
+
+  self_correction:                     # Protocol violation handling (Cursor Sep 2025)
+    - "If a destructive operation was performed without backup: immediately create backup of any remaining state"
+    - "If intent field was omitted: acknowledge on next turn, provide intent retroactively"
+    - "If post_execution checks were skipped: run them before proceeding to next operation"
+
+# ─────────────────────────────────────────────
+# Inter-Agent Contracts — Input/output boundaries for handoffs
+# ─────────────────────────────────────────────
+# Defines how this skill's output feeds into other skills' inputs.
+# Formalizes the boundary between agents (Manus event stream pattern).
+contracts:
+  provides:                            # What this skill produces that others consume
+    - name: file_content
+      type: string
+      consumers: [context-mapper, code-reviewer]
+      description: "Raw file content for analysis"
+
+    - name: backup_manifest
+      type: object
+      consumers: [multi-agent-supervisor]
+      description: "List of backup paths created during execution"
+
+  requires:                            # What this skill needs from upstream
+    - name: target_paths
+      type: array
+      provider: context-mapper
+      description: "List of file paths identified during context mapping"
+
+# ─────────────────────────────────────────────
+# Constraints — Hard limits
+# ─────────────────────────────────────────────
+constraints:
+  max_file_size_mb: 100
+  max_concurrent_operations: 5
+  backup_retention_days: 7
+
+# ─────────────────────────────────────────────
+# Protected Paths — Deny list
+# ─────────────────────────────────────────────
+protected_paths:
+  - /boot
+  - /etc/fstab
+  - /etc/passwd
+  - /etc/shadow
+  - /etc/sudoers
+  - /usr/bin
+  - /usr/lib
+  - /usr/sbin
+  - /proc
+  - /sys
+  - /dev
+  - ~/.ssh/id_*
+  - ~/.ssh/authorized_keys
+
+# ─────────────────────────────────────────────
+# Dependencies
+# ─────────────────────────────────────────────
+dependencies:
+  python: [pathlib, shutil, os]
+  system: [stat, find]
+  skills: []                           # Other skills this one depends on
+  config: []                           # Required configuration keys
