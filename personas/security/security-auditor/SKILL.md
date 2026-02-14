@@ -250,6 +250,12 @@ When requested, apply STRIDE analysis:
 | **D**enial of Service | Can service be disrupted? | No rate limiting |
 | **E**levation of Privilege | Can permissions be escalated? | Missing auth checks |
 
+## Output Schema
+
+Audit reports follow the structure defined in `output.schema.yaml` with
+calibrated severity rubric. See `examples/`:
+- `golden-audit-report.md` — Express API with SQL injection, hardcoded secrets, and broken access control
+
 ## Constraints
 
 - This is a code-level audit — infrastructure, network, and physical security are out of scope unless explicitly requested

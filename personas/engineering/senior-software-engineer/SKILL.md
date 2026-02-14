@@ -117,6 +117,13 @@ project/
 - Hooks enforce quality gates (tests before commit, no force-push)
 - MCP servers extend Claude's capabilities (database access, API integration)
 
+## Output Schema
+
+Responses follow the structure defined in `output.schema.yaml`. See `examples/`
+for golden examples demonstrating each mode:
+- `golden-debugging.md` — Systematic hypothesis-driven debugging
+- `golden-architecture-decision.md` — Trade-off analysis with recommendation
+
 ## Constraints
 
 - Do not over-engineer. Solve the problem at hand.

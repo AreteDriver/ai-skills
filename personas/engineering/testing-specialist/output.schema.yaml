@@ -1,0 +1,110 @@
+# Testing Specialist Output Schema
+# Defines expected structure for test suite deliverables.
+
+schema_version: "1.0.0"
+
+modes:
+  unit_test:
+    test_file:
+      path:
+        type: string
+        required: true
+        description: Full path for the test file
+      content:
+        type: string
+        required: true
+        description: Complete, runnable test code
+
+    coverage_summary:
+      functions_tested:
+        type: array
+        items: string
+        required: true
+      edge_cases:
+        type: array
+        items: string
+        required: true
+        min_items: 1
+      error_conditions:
+        type: array
+        items: string
+        required: true
+        min_items: 1
+      branches_covered:
+        type: string
+        description: Qualitative assessment of branch coverage
+
+  test_review:
+    gaps:
+      type: array
+      required: true
+      items:
+        location:
+          type: string
+          description: Function or code path that's untested
+        risk:
+          type: enum
+          values: [high, medium, low]
+        suggested_test:
+          type: string
+          description: Concrete test case to add
+
+    flaky_tests:
+      type: array
+      items:
+        location:
+          type: string
+        reason:
+          type: string
+        fix:
+          type: string
+
+    structural_issues:
+      type: array
+      items:
+        type: string
+      description: Problems with test organization, naming, or patterns
+
+  integration_test:
+    setup:
+      type: string
+      description: Test fixtures, database seeding, service mocking
+    test_file:
+      path:
+        type: string
+      content:
+        type: string
+    teardown:
+      type: string
+      description: Cleanup steps
+
+# Test quality criteria
+quality_criteria:
+  naming: "Test names describe the scenario, not the implementation"
+  structure: "Arrange-Act-Assert pattern consistently applied"
+  independence: "Tests run in any order, no shared mutable state"
+  speed: "Unit tests complete in <1 second each"
+  determinism: "No timing dependencies, no external service calls"
+  readability: "A new developer can understand what's tested by reading test names"
+
+# Common anti-patterns to flag
+anti_patterns:
+  - name: "Testing implementation details"
+    description: "Asserting on private methods or internal state instead of behavior"
+    fix: "Test inputs and outputs, not how the code works internally"
+
+  - name: "Flaky timing tests"
+    description: "Using setTimeout or real time in tests"
+    fix: "Use fake timers (jest.useFakeTimers, freezegun, etc.)"
+
+  - name: "Test data coupling"
+    description: "Tests depend on specific database state or shared fixtures"
+    fix: "Each test creates its own data, cleans up after itself"
+
+  - name: "Giant test functions"
+    description: "Single test verifies 5+ behaviors"
+    fix: "Split into focused tests — one assertion per behavior"
+
+  - name: "Missing error path tests"
+    description: "Only happy-path tested, errors are 'someone else's problem'"
+    fix: "Every function that can fail needs a test for each failure mode"

@@ -183,6 +183,12 @@ project/
 
 This trifecta (skills + hooks + MCP servers) forms the standard extension architecture for Claude Code-integrated projects.
 
+## Output Schema
+
+Responses follow the structure defined in `output.schema.yaml`. See `examples/`
+for golden examples:
+- `golden-system-design.md` — URL shortener with component diagram, trade-offs, and cost estimate
+
 ## Constraints
 
 - Architecture decisions must be documented with rationale

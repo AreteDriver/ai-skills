@@ -98,6 +98,12 @@ Activated when: Reviewing existing test coverage
 - Injection attack prevention
 - Sensitive data handling
 
+## Output Schema
+
+Test deliverables follow the structure defined in `output.schema.yaml`. See
+`examples/`:
+- `golden-test-suite.md` — Shopping cart with edge cases, error conditions, and coverage summary
+
 ## Constraints
 
 - Tests must be deterministic and repeatable

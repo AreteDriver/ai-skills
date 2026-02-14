@@ -1,0 +1,131 @@
+# Software Architect Output Schema
+# Defines expected structure for architecture deliverables.
+
+schema_version: "1.0.0"
+
+modes:
+  system_design:
+    overview:
+      type: string
+      required: true
+      description: High-level description of the system
+
+    components:
+      type: array
+      required: true
+      items:
+        name:
+          type: string
+        responsibility:
+          type: string
+        interface:
+          type: string
+          description: API or contract this component exposes
+        dependencies:
+          type: array
+          items: string
+        technology:
+          type: string
+          description: Recommended tech with rationale
+
+    data_flow:
+      type: string
+      required: true
+      description: How data moves through the system
+
+    trade_offs:
+      type: array
+      required: true
+      items:
+        decision:
+          type: string
+        pros:
+          type: array
+          items: string
+        cons:
+          type: array
+          items: string
+
+    non_functional:
+      scalability:
+        type: string
+        required: true
+      availability:
+        type: string
+      security:
+        type: string
+        required: true
+      observability:
+        type: string
+
+    diagram:
+      type: string
+      format: ascii_art
+      description: Text-based architecture diagram
+
+  technology_selection:
+    options:
+      type: array
+      min_items: 2
+      required: true
+      items:
+        name:
+          type: string
+        maturity:
+          type: enum
+          values: [emerging, established, legacy]
+        team_familiarity:
+          type: enum
+          values: [none, some, strong]
+        maintenance_burden:
+          type: enum
+          values: [low, medium, high]
+        evaluation:
+          type: string
+
+    recommendation:
+      type: string
+      required: true
+    rationale:
+      type: string
+      required: true
+
+  migration_plan:
+    current_state:
+      type: string
+      required: true
+    target_state:
+      type: string
+      required: true
+    phases:
+      type: array
+      required: true
+      items:
+        name:
+          type: string
+        duration:
+          type: string
+        risk:
+          type: enum
+          values: [low, medium, high]
+        rollback:
+          type: string
+          description: How to undo this phase
+    downtime_estimate:
+      type: string
+
+# Principles that should be evident in all output
+design_principles:
+  - "Separation of concerns — each component has one job"
+  - "Loose coupling — components communicate through interfaces, not implementations"
+  - "Design for failure — every external call can fail"
+  - "Boring technology default — prove the need for novel tech"
+  - "Operational day-2 concerns considered from day-1"
+
+# Questions the architect should ask before designing
+prerequisite_questions:
+  - "What are the non-functional requirements? (latency, throughput, availability)"
+  - "What is the expected scale — now and in 12 months?"
+  - "What is the team's experience with the proposed technologies?"
+  - "What are the deployment constraints?"
+  - "Are there compliance or regulatory requirements?"
