@@ -305,14 +305,20 @@ workflows:
     has_schema: true
     phase: full-lifecycle
 
+  - name: release-engineering
+    path: workflows/release-engineering
+    description: End-to-end release pipeline — preflight, review, changelog, version, tag, publish
+    has_schema: true
+    phase: full-lifecycle
+
 # ─────────────────────────────────────────────
 # Summary Statistics
 # ─────────────────────────────────────────────
 stats:
   total_personas: 36
   total_agents: 16
-  total_workflows: 2
-  total_skills: 54
+  total_workflows: 3
+  total_skills: 55
   categories:
     persona:
       engineering: 7
@@ -328,4 +334,4 @@ stats:
       integrations: 2
       orchestration: 2
       analysis: 7
-    workflow: 2
+    workflow: 3

@@ -10,6 +10,9 @@
 #   5. Hook scripts are executable
 #   6. registry.yaml entries match actual filesystem
 #   7. No orphaned skills (on disk but not in registry)
+#   8. Agent registry entries have risk_level and consensus fields
+#   9. Agent schema.yaml files have required fields (inputs, outputs, capabilities)
+#  10. Bundle references resolve to existing skills
 
 set -uo pipefail
 
@@ -64,7 +67,7 @@ for base_dir in personas agents workflows; do
         while IFS= read -r -d '' dir; do
             # Skip reference directories and category directories
             dir_basename="$(basename "$dir")"
-            if [ "$dir_basename" = "references" ] || [ "$dir_basename" = "sub-agents" ]; then
+            if [ "$dir_basename" = "references" ] || [ "$dir_basename" = "sub-agents" ] || [ "$dir_basename" = "examples" ]; then
                 continue
             fi
 
@@ -202,6 +205,155 @@ if [ -f "$registry" ]; then
     done
 else
     warn "registry.yaml not found — skipping consistency check"
+fi
+
+echo ""
+
+# ─────────────────────────────────────────────
+# Check 6: Agent registry metadata
+# ─────────────────────────────────────────────
+echo "--- Check 6: Agent registry metadata ---"
+if [ -f "$registry" ]; then
+    # Check that agent entries in registry have risk_level and consensus
+    if command -v python3 &>/dev/null; then
+        python3 - "$registry" "$VERBOSE" <<'PYEOF'
+import yaml, sys
+
+registry_path = sys.argv[1]
+verbose = sys.argv[2] == "True" if len(sys.argv) > 2 else False
+errors = 0
+warnings = 0
+
+with open(registry_path) as f:
+    reg = yaml.safe_load(f)
+
+agents = reg.get("agents", {})
+for category, agent_list in agents.items():
+    if not isinstance(agent_list, list):
+        continue
+    for agent in agent_list:
+        name = agent.get("name", "unknown")
+        path = f"agents/{category}/{name}"
+
+        if "risk_level" not in agent:
+            print(f"WARN: {path} missing 'risk_level' in registry")
+            warnings += 1
+        elif verbose:
+            print(f"PASS: {path} has risk_level={agent['risk_level']}")
+
+        if "consensus" not in agent:
+            print(f"WARN: {path} missing 'consensus' in registry")
+            warnings += 1
+        elif verbose:
+            print(f"PASS: {path} has consensus={agent['consensus']}")
+
+        # Validate risk_level values
+        valid_risk = {"low", "medium", "high", "critical"}
+        if agent.get("risk_level") and agent["risk_level"] not in valid_risk:
+            print(f"ERROR: {path} has invalid risk_level '{agent['risk_level']}' (expected: {valid_risk})")
+            errors += 1
+
+sys.exit(errors)
+PYEOF
+        check6_exit=$?
+        if [ "$check6_exit" -gt 0 ]; then
+            ERRORS=$((ERRORS + check6_exit))
+        fi
+    else
+        pass "Skipping registry metadata check (python3 not available)"
+    fi
+fi
+
+echo ""
+
+# ─────────────────────────────────────────────
+# Check 7: Agent schema.yaml required fields
+# ─────────────────────────────────────────────
+echo "--- Check 7: Agent schema.yaml structure ---"
+if [ -d "$REPO_ROOT/agents" ] && command -v python3 &>/dev/null; then
+    while IFS= read -r -d '' schema_file; do
+        dir="$(dirname "$schema_file")"
+        rel_dir="${dir#$REPO_ROOT/}"
+
+        python3 - "$schema_file" "$rel_dir" "$VERBOSE" <<'PYEOF'
+import yaml, sys
+
+schema_path = sys.argv[1]
+rel_dir = sys.argv[2]
+verbose = sys.argv[3] == "True" if len(sys.argv) > 3 else False
+
+with open(schema_path) as f:
+    schema = yaml.safe_load(f)
+
+if not schema:
+    print(f"WARN: {rel_dir}/schema.yaml is empty")
+    sys.exit(0)
+
+required_sections = ["inputs", "outputs", "capabilities"]
+missing = [s for s in required_sections if s not in schema]
+
+if missing:
+    print(f"WARN: {rel_dir}/schema.yaml missing sections: {', '.join(missing)}")
+else:
+    if verbose:
+        print(f"PASS: {rel_dir}/schema.yaml has all required sections")
+PYEOF
+    done < <(find "$REPO_ROOT/agents" -name "schema.yaml" -print0)
+fi
+
+echo ""
+
+# ─────────────────────────────────────────────
+# Check 8: Bundle references resolve
+# ─────────────────────────────────────────────
+echo "--- Check 8: Bundle references ---"
+bundles_file="$REPO_ROOT/bundles.yaml"
+if [ -f "$bundles_file" ] && command -v python3 &>/dev/null; then
+    python3 - "$bundles_file" "$REPO_ROOT" "$VERBOSE" <<'PYEOF'
+import yaml, sys, os
+
+bundles_path = sys.argv[1]
+repo_root = sys.argv[2]
+verbose = sys.argv[3] == "True" if len(sys.argv) > 3 else False
+errors = 0
+
+with open(bundles_path) as f:
+    data = yaml.safe_load(f)
+
+bundles = data.get("bundles", {})
+for bundle_name, bundle in bundles.items():
+    skills = bundle.get("skills", [])
+    for skill_path in skills:
+        full_path = os.path.join(repo_root, skill_path)
+        if os.path.isdir(full_path) and os.path.isfile(os.path.join(full_path, "SKILL.md")):
+            if verbose:
+                print(f"PASS: bundle '{bundle_name}' → {skill_path} exists")
+        else:
+            print(f"ERROR: bundle '{bundle_name}' references {skill_path} which does not exist")
+            errors += 1
+
+    hooks = bundle.get("hooks", [])
+    for hook_path in hooks:
+        full_path = os.path.join(repo_root, hook_path)
+        if os.path.isfile(full_path):
+            if verbose:
+                print(f"PASS: bundle '{bundle_name}' → {hook_path} exists")
+        else:
+            print(f"ERROR: bundle '{bundle_name}' references hook {hook_path} which does not exist")
+            errors += 1
+
+if errors == 0 and verbose:
+    print(f"All bundle references valid ({len(bundles)} bundles checked)")
+sys.exit(errors)
+PYEOF
+    check8_exit=$?
+    if [ "$check8_exit" -gt 0 ]; then
+        ERRORS=$((ERRORS + check8_exit))
+    fi
+else
+    if [ ! -f "$bundles_file" ]; then
+        pass "No bundles.yaml found — skipping bundle validation"
+    fi
 fi
 
 echo ""

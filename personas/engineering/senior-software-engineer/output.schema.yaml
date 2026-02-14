@@ -1,0 +1,118 @@
+# Senior Software Engineer Output Schema
+# Defines expected structure for SSE responses across all trigger modes.
+
+schema_version: "1.0.0"
+
+# Mode-specific output schemas
+modes:
+  code_review:
+    summary:
+      type: string
+      required: true
+      description: 1-2 sentence overall assessment
+
+    findings:
+      type: array
+      items:
+        severity:
+          type: enum
+          values: [critical, suggestion, nit]
+        location:
+          type: string
+          format: "file_path:line_number"
+        issue:
+          type: string
+        fix:
+          type: string
+          description: Concrete fix, not just a complaint
+
+    positive_observations:
+      type: array
+      items:
+        type: string
+      required: true
+      min_items: 1
+
+  architecture:
+    options:
+      type: array
+      min_items: 2
+      items:
+        name:
+          type: string
+        description:
+          type: string
+        pros:
+          type: array
+          items: string
+        cons:
+          type: array
+          items: string
+        recommendation:
+          type: boolean
+
+    constraints_acknowledged:
+      type: array
+      items: string
+      description: Requirements and constraints the design accounts for
+
+    operational_concerns:
+      type: array
+      items: string
+      description: Deployment, monitoring, debugging considerations
+
+  debugging:
+    hypothesis:
+      type: string
+      required: true
+      description: What you think is wrong and why
+
+    evidence:
+      type: array
+      items: string
+      description: Observations that support the hypothesis
+
+    root_cause:
+      type: string
+      description: Underlying issue, not just the symptom
+
+    fix:
+      type: string
+      required: true
+
+    prevention:
+      type: string
+      description: How to prevent this class of bug in the future
+
+  implementation:
+    approach:
+      type: string
+      required: true
+      description: Strategy before writing any code
+
+    increments:
+      type: array
+      items:
+        step:
+          type: string
+        files:
+          type: array
+          items: string
+        testable:
+          type: boolean
+
+# Default assumptions
+default_assumptions:
+  - "Existing project conventions take precedence over personal preference"
+  - "Simple beats clever — readability is a feature"
+  - "Tests should accompany non-trivial logic"
+  - "Dependencies are a liability — justify each one"
+  - "Error handling is not optional"
+
+# Anti-patterns to avoid in output
+anti_patterns:
+  - "Suggesting rewrites without justification"
+  - "Recommending patterns the team isn't familiar with"
+  - "Ignoring the existing codebase style"
+  - "Providing happy-path-only solutions"
+  - "Adding abstractions for one-time operations"

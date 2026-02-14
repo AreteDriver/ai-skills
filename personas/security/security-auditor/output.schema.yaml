@@ -1,0 +1,158 @@
+# Security Auditor Output Schema
+# Defines expected structure for security audit reports.
+
+schema_version: "1.0.0"
+
+audit_report:
+  metadata:
+    date:
+      type: string
+      format: ISO8601
+      required: true
+    scope:
+      type: string
+      required: true
+      description: What was reviewed (repo, files, components)
+    risk_rating:
+      type: enum
+      values: [critical, high, medium, low]
+      required: true
+      description: Overall risk posture of the audited code
+
+  executive_summary:
+    type: string
+    required: true
+    max_length: 500
+    description: 2-3 sentences covering posture, biggest risks, key action
+
+  findings:
+    type: array
+    items:
+      severity:
+        type: enum
+        values: [critical, high, medium, low, info]
+        required: true
+      title:
+        type: string
+        required: true
+      location:
+        type: string
+        format: "file_path:line_number"
+        required: true
+      category:
+        type: string
+        description: "OWASP category (e.g., A01: Broken Access Control)"
+        required: true
+      description:
+        type: string
+        required: true
+      impact:
+        type: string
+        required: true
+        description: What an attacker could do if this is exploited
+      evidence:
+        type: string
+        description: Vulnerable code snippet
+      remediation:
+        type: string
+        required: true
+        description: Fixed code snippet or specific remediation steps
+      effort:
+        type: enum
+        values: [low, medium, high]
+        required: true
+
+  positive_observations:
+    type: array
+    items:
+      type: string
+    required: true
+    min_items: 1
+
+  dependency_vulnerabilities:
+    type: array
+    items:
+      package:
+        type: string
+      version:
+        type: string
+      cve:
+        type: string
+      severity:
+        type: enum
+        values: [critical, high, medium, low]
+      fix_version:
+        type: string
+
+  secrets_found:
+    type: array
+    items:
+      type:
+        type: string
+      location:
+        type: string
+      status:
+        type: enum
+        values: [active, example, revoked, unknown]
+
+  recommendations:
+    type: array
+    required: true
+    items:
+      priority:
+        type: enum
+        values: [immediate, this_sprint, this_quarter, ongoing]
+      action:
+        type: string
+
+  out_of_scope:
+    type: array
+    items:
+      type: string
+    description: What was not reviewed and why
+
+# Severity calibration
+severity_rubric:
+  critical:
+    exploitability: "Easy, no authentication needed"
+    impact: "Full system compromise, RCE, mass data breach"
+    examples:
+      - "SQL injection in login endpoint"
+      - "Remote code execution via unsanitized input"
+      - "Hardcoded AWS root credentials"
+    response: "Fix before next deployment"
+
+  high:
+    exploitability: "Requires some access or knowledge"
+    impact: "Data breach, privilege escalation, account takeover"
+    examples:
+      - "IDOR allowing access to other users' data"
+      - "Broken authentication (no session expiry, weak JWT)"
+      - "Stored XSS in user-generated content"
+    response: "Fix this sprint"
+
+  medium:
+    exploitability: "Complex to exploit or limited blast radius"
+    impact: "Limited data exposure, partial compromise"
+    examples:
+      - "Reflected XSS requiring user interaction"
+      - "Weak password hashing (MD5/SHA1)"
+      - "Missing rate limiting on auth endpoints"
+    response: "Fix this quarter"
+
+  low:
+    exploitability: "Theoretical or very difficult"
+    impact: "Minimal direct impact"
+    examples:
+      - "Missing security headers (X-Frame-Options)"
+      - "Verbose error messages leaking stack traces"
+      - "Cookie without Secure flag in development"
+    response: "Address when convenient"
+
+  info:
+    exploitability: "Not exploitable"
+    impact: "No direct security impact"
+    examples:
+      - "Server version disclosed in headers"
+      - "Best practice suggestion (CSP policy)"
+    response: "Track for continuous improvement"

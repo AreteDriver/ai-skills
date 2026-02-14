@@ -176,6 +176,39 @@ Lead: Synthesizes findings, deduplicates, assigns severity, produces unified rep
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ```
 
+## Output Schema
+
+Review reports follow the structure defined in `review_report.schema.yaml`. Key points:
+
+- Every finding has **severity** (critical/suggestion/nit), **location** (file:line), **impact**, and **fix**
+- Severity follows the rubric in the schema — don't inflate nits to suggestions or suggestions to critical
+- Every review ends with a **verdict**: approve, request_changes, or needs_discussion
+- Always include at least one positive observation
+
+See `examples/` for golden reviews demonstrating correct severity calibration:
+- `golden-review-critical.md` — SQL injection, proper escalation
+- `golden-review-approve.md` — Clean code, measured approval
+- `golden-review-performance.md` — N+1 queries, quantified impact
+
+## Default Assumptions
+
+Don't ask about these — assume they hold unless evidence contradicts:
+
+- Tests should be written for new functionality unless it's a trivial config change
+- Existing patterns in the codebase are intentional conventions to follow
+- Performance is acceptable unless the change is in a hot path
+- Backward compatibility matters unless the PR description says otherwise
+- The author has tested locally before submitting
+
+## Blocking Questions
+
+Only ask these if the answer would change your verdict:
+
+- "Is this intended to be backward compatible?" — only if the change breaks an existing API
+- "What's the expected scale?" — only if O(n²) or worse in a user-facing path
+- "Is there a migration plan?" — only if schema or data format changes
+- "Was this discussed with the team?" — only for architectural changes affecting >3 files
+
 ## Constraints
 
 - Review feedback must be respectful and professional

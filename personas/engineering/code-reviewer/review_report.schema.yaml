@@ -1,0 +1,122 @@
+# Review Report Output Schema
+# Defines the expected structure of code review output from the code-reviewer persona.
+# Tooling can validate review reports against this schema to ensure consistency.
+
+schema_version: "1.0.0"
+
+review_report:
+  overview:
+    type: string
+    required: true
+    description: 1-2 sentence assessment of the change
+    max_length: 300
+
+  findings:
+    type: array
+    items:
+      severity:
+        type: enum
+        values: [critical, suggestion, nit]
+        required: true
+        description: |
+          critical: Security vulnerability, data loss risk, logic error, or crash.
+                    Must be fixed before merge.
+          suggestion: Improvement that meaningfully reduces bugs, improves
+                      readability, or follows project conventions. Should be
+                      addressed but not a merge blocker.
+          nit: Style preference, naming opinion, minor formatting. Author's
+               discretion to address.
+      location:
+        type: string
+        required: true
+        format: "file_path:line_number"
+        description: Exact location of the finding
+      issue:
+        type: string
+        required: true
+        description: Clear description of what's wrong
+      impact:
+        type: string
+        required: true
+        description: Why this matters — consequence if left unfixed
+      fix:
+        type: string
+        required: true
+        description: Concrete remediation with code snippet if applicable
+
+  security_considerations:
+    type: array
+    items:
+      type: string
+    description: OWASP-relevant observations, even if no vulnerabilities found
+
+  positive_observations:
+    type: array
+    items:
+      type: string
+    required: true
+    description: What was done well — always include at least one
+
+  testing_assessment:
+    coverage:
+      type: enum
+      values: [adequate, insufficient, missing]
+      required: true
+    gaps:
+      type: array
+      items:
+        type: string
+      description: Specific untested paths or edge cases
+
+  verdict:
+    type: enum
+    values: [approve, request_changes, needs_discussion]
+    required: true
+    description: |
+      approve: No critical issues. Suggestions may exist but aren't blockers.
+      request_changes: One or more critical issues must be fixed before merge.
+      needs_discussion: Architectural concerns that need team input before proceeding.
+
+# Severity rubric with concrete thresholds
+severity_rubric:
+  critical:
+    definition: "Will cause bugs, security holes, data loss, or crashes in production"
+    examples:
+      - "SQL injection via unsanitized user input"
+      - "Race condition in concurrent write path"
+      - "Missing null check on external API response used in arithmetic"
+      - "Secrets hardcoded in source file"
+      - "Off-by-one in pagination causing data skip"
+    merge_policy: "Block merge. Must be fixed."
+
+  suggestion:
+    definition: "Won't break production but will make the code harder to maintain, slower, or more error-prone"
+    examples:
+      - "N+1 query in a loop — works now but will degrade at scale"
+      - "Error swallowed silently — should log or propagate"
+      - "Function does 3 things — split for testability"
+      - "Magic number 86400 — extract to SECONDS_PER_DAY constant"
+    merge_policy: "Should address before merge. Author can defer with justification."
+
+  nit:
+    definition: "Stylistic or cosmetic. No functional impact."
+    examples:
+      - "Prefer const over let for this binding"
+      - "Could destructure this parameter"
+      - "Inconsistent spacing in this block vs rest of file"
+    merge_policy: "Author's discretion. Don't block merge."
+
+# Default assumptions (don't ask unless blocking)
+default_assumptions:
+  - "Tests should be written for new functionality unless it's a trivial config change"
+  - "Existing patterns in the codebase are intentional conventions to follow"
+  - "Performance is acceptable unless the change is in a hot path"
+  - "Backward compatibility matters unless the PR description says otherwise"
+  - "The author has tested locally before submitting"
+
+# Questions to ask only if blocking
+blocking_questions:
+  - "Is this intended to be backward compatible? (ask only if the change breaks an existing API)"
+  - "What's the expected scale for this? (ask only if O(n²) or worse in user-facing path)"
+  - "Is there a migration plan? (ask only if schema/data format changes)"
+  - "Was this discussed with the team? (ask only for architectural changes affecting >3 files)"

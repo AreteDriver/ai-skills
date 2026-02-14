@@ -18,8 +18,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Make validator executable
-        run: chmod +x ./tools/validate-skills.sh
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install Python YAML parser
+        run: pip install pyyaml
+
+      - name: Make scripts executable
+        run: chmod +x ./tools/*.sh
 
       - name: Run skill validation
         run: ./tools/validate-skills.sh --verbose
+
+      - name: Run format check
+        run: ./tools/format-check.sh --verbose

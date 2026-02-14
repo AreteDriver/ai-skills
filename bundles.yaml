@@ -1,0 +1,58 @@
+# Bundle Presets — Curated skill collections for common use cases.
+# Install with: ./tools/install.sh --bundle <name>
+
+bundles:
+  webapp-security:
+    description: Secure web application development with automated review and testing
+    audience: Web developers shipping production apps
+    skills:
+      - personas/engineering/code-reviewer
+      - personas/security/security-auditor
+      - personas/engineering/testing-specialist
+      - personas/security/accessibility-checker
+    hooks:
+      - hooks/tdd-guard.sh
+      - hooks/protected-paths.sh
+
+  release-engineering:
+    description: Ship software with confidence — code review, CI/CD, and release automation
+    audience: Teams preparing repos for public release or package publishing
+    skills:
+      - personas/engineering/code-reviewer
+      - personas/claude-code/cicd-pipeline
+    hooks:
+      - hooks/no-force-push.sh
+      - hooks/tdd-guard.sh
+
+  data-pipeline:
+    description: End-to-end data engineering — ETL, analysis, visualization, and reporting
+    audience: Data engineers and analysts building data products
+    skills:
+      - personas/data/data-engineer
+      - personas/data/data-analyst
+      - personas/data/data-visualizer
+      - personas/data/report-generator
+
+  full-stack-dev:
+    description: Complete engineering stack — architecture, implementation, review, testing, and docs
+    audience: Full-stack developers working on production codebases
+    skills:
+      - personas/engineering/senior-software-engineer
+      - personas/engineering/code-reviewer
+      - personas/engineering/testing-specialist
+      - personas/engineering/software-architect
+      - personas/engineering/documentation-writer
+    hooks:
+      - hooks/tdd-guard.sh
+      - hooks/no-force-push.sh
+      - hooks/tool-logger.sh
+
+  claude-code-dev:
+    description: Build Claude Code extensions — hooks, plugins, MCP servers, and CI pipelines
+    audience: Developers extending Claude Code with custom tooling
+    skills:
+      - personas/claude-code/hooks-designer
+      - personas/claude-code/plugin-builder
+      - personas/claude-code/mcp-server-builder
+      - personas/claude-code/cicd-pipeline
+      - personas/claude-code/session-memory-manager

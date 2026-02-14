@@ -1,0 +1,153 @@
+# Release Engineering Workflow Schema
+# Defines the typed interface for the release-engineering workflow.
+
+name: release-engineering
+version: "1.0.0"
+type: workflow
+phase: full-lifecycle
+
+description: >
+  End-to-end release workflow coordinating preflight checks, code review,
+  changelog generation, version bump, tagging, and publishing.
+
+inputs:
+  repo_path:
+    type: string
+    required: true
+    description: Path to the repository to release
+
+  version_override:
+    type: string
+    required: false
+    description: >
+      Explicit version to release (e.g., "1.0.0"). If omitted, version is
+      determined automatically based on commit analysis and semver rules.
+
+  mode:
+    type: enum
+    values: [preflight, ship, hotfix]
+    default: ship
+    description: >
+      preflight: Check readiness without making changes.
+      ship: Full release pipeline.
+      hotfix: Patch release from current state.
+
+  skip_publish:
+    type: boolean
+    default: false
+    description: >
+      If true, stop after tagging. Don't publish to package registry.
+
+  publish_target:
+    type: enum
+    values: [pypi, npm, crates, github-only]
+    required: false
+    description: >
+      Where to publish. Auto-detected from project files if omitted.
+
+outputs:
+  preflight_report:
+    type: object
+    description: Gate-by-gate readiness assessment
+    fields:
+      code_health:
+        type: enum
+        values: [pass, fail]
+      documentation:
+        type: enum
+        values: [pass, fail, warn]
+      metadata:
+        type: enum
+        values: [pass, fail, warn]
+      security:
+        type: enum
+        values: [pass, fail]
+      ci:
+        type: enum
+        values: [pass, fail, skip]
+      verdict:
+        type: enum
+        values: [ready, not_ready]
+      blockers:
+        type: array
+        items: string
+      warnings:
+        type: array
+        items: string
+
+  release_review:
+    type: object
+    description: Code review of unreleased changes
+    fields:
+      critical_findings:
+        type: integer
+      breaking_changes:
+        type: array
+        items: string
+      semver_recommendation:
+        type: enum
+        values: [major, minor, patch]
+
+  release_result:
+    type: object
+    description: Final release outcome
+    fields:
+      version:
+        type: string
+      tag:
+        type: string
+      changelog_entry:
+        type: string
+      github_release_url:
+        type: string
+      package_url:
+        type: string
+      verification:
+        type: enum
+        values: [verified, failed]
+
+capabilities:
+  - "Run test suites across Python, Node, and Rust projects"
+  - "Generate Keep-a-Changelog formatted changelogs from git history"
+  - "Bump versions across multiple project config files consistently"
+  - "Create annotated git tags and GitHub releases"
+  - "Publish to PyPI, npm, or crates.io"
+  - "Audit for secrets and security issues before release"
+
+risk_level: medium
+consensus: required_for_publish
+
+agents_involved:
+  - context-mapper
+  - release-engineer
+  - code-reviewer
+  - github-operations
+
+phases:
+  - name: context-mapping
+    agent: context-mapper
+    risk: low
+
+  - name: preflight
+    agent: release-engineer
+    risk: low
+    gate: all_required_pass
+
+  - name: review
+    agent: code-reviewer
+    risk: low
+    gate: no_critical_findings
+
+  - name: prepare
+    agent: release-engineer
+    risk: medium
+    gate: tests_and_build_pass
+
+  - name: publish
+    agent: github-operations
+    risk: medium
+    consensus: required
+
+  - name: verify
+    agent: release-engineer
+    risk: low

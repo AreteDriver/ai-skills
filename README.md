@@ -3,7 +3,7 @@
 [![Validate Skills](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/Skills-54-blue)]()
+[![Skills](https://img.shields.io/badge/Skills-55-blue)]()
 
 **Production-ready skills for Claude Code personas, Gorgon agent capabilities, and orchestrated workflows.**
 
@@ -21,11 +21,17 @@ Claude is powerful but generic. For specialized work you end up re-explaining co
 git clone https://github.com/AreteDriver/ai-skills.git
 cd ai-skills
 
-# Copy a skill into Claude Code
-cp -r personas/engineering/code-reviewer ~/.claude/skills/
+# Install a single skill
+./tools/install.sh --persona code-reviewer
 
-# Validate all skills
-./tools/validate-skills.sh
+# Install a curated bundle
+./tools/install.sh --bundle webapp-security
+
+# Install everything
+./tools/install.sh --all
+
+# See what's available
+./tools/install.sh --list
 ```
 
 **See it in action:** Ask Claude to review a function with SQL injection — with the skill loaded, you get severity-ranked findings with line references and concrete fixes instead of vague suggestions.
@@ -42,7 +48,7 @@ See the full [Quickstart Guide](examples/quickstart/README.md) with before/after
 │  (how Claude    │ (what Gorgon  │ (multi-step   │
 │   behaves)      │  agents do)   │  execution)   │
 ├─────────────────┼───────────────┼───────────────┤
-│ 36 skills       │ 16 skills     │ 2 workflows   │
+│ 36 skills       │ 16 skills     │ 3 workflows   │
 │ SKILL.md only   │ SKILL.md +    │ SKILL.md +    │
 │                 │ schema.yaml   │ schema.yaml   │
 └─────────────────┴───────────────┴───────────────┘
@@ -147,6 +153,7 @@ Workflows use the **WHY/WHAT/HOW** framework to ensure clear intent, scope, and 
 |----------|-------|-------------|
 | [context-mapper](workflows/context-mapping/SKILL.md) | pre-execution | Codebase reconnaissance before agents write code |
 | [feature-implementation](workflows/feature-implementation/SKILL.md) | full-lifecycle | Requirements → context → design → implement → test → PR |
+| [release-engineering](workflows/release-engineering/SKILL.md) | full-lifecycle | Preflight → review → changelog → version → tag → publish |
 
 ### WHY/WHAT/HOW Framework
 
@@ -160,22 +167,39 @@ See `workflow-schema.yaml` for the full schema definition.
 
 ## Installation
 
-### Claude Code Native Skills
+### Installer (recommended)
 
 ```bash
-# Clone the repo
 git clone https://github.com/AreteDriver/ai-skills.git
+cd ai-skills
 
+# Install a single persona
+./tools/install.sh --persona code-reviewer
+
+# Install a curated bundle (see below)
+./tools/install.sh --bundle full-stack-dev
+
+# Install everything
+./tools/install.sh --all
+
+# Symlink for development (edit in repo, changes appear in Claude Code)
+./tools/install.sh --persona code-reviewer --symlink
+
+# List all available skills and bundles
+./tools/install.sh --list
+
+# Remove installed skills
+./tools/install.sh --uninstall
+```
+
+### Manual Installation
+
+```bash
 # Copy persona skills
-cp -r ai-skills/personas/engineering/senior-software-engineer ~/.claude/skills/
-
-# Copy all personas
-for dir in ai-skills/personas/*/; do
-  cp -r "$dir"*/ ~/.claude/skills/ 2>/dev/null
-done
+cp -r personas/engineering/code-reviewer ~/.claude/skills/
 
 # Or symlink for development
-ln -s $(pwd)/ai-skills/personas/engineering/senior-software-engineer ~/.claude/skills/senior-software-engineer
+ln -s $(pwd)/personas/engineering/code-reviewer ~/.claude/skills/code-reviewer
 ```
 
 ### Project-Level Reference
@@ -189,18 +213,39 @@ Active skills:
 - mentor-linux (when studying)
 ```
 
+## Bundle Presets
+
+Curated skill collections for common use cases. Install with `./tools/install.sh --bundle <name>`.
+
+| Bundle | Skills | Use Case |
+|--------|--------|----------|
+| `webapp-security` | code-reviewer, security-auditor, testing-specialist, accessibility-checker | Secure web app development |
+| `release-engineering` | code-reviewer, cicd-pipeline | Shipping releases with confidence |
+| `data-pipeline` | data-engineer, data-analyst, data-visualizer, report-generator | End-to-end data engineering |
+| `full-stack-dev` | senior-software-engineer, code-reviewer, testing-specialist, software-architect, documentation-writer | Full engineering stack |
+| `claude-code-dev` | hooks-designer, plugin-builder, mcp-server-builder, cicd-pipeline, session-memory-manager | Building Claude Code extensions |
+
+Bundle definitions live in `bundles.yaml`. Add your own by following the same format.
+
 ## Validation
 
 ```bash
-# Validate all skills
+# Validate all skills (structure, frontmatter, registry consistency)
 ./tools/validate-skills.sh
+
+# Check formatting (YAML syntax, markdown quality, shell syntax, line endings)
+./tools/format-check.sh
 
 # Verbose output
 ./tools/validate-skills.sh --verbose
+./tools/format-check.sh --verbose
 
-# Auto-fix simple issues (e.g., hook permissions)
+# Auto-fix issues (hook permissions, trailing whitespace, CRLF)
 ./tools/validate-skills.sh --fix
+./tools/format-check.sh --fix
 ```
+
+Both validators run in CI on every push and PR. See `.github/workflows/validate-skills.yml`.
 
 ## Registry
 
@@ -210,7 +255,7 @@ Active skills:
 # Query the registry
 personas.engineering        # 7 skills
 agents.system               # 2 skills (file-operations, process-runner)
-workflows                   # 2 workflows (context-mapper, feature-implementation)
+workflows                   # 3 workflows (context-mapper, feature-implementation, release-engineering)
 ```
 
 ## Skill Development
@@ -247,6 +292,7 @@ Agent skills additionally require:
 
 | Directory | Purpose |
 |-----------|---------|
+| `bundles.yaml` | Curated skill bundles for common use cases |
 | `examples/` | Quickstart guide with before/after demos |
 | `hooks/` | 4 executable hook scripts (tdd-guard, no-force-push, protected-paths, tool-logger) |
 | `plugins/` | Example quality-gate plugin bundling skills + hooks |
@@ -254,7 +300,7 @@ Agent skills additionally require:
 | `prompts/` | 7 legacy prompt templates |
 | `templates/` | Skill and prompt templates |
 | `decisions/` | ADR template |
-| `tools/` | Validation scripts |
+| `tools/` | `validate-skills.sh`, `format-check.sh`, `install.sh` |
 
 ## Credits
 
