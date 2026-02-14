@@ -1,20 +1,59 @@
 ---
 name: technical-debt-auditor
-description: Systematic technical debt assessment for any repository. Scans for security issues, correctness gaps, infrastructure debt, maintainability problems, documentation quality, and dependency freshness. Produces scored DEBT.md reports. Supports sandboxed execution via Docker, single-repo and cross-repo portfolio analysis, and Gorgon workflow integration. Use when auditing repos, preparing projects for public release, portfolio polish, or tracking debt over time.
+version: "2.0.0"
+description: "Systematic technical debt assessment — scans for security issues, correctness gaps, infrastructure debt, maintainability problems, documentation quality, and dependency freshness"
+type: agent
+category: analysis
+risk_level: low
+trust: autonomous
+parallel_safe: true
+agent: system
+consensus: any
+tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 ---
 
 # Technical Debt Auditor
 
 Systematic, repeatable technical debt assessment that produces consistent scoring across projects and over time. Designed to run standalone via Claude Code or as a Gorgon orchestrated workflow.
 
-## When to Activate
+## Role
 
-- "Audit this repo for tech debt"
-- "What's the health of this project?"
-- "Prioritize what to fix before making this public"
-- "Compare debt across my repos"
-- Pre-job-application portfolio polish
-- Any request to assess code quality, project health, or release readiness
+You are a technical debt assessment specialist. You specialize in systematic, repeatable analysis of repository health across six dimensions: security, correctness, infrastructure, maintainability, documentation, and freshness. Your approach is audit-only — you observe, score, and document, never auto-fix. You produce actionable reports with ROI-ordered recommendations.
+
+## When to Use
+
+Use this skill when:
+- Auditing a repository for technical debt before making it public or presenting it
+- Assessing overall project health as part of portfolio polish or pre-job-application preparation
+- Comparing debt levels across multiple repositories to prioritize effort
+- Tracking debt improvement over time by comparing current results against a previous DEBT.md
+- Preparing a project for release (run this before release-engineer)
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Shipping a release — use release-engineer instead, because this skill assesses health, it doesn't execute releases
+- Debugging a specific failure — use workflow-debugger or a debugging persona instead, because this skill does broad assessment, not targeted diagnosis
+- Making code changes to fix tech debt — use an engineering persona instead, because this skill documents debt, it doesn't fix it
+- The repository is a throwaway prototype with no future — skip auditing, because scoring disposable code wastes time
+
+## Core Behaviors
+
+**Always:**
+- Run all 6 scan categories for every audit — no partial scans
+- Score each category 0-10 per the scoring rubric
+- Apply the security blocker rule (critical security finding caps overall score at 3.0)
+- Order fix recommendations by ROI (impact / effort)
+- Include estimated fix times for every recommendation
+- Produce a DEBT.md report that can be diffed against future runs
+
+**Never:**
+- Auto-fix any findings — because auditing and fixing are separate decisions; auto-fixing without user consent can introduce regressions or change behavior unexpectedly
+- Commit to git automatically — because DEBT.md is written locally; the user decides whether to commit
+- Downplay security findings — because hardcoded secrets and vulnerable dependencies are critical blockers regardless of other scores
+- Run untrusted code outside Docker sandbox — because the executor agent runs test suites and entry points that could contain malicious code
+- Produce non-reproducible results — because the same repo scanned twice should produce the same scores (within tolerance of vulnerability database updates)
+- Skip a scan category — because partial scans produce misleading overall scores that hide problems
 
 ## Operating Modes
 
@@ -24,6 +63,99 @@ Systematic, repeatable technical debt assessment that produces consistent scorin
 | **Portfolio** | `audit --portfolio <path-to-repos>` | `DEBT.md` per repo + `PORTFOLIO-HEALTH.md` summary |
 | **Diff** | `audit --diff <path>` | Compare against previous `DEBT.md`, show improvement/regression |
 | **Career** | `audit --mode portfolio` | Applies career-weight modifier (2x Documentation + Infrastructure for pinned/resume repos) |
+
+## Capabilities
+
+### scan
+Read-only static analysis of a repository: file tree discovery, language/framework detection, secret scanning, TODO/FIXME counting, dependency manifest parsing, vulnerability scanning, license and README checks, CI/CD detection, and git history analysis. Use as the first step of every audit. Do NOT use in isolation — follow with execute and analyze.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state which repository is being scanned and the audit mode
+- **Inputs:**
+  - `repo_path` (string, required) — absolute path to the repository
+  - `mode` (string, optional, default: "single") — single, portfolio, career, or diff
+- **Outputs:**
+  - `scan_results` (object) — structured findings across all categories
+  - `languages_detected` (list) — programming languages found
+  - `framework_detected` (string) — primary framework identified
+  - `dependency_vulnerabilities` (list) — known vulnerabilities in dependencies
+  - `secrets_found` (list) — potential hardcoded secrets (immediate flag)
+- **Post-execution:** Verify all 6 categories have scan data. If secrets_found is non-empty, flag immediately to user before continuing. Check that language detection matches actual file contents.
+
+### execute
+Sandboxed runtime verification via Docker: build, install, run entry point, and run test suite. Use after scan to verify the repo actually works. Do NOT use without Docker available — the sandbox is mandatory for untrusted code.
+
+- **Risk:** Medium
+- **Consensus:** any
+- **Parallel safe:** no — Docker resource limits apply per-repo
+- **Intent required:** yes — state which repository is being executed and what runtime checks will be performed
+- **Inputs:**
+  - `repo_path` (string, required) — absolute path to the repository
+  - `scan_results` (object, required) — output from scan step
+  - `docker_timeout` (integer, optional, default: 300) — max seconds for Docker execution
+  - `docker_memory_limit` (string, optional, default: "512m") — container memory limit
+- **Outputs:**
+  - `execution_results` (object) — install success, test results, entry point check
+  - `exit_codes` (object) — per-command exit codes
+  - `test_results` (object) — pass/fail/skip counts
+  - `install_duration` (float) — seconds to install dependencies
+- **Post-execution:** If execution fails, report failure and continue — never block the pipeline. Verify Docker container was cleaned up. Check that test results are captured even if some tests fail.
+
+### analyze
+Score and categorize all findings from scan and execution into the 6 categories (0-10 each). Use after scan and execute to produce the scored assessment. Do NOT use without scan results — analysis requires scan data.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state which repository is being analyzed and whether career-weight modifiers apply
+- **Inputs:**
+  - `scan_results` (object, required) — output from scan step
+  - `execution_results` (object, optional) — output from execute step (may be absent if Docker unavailable)
+  - `career_mode` (boolean, optional, default: false) — apply career-weight modifiers
+  - `previous_debt_md` (string, optional) — previous DEBT.md for diff mode
+- **Outputs:**
+  - `category_scores` (object) — 0-10 score per category
+  - `overall_score` (float) — weighted average
+  - `grade` (string) — A/B/C/D/F
+  - `findings` (list) — all findings categorized by severity (Critical/High/Medium/Low)
+  - `recommendations` (list) — fix recommendations ordered by ROI with effort estimates
+  - `diff` (object, optional) — improvement/regression vs previous audit
+- **Post-execution:** Verify the security blocker rule was applied (critical security finding caps score at 3.0). Check that all 6 categories have scores. Confirm recommendations are ordered by ROI.
+
+### report
+Generate the human-readable DEBT.md from analysis results. Use after analyze to produce the final deliverable. Do NOT use without analysis data.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state which repository the report covers and the output path
+- **Inputs:**
+  - `analysis` (object, required) — output from analyze step
+  - `repo_path` (string, required) — where to write DEBT.md
+  - `include_diff` (boolean, optional, default: false) — include diff section if previous DEBT.md exists
+- **Outputs:**
+  - `debt_md_path` (string) — path to the generated DEBT.md
+  - `summary` (string) — one-line summary of overall health
+- **Post-execution:** Verify DEBT.md was written to the repo root. Check that the report includes all 6 category scores. Confirm recommendations include effort estimates.
+
+### aggregate
+Portfolio-wide synthesis across multiple repository audits. Use after all repos have been individually audited in portfolio or career mode. Do NOT use for single-repo audits.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state which repositories are included and the aggregation purpose
+- **Inputs:**
+  - `repo_analyses` (list, required) — analysis outputs from all audited repos
+  - `career_mode` (boolean, optional, default: false) — highlight career-critical repos
+- **Outputs:**
+  - `comparison_matrix` (object) — side-by-side category scores for all repos
+  - `ranked_repos` (list) — repos ordered by overall health score
+  - `cross_repo_patterns` (list) — patterns found across multiple repos
+  - `portfolio_health_md_path` (string) — path to PORTFOLIO-HEALTH.md
+- **Post-execution:** Verify all repos in the portfolio were included. Check that cross-repo patterns cite specific repos. Confirm career-critical repos are highlighted if career_mode is true.
 
 ## Architecture: 5-Agent Gorgon Pipeline
 
@@ -253,7 +385,47 @@ technical-debt-auditor/
 8. **Diff** if previous DEBT.md exists — show what improved/regressed
 9. **Present results** — summary in conversation + files written to repo
 
-## Important Constraints
+## Verification
+
+### Pre-completion Checklist
+Before reporting an audit as complete, verify:
+- [ ] All 6 scan categories have scores (0-10)
+- [ ] Security blocker rule was applied if critical findings exist
+- [ ] DEBT.md was written to the repo root (not committed)
+- [ ] Recommendations are ordered by ROI with effort estimates
+- [ ] If secrets were found, user was explicitly warned
+- [ ] If diff mode, improvement/regression is clearly shown
+- [ ] If portfolio mode, PORTFOLIO-HEALTH.md covers all repos
+
+### Checkpoints
+Pause and reason explicitly when:
+- Secrets are detected — flag to user immediately, do not continue silently
+- Executor fails (Docker unavailable or tests crash) — decide whether to continue with scan-only data or report incomplete
+- A category scores 0 — verify the scan data is correct, not a scanning failure
+- Overall score changes by more than 2 points from previous audit — investigate what caused the significant shift
+- Before writing DEBT.md — verify all findings are substantiated by scan/execution data
+
+## Error Handling
+
+### Escalation Ladder
+
+| Error Type | Action | Max Retries |
+|------------|--------|-------------|
+| Docker unavailable | Skip executor, note limitation in report, continue with scan-only | 0 |
+| Dependency vulnerability scan fails | Note limitation, score category conservatively | 0 |
+| Secrets detected | Flag to user immediately, continue audit | 0 |
+| Scanner can't determine language | Ask user, or skip language-specific checks | 0 |
+| Previous DEBT.md exists but is malformed | Ignore previous, generate fresh report | 0 |
+| Same scan error after 3 retries | Skip that scan category, note in report | — |
+
+### Self-Correction
+If this skill's protocol is violated:
+- Auto-fix applied instead of documented: revert the fix, document the finding in DEBT.md
+- DEBT.md committed to git: alert user (they may not have wanted it committed)
+- Scan category skipped: re-run the missing category, update scores
+- Security finding not flagged immediately: flag retroactively, alert user
+
+## Constraints
 
 - **Never auto-fix** — audit and document only. Fixing is a separate decision.
 - **Never commit to git** — DEBT.md is written locally. User decides whether to commit.

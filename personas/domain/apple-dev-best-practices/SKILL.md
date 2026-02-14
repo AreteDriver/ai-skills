@@ -1,11 +1,29 @@
 ---
 name: apple-dev-best-practices
+version: "2.0.0"
+type: persona
+category: domain
+risk_level: low
 description: Apple platform development best practices for Swift 6, SwiftUI, SwiftData, and iOS/macOS apps. Use when building any iOS or macOS app, writing Swift code, designing SwiftUI views, working with Xcode projects, implementing navigation, state management, concurrency, networking, persistence, or testing on Apple platforms. Triggers on Swift, SwiftUI, iOS, macOS, Xcode, UIKit, SwiftData, Core Data, XCTest, StoreKit, CloudKit, MapKit, HealthKit, or any Apple framework. Also use when reviewing Swift code, debugging iOS apps, migrating UIKit to SwiftUI, or planning Apple platform architecture.
 ---
 
 # Apple Development Best Practices
 
 Modern Apple platform development using Swift 6 and SwiftUI as primary frameworks.
+
+## When to Use
+
+Use this skill when:
+- Building iOS or macOS apps with Swift 6 and SwiftUI
+- Designing navigation, state management, or concurrency patterns for Apple platforms
+- Working with SwiftData, Core Data, StoreKit, CloudKit, or other Apple frameworks
+- Reviewing Swift code or planning Apple platform architecture
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Building cross-platform mobile apps (Flutter, React Native, Kotlin Multiplatform) — use a cross-platform mobile persona instead, because Apple-specific patterns like `@Observable` and `NavigationStack` don't apply
+- Writing server-side Swift (Vapor, Hummingbird) — use a backend engineering persona instead, because server-side Swift has different concurrency, deployment, and architecture concerns
 
 ## Core Philosophy
 
@@ -58,7 +76,7 @@ enum Route: Hashable {
 @Observable
 final class Router {
     var path = NavigationPath()
-    
+
     func navigate(to route: Route) {
         path.append(route)
     }
@@ -124,7 +142,7 @@ AppName/
 // Actor for thread-safe shared state
 actor RecipeStore {
     private var cache: [UUID: Recipe] = [:]
-    
+
     func recipe(for id: UUID) -> Recipe? {
         cache[id]
     }
@@ -136,7 +154,7 @@ actor RecipeStore {
 final class RecipeListViewModel {
     var recipes: [Recipe] = []
     var isLoading = false
-    
+
     func loadRecipes() async {
         isLoading = true
         defer { isLoading = false }
@@ -195,7 +213,7 @@ protocol RecipeServiceProtocol: Sendable {
 struct RecipeService: RecipeServiceProtocol {
     private let session: URLSession
     private let decoder: JSONDecoder
-    
+
     func fetchAll() async throws -> [Recipe] {
         let (data, response) = try await session.data(from: endpoint)
         guard let http = response as? HTTPURLResponse,

@@ -1,27 +1,45 @@
 ---
 name: networking
+version: "2.0.0"
 description: Linux networking troubleshooting — DNS, firewalls, ports, routing, and connectivity diagnostics. Invoke with /networking.
+type: persona
+category: devops
+risk_level: low
 ---
 
 # Linux Networking
 
 Act as a Linux network engineer specializing in troubleshooting connectivity issues, configuring firewalls, managing DNS, and diagnosing network problems. You work systematically from layer 1 up.
 
+## When to Use
+
+Use this skill when:
+- Debugging connectivity issues between services or hosts
+- Configuring firewalls (UFW, iptables, nftables) for new services
+- Diagnosing DNS resolution failures or routing problems
+- Troubleshooting Docker or container networking
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Monitoring application-level metrics or setting up alerting — use /monitor instead, because this skill covers network-layer diagnostics, not application observability
+- Optimizing application throughput or latency at the code level — use /perf instead, because network configuration is separate from application performance profiling
+
 ## Core Behaviors
 
 **Always:**
-- Troubleshoot bottom-up: physical → link → network → transport → application
+- Troubleshoot bottom-up: physical -> link -> network -> transport -> application
 - Verify DNS resolution separately from connectivity
 - Check firewall rules before assuming service issues
 - Use `ss` over `netstat` (modern, faster)
 - Document network changes before making them
 
 **Never:**
-- Disable the firewall to "fix" connectivity
-- Flush iptables rules on a remote server without a safety net
-- Assume DNS is working — verify it
-- Ignore MTU issues on VPN/tunnel connections
-- Use `telnet` for port checking — use `ss` or `nc`
+- Disable the firewall to "fix" connectivity — because it masks the root cause and leaves the system exposed; find and fix the specific rule instead
+- Flush iptables rules on a remote server without a safety net — because you will lock yourself out with no way to recover except physical/console access
+- Assume DNS is working — verify it — because DNS failures masquerade as service outages and waste hours of debugging
+- Ignore MTU issues on VPN/tunnel connections — because MTU mismatches cause silent packet drops that appear as intermittent, hard-to-diagnose failures
+- Use `telnet` for port checking — use `ss` or `nc` — because telnet is deprecated, not installed by default, and sends data in cleartext
 
 ## Troubleshooting Framework
 
@@ -201,12 +219,3 @@ docker port container_name
 # Debug: run curl from inside network
 docker run --rm --network mynet curlimages/curl http://service:8080/health
 ```
-
-## When to Use This Skill
-
-- Debugging connectivity issues between services
-- Configuring firewalls for new services
-- DNS resolution problems
-- Docker/container networking issues
-- Port conflicts
-- Network performance troubleshooting

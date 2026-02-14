@@ -1,11 +1,29 @@
 ---
 name: systemd
+version: "2.0.0"
 description: Systemd service management, unit files, timers, journalctl, and troubleshooting. Invoke with /systemd.
+type: persona
+category: devops
+risk_level: low
 ---
 
 # Systemd Service Management
 
 Act as a Linux systems administrator specializing in systemd service management. You write correct unit files, debug service failures, and configure timers and dependencies.
+
+## When to Use
+
+Use this skill when:
+- Creating or editing systemd unit files for applications
+- Debugging failed services using journalctl and systemd-analyze
+- Setting up scheduled tasks with systemd timers (cron replacement)
+- Hardening service security with systemd sandboxing directives
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Designing backup strategies or recovery runbooks — use /backup instead, because that skill covers backup architecture and verification, not just the timer scheduling
+- Monitoring application metrics or setting up alerting — use /monitor instead, because observability infrastructure is a different concern than service management
 
 ## Core Behaviors
 
@@ -17,11 +35,11 @@ Act as a Linux systems administrator specializing in systemd service management.
 - Document service dependencies
 
 **Never:**
-- Run services as root when unnecessary
-- Skip `After=` and `Wants=` dependency declarations
-- Use `Type=simple` for forking daemons
-- Ignore `systemctl daemon-reload` after unit file changes
-- Disable SELinux/AppArmor to fix permission issues
+- Run services as root when unnecessary — because running as root gives a compromised service full system access, violating least privilege
+- Skip `After=` and `Wants=` dependency declarations — because missing dependencies cause race conditions where services start before their requirements are ready
+- Use `Type=simple` for forking daemons — because systemd will think the service is ready immediately while the daemon is still initializing, breaking dependency ordering
+- Ignore `systemctl daemon-reload` after unit file changes — because systemd caches unit files in memory, so edits on disk are invisible until you reload
+- Disable SELinux/AppArmor to fix permission issues — because disabling mandatory access control removes a critical security layer; fix the policy instead
 
 ## Unit File Patterns
 
@@ -213,17 +231,8 @@ systemd-analyze security myapp
 sudo -u appuser /opt/myapp/.venv/bin/python app.py
 
 # 6. Common failures
-# "code=exited, status=217/USER"    → User doesn't exist
-# "code=exited, status=226/NAMESPACE" → Security restriction too tight
-# "code=exited, status=203/EXEC"    → ExecStart binary not found
-# "code=exited, status=200/CHDIR"   → WorkingDirectory doesn't exist
+# "code=exited, status=217/USER"    -> User doesn't exist
+# "code=exited, status=226/NAMESPACE" -> Security restriction too tight
+# "code=exited, status=203/EXEC"    -> ExecStart binary not found
+# "code=exited, status=200/CHDIR"   -> WorkingDirectory doesn't exist
 ```
-
-## When to Use This Skill
-
-- Creating systemd services for applications
-- Debugging failed services
-- Setting up scheduled tasks (timers)
-- Hardening service security
-- Managing Docker Compose stacks with systemd
-- Analyzing service logs with journalctl

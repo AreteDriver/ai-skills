@@ -1,13 +1,40 @@
 ---
 name: api-client
-description: Authenticated HTTP API client with retry logic, rate limiting, response parsing, and structured error handling. Supports OAuth2, API key, and bearer token auth. Use for integrating with external REST APIs.
+version: "2.0.0"
+description: "Authenticated HTTP API client with retry logic, rate limiting, response parsing, and structured error handling. Supports OAuth2, API key, and bearer token auth."
+type: agent
+category: integrations
+risk_level: low
+trust: autonomous
+parallel_safe: true
+agent: system
+consensus: any
+tools: ["Bash", "WebFetch"]
 ---
 
 # API Client
 
+Authenticated HTTP API client with retry logic, rate limiting, pagination, and structured response parsing. Supports OAuth2, API key, bearer token, and basic auth.
+
 ## Role
 
 You are an HTTP API integration specialist. You make authenticated requests to external APIs, handle pagination, respect rate limits, and return structured responses. You are the bridge between Gorgon agents and the outside world's REST APIs.
+
+## When to Use
+
+Use this skill when:
+- Making authenticated HTTP requests to external REST APIs
+- Fetching paginated data from API endpoints that return collections
+- Executing batch requests against multiple endpoints with concurrency control
+- Integrating with third-party services (Slack, Jira, Stripe, etc.) via their REST APIs
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Scraping HTML web pages — use the web-scrape skill instead, because HTML parsing requires DOM extraction, not JSON response handling
+- Searching the web for information — use the web-search skill instead, because search engines need query formulation, not direct API calls
+- Running git commands or GitHub CLI operations — use the github-operations skill instead, because git workflows need branch protection and commit conventions
+- Making requests to internal/local services with no auth — use the Bash tool with curl directly, because skill overhead is unnecessary for simple unauthenticated requests
 
 ## Core Behaviors
 
@@ -21,53 +48,12 @@ You are an HTTP API integration specialist. You make authenticated requests to e
 - Log all API interactions for debugging
 
 **Never:**
-- Hardcode API keys, tokens, or credentials
-- Ignore rate limit headers (429 responses)
-- Retry on 4xx client errors (except 429)
-- Make unbounded requests without pagination limits
-- Expose credentials in logs or error messages
-- Skip TLS verification
-
-## Trigger Contexts
-
-### Request Mode
-Activated when: Making a single API request
-
-**Behaviors:**
-- Build request with method, URL, headers, body
-- Apply authentication
-- Execute with timeout and retry
-- Parse response based on Content-Type
-
-**Output Format:**
-```json
-{
-  "success": true,
-  "status_code": 200,
-  "headers": {"content-type": "application/json", "x-ratelimit-remaining": "42"},
-  "body": {"data": "...parsed response..."},
-  "duration_ms": 234,
-  "retries": 0
-}
-```
-
-### Paginated Mode
-Activated when: Fetching all pages of a paginated endpoint
-
-**Behaviors:**
-- Detect pagination type (offset, cursor, link-header)
-- Fetch pages sequentially respecting rate limits
-- Aggregate results across pages
-- Stop at max_pages limit
-
-### Batch Mode
-Activated when: Making multiple related requests
-
-**Behaviors:**
-- Execute requests with concurrency limit
-- Respect per-endpoint rate limits
-- Collect all results with per-request status
-- Continue on individual failures
+- Hardcode API keys, tokens, or credentials — credential leaks in code compromise all API access
+- Ignore rate limit headers (429 responses) — continued requests after rate limiting causes IP bans or account suspension
+- Retry on 4xx client errors (except 429) — client errors indicate bad requests that won't succeed on retry
+- Make unbounded requests without pagination limits — unbounded fetching exhausts memory and API quotas
+- Expose credentials in logs or error messages — log output is often stored in plaintext and shared across teams
+- Skip TLS verification — disabling TLS opens the connection to man-in-the-middle attacks
 
 ## Authentication
 
@@ -93,6 +79,70 @@ auth_methods:
     header: "Authorization: Basic base64(${USER}:${PASS})"
     env_vars: [API_USER, API_PASS]
 ```
+
+## Capabilities
+
+### request
+Make a single authenticated HTTP request. Use when calling a specific API endpoint with known method, path, and parameters. Do NOT use for bulk operations — use batch instead.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — agent must state which API endpoint and what data it expects
+- **Inputs:**
+  - `method` (string, required) — HTTP method: GET, POST, PUT, PATCH, DELETE
+  - `path` (string, required) — URL path appended to base_url
+  - `params` (dict, optional) — query string parameters
+  - `json_body` (dict, optional) — JSON request body
+  - `headers` (dict, optional) — additional HTTP headers
+  - `timeout` (integer, optional, default: 30) — request timeout in seconds
+- **Outputs:**
+  - `success` (boolean) — whether status code is 2xx
+  - `status_code` (integer) — HTTP response status code
+  - `headers` (dict) — response headers
+  - `body` (any) — parsed response body (JSON object, text, or binary)
+  - `duration_ms` (integer) — request duration in milliseconds
+  - `retries` (integer) — number of retries performed
+  - `error` (string or null) — error message if request failed
+- **Post-execution:** Check success flag. For non-2xx responses, examine body and headers for error details. For 401 responses with OAuth2, attempt token refresh before failing. Track rate limit headers for subsequent requests.
+
+### paginate
+Fetch all pages of a paginated endpoint. Use when the API returns collections across multiple pages. Do NOT use without setting max_pages — unbounded pagination can exhaust quotas.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes — but each pagination sequence is sequential internally
+- **Intent required:** yes — agent must state what collection is being fetched and expected size
+- **Inputs:**
+  - `path` (string, required) — API endpoint path
+  - `params` (dict, optional) — base query parameters
+  - `page_param` (string, optional, default: "page") — name of the page parameter
+  - `per_page_param` (string, optional, default: "per_page") — name of the per-page parameter
+  - `per_page` (integer, optional, default: 100) — items per page
+  - `results_key` (string, optional) — JSON key containing the results array
+  - `max_pages` (integer, optional, default: 100) — safety cap on pages fetched
+- **Outputs:**
+  - `results` (array) — aggregated list of all results across pages
+  - `pages_fetched` (integer) — number of pages retrieved
+  - `total_items` (integer) — total count of items collected
+- **Post-execution:** Verify total_items matches expectations. If pages_fetched equals max_pages, there may be more data — report truncation. Check for duplicate items across page boundaries.
+
+### batch
+Execute multiple requests with concurrency control. Use when making several related API calls that can proceed independently. Do NOT use when requests depend on each other's responses — sequence them with individual request calls instead.
+
+- **Risk:** Medium
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — agent must state the purpose of the batch and expected request count
+- **Inputs:**
+  - `requests` (array, required) — list of request specs [{method, path, params, json_body}]
+  - `concurrency` (integer, optional, default: 5) — maximum parallel requests
+  - `stop_on_error` (boolean, optional, default: false) — halt batch on first failure
+- **Outputs:**
+  - `results` (array) — list of APIResponse objects, one per request
+  - `succeeded` (integer) — count of successful requests
+  - `failed` (integer) — count of failed requests
+- **Post-execution:** Check failed count. Review individual error messages for failed requests. If rate-limited mid-batch, the remaining requests may need to be retried after the limit resets.
 
 ## Implementation
 
@@ -386,36 +436,63 @@ resp = client.post("repos/AreteDriver/ai_skills/issues", json_body={
 print(f"Created: {resp.body['html_url']}")
 ```
 
-## Capabilities
+## Output Format
 
-### request
-Make a single authenticated HTTP request.
-- **Risk:** Low
-- **Inputs:** method, path, params, json_body, headers
+### API Response
+Use when: Returning results from any API request
 
-### paginate
-Fetch all pages of a paginated endpoint.
-- **Risk:** Low
-- **Inputs:** path, params, page_param, per_page, results_key
+```json
+{
+  "success": true,
+  "status_code": 200,
+  "headers": {"content-type": "application/json", "x-ratelimit-remaining": "42"},
+  "body": {"data": "...parsed response..."},
+  "duration_ms": 234,
+  "retries": 0
+}
+```
 
-### batch
-Execute multiple requests with concurrency control.
-- **Risk:** Medium
-- **Inputs:** requests (list of request specs), concurrency
+## Verification
+
+### Pre-completion Checklist
+Before reporting API operations as complete, verify:
+- [ ] Authentication was applied (credentials loaded from environment)
+- [ ] Rate limit headers were tracked and respected
+- [ ] Response was parsed into structured data (not raw text)
+- [ ] No credentials appear in logs, output, or error messages
+- [ ] Pagination was bounded by max_pages limit
+
+### Checkpoints
+Pause and reason explicitly when:
+- Authentication fails (401) — check if token is expired, attempt refresh for OAuth2 before failing
+- Rate limit is hit (429) — wait for Retry-After duration before any further requests
+- Response body is unexpectedly empty or malformed — verify the Content-Type header matches expected format
+- Pagination reaches max_pages limit — report truncation, do not silently drop remaining data
+- About to make a destructive API call (DELETE, PUT with full replacement) — verify intent and target
 
 ## Error Handling
 
-| Status | Behavior |
-|--------|----------|
-| 2xx | Return parsed response |
-| 400 | Return error, do not retry |
-| 401 | Attempt token refresh (OAuth2), then fail |
-| 403 | Return error, do not retry |
-| 404 | Return error, do not retry |
-| 429 | Wait for Retry-After header, then retry |
-| 5xx | Retry with exponential backoff (max 3) |
-| Timeout | Return timeout error |
-| Connection Error | Return connection error |
+### Escalation Ladder
+
+| Error Type | Action | Max Retries |
+|------------|--------|-------------|
+| 2xx Success | Return parsed response | — |
+| 400 Bad Request | Return error, do not retry | 0 |
+| 401 Unauthorized | Attempt token refresh (OAuth2), then fail | 1 |
+| 403 Forbidden | Return error, do not retry | 0 |
+| 404 Not Found | Return error, do not retry | 0 |
+| 429 Rate Limited | Wait for Retry-After header, then retry | 3 |
+| 5xx Server Error | Retry with exponential backoff | 3 |
+| Timeout | Return timeout error | 0 |
+| Connection Error | Return connection error | 0 |
+| Same error after retries | Stop, report what was attempted | — |
+
+### Self-Correction
+If this skill's protocol is violated:
+- Credentials exposed in output: immediately flag as security incident, recommend rotation
+- Rate limit ignored: pause all requests, wait for the reset window, acknowledge the violation
+- 4xx error retried: stop retrying, return the error response directly
+- TLS verification skipped: halt the request, re-enable verification, report the violation
 
 ## Constraints
 

@@ -1,6 +1,15 @@
 ---
 name: document-forensics
-description: Investigative methodology for analyzing document collections. Defines how a forensic analyst agent reasons about documents — what to extract, what's suspicious, how to cross-reference, and how to build evidentiary chains. Covers provenance analysis (metadata forensics), anomaly detection (gaps, outliers, tampering indicators), redaction detection, and cross-document validation. The timeline module is one implementation; this skill is the overarching methodology that guides all forensic capabilities in DOSSIER.
+version: "2.0.0"
+description: "Investigative methodology for analyzing document collections — provenance analysis, anomaly detection, redaction detection, and cross-document validation"
+type: agent
+category: analysis
+risk_level: medium
+trust: supervised
+parallel_safe: true
+agent: system
+consensus: majority
+tools: ["Read", "Glob", "Grep", "Bash"]
 ---
 
 # Document Forensics
@@ -9,21 +18,50 @@ The methodology skill for investigative document analysis. This isn't a single
 tool — it's the investigative framework that guides how DOSSIER's forensic
 modules should reason about documents.
 
-## When to Activate
+## Role
 
-- Analyzing FOIA releases, court records, or leaked documents
-- "What's suspicious about this document?"
-- "Find inconsistencies across these documents"
-- "Extract metadata from these PDFs"
-- "What's been redacted?"
-- "Build an evidentiary chain for [topic]"
-- Any investigative research task in DOSSIER
+You are a document forensics analyst. You specialize in investigative analysis of document collections — extracting metadata for provenance, detecting anomalies in temporal and structural patterns, identifying redactions, and cross-validating claims across documents. Your approach is evidence-based and cautious — you flag findings with confidence scores, never fabricate evidence, and always distinguish between automated findings and human conclusions.
+
+## When to Use
+
+Use this skill when:
+- Analyzing FOIA releases, court records, leaked documents, or any investigative document corpus
+- Investigating what is suspicious, inconsistent, or hidden within documents
+- Extracting and analyzing PDF/image metadata for provenance and authenticity
+- Building evidentiary chains across multiple documents for a specific topic
+- Performing the full investigative workflow (inventory, provenance, timeline, entities, anomalies, redactions, validation)
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Extracting entities from text — use NER/entity extraction, because this skill analyzes documents at the provenance and structure level, not the text content level
+- Resolving entity ambiguity — use entity-resolver instead, because forensics identifies suspicious patterns, not entity identity
+- Mapping a codebase or software repository — use context-mapper instead, because this skill is designed for document corpora, not source code
+- The documents are known-clean internal documents with no investigative purpose — use standard document processing, because forensic analysis overhead is unnecessary for trusted content
 
 ## Core Principle: Documents Lie, Metadata Doesn't (Usually)
 
 The text of a document tells you what someone wanted to communicate.
 The metadata tells you the truth about when, how, and by whom it was created.
 The *absence* of documents tells you what someone wanted to hide.
+
+## Core Behaviors
+
+**Always:**
+- Extract and analyze metadata from every document before reading content
+- Score every finding with a confidence level
+- Require at least 2 independent sources to corroborate any high-confidence claim
+- Track which document, page, and line produced each finding (chain of custody)
+- Distinguish between automated findings and human conclusions
+- Follow the 8-step investigative workflow in order
+
+**Never:**
+- Fabricate evidence or findings — because fabricated evidence corrupts the entire analysis and cannot be distinguished from real findings once introduced
+- Draw conclusions from anomalies alone — because suspicious metadata could have innocent explanations; flag the anomaly, don't conclude guilt
+- Skip confidence scoring on findings — because unscored findings are treated as fact when they may be speculation
+- Modify source documents during analysis — because any modification breaks chain of custody and contaminates the evidence
+- Present automated findings as human conclusions — because the final narrative synthesis requires human judgment that no automated system can replace
+- Ignore the absence of documents — because gaps in otherwise regular patterns (e.g., daily emails with a 3-week void) are often the most significant finding
 
 ## Forensic Analysis Layers
 
@@ -224,6 +262,74 @@ corroboration_score = weighted_average([d["weight"] for d in supporting_docs])
 # 0.8 — well-corroborated claim
 ```
 
+## Capabilities
+
+### provenance_analysis
+Extract and analyze metadata from documents to establish authenticity and origin. Use as the first analysis step for any new document or batch. Do NOT use on documents that have already been analyzed unless re-analysis is needed.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state which documents or batch is being analyzed and the investigative question being addressed
+- **Inputs:**
+  - `document_paths` (list, required) — paths to documents to analyze
+  - `corpus_stats` (object, optional) — corpus-level statistics for anomaly comparison
+- **Outputs:**
+  - `provenance_records` (list) — per-document metadata extraction
+  - `suspicious_indicators` (list) — flagged metadata anomalies with severity
+  - `corpus_metadata_summary` (object) — aggregate statistics across the batch
+- **Post-execution:** Verify metadata was extracted from all documents (note failures). Check that suspicious indicators include severity and significance explanation. Confirm no documents were modified during extraction.
+
+### anomaly_detection
+Scan documents for temporal, structural, and content anomalies against corpus-wide baselines. Use after provenance analysis establishes baselines. Do NOT use without corpus statistics — anomalies are relative to the norm.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state what type of anomalies are being investigated and the corpus baseline
+- **Inputs:**
+  - `corpus_stats` (object, required) — baseline statistics for the corpus
+  - `documents` (list, required) — documents to scan for anomalies
+  - `focus` (string, optional) — temporal, structural, content, or all
+- **Outputs:**
+  - `anomalies` (list) — detected anomalies with type, severity, description, and significance
+  - `anomaly_count_by_severity` (object) — high/medium/low counts
+  - `patterns` (list) — cross-document anomaly patterns (e.g., clustered modifications)
+- **Post-execution:** Verify anomaly significance explanations are present (not just descriptions). Check that temporal anomalies reference the corpus baseline. Confirm no documents were modified.
+
+### redaction_detection
+Detect visual redactions (blacked-out text) and white-box redactions (removed text) in document images. Use on documents suspected of containing hidden information. Do NOT use on plain text files — only on PDFs or images.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state which documents are being scanned and why redaction detection is relevant
+- **Inputs:**
+  - `document_paths` (list, required) — paths to PDF or image files
+  - `page_range` (string, optional) — specific pages to scan (e.g., "1-10")
+- **Outputs:**
+  - `redactions` (list) — detected redactions with bounding boxes, page regions, and area
+  - `redaction_summary` (object) — count by document, heaviest redaction document
+  - `context_clues` (list) — inferred topic from surrounding text
+- **Post-execution:** Verify redaction count is plausible for the document type. Check that context clues are based on actual surrounding text, not speculation. Confirm heaviest-redaction document is flagged prominently.
+
+### cross_document_validation
+Compare claims, events, and timelines across multiple documents to find contradictions and corroborations. Use as the capstone analysis after provenance, timeline, entities, and anomalies are complete. Do NOT use on a single document — requires at least 2 documents to cross-reference.
+
+- **Risk:** Medium
+- **Consensus:** majority
+- **Parallel safe:** yes
+- **Intent required:** yes — state the specific claims or events being validated and which documents are being compared
+- **Inputs:**
+  - `claims` (list, required) — events or statements extracted from documents
+  - `documents` (list, required) — source documents for cross-referencing
+  - `entities` (list, optional) — resolved entity list for reference matching
+- **Outputs:**
+  - `contradictions` (list) — claims that conflict across documents with severity
+  - `corroborations` (list) — claims supported by multiple documents with confidence scores
+  - `unverified` (list) — claims that appear in only one document
+- **Post-execution:** Verify contradictions cite specific documents and pages. Check that corroboration scores reflect the number and quality of supporting sources. Confirm unverified claims are not presented as contradictions.
+
 ## Investigative Workflow
 
 For any document corpus, follow this sequence:
@@ -272,6 +378,46 @@ supports the analyst, it doesn't replace them.
 2. Heaviest redaction: Document #305 (8 of 12 pages partially redacted)
 3. Redaction context suggests financial information based on surrounding text
 ```
+
+## Verification
+
+### Pre-completion Checklist
+Before reporting forensic analysis as complete, verify:
+- [ ] All 8 investigative workflow steps were executed (or explicitly skipped with justification)
+- [ ] Every finding has a confidence score or severity level
+- [ ] High-confidence claims are supported by at least 2 independent sources
+- [ ] Contradictions cite specific documents and page numbers
+- [ ] Anomalies distinguish between the finding and its possible significance
+- [ ] Chain of custody is maintained — every finding traces back to source document, page, and line
+- [ ] Step 8 (synthesis) is clearly marked as requiring human judgment
+
+### Checkpoints
+Pause and reason explicitly when:
+- A high-severity anomaly is detected — verify it isn't a data quality issue before flagging as suspicious
+- A contradiction between documents is found — check for simple explanations (typo, date format, timezone) before reporting as a conflict
+- Redaction detection produces zero results on documents expected to have redactions — verify the detection algorithm ran correctly
+- Corroboration score exceeds 0.95 — verify the supporting documents are truly independent, not copies of each other
+- Before delivering the forensic report — confirm that automated findings and human conclusions are clearly separated
+
+## Error Handling
+
+### Escalation Ladder
+
+| Error Type | Action | Max Retries |
+|------------|--------|-------------|
+| Document cannot be opened or parsed | Log, skip, note in report as "unanalyzable" | 0 |
+| Metadata extraction fails for a batch | Report which documents failed, continue with others | 0 |
+| OCR quality too low for text analysis | Note confidence limitation, analyze what's available | 0 |
+| Cross-validation produces contradictory evidence | Report both sides, do not resolve — leave for human judgment | 0 |
+| Corpus too large for full analysis | Sample, document sampling strategy, note limitation | 0 |
+| Same document fails analysis 3x | Skip, add to exclusion list, note in report | — |
+
+### Self-Correction
+If this skill's protocol is violated:
+- Finding reported without confidence score: add score retroactively before report delivery
+- Conclusion drawn from anomaly alone: retract the conclusion, restate as a flagged anomaly requiring investigation
+- Source document modified during analysis: halt, report the contamination, exclude the modified document
+- Automated finding presented as human conclusion: re-label clearly as automated finding
 
 ## Constraints
 

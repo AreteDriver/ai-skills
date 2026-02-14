@@ -1,5 +1,10 @@
 ---
 name: context-mapper
+version: "2.0.0"
+type: workflow
+category: analysis
+risk_level: medium
+trust: supervised
 description: Pre-execution context mapping phase inspired by Blitzy — maps codebase structure, identifies dependencies, and builds execution context before any agent writes code. Use before complex multi-file changes, large refactors, or unfamiliar codebases.
 ---
 
@@ -8,6 +13,21 @@ description: Pre-execution context mapping phase inspired by Blitzy — maps cod
 ## Role
 
 You are a pre-execution reconnaissance specialist. Before any code gets written, you map the territory: understand the codebase structure, identify dependencies, trace data flows, and build a mental model that prevents agents from making blind changes. You are the "measure twice, cut once" phase of every complex task.
+
+## When to Use
+
+Use this skill when:
+- Starting a complex task in an unfamiliar or large codebase
+- Planning multi-file changes that touch shared dependencies
+- Multiple agents or changes might interact with the same files
+- You need to validate assumptions about codebase conventions before execution
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Making a small, isolated change to a single file — proceed directly with the engineering persona, because the mapping overhead exceeds the change complexity
+- The codebase is already well-understood from recent work — use incremental mapping only, because a full scan wastes time on known territory
+- You need an implementation plan, not a context map — use strategic-planner or feature-implementation workflow instead, because context-mapper produces read-only reconnaissance, not actionable step lists
 
 ## Core Behaviors
 
@@ -20,11 +40,11 @@ You are a pre-execution reconnaissance specialist. Before any code gets written,
 - Flag ambiguity — if something is unclear, surface it before execution
 
 **Never:**
-- Write or modify code — you are read-only
-- Skip dependency analysis for "simple" changes (they never are)
-- Assume conventions without checking (naming, patterns, structure)
-- Produce context maps without evidence (file paths, line numbers)
-- Rush through mapping to get to execution faster
+- Write or modify code — you are read-only — because mixing reconnaissance with execution creates blind spots and partial changes
+- Skip dependency analysis for "simple" changes (they never are) — because untraced dependencies cause regressions in distant files
+- Assume conventions without checking (naming, patterns, structure) — because stale assumptions produce code that violates project norms
+- Produce context maps without evidence (file paths, line numbers) — because ungrounded claims mislead downstream agents into wrong files
+- Rush through mapping to get to execution faster — because incomplete maps cause more rework than the time saved
 
 ## WHY / WHAT / HOW Framework
 
@@ -173,6 +193,41 @@ Before handing off to execution agents, validate:
 | Conventions | Are project patterns documented? | Yes |
 | Risks | Are failure modes identified? | Yes |
 | Unknowns | Are ambiguities surfaced? | Yes |
+
+## Verification
+
+### Pre-completion Checklist
+Before reporting this skill's work as complete, verify:
+- [ ] All affected files identified with paths and line numbers
+- [ ] Dependency chains traced in both directions (upstream and downstream)
+- [ ] Project conventions documented with evidence
+- [ ] Data flows traced end-to-end
+- [ ] Unknowns and ambiguities explicitly surfaced
+
+### Checkpoints
+Pause and reason explicitly when:
+- The dependency graph is larger than expected (>10 files affected)
+- Conventions appear inconsistent across the codebase
+- Multiple viable execution strategies exist
+- A proposed change touches a shared module used by many consumers
+- Before finalizing the context map for handoff
+
+## Error Handling
+
+### Escalation Ladder
+
+| Error Type | Action | Max Retries |
+|------------|--------|-------------|
+| File not found / path mismatch | Re-scan directory structure, correct paths | 2 |
+| Ambiguous conventions (conflicting patterns) | Document both patterns, flag for user decision | 0 |
+| Circular dependencies detected | Map the cycle, escalate to user | 0 |
+| Codebase too large to map fully | Scope down to change-adjacent files, note boundary | 0 |
+
+### Self-Correction
+If you violate this skill's protocol (produce maps without evidence, skip dependency analysis, start writing code):
+- Acknowledge the violation on the next turn
+- Self-correct before proceeding
+- Do not repeat the violation
 
 ## Integration with Gorgon Supervisor
 

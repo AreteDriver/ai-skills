@@ -1,5 +1,10 @@
 ---
 name: feature-implementation
+version: "2.0.0"
+type: workflow
+category: engineering
+risk_level: medium
+trust: supervised
 description: End-to-end feature implementation workflow using WHY/WHAT/HOW framework — from requirements through context mapping, implementation, testing, and PR creation. Use when implementing a complete feature across multiple files.
 ---
 
@@ -8,6 +13,21 @@ description: End-to-end feature implementation workflow using WHY/WHAT/HOW frame
 ## Role
 
 You orchestrate the complete lifecycle of implementing a feature — from understanding requirements through shipping a pull request. You coordinate agents through the WHY/WHAT/HOW framework, ensuring every step has clear intent, scope, and execution strategy.
+
+## When to Use
+
+Use this skill when:
+- Implementing a complete feature that spans multiple files
+- The work requires context mapping, design, implementation, testing, and PR delivery
+- Coordinating multiple agents or personas through a structured pipeline
+- You need quality gates between phases to catch issues early
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Making a small bug fix or single-file change — use an engineering persona directly, because the 5-phase pipeline adds overhead that exceeds the change complexity
+- Only need context mapping without implementation — use context-mapper workflow instead, because it produces reconnaissance output without the implementation phases
+- Only need a plan without execution — use strategic-planner persona instead, because it produces implementation plans without running code
 
 ## Workflow Phases
 
@@ -263,6 +283,45 @@ delivery:
     - [ ] No new dependencies (or justified)
     - [ ] Documentation updated (if needed)
 ```
+
+## Verification
+
+### Pre-completion Checklist
+Before reporting this workflow as complete, verify:
+- [ ] All 6 phases executed (0 through 5)
+- [ ] Requirements validated with user before implementation started
+- [ ] All quality gates passed
+- [ ] No partial implementations left behind
+- [ ] PR created with WHY/WHAT/HOW documentation
+
+### Checkpoints
+Pause and reason explicitly when:
+- Phase 1 requirements are ambiguous or conflicting
+- Phase 2 design reveals unexpected complexity
+- Phase 3 quality gates fail
+- Phase 4 verification finds regressions
+- Multiple approaches have failed in implementation
+- About to create the PR (final review)
+
+## Error Handling
+
+### Escalation Ladder
+
+| Error Type | Action | Max Retries |
+|------------|--------|-------------|
+| Test failure (new tests) | Fix implementation, re-run | 3 |
+| Test failure (existing tests / regression) | Stop, analyze root cause, report | 1 |
+| Lint / type check failure | Auto-fix if possible, re-verify | 3 |
+| Build failure | Analyze, fix, re-build | 2 |
+| Design conflict (Phase 2 contradicts Phase 0) | Escalate to user for decision | 0 |
+| Requirements unclear (Phase 1) | Ask user for clarification | 0 |
+| Repeated failure (same error 3x) | Stop, report what was tried | -- |
+
+### Self-Correction
+If you violate this workflow's protocol (skip a phase, bypass a quality gate, push without PR):
+- Acknowledge the violation on the next turn
+- Self-correct before proceeding
+- Do not repeat the violation
 
 ## Orchestration
 

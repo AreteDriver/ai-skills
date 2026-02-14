@@ -1,6 +1,15 @@
 ---
 name: intent-author
-description: Teaches agents how to publish well-structured intents for Convergent's intent graph. Defines the schema, quality criteria, and authoring patterns for intent nodes. Without this skill, agents publish vague or malformed intents and convergence fails. Use whenever an agent needs to declare what it's building, what it provides, what it requires, and what constraints it imposes within a Convergent-coordinated workflow.
+version: "2.0.0"
+description: "Teaches agents how to publish well-structured intents for Convergent's intent graph — schema, quality criteria, and authoring patterns"
+type: agent
+category: analysis
+risk_level: low
+trust: autonomous
+parallel_safe: true
+agent: system
+consensus: any
+tools: ["Read", "Write", "Edit", "Glob", "Grep"]
 ---
 
 # Intent Author
@@ -8,6 +17,10 @@ description: Teaches agents how to publish well-structured intents for Convergen
 Convergent's intent graph only works if agents publish intents that are
 specific, machine-comparable, and honest about uncertainty. This skill
 teaches agents how to author good intents.
+
+## Role
+
+You are an intent authoring specialist for Convergent's intent graph. You specialize in helping agents publish well-structured, machine-comparable intent nodes — defining schemas, enforcing quality criteria, and applying authoring patterns that enable accurate overlap detection and convergence. Your approach is quality-focused — vague intents break convergence, so you enforce specificity.
 
 ## Why This Exists
 
@@ -21,12 +34,40 @@ false convergence occurs.
 
 Good intents are the difference between emergent coordination and chaos.
 
-## When to Activate
+## When to Use
 
-- Before any agent publishes to the intent graph
-- When an agent's work reaches a decision point (choosing a data model, API shape, dependency)
-- When updating an existing intent (stability changed, scope refined)
-- During intent review ("are my intents well-formed?")
+Use this skill when:
+- An agent needs to publish a new intent to the Convergent intent graph
+- An agent's work reaches a decision point (choosing a data model, API shape, dependency)
+- Updating an existing intent because stability changed or scope was refined
+- Reviewing whether existing intents are well-formed and machine-comparable
+- During intent validation before publishing to the graph
+
+## When NOT to Use
+
+Do NOT use this skill when:
+- Resolving conflicts between intents — use Convergent's IntentResolver directly, because this skill authors intents, it doesn't resolve conflicts between them
+- Resolving entity ambiguity across documents — use entity-resolver instead, because intent authoring is about agent decisions, not document entities
+- Building the intent graph infrastructure — use Convergent's codebase directly, because this skill teaches usage, not implementation
+- The workflow doesn't use Convergent — skip intent authoring entirely, because intents are Convergent-specific and add overhead without the graph
+
+## Core Behaviors
+
+**Always:**
+- Validate every intent against the quality checklist before publishing
+- Include specific, verifiable actions — not vague descriptions
+- Provide evidence for any stability score above 0.3
+- List concrete artifacts in provides/requires — not categories
+- Declare constraints that would surprise another agent
+- Update intents when stability changes by +-0.2 or scope changes
+
+**Never:**
+- Publish vague actions like "working on the backend" — because vague intents are not machine-comparable and the resolver cannot detect overlaps or conflicts
+- Claim stability above 0.6 without passing tests — because other agents will adopt unstable interfaces, leading to cascading breakage when things change
+- Claim stability above 0.8 without at least one dependent — because near-committed status implies other agents rely on this, which should be verifiable
+- Leave evidence array empty for stability above 0.3 — because evidence is the only way to validate stability claims, and empty evidence with non-trivial stability is invalid
+- Publish an intent and forget about it — because stale intents (unchanged for over 1 hour during active work) mislead other agents into building on outdated assumptions
+- Create circular dependencies between intents — because intent A requiring intent B requiring intent A creates an unresolvable deadlock
 
 ## Intent Node Schema
 
@@ -75,6 +116,63 @@ class IntentNode:
     files_affected: list[str]   # Which files this intent touches
     interfaces_affected: list[str]  # Which APIs/schemas this changes
 ```
+
+## Capabilities
+
+### author_intent
+Create a well-structured intent node following the schema and quality criteria. Use when an agent reaches a decision point and needs to publish to the intent graph. Do NOT use for trivial internal decisions that don't affect other agents.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state what decision was made and why it needs to be published to the graph
+- **Inputs:**
+  - `action` (string, required) — what the agent is doing (must be specific and verifiable)
+  - `category` (string, required) — decision, interface, dependency, or constraint
+  - `provides` (list, required) — concrete artifacts this intent makes available
+  - `requires` (list, required) — concrete artifacts this intent needs
+  - `constraints` (list, required) — rules this intent imposes on other agents
+  - `stability` (float, required) — 0.0-1.0 confidence score
+  - `evidence` (list, conditional) — required if stability > 0.3
+  - `files_affected` (list, required) — files this intent touches
+  - `interfaces_affected` (list, required) — APIs/schemas this changes
+- **Outputs:**
+  - `intent_node` (object) — the fully-formed IntentNode ready for publishing
+  - `validation_issues` (list) — any quality issues detected (empty if valid)
+  - `overlap_warning` (string, optional) — warning if a similar intent already exists in the graph
+- **Post-execution:** Verify validation_issues is empty before publishing. Check that stability is honest relative to evidence. Confirm no overlap with existing intents that should be consumed instead.
+
+### validate_intent
+Check an existing intent against the quality checklist and report issues. Use for periodic intent review or before updating an intent. Do NOT use as a replacement for authoring — validate after authoring.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** yes
+- **Intent required:** yes — state which intent is being validated and why
+- **Inputs:**
+  - `intent` (object, required) — the IntentNode to validate
+- **Outputs:**
+  - `valid` (boolean) — whether the intent passes all quality checks
+  - `issues` (list) — specific quality problems found
+  - `suggestions` (list) — improvement recommendations
+- **Post-execution:** Verify all quality checklist items were evaluated. Check that issues are actionable (not just "improve this"). Confirm stability/evidence consistency was checked.
+
+### update_intent
+Modify an existing intent when stability changes or scope is refined. Use when work has progressed and the intent's stability or scope no longer reflects reality. Do NOT use to create new intents — use author_intent instead.
+
+- **Risk:** Low
+- **Consensus:** any
+- **Parallel safe:** no — concurrent updates to the same intent cause version conflicts
+- **Intent required:** yes — state what changed and why the intent needs updating
+- **Inputs:**
+  - `intent_id` (string, required) — ID of the intent to update
+  - `changes` (object, required) — fields to update with new values
+  - `reason` (string, required) — why the update is needed
+- **Outputs:**
+  - `updated_intent` (object) — the modified IntentNode
+  - `stability_delta` (float) — how much stability changed
+  - `dependents_affected` (list) — other intents that depend on this one and may need review
+- **Post-execution:** Verify the update was published to the graph. If stability decreased by more than 0.2, check whether dependents were notified. Confirm the reason field explains the change.
 
 ## Stability Scoring Guide
 
@@ -234,7 +332,7 @@ auth requirements. Always declare constraints, even if they seem obvious.
 # Agent forgot to update the intent graph
 ```
 **Why bad:** Other agents are making decisions based on outdated information.
-**Rule:** Update your intent whenever stability changes by ±0.2 or scope changes.
+**Rule:** Update your intent whenever stability changes by +-0.2 or scope changes.
 
 ## Quality Checklist
 
@@ -279,6 +377,45 @@ class IntentResolver:
 
         return issues
 ```
+
+## Verification
+
+### Pre-completion Checklist
+Before reporting intent authoring as complete, verify:
+- [ ] All 8 quality checklist items pass
+- [ ] Stability score is consistent with evidence provided
+- [ ] No circular dependencies exist in requires chain
+- [ ] Intent does not overlap with an existing intent that should be consumed
+- [ ] Category matches the intent's actual purpose (interface vs decision vs dependency vs constraint)
+- [ ] files_affected and interfaces_affected are current, not stale
+
+### Checkpoints
+Pause and reason explicitly when:
+- Stability is claimed above 0.6 — verify tests exist and pass
+- Stability is claimed above 0.8 — verify at least one dependent agent has adopted this intent
+- An intent's provides list overlaps with another intent — determine if this is duplication or legitimate parallel work
+- An intent has been unchanged for more than 1 hour during active work — flag as potentially stale
+- Before publishing — run the full quality checklist one final time
+
+## Error Handling
+
+### Escalation Ladder
+
+| Error Type | Action | Max Retries |
+|------------|--------|-------------|
+| Validation fails (quality checklist) | Fix issues, re-validate | 3 |
+| Overlap detected with existing intent | Review overlap, consume or differentiate | 0 |
+| Circular dependency detected | Restructure intents to break the cycle | 0 |
+| Intent graph unavailable | Queue intent for publishing when graph is available | 1 |
+| Stability evidence contradicts score | Lower stability to match evidence | 0 |
+| Same validation error 3x | Escalate to user — intent may need redesign | — |
+
+### Self-Correction
+If this skill's protocol is violated:
+- Vague intent published: retract, rewrite with specific action and artifacts, re-publish
+- Stability overestimated: publish update with corrected stability and honest evidence
+- Stale intent detected: update immediately or retract if no longer relevant
+- Circular dependency created: identify the cycle, restructure the dependent intent
 
 ## Constraints
 
