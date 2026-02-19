@@ -53,6 +53,9 @@ BUNDLES:
     data-pipeline               data-engineer + data-analyst + data-visualizer + report-generator
     full-stack-dev              senior-software-engineer + code-reviewer + testing-specialist + software-architect
     claude-code-dev             hooks-designer + plugin-builder + mcp-server-builder + cicd-pipeline
+    website-builder             Full website lifecycle (8 skills: frontend, backend, deploy, design, SEO, analytics, perf, security)
+    website-ecommerce           E-commerce sites (5 skills: frontend, merchant, content, SEO, deploy)
+    website-content             Content-driven sites (5 skills: CMS, content, SEO, analytics, design)
 
 EXAMPLES:
     ./tools/install.sh --list
@@ -72,6 +75,9 @@ BUNDLES[release-engineering]="personas/engineering/code-reviewer personas/claude
 BUNDLES[data-pipeline]="personas/data/data-engineer personas/data/data-analyst personas/data/data-visualizer personas/data/report-generator"
 BUNDLES[full-stack-dev]="personas/engineering/senior-software-engineer personas/engineering/code-reviewer personas/engineering/testing-specialist personas/engineering/software-architect personas/engineering/documentation-writer"
 BUNDLES[claude-code-dev]="personas/claude-code/hooks-designer personas/claude-code/plugin-builder personas/claude-code/mcp-server-builder personas/claude-code/cicd-pipeline personas/claude-code/session-memory-manager"
+BUNDLES[website-builder]="personas/web/web-frontend-builder personas/web/web-backend-builder personas/web/web-deployer personas/web/web-designer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-performance personas/web/web-security-hardener"
+BUNDLES[website-ecommerce]="personas/web/web-frontend-builder personas/web/web-merchant personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-deployer"
+BUNDLES[website-content]="personas/web/web-cms-manager personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-designer"
 
 # ─────────────────────────────────────────────
 # Parse arguments
@@ -171,7 +177,7 @@ find_skill() {
 case $ACTION in
     list)
         echo -e "${BOLD}Available Personas:${NC}"
-        for base_dir in personas/engineering personas/data personas/devops personas/claude-code personas/security personas/domain; do
+        for base_dir in personas/engineering personas/data personas/devops personas/claude-code personas/security personas/domain personas/web; do
             if [ -d "$REPO_ROOT/$base_dir" ]; then
                 category="$(basename "$base_dir")"
                 echo -e "  ${BLUE}$category:${NC}"
