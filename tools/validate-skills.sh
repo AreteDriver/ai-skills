@@ -13,6 +13,7 @@
 #   8. Agent registry entries have risk_level and consensus fields
 #   9. Agent schema.yaml files have required fields (inputs, outputs, capabilities)
 #  10. Bundle references resolve to existing skills
+#  11. OpenClaw metadata validity (JSON structure, emoji, os list, name regex)
 
 set -uo pipefail
 
@@ -354,6 +355,102 @@ else
     if [ ! -f "$bundles_file" ]; then
         pass "No bundles.yaml found — skipping bundle validation"
     fi
+fi
+
+echo ""
+
+# ─────────────────────────────────────────────
+# Check 9: OpenClaw metadata validity
+# ─────────────────────────────────────────────
+echo "--- Check 9: OpenClaw metadata ---"
+if command -v python3 &>/dev/null; then
+    python3 - "$REPO_ROOT" "$VERBOSE" <<'PYEOF'
+import json, re, sys, os
+
+repo_root = sys.argv[1]
+verbose = sys.argv[2] == "True" if len(sys.argv) > 2 else False
+errors = 0
+warnings = 0
+valid_os = {"darwin", "linux", "win32"}
+name_re = re.compile(r"^[a-z0-9][a-z0-9-]*$")
+
+for base_dir in ["personas", "agents", "workflows"]:
+    root = os.path.join(repo_root, base_dir)
+    if not os.path.isdir(root):
+        continue
+    for dirpath, dirnames, filenames in os.walk(root):
+        if "SKILL.md" not in filenames:
+            continue
+        skill_path = os.path.join(dirpath, "SKILL.md")
+        rel_path = os.path.relpath(skill_path, repo_root)
+
+        with open(skill_path) as f:
+            content = f.read()
+
+        # Extract frontmatter
+        if not content.startswith("---\n"):
+            continue
+        try:
+            end = content.index("\n---\n", 4)
+            fm = content[4:end]
+        except ValueError:
+            continue
+
+        # Check name matches OpenClaw regex
+        name_match = re.search(r"^name:\s*(.+)$", fm, re.MULTILINE)
+        if name_match:
+            name_val = name_match.group(1).strip().strip('"').strip("'")
+            if not name_re.match(name_val):
+                print(f"ERROR: {rel_path} name '{name_val}' doesn't match OpenClaw regex ^[a-z0-9][a-z0-9-]*$")
+                errors += 1
+            elif verbose:
+                print(f"PASS: {rel_path} name '{name_val}' is OpenClaw-compatible")
+
+        # Check for metadata line
+        meta_match = re.search(r"^metadata:\s*(.+)$", fm, re.MULTILINE)
+        if not meta_match:
+            print(f"WARN: {rel_path} missing OpenClaw metadata field")
+            warnings += 1
+            continue
+
+        # Parse JSON
+        meta_raw = meta_match.group(1).strip()
+        try:
+            meta = json.loads(meta_raw)
+        except json.JSONDecodeError as e:
+            print(f"ERROR: {rel_path} metadata is not valid JSON: {e}")
+            errors += 1
+            continue
+
+        # Validate structure
+        if "openclaw" not in meta:
+            print(f"ERROR: {rel_path} metadata missing 'openclaw' key")
+            errors += 1
+            continue
+
+        oc = meta["openclaw"]
+        if "emoji" not in oc or not isinstance(oc["emoji"], str):
+            print(f"ERROR: {rel_path} metadata.openclaw missing 'emoji' string")
+            errors += 1
+
+        if "os" not in oc or not isinstance(oc["os"], list):
+            print(f"ERROR: {rel_path} metadata.openclaw missing 'os' list")
+            errors += 1
+        elif not set(oc["os"]).issubset(valid_os):
+            invalid = set(oc["os"]) - valid_os
+            print(f"ERROR: {rel_path} metadata.openclaw.os has invalid values: {invalid}")
+            errors += 1
+        elif verbose:
+            print(f"PASS: {rel_path} OpenClaw metadata valid")
+
+sys.exit(errors)
+PYEOF
+    check9_exit=$?
+    if [ "$check9_exit" -gt 0 ]; then
+        ERRORS=$((ERRORS + check9_exit))
+    fi
+else
+    pass "Skipping OpenClaw metadata check (python3 not available)"
 fi
 
 echo ""
