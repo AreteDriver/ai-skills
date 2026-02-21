@@ -12,7 +12,8 @@ ai-skills/
 │   ├── devops/            # backup, monitor, networking, etc.
 │   ├── claude-code/       # hooks-designer, plugin-builder, etc.
 │   ├── security/          # security-auditor, accessibility-checker
-│   └── domain/            # hauling-*, eve-esi, gamedev, apple-dev, etc.
+│   ├── domain/            # hauling-*, eve-esi, gamedev, apple-dev, etc.
+│   └── api/               # api-tester, database-ops, webhook-designer, oauth-integrator
 ├── agents/                # Gorgon agent capabilities (what agents can do)
 │   ├── system/            # file-operations, process-runner
 │   ├── browser/           # web-search, web-scrape
@@ -32,7 +33,7 @@ ai-skills/
 ├── templates/             # Templates for creating new skills/prompts
 ├── decisions/             # Architecture Decision Records
 ├── tools/                 # Validation, formatting, and installer scripts
-├── registry.yaml          # Central skill catalog (55 skills)
+├── registry.yaml          # Central skill catalog (70 skills)
 └── workflow-schema.yaml   # WHY/WHAT/HOW workflow schema definition
 ```
 

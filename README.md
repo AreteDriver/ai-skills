@@ -3,7 +3,7 @@
 [![Validate Skills](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/Skills-66-blue)]()
+[![Skills](https://img.shields.io/badge/Skills-70-blue)]()
 
 **Production-ready skills for Claude Code personas, Gorgon agent capabilities, and orchestrated workflows.**
 
@@ -81,7 +81,7 @@ Now open Claude Code — your pirate engineer is ready. See the full [Quickstart
 │  (how Claude    │ (what Gorgon  │ (multi-step   │
 │   behaves)      │  agents do)   │  execution)   │
 ├─────────────────┼───────────────┼───────────────┤
-│ 47 skills       │ 16 skills     │ 3 workflows   │
+│ 51 skills       │ 16 skills     │ 3 workflows   │
 │ SKILL.md only   │ SKILL.md +    │ SKILL.md +    │
 │                 │ schema.yaml   │ schema.yaml   │
 └─────────────────┴───────────────┴───────────────┘
@@ -170,6 +170,15 @@ Now open Claude Code — your pirate engineer is ready. See the full [Quickstart
 | [web-cms-manager](personas/web/web-cms-manager/SKILL.md) | WordPress, Ghost, headless CMS | `personas/web/` |
 | [web-performance](personas/web/web-performance/SKILL.md) | Speed and Core Web Vitals | `personas/web/` |
 | [web-security-hardener](personas/web/web-security-hardener/SKILL.md) | Security headers and hardening | `personas/web/` |
+
+### API & Integration (4)
+
+| Skill | Purpose | Path |
+|-------|---------|------|
+| [api-tester](personas/api/api-tester/SKILL.md) | Contract, load, and regression testing | `personas/api/` |
+| [database-ops](personas/api/database-ops/SKILL.md) | Schema design, migrations, query optimization | `personas/api/` |
+| [webhook-designer](personas/api/webhook-designer/SKILL.md) | Webhook payload, retry, HMAC security | `personas/api/` |
+| [oauth-integrator](personas/api/oauth-integrator/SKILL.md) | OAuth 2.0, PKCE, JWT, provider integration | `personas/api/` |
 
 ## Agents — Gorgon Capabilities
 
@@ -276,6 +285,7 @@ Curated skill collections for common use cases. Install with `./tools/install.sh
 | `website-builder` | web-frontend-builder, web-backend-builder, web-deployer, web-designer, web-seo-optimizer, web-analytics, web-performance, web-security-hardener | Full website lifecycle |
 | `website-ecommerce` | web-frontend-builder, web-merchant, web-content-writer, web-seo-optimizer, web-deployer | E-commerce development |
 | `website-content` | web-cms-manager, web-content-writer, web-seo-optimizer, web-analytics, web-designer | Content-driven sites |
+| `api-integration` | api-tester, database-ops, webhook-designer, oauth-integrator | API development lifecycle |
 
 Bundle definitions live in `bundles.yaml`. Add your own by following the same format.
 
