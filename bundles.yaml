@@ -94,3 +94,14 @@ bundles:
       - personas/web/web-seo-optimizer
       - personas/web/web-analytics
       - personas/web/web-designer
+
+  api-integration:
+    description: API development lifecycle — testing, databases, webhooks, and authentication
+    audience: Backend developers building and integrating APIs
+    skills:
+      - personas/api/api-tester
+      - personas/api/database-ops
+      - personas/api/webhook-designer
+      - personas/api/oauth-integrator
+    hooks:
+      - hooks/tdd-guard.sh

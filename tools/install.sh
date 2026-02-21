@@ -56,6 +56,7 @@ BUNDLES:
     website-builder             Full website lifecycle (8 skills: frontend, backend, deploy, design, SEO, analytics, perf, security)
     website-ecommerce           E-commerce sites (5 skills: frontend, merchant, content, SEO, deploy)
     website-content             Content-driven sites (5 skills: CMS, content, SEO, analytics, design)
+    api-integration             API lifecycle (4 skills: api-tester, database-ops, webhook-designer, oauth-integrator)
 
 EXAMPLES:
     ./tools/install.sh --list
@@ -78,6 +79,7 @@ BUNDLES[claude-code-dev]="personas/claude-code/hooks-designer personas/claude-co
 BUNDLES[website-builder]="personas/web/web-frontend-builder personas/web/web-backend-builder personas/web/web-deployer personas/web/web-designer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-performance personas/web/web-security-hardener"
 BUNDLES[website-ecommerce]="personas/web/web-frontend-builder personas/web/web-merchant personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-deployer"
 BUNDLES[website-content]="personas/web/web-cms-manager personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-designer"
+BUNDLES[api-integration]="personas/api/api-tester personas/api/database-ops personas/api/webhook-designer personas/api/oauth-integrator"
 
 # ─────────────────────────────────────────────
 # Parse arguments
@@ -177,7 +179,7 @@ find_skill() {
 case $ACTION in
     list)
         echo -e "${BOLD}Available Personas:${NC}"
-        for base_dir in personas/engineering personas/data personas/devops personas/claude-code personas/security personas/domain personas/web; do
+        for base_dir in personas/engineering personas/data personas/devops personas/claude-code personas/security personas/domain personas/api personas/web; do
             if [ -d "$REPO_ROOT/$base_dir" ]; then
                 category="$(basename "$base_dir")"
                 echo -e "  ${BLUE}$category:${NC}"

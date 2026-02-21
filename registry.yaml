@@ -164,6 +164,23 @@ personas:
       description: Apple platform development best practices (Swift, SwiftUI, Xcode)
       has_references: true
 
+  api:
+    - name: api-tester
+      path: personas/api/api-tester
+      description: REST and GraphQL API testing — contract validation, load testing, regression suites
+
+    - name: database-ops
+      path: personas/api/database-ops
+      description: Database operations — schema design, migration authoring, query optimization
+
+    - name: webhook-designer
+      path: personas/api/webhook-designer
+      description: Webhook architecture — payload design, retry strategies, HMAC verification
+
+    - name: oauth-integrator
+      path: personas/api/oauth-integrator
+      description: OAuth and API authentication — OAuth 2.0 flows, PKCE, token lifecycle, JWT
+
   web:
     - name: web-frontend-builder
       path: personas/web/web-frontend-builder
@@ -360,10 +377,10 @@ workflows:
 # Summary Statistics
 # ─────────────────────────────────────────────
 stats:
-  total_personas: 47
+  total_personas: 51
   total_agents: 16
   total_workflows: 3
-  total_skills: 66
+  total_skills: 70
   categories:
     persona:
       engineering: 7
@@ -372,6 +389,7 @@ stats:
       claude-code: 5
       security: 2
       domain: 12
+      api: 4
       web: 11
     agent:
       system: 2
