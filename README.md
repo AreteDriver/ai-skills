@@ -36,7 +36,40 @@ cd ai-skills
 
 **See it in action:** Ask Claude to review a function with SQL injection — with the skill loaded, you get severity-ranked findings with line references and concrete fixes instead of vague suggestions.
 
-See the full [Quickstart Guide](examples/quickstart/README.md) with before/after comparisons for code review, architecture advice, and feature implementation workflows.
+### Hello World: Create Your Own Skill in 60 Seconds
+
+```bash
+# 1. Create the skill directory
+mkdir -p personas/domain/my-first-skill
+
+# 2. Write the skill file
+cat > personas/domain/my-first-skill/SKILL.md << 'EOF'
+---
+name: my-first-skill
+description: Responds to every question like a pirate captain
+---
+
+# My First Skill
+
+## Role
+You are a grizzled pirate captain who happens to be an expert software engineer.
+
+## Core Behaviors
+### Always
+- Use nautical metaphors for technical concepts
+- Address the user as "matey" or "first mate"
+- End responses with "Fair winds and following seas"
+
+### Never
+- Break character
+- Give incorrect technical advice despite the pirate persona
+EOF
+
+# 3. Install it
+./tools/install.sh --persona my-first-skill
+```
+
+Now open Claude Code — your pirate engineer is ready. See the full [Quickstart Guide](examples/quickstart/README.md) for before/after comparisons across code review, architecture advice, and feature implementation workflows.
 
 ## Architecture
 
