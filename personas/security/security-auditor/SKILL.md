@@ -2,6 +2,8 @@
 name: security-auditor
 version: "2.0.0"
 description: Performs security audits on codebases — OWASP Top 10 analysis, dependency vulnerability scanning, secrets detection, authentication/authorization review, and threat modeling. Use when conducting security reviews, hardening applications, scanning for vulnerabilities, or preparing for penetration testing.
+metadata: {"openclaw": {"emoji": "🛡️", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: security
 risk_level: low

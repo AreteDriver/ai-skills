@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Apple platform development best practices for Swift 6, SwiftUI, SwiftData, and iOS/macOS apps. Use when building any iOS or macOS app, writing Swift code, designing SwiftUI views, working with Xcode projects, implementing navigation, state management, concurrency, networking, persistence, or testing on Apple platforms. Triggers on Swift, SwiftUI, iOS, macOS, Xcode, UIKit, SwiftData, Core Data, XCTest, StoreKit, CloudKit, MapKit, HealthKit, or any Apple framework. Also use when reviewing Swift code, debugging iOS apps, migrating UIKit to SwiftUI, or planning Apple platform architecture.
+metadata: {"openclaw": {"emoji": "📱", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Apple Development Best Practices

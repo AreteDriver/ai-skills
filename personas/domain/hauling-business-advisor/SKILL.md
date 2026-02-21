@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Provides data-driven operational insights and recommendations for junk removal and hauling business optimization
+metadata: {"openclaw": {"emoji": "🚛", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Hauling Business Advisor

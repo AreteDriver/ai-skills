@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: medium
 description: Hardens websites against common attacks — security headers, CSP policies, input validation, CORS configuration, dependency auditing, and OWASP Top 10 mitigation.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Security Hardener

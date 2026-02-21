@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Builds backend APIs and server logic with FastAPI, Flask, Express, or Next.js API routes. Database design, authentication, and API documentation.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Backend Builder

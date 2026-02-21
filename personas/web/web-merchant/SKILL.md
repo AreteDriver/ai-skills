@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: medium
 description: Builds e-commerce functionality — product catalogs, shopping carts, Stripe/PayPal integration, order management, Shopify storefronts, and subscription billing.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Merchant

@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: EVE Online ESI API integration patterns, authentication flows, rate limiting, and data modeling. Invoke with /eve-esi.
+metadata: {"openclaw": {"emoji": "🚀", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # EVE Online ESI Integration

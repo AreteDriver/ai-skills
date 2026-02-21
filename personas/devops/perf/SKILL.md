@@ -2,6 +2,8 @@
 name: perf
 version: "2.0.0"
 description: Performance profiling and optimization for Python, Rust, and web applications. Invoke with /perf.
+metadata: {"openclaw": {"emoji": "⚙️", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: devops
 risk_level: low

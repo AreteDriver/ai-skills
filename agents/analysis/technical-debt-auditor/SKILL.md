@@ -2,6 +2,7 @@
 name: technical-debt-auditor
 version: "2.0.0"
 description: "Systematic technical debt assessment — scans for security issues, correctness gaps, infrastructure debt, maintainability problems, documentation quality, and dependency freshness"
+metadata: {"openclaw": {"emoji": "🔬", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: analysis
 risk_level: low

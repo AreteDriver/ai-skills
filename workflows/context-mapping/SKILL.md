@@ -6,6 +6,7 @@ category: analysis
 risk_level: medium
 trust: supervised
 description: Pre-execution context mapping phase inspired by Blitzy — maps codebase structure, identifies dependencies, and builds execution context before any agent writes code. Use before complex multi-file changes, large refactors, or unfamiliar codebases.
+metadata: {"openclaw": {"emoji": "📋", "os": ["darwin", "linux", "win32"]}}
 ---
 
 # Context Mapper

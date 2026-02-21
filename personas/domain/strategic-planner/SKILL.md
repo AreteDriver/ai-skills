@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Breaks down features into actionable implementation plans
+metadata: {"openclaw": {"emoji": "📋", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Strategic Planning Agent

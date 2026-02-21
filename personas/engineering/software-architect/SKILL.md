@@ -2,6 +2,8 @@
 name: software-architect
 version: "2.0.0"
 description: Designs system architecture and makes technical decisions
+metadata: {"openclaw": {"emoji": "🔧", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: engineering
 risk_level: low

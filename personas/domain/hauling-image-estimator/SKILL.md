@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Analyzes photos of junk, debris, or estate contents to estimate volume, weight, item categories, and special disposal requirements for hauling/removal businesses
+metadata: {"openclaw": {"emoji": "🚛", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Hauling Image Estimator

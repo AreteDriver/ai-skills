@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Game development patterns for Bevy/Rust ECS, game loops, state machines, physics, and audio. Invoke with /gamedev.
+metadata: {"openclaw": {"emoji": "🎮", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Game Development

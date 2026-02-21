@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Optimizes job scheduling, route planning, and capacity management for junk removal and hauling operations
+metadata: {"openclaw": {"emoji": "🚛", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Hauling Job Scheduler

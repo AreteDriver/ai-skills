@@ -2,6 +2,7 @@
 name: web-search
 version: "2.0.0"
 description: "Search the web for information with rate limiting, caching, and structured source attribution"
+metadata: {"openclaw": {"emoji": "🔍", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: data
 risk_level: low

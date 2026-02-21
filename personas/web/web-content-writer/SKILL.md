@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Writes website copy, blog posts, landing pages, and email content — SEO-aware, conversion-optimized, audience-targeted, and voice-consistent.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Content Writer

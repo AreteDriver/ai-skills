@@ -2,6 +2,8 @@
 name: data-visualizer
 version: "2.0.0"
 description: Creates charts, dashboards, and visual representations of data
+metadata: {"openclaw": {"emoji": "📊", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: data
 risk_level: low

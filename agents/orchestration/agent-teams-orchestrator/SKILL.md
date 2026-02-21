@@ -2,6 +2,7 @@
 name: agent-teams-orchestrator
 version: "2.0.0"
 description: "Designs and coordinates Claude Code Agent Teams — multi-agent collaboration where teammate sessions work in parallel with direct communication, task claiming via file locks, and cross-referencing findings"
+metadata: {"openclaw": {"emoji": "🧩", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: orchestration
 risk_level: medium

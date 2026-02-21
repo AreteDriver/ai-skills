@@ -2,6 +2,8 @@
 name: testing-specialist
 version: "2.0.0"
 description: Creates comprehensive test suites for implementations
+metadata: {"openclaw": {"emoji": "🔧", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: engineering
 risk_level: low

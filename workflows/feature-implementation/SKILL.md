@@ -6,6 +6,7 @@ category: engineering
 risk_level: medium
 trust: supervised
 description: End-to-end feature implementation workflow using WHY/WHAT/HOW framework — from requirements through context mapping, implementation, testing, and PR creation. Use when implementing a complete feature across multiple files.
+metadata: {"openclaw": {"emoji": "📋", "os": ["darwin", "linux", "win32"]}}
 ---
 
 # Feature Implementation Workflow

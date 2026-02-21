@@ -2,6 +2,7 @@
 name: process-runner
 version: "2.0.0"
 description: "Execute and manage subprocesses with timeout, output capture, and safety controls. Blocks dangerous commands, enforces resource limits, and returns structured results with exit codes, stdout, stderr, and timing."
+metadata: {"openclaw": {"emoji": "📁", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: system
 risk_level: medium

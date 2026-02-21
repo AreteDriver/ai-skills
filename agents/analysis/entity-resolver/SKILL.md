@@ -2,6 +2,7 @@
 name: entity-resolver
 version: "2.0.0"
 description: "Resolves entity ambiguity across document corpora — fuzzy name matching, alias detection, identity consolidation, and confidence-scored entity merging"
+metadata: {"openclaw": {"emoji": "🔬", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: analysis
 risk_level: medium

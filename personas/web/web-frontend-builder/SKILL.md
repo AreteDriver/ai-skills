@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Builds production-grade frontend interfaces with React, Next.js, or static HTML/CSS. Component architecture, responsive design, and performance optimization.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Frontend Builder

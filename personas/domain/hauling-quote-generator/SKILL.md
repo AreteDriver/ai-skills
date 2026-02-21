@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Converts load estimates into professional customer-facing quotes with itemized pricing, fees, and terms for junk removal and hauling businesses
+metadata: {"openclaw": {"emoji": "🚛", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Hauling Quote Generator

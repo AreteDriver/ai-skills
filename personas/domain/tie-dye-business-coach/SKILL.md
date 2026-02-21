@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Socratic business coaching for handmade tie-dye businesses—diagnoses before prescribing, builds business intuition
+metadata: {"openclaw": {"emoji": "🎨", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Tie-Dye Business Coach

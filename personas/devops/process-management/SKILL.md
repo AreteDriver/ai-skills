@@ -2,6 +2,8 @@
 name: process-management
 version: "2.0.0"
 description: Monitor and control system processes with safety protections. Invoke with /process-management.
+metadata: {"openclaw": {"emoji": "⚙️", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: devops
 risk_level: low

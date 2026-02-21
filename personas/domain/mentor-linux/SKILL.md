@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Linux certification preparation mentor for RHCSA, Linux+, and LPIC-1
+metadata: {"openclaw": {"emoji": "🐧", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Mentor Linux

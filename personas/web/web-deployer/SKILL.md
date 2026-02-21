@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: medium
 description: Deploys websites to Vercel, Fly.io, Netlify, Cloudflare, or VPS. DNS configuration, SSL certificates, CI/CD pipelines, and zero-downtime deployments.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Deployer

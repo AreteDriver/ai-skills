@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Implements and interprets web analytics — GA4 setup, event tracking, conversion funnels, Google Search Console, UTM strategy, and A/B testing frameworks.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Analytics

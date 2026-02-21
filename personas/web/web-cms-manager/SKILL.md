@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Manages content management systems — WordPress themes/plugins, Ghost configuration, headless CMS integration (Sanity, Contentful, Strapi), and content modeling.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web CMS Manager

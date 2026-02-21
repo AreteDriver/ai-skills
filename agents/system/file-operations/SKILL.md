@@ -2,6 +2,7 @@
 name: file-operations
 version: "2.0.0"
 description: "Safe filesystem operations with path protection, backup enforcement, and audit logging"
+metadata: {"openclaw": {"emoji": "📁", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: system
 risk_level: medium

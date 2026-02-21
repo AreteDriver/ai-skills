@@ -2,6 +2,7 @@
 name: workflow-debugger
 version: "2.0.0"
 description: "Diagnoses why Gorgon workflows fail — reads checkpoint state, agent logs, budget traces, and output contracts to produce root-cause analysis"
+metadata: {"openclaw": {"emoji": "🔬", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: analysis
 risk_level: low

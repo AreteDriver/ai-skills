@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Streamlit app patterns for layout, state management, data display, and deployment. Invoke with /streamlit.
+metadata: {"openclaw": {"emoji": "📊", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Streamlit Development

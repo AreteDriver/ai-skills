@@ -2,6 +2,7 @@
 name: multi-agent-supervisor
 version: "2.0.0"
 description: "Hierarchical multi-agent orchestration supervisor that decomposes tasks, delegates to specialized worker agents, tracks state, and employs triumvirate consensus for high-stakes operations"
+metadata: {"openclaw": {"emoji": "🧩", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: orchestration
 risk_level: high

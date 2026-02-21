@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Optimizes websites for search engines — technical SEO, structured data markup, Core Web Vitals, crawlability, sitemaps, and programmatic SEO patterns.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web SEO Optimizer

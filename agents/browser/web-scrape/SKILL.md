@@ -2,6 +2,7 @@
 name: web-scrape
 version: "2.0.0"
 description: "Fetch and parse web content with ethical scraping practices, rate limiting, and structured extraction"
+metadata: {"openclaw": {"emoji": "🔍", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: data
 risk_level: low

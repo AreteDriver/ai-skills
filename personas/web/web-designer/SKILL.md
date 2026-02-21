@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Designs website layouts, color systems, typography, and visual hierarchy. Translates brand identity to Tailwind CSS design tokens and modern design systems.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Designer

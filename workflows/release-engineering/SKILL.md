@@ -1,6 +1,7 @@
 ---
 name: release-engineering
 description: End-to-end release workflow — preflight checks, code review, changelog generation, version bump, tagging, and publishing. Coordinates release-engineer agent, code-reviewer persona, and github-operations agent through the WHY/WHAT/HOW framework.
+metadata: {"openclaw": {"emoji": "📋", "os": ["darwin", "linux", "win32"]}}
 ---
 
 # Release Engineering Workflow

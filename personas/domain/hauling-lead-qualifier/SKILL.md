@@ -5,6 +5,8 @@ type: persona
 category: domain
 risk_level: low
 description: Qualifies and prioritizes incoming leads for junk removal businesses based on job value, urgency, and conversion likelihood
+metadata: {"openclaw": {"emoji": "🚛", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Hauling Lead Qualifier

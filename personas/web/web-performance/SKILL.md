@@ -5,6 +5,8 @@ type: persona
 category: web
 risk_level: low
 description: Optimizes website performance — Core Web Vitals, bundle analysis, image optimization, caching strategies, lazy loading, and Lighthouse score improvement.
+metadata: {"openclaw": {"emoji": "🌐", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 ---
 
 # Web Performance

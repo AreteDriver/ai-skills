@@ -2,6 +2,7 @@
 name: email-compose
 version: "2.0.0"
 description: "Compose and send emails with safety controls, draft-review-approve workflow, and SMTP delivery"
+metadata: {"openclaw": {"emoji": "✉️", "os": ["darwin", "linux", "win32"]}}
 type: agent
 category: orchestration
 risk_level: high

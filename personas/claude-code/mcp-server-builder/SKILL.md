@@ -2,6 +2,8 @@
 name: mcp-server-builder
 version: "2.0.0"
 description: Builds and configures Model Context Protocol (MCP) servers — tools that extend Claude Code with custom capabilities like database access, API integrations, semantic search, and UI components. Use when creating MCP servers, configuring existing ones, debugging MCP connections, or designing tool interfaces for Claude.
+metadata: {"openclaw": {"emoji": "🤖", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: claude-code
 risk_level: low

@@ -2,6 +2,8 @@
 name: networking
 version: "2.0.0"
 description: Linux networking troubleshooting — DNS, firewalls, ports, routing, and connectivity diagnostics. Invoke with /networking.
+metadata: {"openclaw": {"emoji": "⚙️", "os": ["darwin", "linux", "win32"]}}
+user-invocable: true
 type: persona
 category: devops
 risk_level: low
