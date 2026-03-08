@@ -107,6 +107,10 @@ personas:
       path: personas/claude-code/cicd-pipeline
       description: CI/CD pipeline design for Claude Code projects
 
+    - name: session-manager
+      path: personas/claude-code/session-manager
+      description: Cross-session continuity with start, resume, sync, and complete lifecycle
+
   security:
     - name: security-auditor
       path: personas/security/security-auditor
@@ -234,6 +238,22 @@ personas:
     - name: content-scrubber
       path: personas/web/content-scrubber
       description: Detects and removes AI-generated patterns from content
+
+    - name: seo-content-pipeline
+      path: personas/web/seo-content-pipeline
+      description: Full SEO content pipeline — research, write, optimize, scrub, publish
+
+    - name: brand-voice-architect
+      path: personas/web/brand-voice-architect
+      description: Brand voice context file creation and channel voice definition
+
+    - name: cro-analyst
+      path: personas/web/cro-analyst
+      description: Conversion rate optimization analysis with composite scoring
+
+    - name: headline-hook-generator
+      path: personas/web/headline-hook-generator
+      description: High-converting headline and hook generation with scoring
 
 # ─────────────────────────────────────────────
 # Agents — Gorgon agent capabilities (what agents can do)
@@ -395,24 +415,34 @@ workflows:
     has_schema: true
     phase: full-lifecycle
 
+  - name: conductor
+    path: workflows/conductor
+    description: Context-driven development — setup, spec, plan, implement with checkpoint gates
+    phase: full-lifecycle
+
+  - name: feature-pipeline
+    path: workflows/feature-pipeline
+    description: Multi-phase feature development with parallel agents and checkpoint gates
+    phase: full-lifecycle
+
 # ─────────────────────────────────────────────
 # Summary Statistics
 # ─────────────────────────────────────────────
 stats:
-  total_personas: 53
+  total_personas: 58
   total_agents: 17
-  total_workflows: 4
-  total_skills: 74
+  total_workflows: 6
+  total_skills: 81
   categories:
     persona:
       engineering: 8
       data: 4
       devops: 6
-      claude-code: 5
+      claude-code: 6
       security: 2
       domain: 12
       api: 4
-      web: 12
+      web: 16
     agent:
       system: 2
       browser: 2
@@ -420,4 +450,4 @@ stats:
       integrations: 2
       orchestration: 2
       analysis: 8
-    workflow: 4
+    workflow: 6

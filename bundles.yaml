@@ -103,6 +103,21 @@ bundles:
       - personas/web/content-scrubber
       - personas/web/web-content-writer
       - personas/web/web-seo-optimizer
+      - personas/web/seo-content-pipeline
+      - personas/web/brand-voice-architect
+      - personas/web/cro-analyst
+      - personas/web/headline-hook-generator
+
+  project-orchestration:
+    description: Structured project management — context-driven dev, feature pipelines, session continuity
+    audience: Developers managing multi-phase projects with AI agent assistance
+    skills:
+      - workflows/conductor
+      - workflows/feature-pipeline
+      - workflows/agent-pipeline
+      - personas/claude-code/session-manager
+      - agents/analysis/handoff
+      - agents/orchestration/agent-teams-orchestrator
 
   api-integration:
     description: API development lifecycle — testing, databases, webhooks, and authentication
