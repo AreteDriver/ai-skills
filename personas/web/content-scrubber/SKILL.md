@@ -70,14 +70,44 @@ Do NOT use this skill when:
 - "Let's dive in..." / "Let's explore..."
 - "In this article/guide/post..."
 
+### Invisible Unicode Watermarks (strip on detection)
+- Zero-width spaces (U+200B) — injected between words or sentences as tracking markers
+- Byte Order Marks (U+FEFF) — embedded mid-text (valid only at file start)
+- Zero-width non-joiners (U+200C) — invisible joiners placed inside words
+- Word joiners (U+2060) — hidden between tokens to fingerprint output
+- Soft hyphens (U+00AD) — invisible hyphenation hints that don't render but persist in source
+- Narrow no-break spaces (U+202F) — visually identical to regular spaces, detectable in hex
+- All format-control characters (Unicode category Cf) — scan for any Cf-class codepoint not at a legitimate position
+
+**Detection method:** Hex-dump or regex scan for `[\u200B\uFEFF\u200C\u2060\u00AD\u202F]` and the full `\p{Cf}` Unicode category. Strip all matches and log count + positions in the scrub report.
+
 ### Structural Patterns (fix when detected)
 - **Em-dash overuse** — more than 2 em-dashes per 500 words is a signal
+- **Em-dash contextual replacements** — when removing excess em-dashes, choose the replacement by context:
+  - Attribution: "— Author" → ", Author"
+  - Independent clauses: "clause — clause" → "clause; clause"
+  - Strong breaks: "Sentence — Sentence" → "Sentence. Sentence."
+  - Simple separation: "Item — detail" → "Item, detail"
 - **Uniform sentence length** — AI tends toward 15-20 word sentences consistently; natural writing varies 5-35 words
 - **Parallel structure addiction** — every paragraph opening with the same grammatical form
 - **List-heavy prose** — bullet points where flowing paragraphs would be more natural
 - **Triple adjective stacking** — "comprehensive, innovative, and cutting-edge"
 - **Hedging clusters** — "may potentially help to possibly improve"
 - **Exclamation inflation** — overuse of ! for artificial enthusiasm
+
+### Red Flags (AI tells — fix or remove)
+- "In the world of..." — generic scene-setting filler
+- "When it comes to..." — empty transition, always removable
+- "Furthermore" / "Moreover" / "Additionally" overuse — more than 1 per 1000 words signals AI
+- Lack of contractions — AI defaults to "do not" / "it is" / "cannot"; natural writing uses "don't" / "it's" / "can't"
+- Passive voice clusters — 3+ consecutive passive sentences are a strong AI tell
+
+### Green Flags (preserve — these signal human voice)
+- Conversational asides in parentheses — (like this one) — natural writers interrupt themselves
+- Varied sentence rhythm — short punchy sentences mixed with longer flowing ones
+- Direct address — "you've probably noticed" / "here's the thing" / "look,"
+- Specific vivid examples — real names, dates, dollar amounts, not generic placeholders
+- Personal observations — "I tested this on..." / "in my experience" / first-person anecdotes
 
 ### Vocabulary Tells (replace with natural alternatives)
 - "Delve" → dig into, explore, examine
@@ -154,6 +184,12 @@ Activated when: Fast pass on short content (< 500 words)
 | 50-74 | Noticeable AI patterns — needs another pass |
 | 25-49 | Clearly AI-assisted — significant rework needed |
 | 0-24 | Raw AI output — full rewrite recommended |
+
+### Prose Ratio
+- **Target:** 40-70% prose vs structured elements (lists, tables, code blocks)
+- Measure by character count: `prose_chars / total_chars`
+- Articles below 40% prose are list-heavy and read as AI-generated — penalize scrub score by 10-15 points
+- Articles above 70% prose with zero lists may need structural relief but are not penalized for humanness
 
 ## Constraints
 

@@ -94,17 +94,35 @@ Do NOT use this skill when:
 ### Stage 2: Write (research/ -> drafts/)
 
 **Hook Types (rotate across content):**
-- Question — open with a question the reader is already asking
-- Scenario — paint a specific situation the reader recognizes
-- Statistic — lead with a surprising data point
-- Bold Statement — make a claim that demands attention
+
+| Hook Type | Best For |
+|-----------|----------|
+| Provocative Question | Challenging assumptions |
+| Specific Scenario | Emotional connection |
+| Surprising Statistic | Data-driven topics |
+| Bold Statement | Controversial takes |
+| Counterintuitive Claim | Comparison content |
 
 **Article Structure:**
 1. **Hook** — one of the four types above
-2. **APP Introduction** — Agree (validate the reader's situation), Promise (what they'll get), Preview (roadmap of the article)
+2. **APP Introduction** — the post-hook formula:
+   - **Agree:** Acknowledge the reader's existing belief or frustration — validate their experience
+   - **Promise:** State the exact outcome they'll gain from reading — specific and measurable
+   - **Preview:** Brief overview of what follows — 2-3 sentence roadmap of the article
 3. **Body sections** — each with H2, 300-400 words, keyword placement in at least 2 H2s
-4. **Mini-stories** — 2-3 embedded throughout (real examples, case studies, scenarios)
+4. **Mini-stories** — 2-3 per article, 50-150 words each
+   - Must include: a specific person (use names), a concrete situation (dates/numbers), and a clear outcome
+   - Placement: early (reinforce the hook), middle (re-engage wandering readers), near conclusion (reinforce the takeaway)
+   - Generic stories ("one company improved results") don't count — specificity is mandatory
 5. **Contextual CTAs** — woven naturally into content, not bolted on
+
+   **CTA Placement Strategy:**
+
+   | Location | CTA Type |
+   |----------|----------|
+   | After first value section | Soft CTA — gentle nudge, low commitment ("learn more", "see how") |
+   | After comparison/proof | Medium CTA — backed by evidence just presented ("try it", "get started") |
+   | End of article | Strong CTA — direct ask with urgency ("sign up now", "claim your spot") |
 6. **Conclusion** — summarize value delivered, final CTA
 
 **Writing Standards:**
@@ -138,6 +156,13 @@ Do NOT use this skill when:
 | Readability | 0.20 | Grade level, sentence variety, paragraph structure |
 | Link Strategy | 0.10 | Internal links, external authority links |
 | Engagement | 0.10 | Hook strength, mini-stories, CTAs |
+
+**Quality Loop (automated revision gate):**
+1. Score content across 5 dimensions (composite score ≥70 to pass)
+2. If composite <70, auto-revise the top 3-5 priority fixes
+3. Re-score after revision
+4. If still <70 after 2 iterations, move file to `review-required/` with a `_REVIEW_NOTES.md` containing all scores, attempted fixes, and remaining issues
+5. Never loop more than 2 times — diminishing returns signal the piece needs human judgment
 
 ### Stage 4: Scrub (review-required/ -> output/)
 
@@ -200,3 +225,36 @@ Each file moves through directories as it progresses. Never skip a stage.
 - The scrub phase is non-negotiable — all content passes through content-scrubber before output/
 - SEO score uses the composite-scorer output contract shape
 - Reading level violations (below 8th or above 10th grade) block advancement to review-required/
+
+## Structured Scoring Output (for automation)
+
+When producing scores for pipeline automation (CI, quality gates, dashboards), output this JSON shape:
+
+```json
+{
+  "scores": {
+    "humanity": 0-100,
+    "specificity": 0-100,
+    "structure_balance": 0-100,
+    "seo": 0-100,
+    "readability": 0-100
+  },
+  "composite": 0-100,
+  "passed": true/false,
+  "prose_ratio": 0.0-1.0,
+  "priority_fixes": [
+    {
+      "location": "paragraph/section reference",
+      "dimension": "humanity|specificity|structure_balance|seo|readability",
+      "issue": "what's wrong",
+      "fix": "how to fix it",
+      "severity": "high|medium|low"
+    }
+  ]
+}
+```
+
+- `composite` ≥70 sets `passed: true`
+- `prose_ratio` measures prose characters vs total (target: 0.4-0.7)
+- `priority_fixes` are ordered by severity (high first), capped at 5 entries
+- This output feeds directly into the Quality Loop — if `passed: false`, the loop auto-revises from `priority_fixes`
