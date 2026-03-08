@@ -80,6 +80,7 @@ BUNDLES[website-builder]="personas/web/web-frontend-builder personas/web/web-bac
 BUNDLES[website-ecommerce]="personas/web/web-frontend-builder personas/web/web-merchant personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-deployer"
 BUNDLES[website-content]="personas/web/web-cms-manager personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-designer"
 BUNDLES[api-integration]="personas/api/api-tester personas/api/database-ops personas/api/webhook-designer personas/api/oauth-integrator"
+BUNDLES[content-ops]="personas/engineering/composite-scorer personas/web/content-scrubber personas/web/web-content-writer personas/web/web-seo-optimizer"
 
 # ─────────────────────────────────────────────
 # Parse arguments
