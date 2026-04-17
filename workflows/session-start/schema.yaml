@@ -92,6 +92,15 @@ outputs:
     type: integer
     description: CLAUDE.md quality score (0-100) from anchormd audit, or -1 if unavailable
 
+  memboot_available:
+    type: boolean
+    description: Whether memboot is installed and a .memboot/ index exists for this project
+
+  drift_baseline:
+    type: number
+    description: Previous session's drift score from drift-monitor, or null if unavailable
+    nullable: true
+
   summary:
     type: string
     description: Concise session orientation report (under 20 lines)

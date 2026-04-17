@@ -81,6 +81,20 @@ Do NOT use this skill when:
 - If GitHub issues were worked on, note which can be closed
 - If new work was discovered, suggest adding it to the task tracker
 
+### Step 6b: Audit key outputs (if signal-audit available)
+- If `signal-audit` is installed, audit the session's most important AI-generated outputs
+- Candidates: commit messages, generated documentation, narrations, analysis reports
+- Run `signal-audit check <file>` on any generated content over 200 words
+- Flag outputs with quality score below 6/10 for human review before accepting
+- This catches hedging, overconfidence, filler, and weak reasoning before it ships
+- If `signal-audit` is not installed, skip this step silently
+
+### Step 6c: Scrub published content
+- If the session produced content for publication (README prose, substack drafts, landing pages):
+  - Run content-scrubber as the final gate
+  - Do NOT scrub technical docs, CLAUDE.md, or code comments
+- If no published content was produced, skip this step
+
 ### Step 7: Session summary
 Present a concise wrap-up:
 
@@ -93,6 +107,10 @@ Commits:    [N] local ([N] unpushed)
 Changes:    [files changed summary]
 Decisions:  [count logged]
 Learnings:  [count captured]
+
+QUALITY:    [signal-audit avg score, if run]
+DRIFT:      [session drift score, if tracked]
+COST:       [estimated token spend, if tracked]
 
 PENDING
 - [ ] [any uncommitted work]
@@ -107,6 +125,9 @@ NEXT SESSION
 ### Step 8: Track session metrics (optional)
 If the project has a session log or the notes repo is available:
 - Record: project name, date, approximate duration, commits made, test count delta, coverage delta, decisions logged
+- AI output quality scores (signal-audit average) if signal-audit was run
+- Drift score at session end (drift-monitor) if driftmonitor is installed
+- Token spend (ai-spend) if ai-spend is installed and tracking is available
 - Append to `~/projects/notes/sessions/YYYY-MM-DD.md` if the file exists
 - Format: one-line entry per session
 

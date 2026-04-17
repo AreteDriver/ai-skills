@@ -77,6 +77,41 @@ outputs:
     type: integer
     description: Number of learnings saved to CLAUDE.md, topics/, or auto-memory
 
+  quality_scores:
+    type: object
+    nullable: true
+    description: Signal-audit quality scores for AI-generated outputs, or null if signal-audit unavailable
+    properties:
+      average:
+        type: number
+        description: Average quality score across audited outputs (0-10 scale)
+      files_audited:
+        type: integer
+        description: Number of files checked by signal-audit
+      flagged:
+        type: integer
+        description: Number of outputs flagged for human review (score below 6)
+
+  drift_score:
+    type: number
+    nullable: true
+    description: Session-end drift score from drift-monitor, or null if unavailable
+
+  token_spend:
+    type: object
+    nullable: true
+    description: Estimated token spend from ai-spend, or null if unavailable
+    properties:
+      input_tokens:
+        type: integer
+        description: Approximate input tokens consumed
+      output_tokens:
+        type: integer
+        description: Approximate output tokens consumed
+      estimated_cost:
+        type: string
+        description: Estimated cost in USD (e.g. "$0.42")
+
   summary:
     type: string
     description: Concise session wrap-up report with pending items and next-session hints

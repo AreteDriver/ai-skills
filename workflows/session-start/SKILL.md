@@ -43,6 +43,13 @@ Do NOT use this skill when:
 - Flag any missing sections that would help the session (anti-patterns, common commands, coding standards)
 - If CLAUDE.md score is below 70, suggest running `anchormd generate` before proceeding
 
+### Step 2b: Load codebase context (if memboot available)
+- If `memboot` is installed, check if the project has a memboot index (`.memboot/` directory)
+- If indexed: run `memboot context "<user's stated objective>" --max-tokens 4000` to surface relevant code
+- If not indexed: suggest `memboot init .` for future sessions
+- This replaces manual file-by-file exploration for returning to unfamiliar projects
+- If `memboot` is not installed, skip this step silently
+
 ### Step 3: Check project health
 - Run `git status` — report uncommitted changes, branch state, commits ahead/behind
 - Run `git log --oneline -5` — show recent work for continuity
@@ -55,6 +62,11 @@ Do NOT use this skill when:
 - Check for open GitHub issues: `gh issue list --state open --limit 5`
 - Check for open PRs: `gh pr list --state open --limit 5`
 - Check for failing CI: `gh run list --limit 3`
+
+### Step 4b: Check drift baseline (if drift-monitor available)
+- If `driftmonitor` is installed and a session baseline exists, note the last session's drift score
+- Flag if previous session ended with elevated drift (suggests starting fresh rather than continuing stale context)
+- If `driftmonitor` is not installed, skip this step silently
 
 ### Step 5: Suggest session template
 - Based on what the user describes (or what pending work suggests), recommend a template from `~/projects/ai-session-templates/`
