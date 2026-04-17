@@ -372,6 +372,10 @@ Skills adapted from [Gorgon](https://github.com/AreteDriver/Gorgon) multi-agent 
 
 **ARETE** — AI Enablement & Workflow Analyst
 
+## Community
+
+[Discord](https://discord.gg/fdzQkrt8) — Join the community
+
 ## License
 
 MIT

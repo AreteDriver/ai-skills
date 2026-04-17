@@ -104,6 +104,12 @@ NEXT SESSION
 - [any context to load]
 ```
 
+### Step 8: Track session metrics (optional)
+If the project has a session log or the notes repo is available:
+- Record: project name, date, approximate duration, commits made, test count delta, coverage delta, decisions logged
+- Append to `~/projects/notes/sessions/YYYY-MM-DD.md` if the file exists
+- Format: one-line entry per session
+
 ## Output Format
 
 1. Structured summary — scannable, not verbose

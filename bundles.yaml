@@ -138,3 +138,11 @@ bundles:
       - personas/domain/eve-frontier-chain
       - personas/domain/eve-frontier-data
       - personas/domain/eve-esi
+
+  session-management:
+    description: "Session lifecycle — bootstrap, orientation, and clean wrap-up"
+    audience: Engineers using structured session start/end rituals for continuity
+    skills:
+      - workflows/session-start
+      - workflows/session-end
+      - workflows/context-mapping

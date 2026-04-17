@@ -441,14 +441,26 @@ workflows:
     description: Multi-phase feature development with parallel agents and checkpoint gates
     phase: full-lifecycle
 
+  - name: session-start
+    path: workflows/session-start
+    description: Session bootstrap — audits project context, suggests template, checks health, surfaces pending work
+    has_schema: true
+    phase: pre-execution
+
+  - name: session-end
+    path: workflows/session-end
+    description: Session wrap-up — captures decisions, syncs memory, commits cleanly, tracks metrics
+    has_schema: true
+    phase: post-execution
+
 # ─────────────────────────────────────────────
 # Summary Statistics
 # ─────────────────────────────────────────────
 stats:
   total_personas: 59
   total_agents: 17
-  total_workflows: 6
-  total_skills: 82
+  total_workflows: 8
+  total_skills: 84
   categories:
     persona:
       engineering: 8
@@ -466,4 +478,4 @@ stats:
       integrations: 2
       orchestration: 2
       analysis: 8
-    workflow: 6
+    workflow: 8

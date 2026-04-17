@@ -1,0 +1,127 @@
+# session-start schema v1.0.0
+
+name: session-start
+version: "1.0.0"
+description: "Session bootstrap workflow — audits project context, suggests session template, checks health, and surfaces pending work"
+type: workflow
+category: session-management
+
+risk_level: low
+consensus_level: none
+trust: autonomous
+parallel_safe: false
+tools: [Read, Glob, Grep, Bash]
+
+# ─────────────────────────────────────────────
+# Routing
+# ─────────────────────────────────────────────
+routing:
+  use_when:
+    - "Starting a new Claude Code session on any project"
+    - "Switching to a different project mid-session"
+    - "Returning to a project after days or weeks away"
+    - "Beginning a session that will span multiple tasks"
+  do_not_use_when:
+    - condition: "Continuing active work within the same session"
+      instead: "Continue working directly"
+      reason: "Context is already loaded — re-scanning wastes time"
+    - condition: "Making a one-line fix where context gathering takes longer than the fix"
+      instead: "Apply the fix directly"
+      reason: "Orientation overhead exceeds the task scope"
+    - condition: "User has already stated exactly what to do with full context"
+      instead: "Execute the task directly"
+      reason: "User-provided context supersedes automated discovery"
+
+# ─────────────────────────────────────────────
+# Inputs
+# ─────────────────────────────────────────────
+inputs:
+  project_path:
+    type: string
+    required: false
+    default: "."
+    description: Root path of the project to bootstrap. Defaults to current working directory.
+    validation:
+      - "MUST be an absolute path (starts with /) or '.' for cwd"
+      - "MUST be a valid directory"
+
+  skip_health:
+    type: boolean
+    required: false
+    default: false
+    description: Skip service health checks (useful for offline work or air-gapped environments)
+
+# ─────────────────────────────────────────────
+# Outputs
+# ─────────────────────────────────────────────
+outputs:
+  project_name:
+    type: string
+    description: Name of the project (from CLAUDE.md, pyproject.toml, package.json, or directory name)
+
+  branch:
+    type: string
+    description: Current git branch with ahead/behind status
+
+  health_status:
+    type: string
+    enum: [ok, degraded, unknown, skipped]
+    description: Live service health status (ok, degraded, unknown, or skipped if skip_health is true)
+
+  pending_items:
+    type: array
+    items:
+      type: object
+      properties:
+        source:
+          type: string
+          description: "Where the item came from (TODO.md, GitHub issue, PR, CI)"
+        title:
+          type: string
+          description: "Short description of the pending item"
+        priority:
+          type: string
+          enum: [high, medium, low]
+    description: Aggregated list of pending work from TODO files, issues, PRs, and CI
+
+  suggested_template:
+    type: string
+    description: Recommended session template path from ~/projects/ai-session-templates/
+
+  claude_md_score:
+    type: integer
+    description: CLAUDE.md quality score (0-100) from anchormd audit, or -1 if unavailable
+
+  summary:
+    type: string
+    description: Concise session orientation report (under 20 lines)
+
+# ─────────────────────────────────────────────
+# Verification
+# ─────────────────────────────────────────────
+verification:
+  pre_conditions:
+    - "Project path exists and is readable"
+    - "Git is initialized in the project directory"
+
+  post_conditions:
+    - "Project identified with name and branch"
+    - "Pending work surfaced from all available sources"
+    - "Session template suggested based on context"
+    - "Summary is concise and actionable"
+
+  checkpoints:
+    - trigger: "CLAUDE.md score below 70"
+      action: "Suggest running anchormd generate before proceeding"
+    - trigger: "Uncommitted changes detected"
+      action: "Flag in summary — user may want to commit or stash before new work"
+    - trigger: "Failing CI runs detected"
+      action: "Surface as high-priority pending item"
+
+# ─────────────────────────────────────────────
+# Constraints
+# ─────────────────────────────────────────────
+constraints:
+  read_only: true
+  evidence_required: false
+  max_execution_time: 60s

@@ -1,0 +1,114 @@
+# session-end schema v1.0.0
+
+name: session-end
+version: "1.0.0"
+description: "Session wrap-up workflow — captures decisions, syncs memory, commits cleanly, and tracks metrics"
+type: workflow
+category: session-management
+
+risk_level: low
+consensus_level: none
+trust: supervised
+parallel_safe: false
+tools: [Read, Glob, Grep, Bash]
+
+# ─────────────────────────────────────────────
+# Routing
+# ─────────────────────────────────────────────
+routing:
+  use_when:
+    - "Finishing a Claude Code session where meaningful work was done"
+    - "Switching away from a project mid-day"
+    - "Completing a multi-step task that produced decisions or learnings"
+    - "Before any extended break from a project"
+  do_not_use_when:
+    - condition: "Session was purely exploratory with no code changes"
+      instead: "Close session directly"
+      reason: "No artifacts to preserve"
+    - condition: "Everything is already committed and pushed"
+      instead: "Close session directly"
+      reason: "Nothing to wrap up"
+    - condition: "User explicitly says they will handle wrap-up manually"
+      instead: "Respect user preference"
+      reason: "User knows their workflow"
+
+# ─────────────────────────────────────────────
+# Inputs
+# ─────────────────────────────────────────────
+inputs:
+  project_path:
+    type: string
+    required: false
+    default: "."
+    description: Root path of the project to wrap up. Defaults to current working directory.
+    validation:
+      - "MUST be an absolute path (starts with /) or '.' for cwd"
+      - "MUST be a valid directory"
+
+  skip_memory_sync:
+    type: boolean
+    required: false
+    default: false
+    description: Skip Animus and Claude Code memory sync steps
+
+  auto_commit:
+    type: boolean
+    required: false
+    default: false
+    description: Commit uncommitted changes without prompting (still respects secrets checks)
+
+# ─────────────────────────────────────────────
+# Outputs
+# ─────────────────────────────────────────────
+outputs:
+  commits_local:
+    type: integer
+    description: Total number of local commits made during this session
+
+  commits_unpushed:
+    type: integer
+    description: Number of commits not yet pushed to remote
+
+  decisions_logged:
+    type: integer
+    description: Number of decisions captured to the ADL during wrap-up
+
+  learnings_captured:
+    type: integer
+    description: Number of learnings saved to CLAUDE.md, topics/, or auto-memory
+
+  summary:
+    type: string
+    description: Concise session wrap-up report with pending items and next-session hints
+
+# ─────────────────────────────────────────────
+# Verification
+# ─────────────────────────────────────────────
+verification:
+  pre_conditions:
+    - "Project path exists and is a git repository"
+    - "Session had meaningful work (uncommitted changes or recent commits)"
+
+  post_conditions:
+    - "All decisions from the session surfaced for logging"
+    - "Learnings captured in appropriate locations"
+    - "Uncommitted changes either committed or flagged"
+    - "Summary includes next-session starting point"
+
+  checkpoints:
+    - trigger: "Uncommitted changes contain potential secrets"
+      action: "Block commit, warn user, list suspicious files"
+    - trigger: "More than 5 unpushed commits"
+      action: "Recommend pushing before ending session"
+    - trigger: "Decisions were made but not logged"
+      action: "Prompt user to log via /decision-log"
+
+# ─────────────────────────────────────────────
+# Constraints
+# ─────────────────────────────────────────────
+constraints:
+  read_only: false
+  evidence_required: false
+  max_execution_time: 120s
+  no_push_without_confirmation: true
+  no_secrets_in_commits: true
