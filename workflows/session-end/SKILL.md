@@ -112,6 +112,10 @@ QUALITY:    [signal-audit avg score, if run]
 DRIFT:      [session drift score, if tracked]
 COST:       [estimated token spend, if tracked]
 
+RULES AUDIT
+- [rule-name]: applied | skipped | violated | n/a — [one-line basis]
+- ...
+
 PENDING
 - [ ] [any uncommitted work]
 - [ ] [any follow-up items]
@@ -121,6 +125,8 @@ NEXT SESSION
 - [suggested starting point]
 - [any context to load]
 ```
+
+The RULES AUDIT block is required, not optional. List every durable feedback rule that was in scope for the actions taken this session — minimum: any rule with a trigger that fired (e.g., `gh repo create` → `feedback_search_projects_before_scaffolding`, `git push` → `feedback_run_preflight_before_push`, content publication → `content-scrubber`). For each, mark applied / skipped / violated / n/a with one-line basis. If you can't state the basis, the rule was not actually applied. Externalizing this makes skipped rules visible in the transcript so the user can catch drift inside the session, not only days later.
 
 ### Step 8: Track session metrics (optional)
 If the project has a session log or the notes repo is available:
