@@ -118,7 +118,11 @@ personas:
   security:
     - name: security-auditor
       path: personas/security/security-auditor
-      description: OWASP-focused security audit and vulnerability assessment
+      description: SAST + OWASP audit with LLM-triaged findings, per-repo SECURITY_FINDINGS.md, --diff regression tracking
+
+    - name: security-sweep
+      path: personas/security/security-sweep
+      description: Fleet-wide security audit aggregator — runs security-auditor across multiple repos, writes FLEET-SECURITY.md to notes/
 
     - name: accessibility-checker
       path: personas/security/accessibility-checker
