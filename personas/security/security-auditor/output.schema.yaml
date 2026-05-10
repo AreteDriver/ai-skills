@@ -1,7 +1,7 @@
 # Security Auditor Output Schema
 # Defines expected structure for security audit reports.
 
-schema_version: "1.0.0"
+schema_version: "2.0.0"  # bumped 2026-05-10 for SAST + triage fields
 
 audit_report:
   metadata:
@@ -18,6 +18,25 @@ audit_report:
       values: [critical, high, medium, low]
       required: true
       description: Overall risk posture of the audited code
+    mode:
+      type: array
+      items:
+        type: enum
+        values: [default, quick, diff, ollama, patches, sast-only]
+      required: true
+      description: Which flags were active for this run
+    tool_inventory:
+      type: object
+      required: true
+      description: Which SAST tools were available/missing at scan time
+      properties:
+        semgrep: {type: enum, values: [available, missing]}
+        bandit: {type: enum, values: [available, missing]}
+        gitleaks: {type: enum, values: [available, missing]}
+        pip_audit: {type: enum, values: [available, missing]}
+        npm_audit: {type: enum, values: [available, missing]}
+        cargo_audit: {type: enum, values: [available, missing]}
+        trivy: {type: enum, values: [available, missing, not_applicable]}
 
   executive_summary:
     type: string
@@ -28,6 +47,11 @@ audit_report:
   findings:
     type: array
     items:
+      fingerprint:
+        type: string
+        required: true
+        format: "{file}:{enclosing_function}:{rule_id}:{pattern_hash}"
+        description: Stable across line-number shifts — used for --diff mode matching
       severity:
         type: enum
         values: [critical, high, medium, low, info]
@@ -37,12 +61,46 @@ audit_report:
         required: true
       location:
         type: string
-        format: "file_path:line_number"
+        format: "file_path:line_start-line_end (function: name)"
         required: true
+      source:
+        type: object
+        required: true
+        properties:
+          tool:
+            type: enum
+            values: [semgrep, bandit, gitleaks, pip-audit, npm-audit, cargo-audit, trivy, grep, manual]
+          rule_id:
+            type: string
+            description: Tool-native rule identifier (e.g., semgrep `python.django.security.sqli`)
+          rule_pack:
+            type: string
+            description: Rule pack name (e.g., semgrep `auto`, bandit `B608`)
       category:
         type: string
         description: "OWASP category (e.g., A01: Broken Access Control)"
         required: true
+      triage:
+        type: object
+        required: true
+        description: Output of Phase 4 LLM triage
+        properties:
+          reality:
+            type: enum
+            values: [real, false-positive, requires-runtime-test]
+            required: true
+          confidence:
+            type: enum
+            values: [high, medium, low]
+            required: true
+          reasoning:
+            type: string
+            required: true
+            description: Why the triage classified this way (1 paragraph)
+          model:
+            type: enum
+            values: [claude-sonnet, claude-opus, qwen2.5:14b, gpt-5]
+            description: Which model performed the triage
       description:
         type: string
         required: true
@@ -57,10 +115,18 @@ audit_report:
         type: string
         required: true
         description: Fixed code snippet or specific remediation steps
+      patch:
+        type: string
+        format: unified-diff
+        description: Optional unified-diff patch (only when --patches flag set + triage.reality=real)
       effort:
         type: enum
         values: [low, medium, high]
         required: true
+      diff_status:
+        type: enum
+        values: [new, unchanged, regressed, resolved]
+        description: Only present in --diff mode. Compares against previous SECURITY_FINDINGS.md
 
   positive_observations:
     type: array
