@@ -50,6 +50,16 @@ Do NOT use this skill when:
   - Tradeoffs made under time pressure
 - Format: one-line summary per decision, with rationale
 
+### Step 2b: Capture reusable prompts
+- Review the session for prompts that worked notably well — got it right first try, used a clever pattern, or solved a class of problem cleanly
+- If `/prompt-library` is available, prompt the user to log them
+- Prompt candidates:
+  - Got the desired outcome in one shot with no rework
+  - Demonstrated a reusable pattern (constraint sandwich, output-format spec, negative examples, step-by-step decomposition)
+  - Solved a common class of task in a way worth keeping
+- Skip when: prompts were one-off, needed multiple corrections, or are too context-heavy to generalize
+- Format: P-YYYYMMDD-### in the catalog, with Category + Context fields
+
 ### Step 3: Capture learnings
 - Identify any gotchas, patterns, or fixes discovered during the session
 - Check if these belong in:
