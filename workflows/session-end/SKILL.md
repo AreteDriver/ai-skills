@@ -136,7 +136,20 @@ NEXT SESSION
 - [any context to load]
 ```
 
-The RULES AUDIT block is required, not optional. List every durable feedback rule that was in scope for the actions taken this session — minimum: any rule with a trigger that fired (e.g., `gh repo create` → `feedback_search_projects_before_scaffolding`, `git push` → `feedback_run_preflight_before_push`, content publication → `content-scrubber`). For each, mark applied / skipped / violated / n/a with one-line basis. If you can't state the basis, the rule was not actually applied. Externalizing this makes skipped rules visible in the transcript so the user can catch drift inside the session, not only days later.
+The RULES AUDIT block is required, not optional. List every durable feedback rule that was in scope for the actions taken this session — minimum: any rule with a trigger that fired (e.g., `gh repo create` → `feedback_verify_namespace_before_consuming`, `git push` → `feedback_run_preflight_before_push`, content publication → `content-scrubber`, `<system-reminder>` fired → `feedback_harness_reminder_explicit_eval`, subagent returned with conditional verdicts → `feedback_resolve_subagent_conditionals_before_relay`). For each, mark applied / skipped / violated / n/a with one-line basis. If you can't state the basis, the rule was not actually applied. Externalizing this makes skipped rules visible in the transcript so the user can catch drift inside the session, not only days later.
+
+### Step 7b: Length discipline
+
+**Hard caps on wrap output, enforced without carve-outs:**
+
+- **New full session file** (`sessions/YYYY-MM-DD.md`): ≤ 100 lines
+- **Addendum to existing session file** (appending to a same-day file): ≤ 40 lines
+- **TODO.md changes**: only the items that didn't exist before; never restate carried items
+- **User-facing summary output**: ≤ 30 lines including the SESSION SUMMARY block
+
+If a wrap would exceed any of these caps, the **first line** of the over-cap section must justify the length with a specific deliverable (e.g., "Operator queue spans 7 items each requiring distinct action — list cannot compress further" / "5 ADLs landed today, each needs preserved rationale per ADL convention"). Going over without justification is a quality miss — the skill's "scannable, not verbose" guidance failed in 2026-05-28 PM session (80-line addendum on top of 187-line file) and the caps are the corrective.
+
+The cap is a default. Real session size varies. The discipline is: justify in writing, don't drift over silently.
 
 ### Step 8: Track session metrics (optional)
 If the project has a session log or the notes repo is available:
