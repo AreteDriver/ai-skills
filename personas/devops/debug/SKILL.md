@@ -1,3 +1,8 @@
+---
+name: debug
+description: Systematic Debugging Workflow
+---
+
 # /debug - Systematic Debugging Workflow
 
 Structured approach to debugging issues.

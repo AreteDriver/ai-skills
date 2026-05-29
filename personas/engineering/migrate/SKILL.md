@@ -1,3 +1,8 @@
+---
+name: migrate
+description: Code Migration Helper
+---
+
 # /migrate - Code Migration Helper
 
 Assist with dependency upgrades, API changes, and version migrations.

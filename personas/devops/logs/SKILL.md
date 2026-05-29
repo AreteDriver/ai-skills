@@ -1,3 +1,8 @@
+---
+name: logs
+description: Logging Setup & Analysis
+---
+
 # /logs - Logging Setup & Analysis
 
 Configure logging and analyze log output.

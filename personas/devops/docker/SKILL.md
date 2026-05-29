@@ -1,3 +1,8 @@
+---
+name: docker
+description: Dockerfile Generator
+---
+
 # /docker - Dockerfile Generator
 
 Generate optimized Dockerfiles with best practices.

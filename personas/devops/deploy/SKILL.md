@@ -1,3 +1,8 @@
+---
+name: deploy
+description: Deployment Checklist & Setup
+---
+
 # /deploy - Deployment Checklist & Setup
 
 Deployment guides for various platforms.

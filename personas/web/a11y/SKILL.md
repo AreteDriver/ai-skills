@@ -1,3 +1,8 @@
+---
+name: a11y
+description: Accessibility Checklist
+---
+
 # /a11y - Accessibility Checklist
 
 Web accessibility audit and guidelines (WCAG compliance).

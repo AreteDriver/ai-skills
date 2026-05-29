@@ -1,3 +1,8 @@
+---
+name: crud
+description: CRUD Boilerplate Generator
+---
+
 # /crud - CRUD Boilerplate Generator
 
 Generate Create, Read, Update, Delete boilerplate from models.

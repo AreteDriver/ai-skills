@@ -1,3 +1,8 @@
+---
+name: seed
+description: Test Data Generation
+---
+
 # /seed - Test Data Generation
 
 Generate realistic test data and fixtures.

@@ -1,3 +1,8 @@
+---
+name: readme
+description: README Generator
+---
+
 # /readme - README Generator
 
 Generate or update README.md from code analysis.

@@ -1,3 +1,8 @@
+---
+name: sql
+description: SQL Query Optimization
+---
+
 # /sql - SQL Query Optimization
 
 Analyze and optimize SQL queries.

@@ -1,3 +1,8 @@
+---
+name: spec
+description: Technical Specification Writer
+---
+
 # /spec - Technical Specification Writer
 
 Write technical specifications from requirements.

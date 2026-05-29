@@ -1,3 +1,8 @@
+---
+name: review
+description: Code Review Checklist
+---
+
 # /review - Code Review Checklist
 
 Systematic code review with comprehensive checklist.

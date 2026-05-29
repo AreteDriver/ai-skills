@@ -1,3 +1,8 @@
+---
+name: e2e
+description: End-to-End Test Setup
+---
+
 # /e2e - End-to-End Test Setup
 
 Set up end-to-end testing for applications.

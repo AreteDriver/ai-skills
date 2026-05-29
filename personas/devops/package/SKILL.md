@@ -1,3 +1,8 @@
+---
+name: package
+description: Release Packaging Checklist
+---
+
 # /package - Release Packaging Checklist
 
 Guide through packaging for PyPI, crates.io, or npm.

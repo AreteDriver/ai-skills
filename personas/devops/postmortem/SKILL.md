@@ -1,3 +1,8 @@
+---
+name: postmortem
+description: Incident Postmortem Template
+---
+
 # /postmortem - Incident Postmortem Template
 
 Create blameless postmortem reports for incidents.

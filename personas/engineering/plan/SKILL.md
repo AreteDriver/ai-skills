@@ -1,3 +1,8 @@
+---
+name: plan
+description: Implementation Planning
+---
+
 # /plan - Implementation Planning
 
 Create structured implementation plans with task breakdown, dependencies, and risk assessment.

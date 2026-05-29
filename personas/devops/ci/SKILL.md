@@ -1,3 +1,8 @@
+---
+name: ci
+description: GitHub Actions Workflow Generator
+---
+
 # /ci - GitHub Actions Workflow Generator
 
 Generate and update GitHub Actions CI/CD workflows.

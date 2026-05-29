@@ -1,3 +1,8 @@
+---
+name: env
+description: Environment Management
+---
+
 # /env - Environment Management
 
 Manage .env files, secrets, and environment configuration.

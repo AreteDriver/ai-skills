@@ -1,3 +1,8 @@
+---
+name: mock
+description: Test Mock & Fixture Generator
+---
+
 # /mock - Test Mock & Fixture Generator
 
 Generate mock objects, fixtures, and test data.

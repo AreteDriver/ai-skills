@@ -1,3 +1,8 @@
+---
+name: scaffold
+description: Project Scaffolding
+---
+
 # /scaffold - Project Scaffolding
 
 Generate new project structure from templates.

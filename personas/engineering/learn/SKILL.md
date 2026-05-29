@@ -1,3 +1,8 @@
+---
+name: learn
+description: Learning Resources & Path
+---
+
 # /learn - Learning Resources & Path
 
 Provide learning resources and study paths for topics.

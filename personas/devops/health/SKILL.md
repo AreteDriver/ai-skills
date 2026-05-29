@@ -1,3 +1,8 @@
+---
+name: health
+description: Project Health Audit
+---
+
 # /health - Project Health Audit
 
 Comprehensive project health check covering tests, coverage, dependencies, security, and documentation.

@@ -1,3 +1,8 @@
+---
+name: explain
+description: Deep Code Explanation
+---
+
 # /explain - Deep Code Explanation
 
 Provide detailed explanations of code, concepts, or patterns.

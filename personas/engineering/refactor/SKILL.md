@@ -1,3 +1,8 @@
+---
+name: refactor
+description: Code Refactoring Analysis
+---
+
 # /refactor - Code Refactoring Analysis
 
 Identify refactoring opportunities and code improvements.

@@ -1,3 +1,8 @@
+---
+name: pre-release
+description: Pre-Release Checklist
+---
+
 # /pre-release - Pre-Release Checklist
 
 Comprehensive checklist before tagging and releasing a new version.

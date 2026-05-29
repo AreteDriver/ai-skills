@@ -1,3 +1,8 @@
+---
+name: estimate
+description: Task Estimation Techniques
+---
+
 # /estimate - Task Estimation Techniques
 
 Structured approach to estimating development tasks.

@@ -1,3 +1,8 @@
+---
+name: changelog
+description: Generate Changelog from Commits
+---
+
 # /changelog - Generate Changelog from Commits
 
 Generate or update CHANGELOG.md from conventional commits.

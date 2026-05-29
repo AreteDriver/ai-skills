@@ -1,3 +1,8 @@
+---
+name: api-docs
+description: API Documentation Generator
+---
+
 # /api-docs - API Documentation Generator
 
 Generate API documentation from code.

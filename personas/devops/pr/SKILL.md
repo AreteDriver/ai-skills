@@ -1,3 +1,8 @@
+---
+name: pr
+description: Pull Request Creator
+---
+
 # /pr - Pull Request Creator
 
 Create well-formatted pull requests from branch commits.

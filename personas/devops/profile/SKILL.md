@@ -1,3 +1,8 @@
+---
+name: profile
+description: Performance Profiling Guide
+---
+
 # /profile - Performance Profiling Guide
 
 Profile code performance and identify bottlenecks.

@@ -1,3 +1,8 @@
+---
+name: issue
+description: GitHub Issue Creator
+---
+
 # /issue - GitHub Issue Creator
 
 Generate well-structured GitHub issues from descriptions.

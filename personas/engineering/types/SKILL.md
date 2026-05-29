@@ -1,3 +1,8 @@
+---
+name: types
+description: Python Type Hint Generator
+---
+
 # /types - Python Type Hint Generator
 
 Add type hints to untyped Python code.

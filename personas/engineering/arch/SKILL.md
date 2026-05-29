@@ -1,3 +1,8 @@
+---
+name: arch
+description: Architecture Diagram Generator
+---
+
 # /arch - Architecture Diagram Generator
 
 Generate Mermaid architecture diagrams from code analysis.
