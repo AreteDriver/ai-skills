@@ -34,9 +34,10 @@ USAGE:
     ./tools/install.sh [OPTIONS] ACTION
 
 ACTIONS:
-    --all                       Install all personas + hooks
+    --all                       Install all personas + agents + workflows + hooks
     --persona <name>            Install a single persona skill
     --agent <name>              Install a single agent skill
+    --workflow <name>           Install a single workflow skill
     --bundle <name>             Install a curated bundle
     --hooks                     Install all hook scripts
     --list                      List available skills and bundles
@@ -90,6 +91,7 @@ while [[ $# -gt 0 ]]; do
         --all)       ACTION="all"; shift ;;
         --persona)   ACTION="persona"; TARGET="$2"; shift 2 ;;
         --agent)     ACTION="agent"; TARGET="$2"; shift 2 ;;
+        --workflow)  ACTION="workflow"; TARGET="$2"; shift 2 ;;
         --bundle)    ACTION="bundle"; TARGET="$2"; shift 2 ;;
         --hooks)     ACTION="hooks"; shift ;;
         --list)      ACTION="list"; shift ;;
@@ -156,7 +158,7 @@ install_hooks() {
 
 find_skill() {
     local name="$1"
-    local type="$2"  # personas or agents
+    local type="$2"  # personas, agents, or workflows
 
     # Search across all categories
     local found=""
@@ -211,6 +213,18 @@ case $ACTION in
         done
 
         echo ""
+        echo -e "${BOLD}Available Workflows:${NC}"
+        if [ -d "$REPO_ROOT/workflows" ]; then
+            for skill_dir in "$REPO_ROOT/workflows"/*/; do
+                if [ -f "$skill_dir/SKILL.md" ]; then
+                    skill_name="$(basename "$skill_dir")"
+                    desc=$(sed -n '/^description:/s/^description: *//p' "$skill_dir/SKILL.md" 2>/dev/null | head -1)
+                    printf "  %-30s %s\n" "$skill_name" "$desc"
+                fi
+            done
+        fi
+
+        echo ""
         echo -e "${BOLD}Available Bundles:${NC}"
         for bundle_name in "${!BUNDLES[@]}"; do
             skills="${BUNDLES[$bundle_name]}"
@@ -242,6 +256,19 @@ case $ACTION in
         else
             echo -e "  ${RED}✗${NC} Agent '$TARGET' not found"
             echo "  Run --list to see available agents"
+            exit 1
+        fi
+        ;;
+
+    workflow)
+        echo -e "${BOLD}Installing workflow: $TARGET${NC}"
+        mkdir -p "$SKILLS_DIR"
+        skill_path=$(find_skill "$TARGET" "workflows")
+        if [ -n "$skill_path" ]; then
+            install_skill "$skill_path"
+        else
+            echo -e "  ${RED}✗${NC} Workflow '$TARGET' not found"
+            echo "  Run --list to see available workflows"
             exit 1
         fi
         ;;
@@ -291,6 +318,14 @@ case $ACTION in
             rel_dir="${dir#$REPO_ROOT/}"
             install_skill "$rel_dir"
         done < <(find "$REPO_ROOT/agents" -name "SKILL.md" -print0 2>/dev/null | sort -z)
+
+        echo ""
+        echo -e "${BLUE}Workflows:${NC}"
+        while IFS= read -r -d '' skill_md; do
+            dir="$(dirname "$skill_md")"
+            rel_dir="${dir#$REPO_ROOT/}"
+            install_skill "$rel_dir"
+        done < <(find "$REPO_ROOT/workflows" -name "SKILL.md" -print0 2>/dev/null | sort -z)
 
         echo ""
         echo -e "${BLUE}Hooks:${NC}"
