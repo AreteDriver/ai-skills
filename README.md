@@ -39,6 +39,13 @@ cd ai-skills
 
 **See it in action:** Ask Claude to review a function with SQL injection — with the skill loaded, you get severity-ranked findings with line references and concrete fixes instead of vague suggestions.
 
+## Feedback Loop
+
+If this repo saved you time:
+- Star it so others can find it.
+- Open a `use-case` issue with your workflow; I use those to drive the roadmap.
+- If setup fails, open `setup-blocker` and include OS + command output.
+
 ## Arete Studio Pack
 
 Use the `arete-studio-ops` bundle for research-driven strategy and agentic execution loops:
