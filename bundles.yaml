@@ -146,3 +146,15 @@ bundles:
       - workflows/session-start
       - workflows/session-end
       - workflows/context-mapping
+
+  arete-studio-ops:
+    description: Arete studio operating pack - research harvest, strategy orchestration, and funding narrative
+    audience: Solo founders and small teams running agentic execution loops
+    skills:
+      - personas/domain/arete-research-command-center
+      - personas/domain/arete-studio-strategy-os
+      - personas/domain/arete-funding-value-brief
+      - personas/domain/strategic-planner
+      - personas/engineering/composite-scorer
+      - workflows/session-start
+      - workflows/session-end
