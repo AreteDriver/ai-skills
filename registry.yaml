@@ -193,6 +193,21 @@ personas:
       description: Apple platform development best practices (Swift, SwiftUI, Xcode)
       has_references: true
 
+    - name: arete-research-command-center
+      path: personas/domain/arete-research-command-center
+      description: Multi-source intelligence workflow for Arete strategy, execution, and agentic planning
+      has_references: true
+
+    - name: arete-studio-strategy-os
+      path: personas/domain/arete-studio-strategy-os
+      description: Arete operating system for strategy, workflow design, and measurable execution loops
+      has_references: true
+
+    - name: arete-funding-value-brief
+      path: personas/domain/arete-funding-value-brief
+      description: Investor-grade funding narrative persona driven by evidence and milestone de-risking
+      has_references: true
+
   api:
     - name: api-tester
       path: personas/api/api-tester
@@ -461,10 +476,10 @@ workflows:
 # Summary Statistics
 # ─────────────────────────────────────────────
 stats:
-  total_personas: 59
+  total_personas: 62
   total_agents: 17
   total_workflows: 8
-  total_skills: 84
+  total_skills: 87
   categories:
     persona:
       engineering: 8
@@ -472,7 +487,7 @@ stats:
       devops: 6
       claude-code: 7
       security: 2
-      domain: 12
+      domain: 15
       api: 4
       web: 16
     agent:

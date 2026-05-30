@@ -27,6 +27,9 @@ cd ai-skills
 # Install a curated bundle
 ./tools/install.sh --bundle webapp-security
 
+# Install the Arete studio operator pack
+./tools/install.sh --bundle arete-studio-ops
+
 # Install everything
 ./tools/install.sh --all
 
@@ -35,6 +38,16 @@ cd ai-skills
 ```
 
 **See it in action:** Ask Claude to review a function with SQL injection — with the skill loaded, you get severity-ranked findings with line references and concrete fixes instead of vague suggestions.
+
+## Arete Studio Pack
+
+Use the `arete-studio-ops` bundle for research-driven strategy and agentic execution loops:
+
+```bash
+./tools/install.sh --bundle arete-studio-ops
+```
+
+Executive brief for this pack: [ARETE_STUDIO_EXECUTIVE_SUMMARY_2026-05-30.md](docs/arete/ARETE_STUDIO_EXECUTIVE_SUMMARY_2026-05-30.md)
 
 ### Hello World: Create Your Own Skill in 60 Seconds
 
