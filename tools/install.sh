@@ -71,17 +71,25 @@ EOF
 # ─────────────────────────────────────────────
 # Bundle definitions
 # ─────────────────────────────────────────────
-declare -A BUNDLES
-BUNDLES[webapp-security]="personas/engineering/code-reviewer personas/security/security-auditor personas/engineering/testing-specialist personas/security/accessibility-checker"
-BUNDLES[release-engineering]="personas/engineering/code-reviewer personas/claude-code/cicd-pipeline"
-BUNDLES[data-pipeline]="personas/data/data-engineer personas/data/data-analyst personas/data/data-visualizer personas/data/report-generator"
-BUNDLES[full-stack-dev]="personas/engineering/senior-software-engineer personas/engineering/code-reviewer personas/engineering/testing-specialist personas/engineering/software-architect personas/engineering/documentation-writer"
-BUNDLES[claude-code-dev]="personas/claude-code/hooks-designer personas/claude-code/plugin-builder personas/claude-code/mcp-server-builder personas/claude-code/cicd-pipeline personas/claude-code/session-memory-manager"
-BUNDLES[website-builder]="personas/web/web-frontend-builder personas/web/web-backend-builder personas/web/web-deployer personas/web/web-designer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-performance personas/web/web-security-hardener"
-BUNDLES[website-ecommerce]="personas/web/web-frontend-builder personas/web/web-merchant personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-deployer"
-BUNDLES[website-content]="personas/web/web-cms-manager personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-designer"
-BUNDLES[api-integration]="personas/api/api-tester personas/api/database-ops personas/api/webhook-designer personas/api/oauth-integrator"
-BUNDLES[content-ops]="personas/engineering/composite-scorer personas/web/content-scrubber personas/web/web-content-writer personas/web/web-seo-optimizer"
+# Bash 3.2-compatible (macOS ships 3.2, which has no associative arrays).
+# BUNDLE_NAMES lists bundles; bundle_skills() returns a bundle's skill paths.
+BUNDLE_NAMES="webapp-security release-engineering data-pipeline full-stack-dev claude-code-dev website-builder website-ecommerce website-content api-integration content-ops"
+
+bundle_skills() {
+    case "$1" in
+        webapp-security)     echo "personas/engineering/code-reviewer personas/security/security-auditor personas/engineering/testing-specialist personas/security/accessibility-checker" ;;
+        release-engineering) echo "personas/engineering/code-reviewer personas/claude-code/cicd-pipeline" ;;
+        data-pipeline)       echo "personas/data/data-engineer personas/data/data-analyst personas/data/data-visualizer personas/data/report-generator" ;;
+        full-stack-dev)      echo "personas/engineering/senior-software-engineer personas/engineering/code-reviewer personas/engineering/testing-specialist personas/engineering/software-architect personas/engineering/documentation-writer" ;;
+        claude-code-dev)     echo "personas/claude-code/hooks-designer personas/claude-code/plugin-builder personas/claude-code/mcp-server-builder personas/claude-code/cicd-pipeline personas/claude-code/session-memory-manager" ;;
+        website-builder)     echo "personas/web/web-frontend-builder personas/web/web-backend-builder personas/web/web-deployer personas/web/web-designer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-performance personas/web/web-security-hardener" ;;
+        website-ecommerce)   echo "personas/web/web-frontend-builder personas/web/web-merchant personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-deployer" ;;
+        website-content)     echo "personas/web/web-cms-manager personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-designer" ;;
+        api-integration)     echo "personas/api/api-tester personas/api/database-ops personas/api/webhook-designer personas/api/oauth-integrator" ;;
+        content-ops)         echo "personas/engineering/composite-scorer personas/web/content-scrubber personas/web/web-content-writer personas/web/web-seo-optimizer" ;;
+        *)                   return 1 ;;
+    esac
+}
 
 # ─────────────────────────────────────────────
 # Parse arguments
@@ -226,8 +234,8 @@ case $ACTION in
 
         echo ""
         echo -e "${BOLD}Available Bundles:${NC}"
-        for bundle_name in "${!BUNDLES[@]}"; do
-            skills="${BUNDLES[$bundle_name]}"
+        for bundle_name in $BUNDLE_NAMES; do
+            skills="$(bundle_skills "$bundle_name")"
             count=$(echo "$skills" | wc -w)
             skill_names=$(echo "$skills" | tr ' ' '\n' | xargs -I{} basename {} | tr '\n' ', ' | sed 's/,$//')
             printf "  ${YELLOW}%-25s${NC} %d skills: %s\n" "$bundle_name" "$count" "$skill_names"
@@ -274,16 +282,16 @@ case $ACTION in
         ;;
 
     bundle)
-        if [ -z "${BUNDLES[$TARGET]+_}" ]; then
+        if ! bundle_skills "$TARGET" >/dev/null 2>&1; then
             echo -e "${RED}Unknown bundle: $TARGET${NC}"
-            echo "Available bundles: ${!BUNDLES[*]}"
+            echo "Available bundles: $BUNDLE_NAMES"
             exit 1
         fi
 
         echo -e "${BOLD}Installing bundle: $TARGET${NC}"
         mkdir -p "$SKILLS_DIR"
 
-        for skill_path in ${BUNDLES[$TARGET]}; do
+        for skill_path in $(bundle_skills "$TARGET"); do
             install_skill "$skill_path"
         done
 
