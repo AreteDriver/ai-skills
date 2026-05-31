@@ -37,6 +37,25 @@ cd ai-skills
 ./tools/install.sh --list
 ```
 
+## 2-Minute Demo
+
+```bash
+# from repo root
+./tools/install.sh --persona code-reviewer
+ls "$HOME/.claude/skills" | rg '^code-reviewer$'
+```
+
+Expected output (shape):
+
+```text
+Installing persona: code-reviewer
+  ✓ code-reviewer -> installed
+Done.
+code-reviewer
+```
+
+![ai-skills 2-minute terminal demo](docs/assets/ai-skills-2-minute-demo.svg)
+
 **See it in action:** Ask Claude to review a function with SQL injection — with the skill loaded, you get severity-ranked findings with line references and concrete fixes instead of vague suggestions.
 
 ## Feedback Loop

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+  <rect width="1280" height="420" fill="#0b1020"/>
+  <rect x="16" y="16" width="1248" height="388" rx="12" fill="#11162a" stroke="#2a3358"/>
+  <text x="34" y="52" fill="#7dd3fc" font-family="Menlo, Consolas, monospace" font-size="22">ai-skills 2-minute demo</text>
+  <text x="34" y="92" fill="#a7f3d0" font-family="Menlo, Consolas, monospace" font-size="19">$ ./tools/install.sh --persona code-reviewer</text>
+  <text x="34" y="126" fill="#e5e7eb" font-family="Menlo, Consolas, monospace" font-size="18">Installing persona: code-reviewer</text>
+  <text x="34" y="156" fill="#e5e7eb" font-family="Menlo, Consolas, monospace" font-size="18">  ✓ code-reviewer -&gt; installed</text>
+  <text x="34" y="186" fill="#e5e7eb" font-family="Menlo, Consolas, monospace" font-size="18">Done.</text>
+  <text x="34" y="236" fill="#a7f3d0" font-family="Menlo, Consolas, monospace" font-size="19">$ ls "$HOME/.claude/skills" | rg '^code-reviewer$'</text>
+  <text x="34" y="270" fill="#e5e7eb" font-family="Menlo, Consolas, monospace" font-size="18">code-reviewer</text>
+  <text x="34" y="332" fill="#94a3b8" font-family="Menlo, Consolas, monospace" font-size="16">Expected result: skill installed locally and ready to invoke in Claude Code.</text>
+</svg>
