@@ -41,6 +41,14 @@ After the first pass, the user may request an adversarial re-score:
 
 Apply this when stakes justify it (hiring, architecture calls, vendor contracts). Skip on low-stakes scoring — judge-disagreement noise dominates at small sample sizes.
 
+## Build-mode goal-loop — disengage
+
+Evaluation scores candidates; it does not build. On entry, clear any active goal so the autonomous loop cannot fire while comparing options — delete the `.goal-active` sentinel at the repo root if present:
+
+```bash
+root=$(git rev-parse --show-toplevel 2>/dev/null) && [ -n "$root" ] && rm -f "$root/.goal-active"
+```
+
 ## Scoring
 
 Evaluation outputs themselves get scored against personal-quality:

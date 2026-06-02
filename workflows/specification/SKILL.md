@@ -37,6 +37,23 @@ Load the full template from `~/projects/animus/packages/forge/prompts/modes/spec
 
 Do not re-litigate the decision. If the user prompts with "but what if we did X instead?", stop and tell them to run `/evaluation` to re-open the decision. Specs get weaker every time they defend their own premise.
 
+## Build-mode goal-loop (code/build artifacts ONLY)
+
+If the `artifact` being specified is code/build (not a spec for non-code work), ARM the goal-loop by writing a `.goal-active` sentinel at the repo root with `mode: armed` — advisory only: it surfaces the objective each turn but does **not** start autonomous looping. Full engagement happens at `/production`.
+
+```
+objective: <objective, one line>
+stop_condition: <acceptance summary, or "TBD at production">
+budget_ceiling_usd: 10
+turn_ceiling: 25
+turns: 0
+spent_usd: 0
+mode: armed
+started_at: <ISO8601>
+```
+
+Ensure `.goal-active` is git-ignored. Clear it via `/exploration`, `/evaluation`, or `/goal clear`.
+
 ## Scoring
 
 ```bash

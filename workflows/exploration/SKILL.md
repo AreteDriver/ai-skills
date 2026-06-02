@@ -32,6 +32,14 @@ Load the full template from `~/projects/animus/packages/forge/prompts/modes/expl
 
 Do not blend this with Evaluation mode. Exploration generates and names; it does not rank or decide. If the user wants a pick, they should invoke `/evaluation` on the output of this session.
 
+## Build-mode goal-loop — disengage
+
+Exploration is the opposite of building. On entry, clear any active goal so the autonomous loop cannot fire during divergent thinking — delete the `.goal-active` sentinel at the repo root if present:
+
+```bash
+root=$(git rev-parse --show-toplevel 2>/dev/null) && [ -n "$root" ] && rm -f "$root/.goal-active"
+```
+
 ## Scoring
 
 If the user wants to score this output against the personal-quality rubric, suggest:

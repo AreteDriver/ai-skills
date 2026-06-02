@@ -43,6 +43,23 @@ If the deliverable scores below band B on the personal-quality rubric, DO NOT re
 
 Measured iteration beats "try again" prompts 2-4x in practice.
 
+## Build-mode goal-loop (code/build deliverables ONLY)
+
+If and only if `deliverable` is a code/build artifact (a module, feature, multi-file change, or system — **NOT** prose like an email, cover letter, copy, memo, or docs), ENGAGE the goal-loop by writing a `.goal-active` sentinel at the repo root:
+
+```
+objective: <INPUTS.objective, one line>
+stop_condition: <falsifiable end state, from acceptance criteria>
+budget_ceiling_usd: 10
+turn_ceiling: 25
+turns: 0
+spent_usd: 0
+mode: engaged
+started_at: <ISO8601>
+```
+
+Then ensure `.goal-active` is git-ignored (add to `.gitignore` or `.git/info/exclude`). The `goal-loop` hook injects the objective + budget each turn and forces a checkpoint at the ceiling; `goal-gate` escalates destructive ops for approval. For prose deliverables, do **not** write the sentinel. Manage an active goal with `/goal`.
+
 ## Scoring
 
 ```bash
