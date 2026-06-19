@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.arete-research-command-center",
+  "type": "persona",
+  "category": "domain",
+  "name": "arete-research-command-center",
+  "path": "personas/domain/arete-research-command-center",
+  "description": "Multi-source intelligence workflow for Arete. Converts podcast/video/research batches into ranked actions for product, brand, funding, and agentic execution.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

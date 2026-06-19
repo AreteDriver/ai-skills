@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.claude-code.mcp-server-builder",
+  "type": "persona",
+  "category": "claude-code",
+  "name": "mcp-server-builder",
+  "path": "personas/claude-code/mcp-server-builder",
+  "description": "Builds and configures Model Context Protocol (MCP) servers \u2014 tools that extend Claude Code with custom capabilities like database access, API integrations, semantic search, and UI components. Use when creating MCP servers, configuring existing ones, debugging MCP connections, or designing tool interfaces for Claude.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-frontend-builder",
+  "type": "persona",
+  "category": "web",
+  "name": "web-frontend-builder",
+  "path": "personas/web/web-frontend-builder",
+  "description": "Builds production-grade frontend interfaces with React, Next.js, or static HTML/CSS. Component architecture, responsive design, and performance optimization.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

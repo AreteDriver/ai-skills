@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.feature-implementation",
+  "type": "workflow",
+  "category": "general",
+  "name": "feature-implementation",
+  "path": "workflows/feature-implementation",
+  "description": "End-to-end feature implementation workflow using WHY/WHAT/HOW framework \u2014 from requirements through context mapping, implementation, testing, and PR creation. Use when implementing a complete feature across multiple files.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "phase": "full-lifecycle"
+}

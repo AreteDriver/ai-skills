@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.crud",
+  "type": "persona",
+  "category": "engineering",
+  "name": "crud",
+  "path": "personas/engineering/crud",
+  "description": "CRUD Boilerplate Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

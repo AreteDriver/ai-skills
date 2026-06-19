@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.orchestration.agent-teams-orchestrator",
+  "type": "agent",
+  "category": "orchestration",
+  "name": "agent-teams-orchestrator",
+  "path": "agents/orchestration/agent-teams-orchestrator",
+  "description": "Designs and coordinates Claude Code Agent Teams \u2014 multi-agent collaboration where teammate sessions work in parallel with direct communication, task claiming via file locks, and cross-referencing findings",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "medium",
+  "consensus": "majority"
+}

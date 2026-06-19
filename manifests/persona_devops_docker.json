@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.docker",
+  "type": "persona",
+  "category": "devops",
+  "name": "docker",
+  "path": "personas/devops/docker",
+  "description": "Dockerfile Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

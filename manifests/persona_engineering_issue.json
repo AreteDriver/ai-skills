@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.issue",
+  "type": "persona",
+  "category": "engineering",
+  "name": "issue",
+  "path": "personas/engineering/issue",
+  "description": "GitHub Issue Creator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

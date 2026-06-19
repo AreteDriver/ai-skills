@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.system.file-operations",
+  "type": "agent",
+  "category": "system",
+  "name": "file-operations",
+  "path": "agents/system/file-operations",
+  "description": "Safe filesystem operations with path protection, backup enforcement, and audit logging",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "medium",
+  "consensus": "adaptive"
+}

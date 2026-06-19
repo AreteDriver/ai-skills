@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.session-start",
+  "type": "workflow",
+  "category": "general",
+  "name": "session-start",
+  "path": "workflows/session-start",
+  "description": "Session bootstrap workflow \u2014 audits project context, suggests session template, checks service health, and pulls pending tasks. Run at the start of any non-trivial engineering session.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

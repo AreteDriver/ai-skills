@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.scaffold",
+  "type": "persona",
+  "category": "engineering",
+  "name": "scaffold",
+  "path": "personas/engineering/scaffold",
+  "description": "Project Scaffolding",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.strategic-planner",
+  "type": "persona",
+  "category": "domain",
+  "name": "strategic-planner",
+  "path": "personas/domain/strategic-planner",
+  "description": "Breaks down features into actionable implementation plans",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

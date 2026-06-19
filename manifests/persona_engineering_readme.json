@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.readme",
+  "type": "persona",
+  "category": "engineering",
+  "name": "readme",
+  "path": "personas/engineering/readme",
+  "description": "README Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.hauling-job-scheduler",
+  "type": "persona",
+  "category": "domain",
+  "name": "hauling-job-scheduler",
+  "path": "personas/domain/hauling-job-scheduler",
+  "description": "Optimizes job scheduling, route planning, and capacity management for junk removal and hauling operations",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

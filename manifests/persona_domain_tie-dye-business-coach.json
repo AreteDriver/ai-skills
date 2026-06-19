@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.tie-dye-business-coach",
+  "type": "persona",
+  "category": "domain",
+  "name": "tie-dye-business-coach",
+  "path": "personas/domain/tie-dye-business-coach",
+  "description": "Socratic business coaching for handmade tie-dye businesses\u2014diagnoses before prescribing, builds business intuition",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

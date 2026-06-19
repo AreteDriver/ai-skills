@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.headline-hook-generator",
+  "type": "persona",
+  "category": "web",
+  "name": "headline-hook-generator",
+  "path": "personas/web/headline-hook-generator",
+  "description": "Generates scored headline variations, meta elements, and video hooks using proven conversion formulas",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

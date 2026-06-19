@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.testing-specialist",
+  "type": "persona",
+  "category": "engineering",
+  "name": "testing-specialist",
+  "path": "personas/engineering/testing-specialist",
+  "description": "Creates comprehensive test suites for implementations",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0"
+}

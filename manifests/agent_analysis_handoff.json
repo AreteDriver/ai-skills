@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.handoff",
+  "type": "agent",
+  "category": "analysis",
+  "name": "handoff",
+  "path": "agents/analysis/handoff",
+  "description": "Packages project state into structured context documents for agent sessions, human pickup, or Quorum IntentNodes",
+  "has_schema": true,
+  "has_references": false,
+  "version": "1.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

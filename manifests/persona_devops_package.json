@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.package",
+  "type": "persona",
+  "category": "devops",
+  "name": "package",
+  "path": "personas/devops/package",
+  "description": "Release Packaging Checklist",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

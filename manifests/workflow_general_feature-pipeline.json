@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.feature-pipeline",
+  "type": "workflow",
+  "category": "general",
+  "name": "feature-pipeline",
+  "path": "workflows/feature-pipeline",
+  "description": "Multi-phase feature development with checkpoint gates, parallel agent streams, and phased artifact output",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

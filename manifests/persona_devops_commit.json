@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.commit",
+  "type": "persona",
+  "category": "devops",
+  "name": "commit",
+  "path": "personas/devops/commit",
+  "description": "Create well-formatted git commits with conventional commit style. Analyzes staged changes and generates appropriate commit messages. Invoke with /commit or after completing a task.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

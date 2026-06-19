@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.api.webhook-designer",
+  "type": "persona",
+  "category": "api",
+  "name": "webhook-designer",
+  "path": "personas/api/webhook-designer",
+  "description": "Webhook architecture \u2014 payload design, retry strategies, HMAC signature verification, and event-driven patterns",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

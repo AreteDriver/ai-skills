@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.hauling-lead-qualifier",
+  "type": "persona",
+  "category": "domain",
+  "name": "hauling-lead-qualifier",
+  "path": "personas/domain/hauling-lead-qualifier",
+  "description": "Qualifies and prioritizes incoming leads for junk removal businesses based on job value, urgency, and conversion likelihood",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

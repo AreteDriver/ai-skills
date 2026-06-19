@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.postmortem",
+  "type": "persona",
+  "category": "devops",
+  "name": "postmortem",
+  "path": "personas/devops/postmortem",
+  "description": "Incident Postmortem Template",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

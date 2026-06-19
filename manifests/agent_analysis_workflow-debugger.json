@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.workflow-debugger",
+  "type": "agent",
+  "category": "analysis",
+  "name": "workflow-debugger",
+  "path": "agents/analysis/workflow-debugger",
+  "description": "Diagnoses why Gorgon workflows fail \u2014 reads checkpoint state, agent logs, budget traces, and output contracts to produce root-cause analysis",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

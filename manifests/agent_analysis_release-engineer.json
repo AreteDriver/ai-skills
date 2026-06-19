@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.release-engineer",
+  "type": "agent",
+  "category": "analysis",
+  "name": "release-engineer",
+  "path": "agents/analysis/release-engineer",
+  "description": "Automates the last mile of shipping software \u2014 verifies release readiness, generates changelogs, tags versions, and pushes releases",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "high",
+  "consensus": "majority"
+}

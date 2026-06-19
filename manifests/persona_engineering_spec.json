@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.spec",
+  "type": "persona",
+  "category": "engineering",
+  "name": "spec",
+  "path": "personas/engineering/spec",
+  "description": "Technical Specification Writer",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

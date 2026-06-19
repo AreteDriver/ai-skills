@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.hauling-business-advisor",
+  "type": "persona",
+  "category": "domain",
+  "name": "hauling-business-advisor",
+  "path": "personas/domain/hauling-business-advisor",
+  "description": "Provides data-driven operational insights and recommendations for junk removal and hauling business optimization",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

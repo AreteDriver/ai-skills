@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.perf",
+  "type": "persona",
+  "category": "devops",
+  "name": "perf",
+  "path": "personas/devops/perf",
+  "description": "Performance profiling and optimization for Python, Rust, and web applications. Invoke with /perf.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.learn",
+  "type": "persona",
+  "category": "engineering",
+  "name": "learn",
+  "path": "personas/engineering/learn",
+  "description": "Learning Resources & Path",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

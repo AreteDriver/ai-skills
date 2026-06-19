@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.data.data-visualizer",
+  "type": "persona",
+  "category": "data",
+  "name": "data-visualizer",
+  "path": "personas/data/data-visualizer",
+  "description": "Creates charts, dashboards, and visual representations of data",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

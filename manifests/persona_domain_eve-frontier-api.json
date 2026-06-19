@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.eve-frontier-api",
+  "type": "persona",
+  "category": "domain",
+  "name": "eve-frontier-api",
+  "path": "personas/domain/eve-frontier-api",
+  "description": "EVE Frontier World API integration \u2014 endpoints, auth (FusionAuth + Sui zkLogin), pagination, data normalization, and resilience patterns. Invoke with /eve-frontier-api.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

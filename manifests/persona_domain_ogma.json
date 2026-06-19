@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.ogma",
+  "type": "persona",
+  "category": "domain",
+  "name": "ogma",
+  "path": "personas/domain/ogma",
+  "description": "Reverse-Engineering Synthesis Persona",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

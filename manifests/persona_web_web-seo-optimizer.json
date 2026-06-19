@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-seo-optimizer",
+  "type": "persona",
+  "category": "web",
+  "name": "web-seo-optimizer",
+  "path": "personas/web/web-seo-optimizer",
+  "description": "Optimizes websites for search engines \u2014 technical SEO, structured data markup, Core Web Vitals, crawlability, sitemaps, and programmatic SEO patterns.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

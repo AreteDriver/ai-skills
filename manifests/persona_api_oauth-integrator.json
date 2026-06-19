@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.api.oauth-integrator",
+  "type": "persona",
+  "category": "api",
+  "name": "oauth-integrator",
+  "path": "personas/api/oauth-integrator",
+  "description": "OAuth and API authentication \u2014 OAuth 2.0 flows, PKCE, token lifecycle, JWT validation, and provider integration",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.exploration",
+  "type": "workflow",
+  "category": "general",
+  "name": "exploration",
+  "path": "workflows/exploration",
+  "description": "Exploration-mode prompt scaffold. Use when the option space isn't mapped yet \u2014 generate distinct alternatives, surface unknowns, challenge assumptions. The output is a list of options with evidence, not a recommendation. Invoke with /exploration.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

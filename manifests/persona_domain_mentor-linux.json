@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.mentor-linux",
+  "type": "persona",
+  "category": "domain",
+  "name": "mentor-linux",
+  "path": "personas/domain/mentor-linux",
+  "description": "Linux certification preparation mentor for RHCSA, Linux+, and LPIC-1",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

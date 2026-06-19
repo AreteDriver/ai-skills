@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.browser.web-search",
+  "type": "agent",
+  "category": "browser",
+  "name": "web-search",
+  "path": "agents/browser/web-search",
+  "description": "Search the web for information with rate limiting, caching, and structured source attribution",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

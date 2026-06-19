@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.senior-software-engineer",
+  "type": "persona",
+  "category": "engineering",
+  "name": "senior-software-engineer",
+  "path": "personas/engineering/senior-software-engineer",
+  "description": "Expert code reviewer, architect, and engineering mentor",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0"
+}

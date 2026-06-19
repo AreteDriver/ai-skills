@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.debug",
+  "type": "persona",
+  "category": "devops",
+  "name": "debug",
+  "path": "personas/devops/debug",
+  "description": "Systematic Debugging Workflow",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

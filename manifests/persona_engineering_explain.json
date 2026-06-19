@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.explain",
+  "type": "persona",
+  "category": "engineering",
+  "name": "explain",
+  "path": "personas/engineering/explain",
+  "description": "Deep Code Explanation",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

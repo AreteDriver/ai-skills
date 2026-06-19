@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.cro-analyst",
+  "type": "persona",
+  "category": "web",
+  "name": "cro-analyst",
+  "path": "personas/web/cro-analyst",
+  "description": "Conversion rate optimization analysis with above-fold, CTA, trust signal, and cognitive load scoring",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

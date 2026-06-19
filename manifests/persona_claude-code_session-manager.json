@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.claude-code.session-manager",
+  "type": "persona",
+  "category": "claude-code",
+  "name": "session-manager",
+  "path": "personas/claude-code/session-manager",
+  "description": "Cross-session continuity for Claude Code \u2014 resume context, structured handoffs, session history tracking",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

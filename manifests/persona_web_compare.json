@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.compare",
+  "type": "persona",
+  "category": "web",
+  "name": "compare",
+  "path": "personas/web/compare",
+  "description": "Side-by-side image comparison with difference highlighting. Useful for visual regression testing and UI changes. Invoke with /compare <image1> <image2>.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

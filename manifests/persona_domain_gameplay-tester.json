@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.gameplay-tester",
+  "type": "persona",
+  "category": "domain",
+  "name": "gameplay-tester",
+  "path": "personas/domain/gameplay-tester",
+  "description": "Professional gameplay tester and QA analyst persona for playtesting, bug finding, UX assessment, balance evaluation, and player experience feedback. Use when evaluating game feel, finding bugs, assessing difficulty curves, or providing player-perspective feedback on games and interactive applications.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.content-scrubber",
+  "type": "persona",
+  "category": "web",
+  "name": "content-scrubber",
+  "path": "personas/web/content-scrubber",
+  "description": "Detects and removes AI-generated patterns from content \u2014 em-dashes, filler phrases, robotic rhythm",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

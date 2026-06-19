@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.context-mapping",
+  "type": "workflow",
+  "category": "general",
+  "name": "context-mapping",
+  "path": "workflows/context-mapping",
+  "description": "Pre-execution context mapping phase inspired by Blitzy \u2014 maps codebase structure, identifies dependencies, and builds execution context before any agent writes code. Use before complex multi-file changes, large refactors, or unfamiliar codebases.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "phase": "full-lifecycle"
+}

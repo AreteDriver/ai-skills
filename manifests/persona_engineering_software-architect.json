@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.software-architect",
+  "type": "persona",
+  "category": "engineering",
+  "name": "software-architect",
+  "path": "personas/engineering/software-architect",
+  "description": "Designs system architecture and makes technical decisions",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-analytics",
+  "type": "persona",
+  "category": "web",
+  "name": "web-analytics",
+  "path": "personas/web/web-analytics",
+  "description": "Implements and interprets web analytics \u2014 GA4 setup, event tracking, conversion funnels, Google Search Console, UTM strategy, and A/B testing frameworks.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

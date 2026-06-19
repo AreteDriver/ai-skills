@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.lint",
+  "type": "persona",
+  "category": "devops",
+  "name": "lint",
+  "path": "personas/devops/lint",
+  "description": "Run ruff linter and formatter. Checks code quality and auto-fixes issues. Invoke with /lint or /lint <path>.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

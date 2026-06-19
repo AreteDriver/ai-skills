@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.code-builder",
+  "type": "persona",
+  "category": "engineering",
+  "name": "code-builder",
+  "path": "personas/engineering/code-builder",
+  "description": "Writes clean, production-ready code based on plans",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

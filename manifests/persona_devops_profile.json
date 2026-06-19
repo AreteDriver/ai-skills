@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.profile",
+  "type": "persona",
+  "category": "devops",
+  "name": "profile",
+  "path": "personas/devops/profile",
+  "description": "Performance Profiling Guide",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

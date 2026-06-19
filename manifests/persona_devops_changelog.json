@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.changelog",
+  "type": "persona",
+  "category": "devops",
+  "name": "changelog",
+  "path": "personas/devops/changelog",
+  "description": "Generate Changelog from Commits",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

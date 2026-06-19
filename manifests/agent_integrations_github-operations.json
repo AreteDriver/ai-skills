@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.integrations.github-operations",
+  "type": "agent",
+  "category": "integrations",
+  "name": "github-operations",
+  "path": "agents/integrations/github-operations",
+  "description": "Repository management through Git CLI and GitHub API with branch protection, commit conventions, and security controls",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "medium",
+  "consensus": "majority"
+}

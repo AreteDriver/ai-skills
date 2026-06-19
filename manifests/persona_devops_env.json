@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.env",
+  "type": "persona",
+  "category": "devops",
+  "name": "env",
+  "path": "personas/devops/env",
+  "description": "Environment Management",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

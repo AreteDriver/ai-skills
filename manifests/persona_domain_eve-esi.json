@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.eve-esi",
+  "type": "persona",
+  "category": "domain",
+  "name": "eve-esi",
+  "path": "personas/domain/eve-esi",
+  "description": "EVE Online ESI API integration patterns, authentication flows, rate limiting, and data modeling. Invoke with /eve-esi.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.deps",
+  "type": "persona",
+  "category": "devops",
+  "name": "deps",
+  "path": "personas/devops/deps",
+  "description": "Check for outdated dependencies and security vulnerabilities. Invoke with /deps.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

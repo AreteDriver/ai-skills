@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.release-engineering",
+  "type": "workflow",
+  "category": "general",
+  "name": "release-engineering",
+  "path": "workflows/release-engineering",
+  "description": "End-to-end release workflow \u2014 preflight checks, code review, changelog generation, version bump, tagging, and publishing. Coordinates release-engineer agent, code-reviewer persona, and github-operations agent through the WHY/WHAT/HOW framework.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

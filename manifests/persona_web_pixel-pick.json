@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.pixel-pick",
+  "type": "persona",
+  "category": "web",
+  "name": "pixel-pick",
+  "path": "personas/web/pixel-pick",
+  "description": "Interactive coordinate picker - click on an image to get exact pixel coordinates. Useful for mapping UI element positions. Invoke with /pixel-pick <image-path>.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

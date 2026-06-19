@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.eve-frontier-data",
+  "type": "persona",
+  "category": "domain",
+  "name": "eve-frontier-data",
+  "path": "personas/domain/eve-frontier-data",
+  "description": "EVE Frontier data pipelines \u2014 killmail ingestion, smart assembly tracking, entity normalization, polling architecture, and SQLite/PostgreSQL storage patterns. Invoke with /eve-frontier-data.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

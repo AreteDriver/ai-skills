@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.mock",
+  "type": "persona",
+  "category": "engineering",
+  "name": "mock",
+  "path": "personas/engineering/mock",
+  "description": "Test Mock & Fixture Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

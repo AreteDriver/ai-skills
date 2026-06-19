@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.security.security-sweep",
+  "type": "persona",
+  "category": "security",
+  "name": "security-sweep",
+  "path": "personas/security/security-sweep",
+  "description": "Fleet-wide security audit \u2014 runs /security-auditor across multiple repos, aggregates findings to FLEET-SECURITY.md, surfaces NEW findings since last sweep. Use for periodic fleet hardening, post-Dependabot-sweep verification, or before security-sensitive releases.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

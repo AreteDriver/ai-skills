@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.claude-code.prompt-library",
+  "type": "persona",
+  "category": "claude-code",
+  "name": "prompt-library",
+  "path": "personas/claude-code/prompt-library",
+  "description": "Extract effective prompts from the current session and save them to a reusable library. Captures prompts that worked well for future reference. Invoke with /prompt-library or /prompts.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

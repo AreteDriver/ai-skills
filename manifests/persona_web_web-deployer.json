@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-deployer",
+  "type": "persona",
+  "category": "web",
+  "name": "web-deployer",
+  "path": "personas/web/web-deployer",
+  "description": "Deploys websites to Vercel, Fly.io, Netlify, Cloudflare, or VPS. DNS configuration, SSL certificates, CI/CD pipelines, and zero-downtime deployments.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.plan",
+  "type": "persona",
+  "category": "engineering",
+  "name": "plan",
+  "path": "personas/engineering/plan",
+  "description": "Implementation Planning",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

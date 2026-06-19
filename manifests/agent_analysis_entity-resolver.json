@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.entity-resolver",
+  "type": "agent",
+  "category": "analysis",
+  "name": "entity-resolver",
+  "path": "agents/analysis/entity-resolver",
+  "description": "Resolves entity ambiguity across document corpora \u2014 fuzzy name matching, alias detection, identity consolidation, and confidence-scored entity merging",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "medium",
+  "consensus": "majority"
+}

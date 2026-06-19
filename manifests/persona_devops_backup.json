@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.backup",
+  "type": "persona",
+  "category": "devops",
+  "name": "backup",
+  "path": "personas/devops/backup",
+  "description": "Backup strategy design, data integrity verification, and disaster recovery planning. Invoke with /backup.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

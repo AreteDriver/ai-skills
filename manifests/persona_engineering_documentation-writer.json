@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.documentation-writer",
+  "type": "persona",
+  "category": "engineering",
+  "name": "documentation-writer",
+  "path": "personas/engineering/documentation-writer",
+  "description": "Creates comprehensive documentation for code and systems",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

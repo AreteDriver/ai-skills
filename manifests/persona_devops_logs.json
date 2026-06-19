@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.logs",
+  "type": "persona",
+  "category": "devops",
+  "name": "logs",
+  "path": "personas/devops/logs",
+  "description": "Logging Setup & Analysis",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

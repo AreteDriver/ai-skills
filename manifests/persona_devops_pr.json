@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.pr",
+  "type": "persona",
+  "category": "devops",
+  "name": "pr",
+  "path": "personas/devops/pr",
+  "description": "Pull Request Creator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

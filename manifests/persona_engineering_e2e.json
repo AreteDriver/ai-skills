@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.e2e",
+  "type": "persona",
+  "category": "engineering",
+  "name": "e2e",
+  "path": "personas/engineering/e2e",
+  "description": "End-to-End Test Setup",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

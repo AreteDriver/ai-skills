@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.api.database-ops",
+  "type": "persona",
+  "category": "api",
+  "name": "database-ops",
+  "path": "personas/api/database-ops",
+  "description": "Database operations \u2014 schema design, migration authoring, query optimization, and SQL/ORM patterns",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.seed",
+  "type": "persona",
+  "category": "engineering",
+  "name": "seed",
+  "path": "personas/engineering/seed",
+  "description": "Test Data Generation",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

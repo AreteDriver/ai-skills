@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-performance",
+  "type": "persona",
+  "category": "web",
+  "name": "web-performance",
+  "path": "personas/web/web-performance",
+  "description": "Optimizes website performance \u2014 Core Web Vitals, bundle analysis, image optimization, caching strategies, lazy loading, and Lighthouse score improvement.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

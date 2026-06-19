@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.technical-debt-auditor",
+  "type": "agent",
+  "category": "analysis",
+  "name": "technical-debt-auditor",
+  "path": "agents/analysis/technical-debt-auditor",
+  "description": "Systematic technical debt assessment \u2014 scans for security issues, correctness gaps, infrastructure debt, maintainability problems, documentation quality, and dependency freshness",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

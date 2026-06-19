@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.conductor",
+  "type": "workflow",
+  "category": "general",
+  "name": "conductor",
+  "path": "workflows/conductor",
+  "description": "Context-driven development workflow \u2014 interactive setup, spec generation, TDD implementation with checkpoints and revert",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

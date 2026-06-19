@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.code-reviewer",
+  "type": "persona",
+  "category": "engineering",
+  "name": "code-reviewer",
+  "path": "personas/engineering/code-reviewer",
+  "description": "Reviews code for quality, security, and best practices",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0"
+}

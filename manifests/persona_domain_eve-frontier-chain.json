@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.eve-frontier-chain",
+  "type": "persona",
+  "category": "domain",
+  "name": "eve-frontier-chain",
+  "path": "personas/domain/eve-frontier-chain",
+  "description": "EVE Frontier on-chain patterns \u2014 MUD v2 smart contracts, Sui SDK integration, smart assembly gating, and on-chain reputation systems. Invoke with /eve-frontier-chain.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

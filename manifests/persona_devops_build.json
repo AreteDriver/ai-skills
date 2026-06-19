@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.build",
+  "type": "persona",
+  "category": "devops",
+  "name": "build",
+  "path": "personas/devops/build",
+  "description": "Build and install the project in development mode. Handles venv creation and editable installs. Invoke with /build.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

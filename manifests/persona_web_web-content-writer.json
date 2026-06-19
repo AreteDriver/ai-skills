@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-content-writer",
+  "type": "persona",
+  "category": "web",
+  "name": "web-content-writer",
+  "path": "personas/web/web-content-writer",
+  "description": "Writes website copy, blog posts, landing pages, and email content \u2014 SEO-aware, conversion-optimized, audience-targeted, and voice-consistent.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

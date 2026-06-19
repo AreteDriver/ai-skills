@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.api.api-tester",
+  "type": "persona",
+  "category": "api",
+  "name": "api-tester",
+  "path": "personas/api/api-tester",
+  "description": "REST and GraphQL API testing \u2014 contract validation, load testing, regression suites, and endpoint verification",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

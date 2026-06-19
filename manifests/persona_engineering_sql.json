@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.sql",
+  "type": "persona",
+  "category": "engineering",
+  "name": "sql",
+  "path": "personas/engineering/sql",
+  "description": "SQL Query Optimization",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

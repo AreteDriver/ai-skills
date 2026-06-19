@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.arete-studio-strategy-os",
+  "type": "persona",
+  "category": "domain",
+  "name": "arete-studio-strategy-os",
+  "path": "personas/domain/arete-studio-strategy-os",
+  "description": "Strategy and operating system persona for Arete. Converts intelligence into execution plans for workflow, process, AI strategy, and business growth.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

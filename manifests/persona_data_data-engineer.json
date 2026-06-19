@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.data.data-engineer",
+  "type": "persona",
+  "category": "data",
+  "name": "data-engineer",
+  "path": "personas/data/data-engineer",
+  "description": "Handles data collection, ingestion, cleaning, and pipeline design",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

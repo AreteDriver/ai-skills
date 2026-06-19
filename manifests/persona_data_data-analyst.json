@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.data.data-analyst",
+  "type": "persona",
+  "category": "data",
+  "name": "data-analyst",
+  "path": "personas/data/data-analyst",
+  "description": "Performs statistical analysis, finds patterns, and generates insights",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

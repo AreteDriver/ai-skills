@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.streamlit",
+  "type": "persona",
+  "category": "domain",
+  "name": "streamlit",
+  "path": "personas/domain/streamlit",
+  "description": "Streamlit app patterns for layout, state management, data display, and deployment. Invoke with /streamlit.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

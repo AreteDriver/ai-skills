@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.estimate",
+  "type": "persona",
+  "category": "engineering",
+  "name": "estimate",
+  "path": "personas/engineering/estimate",
+  "description": "Task Estimation Techniques",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

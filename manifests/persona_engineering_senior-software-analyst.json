@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.senior-software-analyst",
+  "type": "persona",
+  "category": "engineering",
+  "name": "senior-software-analyst",
+  "path": "personas/engineering/senior-software-analyst",
+  "description": "Senior software analyst persona for codebase auditing, architecture mapping, documentation review, technical debt assessment, and system understanding. Use when you need to understand an unfamiliar codebase, evaluate architecture decisions, create documentation, or assess project health before making changes.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

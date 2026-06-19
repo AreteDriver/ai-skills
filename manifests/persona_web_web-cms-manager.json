@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-cms-manager",
+  "type": "persona",
+  "category": "web",
+  "name": "web-cms-manager",
+  "path": "personas/web/web-cms-manager",
+  "description": "Manages content management systems \u2014 WordPress themes/plugins, Ghost configuration, headless CMS integration (Sanity, Contentful, Strapi), and content modeling.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

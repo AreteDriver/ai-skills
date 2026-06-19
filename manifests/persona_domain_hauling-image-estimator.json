@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.hauling-image-estimator",
+  "type": "persona",
+  "category": "domain",
+  "name": "hauling-image-estimator",
+  "path": "personas/domain/hauling-image-estimator",
+  "description": "Analyzes photos of junk, debris, or estate contents to estimate volume, weight, item categories, and special disposal requirements for hauling/removal businesses",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.system.process-runner",
+  "type": "agent",
+  "category": "system",
+  "name": "process-runner",
+  "path": "agents/system/process-runner",
+  "description": "Execute and manage subprocesses with timeout, output capture, and safety controls. Blocks dangerous commands, enforces resource limits, and returns structured results with exit codes, stdout, stderr, and timing.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "medium",
+  "consensus": "any"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.systemd",
+  "type": "persona",
+  "category": "devops",
+  "name": "systemd",
+  "path": "personas/devops/systemd",
+  "description": "Systemd service management, unit files, timers, journalctl, and troubleshooting. Invoke with /systemd.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

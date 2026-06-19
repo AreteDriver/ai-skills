@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.types",
+  "type": "persona",
+  "category": "engineering",
+  "name": "types",
+  "path": "personas/engineering/types",
+  "description": "Python Type Hint Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.composite-scorer",
+  "type": "persona",
+  "category": "engineering",
+  "name": "composite-scorer",
+  "path": "personas/engineering/composite-scorer",
+  "description": "Weighted 0-100 composite scoring with category breakdowns, grade bands, and priority actions",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

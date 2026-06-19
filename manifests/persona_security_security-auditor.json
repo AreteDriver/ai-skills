@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.security.security-auditor",
+  "type": "persona",
+  "category": "security",
+  "name": "security-auditor",
+  "path": "personas/security/security-auditor",
+  "description": "SAST + OWASP audit with LLM-triaged findings. Runs semgrep/bandit/gitleaks/pip-audit, filters false-positives, drafts remediation patches, persists SECURITY_FINDINGS.md with --diff for regression tracking. Use for security reviews, vuln scans, hardening, pre-pen-test prep.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "3.0.0"
+}

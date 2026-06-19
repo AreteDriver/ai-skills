@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-designer",
+  "type": "persona",
+  "category": "web",
+  "name": "web-designer",
+  "path": "personas/web/web-designer",
+  "description": "Designs website layouts, color systems, typography, and visual hierarchy. Translates brand identity to Tailwind CSS design tokens and modern design systems.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

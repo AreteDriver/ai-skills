@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.intent-author",
+  "type": "agent",
+  "category": "analysis",
+  "name": "intent-author",
+  "path": "agents/analysis/intent-author",
+  "description": "Teaches agents how to publish well-structured intents for Convergent's intent graph \u2014 schema, quality criteria, and authoring patterns",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

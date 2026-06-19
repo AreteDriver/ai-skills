@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.test",
+  "type": "persona",
+  "category": "devops",
+  "name": "test",
+  "path": "personas/devops/test",
+  "description": "Run pytest with coverage summary. Provides quick feedback on test status and coverage. Invoke with /test or /test <path>.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

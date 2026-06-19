@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.deploy",
+  "type": "persona",
+  "category": "devops",
+  "name": "deploy",
+  "path": "personas/devops/deploy",
+  "description": "Deployment Checklist & Setup",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

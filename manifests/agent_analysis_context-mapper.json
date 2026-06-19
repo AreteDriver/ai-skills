@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.context-mapper",
+  "type": "agent",
+  "category": "analysis",
+  "name": "context-mapper",
+  "path": "agents/analysis/context-mapper",
+  "description": "Pre-execution mapping of codebases, document collections, or problem spaces. Runs BEFORE any Gorgon workflow to give all agents shared situational awareness",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

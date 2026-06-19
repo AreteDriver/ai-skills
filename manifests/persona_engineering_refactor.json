@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.refactor",
+  "type": "persona",
+  "category": "engineering",
+  "name": "refactor",
+  "path": "personas/engineering/refactor",
+  "description": "Code Refactoring Analysis",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

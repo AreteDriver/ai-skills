@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.ci",
+  "type": "persona",
+  "category": "devops",
+  "name": "ci",
+  "path": "personas/devops/ci",
+  "description": "GitHub Actions Workflow Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

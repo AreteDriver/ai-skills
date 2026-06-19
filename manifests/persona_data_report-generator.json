@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.data.report-generator",
+  "type": "persona",
+  "category": "data",
+  "name": "report-generator",
+  "path": "personas/data/report-generator",
+  "description": "Creates executive summaries, reports, and documentation of findings",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

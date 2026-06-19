@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.api-docs",
+  "type": "persona",
+  "category": "engineering",
+  "name": "api-docs",
+  "path": "personas/engineering/api-docs",
+  "description": "API Documentation Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

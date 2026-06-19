@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.networking",
+  "type": "persona",
+  "category": "devops",
+  "name": "networking",
+  "path": "personas/devops/networking",
+  "description": "Linux networking troubleshooting \u2014 DNS, firewalls, ports, routing, and connectivity diagnostics. Invoke with /networking.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

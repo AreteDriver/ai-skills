@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.seo-content-pipeline",
+  "type": "persona",
+  "category": "web",
+  "name": "seo-content-pipeline",
+  "path": "personas/web/seo-content-pipeline",
+  "description": "Orchestrates the full SEO content pipeline: research, write, optimize, scrub, publish with staged directories",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.migrate",
+  "type": "persona",
+  "category": "engineering",
+  "name": "migrate",
+  "path": "personas/engineering/migrate",
+  "description": "Code Migration Helper",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

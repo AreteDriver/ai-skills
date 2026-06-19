@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.analysis.document-forensics",
+  "type": "agent",
+  "category": "analysis",
+  "name": "document-forensics",
+  "path": "agents/analysis/document-forensics",
+  "description": "Investigative methodology for analyzing document collections \u2014 provenance analysis, anomaly detection, redaction detection, and cross-document validation",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "medium",
+  "consensus": "majority"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-merchant",
+  "type": "persona",
+  "category": "web",
+  "name": "web-merchant",
+  "path": "personas/web/web-merchant",
+  "description": "Builds e-commerce functionality \u2014 product catalogs, shopping carts, Stripe/PayPal integration, order management, Shopify storefronts, and subscription billing.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

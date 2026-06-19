@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.health",
+  "type": "persona",
+  "category": "devops",
+  "name": "health",
+  "path": "personas/devops/health",
+  "description": "Project Health Audit",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

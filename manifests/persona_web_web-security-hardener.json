@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-security-hardener",
+  "type": "persona",
+  "category": "web",
+  "name": "web-security-hardener",
+  "path": "personas/web/web-security-hardener",
+  "description": "Hardens websites against common attacks \u2014 security headers, CSP policies, input validation, CORS configuration, dependency auditing, and OWASP Top 10 mitigation.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

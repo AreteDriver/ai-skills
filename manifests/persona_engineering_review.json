@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.review",
+  "type": "persona",
+  "category": "engineering",
+  "name": "review",
+  "path": "personas/engineering/review",
+  "description": "Code Review Checklist",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

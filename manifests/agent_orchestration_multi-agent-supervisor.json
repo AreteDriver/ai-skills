@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.orchestration.multi-agent-supervisor",
+  "type": "agent",
+  "category": "orchestration",
+  "name": "multi-agent-supervisor",
+  "path": "agents/orchestration/multi-agent-supervisor",
+  "description": "Hierarchical multi-agent orchestration supervisor that decomposes tasks, delegates to specialized worker agents, tracks state, and employs triumvirate consensus for high-stakes operations",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "high",
+  "consensus": "adaptive"
+}

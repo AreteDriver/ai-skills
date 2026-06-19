@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.specification",
+  "type": "workflow",
+  "category": "general",
+  "name": "specification",
+  "path": "workflows/specification",
+  "description": "Specification-mode prompt scaffold. Use when the decision is made and you need a buildable, testable, reviewable spec. Output is fixed-structure with measurable acceptance criteria. Never re-argues the premise. Invoke with /specification.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

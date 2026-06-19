@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.session-end",
+  "type": "workflow",
+  "category": "general",
+  "name": "session-end",
+  "path": "workflows/session-end",
+  "description": "Session wrap-up workflow \u2014 captures decisions, syncs memory, reports costs, updates tasks, and commits cleanly. Run before ending any session with meaningful work.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

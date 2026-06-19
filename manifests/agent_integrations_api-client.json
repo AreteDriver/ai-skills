@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.integrations.api-client",
+  "type": "agent",
+  "category": "integrations",
+  "name": "api-client",
+  "path": "agents/integrations/api-client",
+  "description": "Authenticated HTTP API client with retry logic, rate limiting, response parsing, and structured error handling. Supports OAuth2, API key, and bearer token auth.",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

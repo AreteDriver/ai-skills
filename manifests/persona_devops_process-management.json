@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.process-management",
+  "type": "persona",
+  "category": "devops",
+  "name": "process-management",
+  "path": "personas/devops/process-management",
+  "description": "Monitor and control system processes with safety protections. Invoke with /process-management.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

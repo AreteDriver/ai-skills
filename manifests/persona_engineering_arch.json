@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.engineering.arch",
+  "type": "persona",
+  "category": "engineering",
+  "name": "arch",
+  "path": "personas/engineering/arch",
+  "description": "Architecture Diagram Generator",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

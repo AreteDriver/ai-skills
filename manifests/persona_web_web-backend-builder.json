@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.web-backend-builder",
+  "type": "persona",
+  "category": "web",
+  "name": "web-backend-builder",
+  "path": "personas/web/web-backend-builder",
+  "description": "Builds backend APIs and server logic with FastAPI, Flask, Express, or Next.js API routes. Database design, authentication, and API documentation.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

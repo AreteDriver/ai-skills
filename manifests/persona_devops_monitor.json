@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.devops.monitor",
+  "type": "persona",
+  "category": "devops",
+  "name": "monitor",
+  "path": "personas/devops/monitor",
+  "description": "Observability patterns for logging, metrics, alerting, and health checks in production systems. Invoke with /monitor.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.web.a11y",
+  "type": "persona",
+  "category": "web",
+  "name": "a11y",
+  "path": "personas/web/a11y",
+  "description": "Accessibility Checklist",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

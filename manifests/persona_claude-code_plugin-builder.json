@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.claude-code.plugin-builder",
+  "type": "persona",
+  "category": "claude-code",
+  "name": "plugin-builder",
+  "path": "personas/claude-code/plugin-builder",
+  "description": "Builds Claude Code plugins \u2014 shareable packages that bundle skills, hooks, MCP server configs, and agent definitions into a single distributable unit with plugin.json manifest. Use when creating, scaffolding, packaging, or publishing Claude Code plugins.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

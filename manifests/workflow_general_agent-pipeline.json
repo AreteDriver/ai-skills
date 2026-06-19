@@ -1,0 +1,12 @@
+{
+  "skill_id": "workflow.general.agent-pipeline",
+  "type": "workflow",
+  "category": "general",
+  "name": "agent-pipeline",
+  "path": "workflows/agent-pipeline",
+  "description": "Automated Issue-to-PR-to-Merge pipeline using GitHub Actions and AI agents with review loops",
+  "has_schema": true,
+  "has_references": false,
+  "version": "1.0.0",
+  "phase": "full-lifecycle"
+}

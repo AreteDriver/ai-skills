@@ -1,0 +1,13 @@
+{
+  "skill_id": "agent.browser.web-scrape",
+  "type": "agent",
+  "category": "browser",
+  "name": "web-scrape",
+  "path": "agents/browser/web-scrape",
+  "description": "Fetch and parse web content with ethical scraping practices, rate limiting, and structured extraction",
+  "has_schema": true,
+  "has_references": false,
+  "version": "2.0.0",
+  "risk_level": "low",
+  "consensus": "any"
+}

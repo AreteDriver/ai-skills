@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.g13-layout",
+  "type": "persona",
+  "category": "domain",
+  "name": "g13-layout",
+  "path": "personas/domain/g13-layout",
+  "description": "Interactive G13 button position editor. Click on device image to set button coordinates. Invoke with /g13-layout.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}

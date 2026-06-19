@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.arete-funding-value-brief",
+  "type": "persona",
+  "category": "domain",
+  "name": "arete-funding-value-brief",
+  "path": "personas/domain/arete-funding-value-brief",
+  "description": "Converts Arete execution signals into investor-grade funding narratives, milestone proofs, and de-risking plans.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

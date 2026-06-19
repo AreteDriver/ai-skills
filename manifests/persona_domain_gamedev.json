@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.domain.gamedev",
+  "type": "persona",
+  "category": "domain",
+  "name": "gamedev",
+  "path": "personas/domain/gamedev",
+  "description": "Game development patterns for Bevy/Rust ECS, game loops, state machines, physics, and audio. Invoke with /gamedev.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "2.0.0"
+}

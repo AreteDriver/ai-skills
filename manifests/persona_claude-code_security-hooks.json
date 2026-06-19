@@ -1,0 +1,11 @@
+{
+  "skill_id": "persona.claude-code.security-hooks",
+  "type": "persona",
+  "category": "claude-code",
+  "name": "security-hooks",
+  "path": "personas/claude-code/security-hooks",
+  "description": "Sets up Claude Code security hooks \u2014 protective PreToolUse guards that block sensitive file access, dangerous commands, destructive git ops, system path writes, network calls, and permission changes. Includes 7 ready-to-deploy hook scripts.",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0"
+}
