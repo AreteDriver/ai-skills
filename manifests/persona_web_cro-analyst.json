@@ -7,5 +7,34 @@
   "description": "Conversion rate optimization analysis with above-fold, CTA, trust signal, and cognitive load scoring",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "content",
+    "conversion",
+    "low",
+    "mobile",
+    "persona",
+    "testing",
+    "web"
+  ],
+  "triggers": [
+    "[ ] headline communicates primary benefit (not feature)",
+    "[ ] no competing elements distract from primary action",
+    "[ ] primary cta is visible without scrolling",
+    "[ ] subheadline clarifies or reinforces headline",
+    "[ ] trust signal present (logo bar, testimonial snippet, \"as seen in\")",
+    "[ ] value proposition is clear within 5 seconds",
+    "[ ] visual hierarchy guides eye to cta",
+    "[issue 1: e.g., \"primary cta uses passive language \u2014 'learn more' vs. 'start fre",
+    "[issue 2]",
+    "above fold: [n] ctas",
+    "auditing cta placement, copy, and friction across a page",
+    "below fold: [n] ctas",
+    "comparing two page variants for a/b testing recommendations",
+    "evaluating a landing page or sales page for conversion potential",
+    "identifying missing trust signals, objection handling, or social proof",
+    "mid-page: [n] ctas",
+    "producing a conversion readiness score before a launch or campaign",
+    "recommended: primary cta above fold + repeated every 2-3 scroll depths"
+  ]
 }

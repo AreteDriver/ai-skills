@@ -7,5 +7,25 @@
   "description": "Performs statistical analysis, finds patterns, and generates insights",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "design",
+    "low",
+    "numpy",
+    "pandas",
+    "persona",
+    "python",
+    "scikit-learn"
+  ],
+  "triggers": [
+    "check for missing values and data quality issues",
+    "generate summary statistics",
+    "generating data-backed insights with proper statistical rigor",
+    "identify relationships between variables",
+    "identifying patterns, trends, anomalies, or correlations in data",
+    "performing exploratory data analysis on a new or unfamiliar dataset",
+    "running statistical hypothesis tests or calculating significance",
+    "understand data shape, types, and distributions"
+  ]
 }

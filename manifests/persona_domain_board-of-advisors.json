@@ -7,5 +7,7 @@
   "description": "USE WHEN the user is making a non-trivial decision (architecture, scope, positioning, hiring, kill-or-continue) and wants multi-perspective consultation rather than a single answer. Convenes four named advisors \u2014 Senior SE, Ops Sensei (TPS), Skeptic, Domain Expert \u2014 each speaks in turn, then a synthesis names where they agree, where they diverge, and the recommended call with the dissenting case preserved. Do NOT use for execution tasks, code changes, or yes/no questions with one right answer. Invoke with /board-of-advisors.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [],
+  "triggers": []
 }

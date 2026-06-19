@@ -7,5 +7,19 @@
   "description": "EVE Online ESI API integration patterns, authentication flows, rate limiting, and data modeling. Invoke with /eve-esi.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "api",
+    "data",
+    "domain",
+    "low",
+    "persona",
+    "python"
+  ],
+  "triggers": [
+    "building eve online tools (market trackers, industry planners, skill monitors)",
+    "integrating esi api endpoints or implementing eve sso authentication",
+    "optimizing api call patterns with etag caching and pagination",
+    "working with sde (static data export) data models"
+  ]
 }

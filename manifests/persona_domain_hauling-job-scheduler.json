@@ -7,5 +7,21 @@
   "description": "Optimizes job scheduling, route planning, and capacity management for junk removal and hauling operations",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "domain",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "assign time blocks per job",
+    "calculate optimal route order",
+    "calculate total day utilization",
+    "evaluating whether a new job request fits into an existing schedule",
+    "identify dump runs needed",
+    "map all jobs geographically",
+    "optimizing truck routing, dump runs, and geographic clustering",
+    "planning or reviewing a day's job schedule and route order",
+    "planning the upcoming week's capacity and identifying open slots"
+  ]
 }

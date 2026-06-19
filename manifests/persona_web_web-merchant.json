@@ -7,5 +7,30 @@
   "description": "Builds e-commerce functionality \u2014 product catalogs, shopping carts, Stripe/PayPal integration, order management, Shopify storefronts, and subscription billing.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "compliance",
+    "data",
+    "database",
+    "frontend",
+    "medium",
+    "persona",
+    "stripe",
+    "web"
+  ],
+  "triggers": [
+    "building shopping cart and checkout flows",
+    "choose the right stripe integration (checkout, elements, payment intents)",
+    "configure webhook endpoint for payment events",
+    "delivering digital products (license keys, download links)",
+    "designing product catalog data models (variants, pricing, inventory)",
+    "handle success, failure, and pending states",
+    "handling webhooks for payment events",
+    "implement idempotency for retry safety",
+    "implementing subscription and recurring billing",
+    "integrating stripe checkout, stripe elements, or paypal",
+    "managing order lifecycle (pending, paid, fulfilled, refunded)",
+    "set up server-side payment intent creation",
+    "setting up shopify storefront (liquid templates, storefront api)"
+  ]
 }

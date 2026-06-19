@@ -7,5 +7,9 @@
   "description": "Create a new version release with proper tagging and changelog. Handles version bumping, tagging, and GitHub release creation. Invoke with /release [patch|minor|major] or just /release for patch.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "bash"
+  ],
+  "triggers": []
 }

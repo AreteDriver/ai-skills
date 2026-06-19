@@ -9,5 +9,21 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "low",
-  "consensus": "any"
+  "consensus": "any",
+  "tags": [
+    "agent",
+    "api",
+    "content",
+    "data",
+    "javascript",
+    "low",
+    "python"
+  ],
+  "triggers": [
+    "capturing a visual screenshot of a rendered page",
+    "converting html content to clean readable text for analysis",
+    "extracting structured data from a specific known url (tables, text, metadata)",
+    "harvesting and categorizing links from a page",
+    "parsing page metadata (title, description, og tags) for indexing or preview"
+  ]
 }

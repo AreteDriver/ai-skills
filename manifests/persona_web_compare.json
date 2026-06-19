@@ -7,5 +7,9 @@
   "description": "Side-by-side image comparison with difference highlighting. Useful for visual regression testing and UI changes. Invoke with /compare <image1> <image2>.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "python"
+  ],
+  "triggers": []
 }

@@ -7,5 +7,38 @@
   "description": "Designs website layouts, color systems, typography, and visual hierarchy. Translates brand identity to Tailwind CSS design tokens and modern design systems.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "black",
+    "content",
+    "css",
+    "design",
+    "low",
+    "mobile",
+    "persona",
+    "typescript",
+    "web"
+  ],
+  "triggers": [
+    "accent-foreground: 222 47% 11%;",
+    "accent: 210 40% 96%;",
+    "adding animations and microinteractions",
+    "apply visual hierarchy through type scale, weight, and color",
+    "background: 0 0% 100%;",
+    "background: 222 47% 11%;",
+    "building a spacing and layout system",
+    "create typography scale with consistent ratio",
+    "creating a color system or palette for a website",
+    "define all visual states (default, hover, focus, active, disabled)",
+    "define color primitives (hue scales) and semantic tokens (background, foreground",
+    "define grid structure and content areas",
+    "define semantic color tokens that map to different values per theme",
+    "define spacing scale (4px base grid)",
+    "design responsive behavior at each breakpoint",
+    "designing component aesthetics (cards, buttons, forms, navigation)",
+    "designing typography scales and font pairings",
+    "ensure focus indicators are visible for keyboard navigation",
+    "extract primary, secondary, and accent colors from brand assets",
+    "foreground: 210 40% 98%;"
+  ]
 }

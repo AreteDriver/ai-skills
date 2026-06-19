@@ -7,5 +7,19 @@
   "description": "Systemd service management, unit files, timers, journalctl, and troubleshooting. Invoke with /systemd.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "devops",
+    "ini",
+    "low",
+    "persona",
+    "security"
+  ],
+  "triggers": [
+    "creating or editing systemd unit files for applications",
+    "debugging failed services using journalctl and systemd-analyze",
+    "hardening service security with systemd sandboxing directives",
+    "setting up scheduled tasks with systemd timers (cron replacement)"
+  ]
 }

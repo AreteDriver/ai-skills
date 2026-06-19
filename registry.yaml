@@ -11,18 +11,152 @@ personas:
     path: personas/api/api-tester
     description: REST and GraphQL API testing — contract validation, load testing,
       regression suites, and endpoint verification
+    tags:
+    - api
+    - data
+    - database
+    - design
+    - low
+    - openapi
+    - performance
+    - persona
+    - testing
+    triggers:
+    - analyze failure patterns (timing, ordering, state leakage)
+    - build ci-friendly comparison with clear failure messages
+    - building contract test suites (consumer-driven or provider)
+    - capture baseline responses as golden files (sanitize timestamps, ids)
+    - check for shared mutable state between tests
+    - configure virtual user profiles with realistic think times
+    - creating regression test baselines with golden file comparison
+    - debugging flaky api tests or intermittent failures
+    - define slos (p50, p95, p99 latency targets, error rate thresholds)
+    - design diff strategies (structural vs exact match)
+    - design workload scenarios (ramp-up, steady state, spike)
+    - flag undocumented endpoints or response codes
+    - generate request/response pairs covering all documented schemas
+    - handle expected schema evolution vs unexpected changes
+    - identify resource bottlenecks from test results
+    - parse the openapi spec and identify all endpoints
+    - recommend retry strategies only as last resort
+    - reviewing api test coverage gaps
+    - setting up load/stress testing with k6 or artillery
+    - use tools like schemathesis, dredd, or pact for automated validation
   - name: database-ops
     path: personas/api/database-ops
     description: Database operations — schema design, migration authoring, query optimization,
       and SQL/ORM patterns
+    tags:
+    - api
+    - data
+    - database
+    - deployment
+    - design
+    - low
+    - migration
+    - performance
+    - persona
+    - review
+    - sqlite
+    - visualization
+    triggers:
+    - ask about cardinality (1:1, 1:n, m:n) for relationships
+    - calculate index selectivity before suggesting new indexes
+    - check for data-dependent migrations (backfill before constraint)
+    - check for n+1 query patterns in orm code
+    - check lock ordering and transaction scope
+    - choosing between orm patterns and raw sql
+    - consider partial indexes for filtered queries
+    - debugging deadlocks, lock contention, or connection pool issues
+    - design for soft deletes vs hard deletes based on requirements
+    - designing database schemas (tables, indexes, constraints, relationships)
+    - draw ascii erd for visualization
+    - generate both upgrade and downgrade functions
+    - identify long-running transactions holding locks
+    - identify sequential scans on large tables
+    - include created_at/updated_at timestamps by default
+    - include safety checks (idempotent operations where possible)
+    - optimizing slow queries with explain analyze
+    - planning data model changes for existing production databases
+    - propose column types with explicit sizing (varchar(255), not text unless needed)
+    - recommend covering indexes for frequent query patterns
   - name: oauth-integrator
     path: personas/api/oauth-integrator
     description: OAuth and API authentication — OAuth 2.0 flows, PKCE, token lifecycle,
       JWT validation, and provider integration
+    tags:
+    - api
+    - architecture
+    - debugging
+    - design
+    - frontend
+    - jwt
+    - low
+    - migration
+    - mobile
+    - oauth
+    - persona
+    - security
+    - web
+    triggers:
+    - audit current auth implementation for security gaps
+    - build token exchange endpoint
+    - build user migration path (re-auth vs silent migration)
+    - check for common provider-specific gotchas
+    - check token expiration and clock skew
+    - choose between session-based and stateless jwt approaches
+    - confirm scope grants match requested scopes
+    - debugging oauth redirect loops, token errors, or scope issues
+    - decode the jwt and inspect all claims (without verifying — just for debugging)
+    - design backward-compatible token validation (accept old + new)
+    - design scope hierarchy and permission model
+    - design token lifecycle (issuance → refresh → revocation → cleanup)
+    - designing token refresh and revocation strategies
+    - generate state parameter for csrf protection
+    - identify the correct flow for the client type (web/mobile/server/cli)
+    - implement pkce (code_verifier + code_challenge with s256)
+    - implementing oauth 2.0 flows (authorization code, pkce, client credentials)
+    - integrating third-party oauth providers (google, github, discord, eve online
+      sso
+    - migrating between authentication systems
+    - plan migration with zero-downtime token transition
   - name: webhook-designer
     path: personas/api/webhook-designer
     description: Webhook architecture — payload design, retry strategies, HMAC signature
       verification, and event-driven patterns
+    tags:
+    - api
+    - data
+    - debugging
+    - design
+    - go
+    - low
+    - migration
+    - monitoring
+    - persona
+    - python
+    - security
+    triggers:
+    - add circuit breaker for consistently failing endpoints
+    - building retry logic with exponential backoff and dead letter queues
+    - debugging webhook delivery failures or duplicate processing
+    - deduplicate by event id (idempotency table)
+    - 'define event taxonomy (resource.action pattern: `order.created`, `user.updated`)'
+    - defining webhook event schemas and versioning strategies
+    - design envelope format (id, type, timestamp, version, data)
+    - design idempotency key strategy for receivers
+    - 'design retry schedule (exponential backoff: 1m, 5m, 30m, 2h, 12h)'
+    - designing webhook sender/receiver architecture
+    - determine subscription model (topic-based, filter expressions)
+    - generate per-subscriber signing secrets (rotate-able)
+    - handle out-of-order delivery gracefully
+    - implement dead letter queue for permanently failed deliveries
+    - implement event replay capability for recovery
+    - implement hmac-sha256 signing (timestamp + payload body)
+    - implementing hmac signature verification for webhook payloads
+    - include timestamp in signature to prevent replay attacks (5-minute window)
+    - plan schema versioning strategy (url path vs header vs envelope field)
+    - provide verification code in python, node.js, and go
   claude-code:
   - name: plugin-builder
     path: personas/claude-code/plugin-builder
@@ -31,6 +165,33 @@ personas:
       unit with plugin.json manifest. Use when creating, scaffolding, packaging, or
       publishing Claude Code plugins.
     version: 2.0.0
+    tags:
+    - bash
+    - claude-code
+    - low
+    - persona
+    - testing
+    triggers:
+    - add .gitignore for plugin development
+    - add readme template
+    - add reference files for domain-specific knowledge
+    - ask about the plugin's purpose and scope
+    - check skill descriptions are within budget
+    - create plugin.json with proper metadata
+    - document what each hook does and why
+    - ensure all referenced files exist
+    - generate installation instructions
+    - generate the directory structure
+    - identify the correct lifecycle event (pretooluse vs posttooluse)
+    - keep skill instructions concise but complete
+    - packaging hooks, skills, and mcp configs into a distributable plugin
+    - prefer blocking at submission (pretooluse on git commit) over blocking mid-task
+    - preparing a plugin for publication (validation, licensing, versioning)
+    - scaffold skill.md files with frontmatter
+    - scaffolding a new claude code plugin from scratch
+    - set `user-invocable` and `disable-model-invocation` correctly
+    - tag the release with semantic version
+    - test hooks don't interfere with normal claude operation
   - name: cicd-pipeline
     path: personas/claude-code/cicd-pipeline
     description: Designs CI/CD pipelines that integrate Claude Code in headless mode
@@ -38,6 +199,39 @@ personas:
       Use when building GitHub Actions workflows, GitLab CI pipelines, or any automation
       that uses Claude Code non-interactively via `claude -p` or the Agent SDK.
     version: 2.0.0
+    tags:
+    - api
+    - bash
+    - claude-code
+    - data
+    - deployment
+    - github actions
+    - low
+    - monitoring
+    - persona
+    - python
+    - rest
+    - review
+    - security
+    - typescript
+    triggers:
+    - building github actions or gitlab ci workflows that invoke claude code headlessl
+    - configuring permission modes and cost controls for ci-based claude usage
+    - designing automated pr review bots, test failure analyzers, or deployment gates
+    - integrating the claude agent sdk into pipeline scripts
+    - 'name: analyze failures'
+    - 'name: apply labels'
+    - 'name: block if unsafe'
+    - 'name: classify pr'
+    - 'name: create issue'
+    - 'name: deployment safety analysis'
+    - 'name: download test logs'
+    - 'name: evaluate gate'
+    - 'name: get pr diff'
+    - 'name: install claude code'
+    - 'name: post review comment'
+    - 'name: review pr'
+    - 'uses: actions/checkout@v4'
   - name: session-memory-manager
     path: personas/claude-code/session-memory-manager
     description: Manages Claude Code's persistent memory system — auto-memory files,
@@ -45,6 +239,22 @@ personas:
       Use when organizing session memory, creating handoff documents, managing MEMORY.md
       files, or establishing continuity between Claude Code sessions.
     version: 2.0.0
+    tags:
+    - bash
+    - claude-code
+    - content
+    - low
+    - persona
+    triggers:
+    - add links from memory.md to topic files
+    - audit existing memory files for relevance
+    - consolidate duplicates and remove outdated entries
+    - create topic files for detailed information
+    - creating session handoff documents for multi-session work
+    - designing memory architecture for a new project
+    - ensure memory.md stays under 200 lines
+    - pruning stale memory entries or consolidating duplicate knowledge
+    - setting up or reorganizing project memory files (memory.md, topic files)
   - name: decision-log
     path: personas/claude-code/decision-log
     description: Log high-leverage decisions from the current work session to the
@@ -61,6 +271,21 @@ personas:
       that block sensitive file access, dangerous commands, destructive git ops, system
       path writes, network calls, and permission changes. Includes 7 ready-to-deploy
       hook scripts.
+    tags:
+    - bash
+    - claude-code
+    - data
+    - linux
+    - low
+    - macos
+    - persona
+    - shell
+    triggers:
+    - adding confirmation gates for network operations and permission changes
+    - guarding against command injection, path traversal, and dangerous bash commands
+    - preventing destructive git operations (force-push, reset --hard, branch -d)
+    - setting up security guardrails for a new project's `.claude/settings.json`
+    - writing hook scripts that block access to secrets, credentials, and env files
   - name: hooks-designer
     path: personas/claude-code/hooks-designer
     description: Designs Claude Code hooks — lifecycle event handlers (PreToolUse,
@@ -68,6 +293,29 @@ personas:
       run tests before commits, and log tool usage. Use when creating, debugging,
       or configuring Claude Code hooks for automated enforcement and workflow automation.
     version: 2.0.0
+    tags:
+    - bash
+    - claude-code
+    - design
+    - low
+    - persona
+    triggers:
+    - adding audit logging or auto-formatting hooks to claude code
+    - block deletion of critical files
+    - block writes to protected directories (.git, node_modules, /etc)
+    - creating pretooluse or posttooluse hooks for quality gates or safety rails
+    - debugging hook scripts that aren't firing or blocking correctly
+    - design hooks that validate at natural checkpoints (commit, push, pr)
+    - designing a hook strategy for a project (what to gate and where)
+    - ensure tests pass before allowing commits
+    - log all tool invocations with timestamps
+    - measure tool execution duration
+    - output logs in structured format (json lines)
+    - prevent force-push to main/production branches
+    - provide actionable error messages when blocking
+    - require confirmation patterns for destructive operations
+    - run linters on changed files only (not entire codebase)
+    - track file modifications for audit trails
   - name: mcp-server-builder
     path: personas/claude-code/mcp-server-builder
     description: Builds and configures Model Context Protocol (MCP) servers — tools
@@ -75,70 +323,263 @@ personas:
       semantic search, and UI components. Use when creating MCP servers, configuring
       existing ones, debugging MCP connections, or designing tool interfaces for Claude.
     version: 2.0.0
+    tags:
+    - api
+    - bash
+    - claude-code
+    - content
+    - data
+    - debugging
+    - design
+    - low
+    - oauth
+    - performance
+    - persona
+    - postgresql
+    - python
+    - review
+    - typescript
+    triggers:
+    - add error handling and logging
+    - add pagination for list operations
+    - ask about the server's purpose and required tools
+    - building a new mcp server to expose custom tools to claude code
+    - check environment variables are set
+    - check server process is running
+    - choose the right transport (stdio for local, sse for remote)
+    - client-id "your-client-id" \
+    - client-secret "your-secret" \
+    - configure servers in the correct settings file
+    - configuring existing mcp servers (github, postgresql, brave search, etc.)
+    - debugging mcp server connectivity or tool invocation failures
+    - design input schemas with strong types and required fields
+    - designing tool interfaces with proper naming, schemas, and pagination
+    - generate tool definitions with json schemas
+    - keep response payloads focused — don't dump everything
+    - name tools as verb_noun (e.g., `query_database`, `search_documents`)
+    - npx slack-mcp-server
+    - review server logs
+    - scaffold project structure with proper dependencies
   - name: session-manager
     path: personas/claude-code/session-manager
     description: Cross-session continuity for Claude Code — resume context, structured
       handoffs, session history tracking
+    tags:
+    - api
+    - claude-code
+    - low
+    - persona
+    triggers:
+    - ending a session and want to capture state for the next session (or another
+      agen
+    - handing off work between ai agents or from ai to human
+    - managing swing shift workflows where sessions start and end at predictable times
+    - running parallel agent sessions that need to stay synchronized
+    - starting a new claude code session and need to resume prior work
   data:
   - name: data-engineer
     path: personas/data/data-engineer
     description: Handles data collection, ingestion, cleaning, and pipeline design
     version: 2.0.0
+    tags:
+    - data
+    - design
+    - low
+    - monitoring
+    - pandas
+    - performance
+    - persona
+    - python
+    triggers:
+    - build in monitoring and alerting
+    - building data cleaning and normalization workflows
+    - define clear input/output contracts
+    - defining data schemas, validation rules, or quality checks
+    - design for idempotency and replayability
+    - designing data ingestion, transformation, or etl/elt pipelines
+    - handle schema evolution gracefully
+    - planning for schema evolution, data growth, or pipeline monitoring
   - name: report-generator
     path: personas/data/report-generator
     description: Creates executive summaries, reports, and documentation of findings
     version: 2.0.0
+    tags:
+    - data
+    - low
+    - persona
+    triggers:
+    - creating analytical or technical reports with methodology and evidence
+    - focus on decisions and actions needed
+    - keep it concise (1-2 pages max)
+    - lead with the most important findings
+    - producing stakeholder-facing documentation with layered detail levels
+    - quantify impact where possible
+    - structuring incident reports, status reports, or recommendation reports
+    - writing executive summaries that distill findings for leadership
   - name: data-analyst
     path: personas/data/data-analyst
     description: Performs statistical analysis, finds patterns, and generates insights
     version: 2.0.0
+    tags:
+    - data
+    - design
+    - low
+    - numpy
+    - pandas
+    - persona
+    - python
+    - scikit-learn
+    triggers:
+    - check for missing values and data quality issues
+    - generate summary statistics
+    - generating data-backed insights with proper statistical rigor
+    - identify relationships between variables
+    - identifying patterns, trends, anomalies, or correlations in data
+    - performing exploratory data analysis on a new or unfamiliar dataset
+    - running statistical hypothesis tests or calculating significance
+    - understand data shape, types, and distributions
   - name: data-visualizer
     path: personas/data/data-visualizer
     description: Creates charts, dashboards, and visual representations of data
     version: 2.0.0
+    tags:
+    - accessibility
+    - data
+    - design
+    - low
+    - persona
+    - python
+    - visualization
+    triggers:
+    - add appropriate context and annotations
+    - apply consistent styling
+    - building interactive visualizations for web or presentation contexts
+    - choosing the right chart type for a given data relationship
+    - creating charts, plots, or visual representations of analyzed data
+    - designing dashboard layouts with multiple coordinated views
+    - optimize for the key message
+    - select the right chart type for the data
   devops:
   - name: release
     path: personas/devops/release
     description: Create a new version release with proper tagging and changelog. Handles
       version bumping, tagging, and GitHub release creation. Invoke with /release
       [patch|minor|major] or just /release for patch.
+    tags:
+    - bash
   - name: commit
     path: personas/devops/commit
     description: Create well-formatted git commits with conventional commit style.
       Analyzes staged changes and generates appropriate commit messages. Invoke with
       /commit or after completing a task.
+    tags:
+    - bash
   - name: backup
     path: personas/devops/backup
     description: Backup strategy design, data integrity verification, and disaster
       recovery planning. Invoke with /backup.
     version: 2.0.0
+    tags:
+    - bash
+    - data
+    - devops
+    - ini
+    - low
+    - persona
+    - testing
+    triggers:
+    - creating or reviewing disaster recovery plans and runbooks
+    - designing backup strategies for new projects or migrating existing ones
+    - investigating backup integrity failures or restore issues
+    - setting up automated backup schedules with verification
   - name: networking
     path: personas/devops/networking
     description: Linux networking troubleshooting — DNS, firewalls, ports, routing,
       and connectivity diagnostics. Invoke with /networking.
     version: 2.0.0
+    tags:
+    - bash
+    - data
+    - debugging
+    - devops
+    - low
+    - persona
+    triggers:
+    - configuring firewalls (ufw, iptables, nftables) for new services
+    - debugging connectivity issues between services or hosts
+    - diagnosing dns resolution failures or routing problems
+    - troubleshooting docker or container networking
   - name: changelog
     path: personas/devops/changelog
     description: Generate Changelog from Commits
+    tags:
+    - bash
   - name: debug
     path: personas/devops/debug
     description: Systematic Debugging Workflow
+    tags:
+    - bash
+    - python
   - name: deploy
     path: personas/devops/deploy
     description: Deployment Checklist & Setup
+    tags:
+    - bash
+    - ini
+    - python
   - name: monitor
     path: personas/devops/monitor
     description: Observability patterns for logging, metrics, alerting, and health
       checks in production systems. Invoke with /monitor.
     version: 2.0.0
+    tags:
+    - bash
+    - data
+    - debugging
+    - devops
+    - low
+    - persona
+    - python
+    triggers:
+    - adding structured logging or metrics instrumentation to a service
+    - building operational dashboards for service visibility
+    - designing alerting rules or health check endpoints
+    - investigating production issues through log analysis
   - name: pre-release
     path: personas/devops/pre-release
     description: Pre-Release Checklist
+    tags:
+    - python
+    - toml
   - name: process-management
     path: personas/devops/process-management
     description: Monitor and control system processes with safety protections. Invoke
       with /process-management.
     version: 2.0.0
+    tags:
+    - data
+    - database
+    - devops
+    - low
+    - monitoring
+    - persona
+    - python
+    triggers:
+    - alert on anomalies
+    - check service status first
+    - collect cpu, memory, disk, network metrics
+    - handle dependencies properly
+    - identify resource-heavy processes
+    - investigating process state, open files, or connections before taking action
+    - log all actions
+    - monitoring system resource usage or identifying resource-heavy processes
+    - safely terminating or managing running processes
+    - track trends over time
+    - use appropriate signals
+    - use systemctl for service operations
+    - verify process exists and identity
+    - verify service health after changes
+    - wait for confirmation
   - name: ci
     path: personas/devops/ci
     description: GitHub Actions Workflow Generator
@@ -150,54 +591,122 @@ personas:
     description: Systemd service management, unit files, timers, journalctl, and troubleshooting.
       Invoke with /systemd.
     version: 2.0.0
+    tags:
+    - bash
+    - devops
+    - ini
+    - low
+    - persona
+    - security
+    triggers:
+    - creating or editing systemd unit files for applications
+    - debugging failed services using journalctl and systemd-analyze
+    - hardening service security with systemd sandboxing directives
+    - setting up scheduled tasks with systemd timers (cron replacement)
   - name: lint
     path: personas/devops/lint
     description: Run ruff linter and formatter. Checks code quality and auto-fixes
       issues. Invoke with /lint or /lint <path>.
+    tags:
+    - bash
+    - toml
   - name: profile
     path: personas/devops/profile
     description: Performance Profiling Guide
+    tags:
+    - bash
+    - python
   - name: test
     path: personas/devops/test
     description: Run pytest with coverage summary. Provides quick feedback on test
       status and coverage. Invoke with /test or /test <path>.
+    tags:
+    - bash
   - name: perf
     path: personas/devops/perf
     description: Performance profiling and optimization for Python, Rust, and web
       applications. Invoke with /perf.
     version: 2.0.0
+    tags:
+    - bash
+    - data
+    - devops
+    - low
+    - performance
+    - persona
+    - python
+    - rust
+    - sql
+    triggers:
+    - application is slower than expected and needs profiling
+    - establishing performance baselines before optimization
+    - investigating memory leaks or excessive resource consumption
+    - optimizing database queries or hot code paths
   - name: pr
     path: personas/devops/pr
     description: Pull Request Creator
+    tags:
+    - bash
   - name: docker
     path: personas/devops/docker
     description: Dockerfile Generator
+    tags:
+    - dockerfile
   - name: deps
     path: personas/devops/deps
     description: Check for outdated dependencies and security vulnerabilities. Invoke
       with /deps.
+    tags:
+    - bash
   - name: logs
     path: personas/devops/logs
     description: Logging Setup & Analysis
+    tags:
+    - bash
+    - python
+    - rust
   - name: health
     path: personas/devops/health
     description: Project Health Audit
+    tags:
+    - bash
   - name: build
     path: personas/devops/build
     description: Build and install the project in development mode. Handles venv creation
       and editable installs. Invoke with /build.
+    tags:
+    - bash
   - name: package
     path: personas/devops/package
     description: Release Packaging Checklist
+    tags:
+    - bash
   - name: env
     path: personas/devops/env
     description: Environment Management
+    tags:
+    - bash
+    - python
   domain:
   - name: hauling-job-scheduler
     path: personas/domain/hauling-job-scheduler
     description: Optimizes job scheduling, route planning, and capacity management
       for junk removal and hauling operations
     version: 2.0.0
+    tags:
+    - domain
+    - low
+    - persona
+    triggers:
+    - assign time blocks per job
+    - calculate optimal route order
+    - calculate total day utilization
+    - evaluating whether a new job request fits into an existing schedule
+    - identify dump runs needed
+    - map all jobs geographically
+    - optimizing truck routing, dump runs, and geographic clustering
+    - planning or reviewing a day's job schedule and route order
+    - planning the upcoming week's capacity and identifying open slots
   - name: board-of-advisors
     path: personas/domain/board-of-advisors
     description: USE WHEN the user is making a non-trivial decision (architecture,
@@ -212,11 +721,33 @@ personas:
     description: Multi-source intelligence workflow for Arete. Converts podcast/video/research
       batches into ranked actions for product, brand, funding, and agentic execution.
     version: 2.0.0
+    tags:
+    - domain
+    - low
+    - persona
+    triggers:
+    - building a weekly intelligence brief for execution planning
+    - deciding which market signals should become experiments
+    - extracting harvestable ideas, skills, workflows, and risks
+    - reviewing episode batches (moonshots, ai daily brief, all-in, a16z, dwarkesh,
+      se
   - name: eve-frontier-api
     path: personas/domain/eve-frontier-api
     description: EVE Frontier World API integration — endpoints, auth (FusionAuth
       + Sui zkLogin), pagination, data normalization, and resilience patterns. Invoke
       with /eve-frontier-api.
+    tags:
+    - api
+    - data
+    - domain
+    - persona
+    - python
+    triggers:
+    - asks about eve frontier data models or api patterns
+    - builds tools consuming eve frontier world api endpoints
+    - implements fusionauth oauth2 / sui zklogin authentication
+    - needs to handle world api pagination or response format quirks
+    - works with smart characters, tribes, smart assemblies, killmails, or types
   - name: apple-dev-best-practices
     path: personas/domain/apple-dev-best-practices
     description: Apple platform development best practices for Swift 6, SwiftUI, SwiftData,
@@ -228,95 +759,331 @@ personas:
       Also use when reviewing Swift code, debugging iOS apps, migrating UIKit to SwiftUI,
       or planning Apple platform architecture.
     version: 2.0.0
+    tags:
+    - domain
+    - low
+    - persona
+    - swift
+    triggers:
+    - building ios or macos apps with swift 6 and swiftui
+    - designing navigation, state management, or concurrency patterns for apple platfo
+    - reviewing swift code or planning apple platform architecture
+    - working with swiftdata, core data, storekit, cloudkit, or other apple frameworks
   - name: mentor-linux
     path: personas/domain/mentor-linux
     description: Linux certification preparation mentor for RHCSA, Linux+, and LPIC-1
     version: 2.0.0
+    tags:
+    - documentation
+    - domain
+    - go
+    - linux
+    - low
+    - performance
+    - persona
+    triggers:
+    - connect to related exam objectives
+    - learning linux system administration concepts through hands-on exercises
+    - needing quick-reference command cheat sheets for exam topics
+    - practicing troubleshooting with "break it and fix it" scenarios
+    - preparing for rhcsa, comptia linux+, or lpic-1 certification exams
+    - present the concept with a brief explanation
+    - provide a hands-on exercise to reinforce learning
+    - quiz the learner on what they just practiced
+    - show practical examples with real commands
   - name: eve-frontier-chain
     path: personas/domain/eve-frontier-chain
     description: EVE Frontier on-chain patterns — MUD v2 smart contracts, Sui SDK
       integration, smart assembly gating, and on-chain reputation systems. Invoke
       with /eve-frontier-chain.
+    tags:
+    - domain
+    - persona
+    - python
+    - rust
+    - solidity
+    - typescript
+    triggers:
+    - builds reputation or trust scoring systems from chain data
+    - builds smart contracts for eve frontier (mud v2 / world framework)
+    - implements on-chain gating for smart assemblies
+    - integrates sui sdk for token operations or zklogin
+    - works with eve frontier's on-chain entity ids or wallet addresses
   - name: arete-funding-value-brief
     path: personas/domain/arete-funding-value-brief
     description: Converts Arete execution signals into investor-grade funding narratives,
       milestone proofs, and de-risking plans.
     version: 2.0.0
+    tags:
+    - data
+    - domain
+    - low
+    - persona
+    triggers:
+    - building milestone proof chains for de-risking
+    - preparing investor updates, memos, or raise narratives
+    - prioritizing use-of-funds decisions
+    - translating workflow outcomes into business value
   - name: strategic-planner
     path: personas/domain/strategic-planner
     description: Breaks down features into actionable implementation plans
     version: 2.0.0
+    tags:
+    - domain
+    - low
+    - persona
+    - testing
+    triggers:
+    - analyze the feature requirements thoroughly
+    - breaking down a new feature request into implementation steps
+    - decomposing a large project into phased milestones
+    - define clear acceptance criteria
+    - determine the optimal implementation sequence
+    - identify all components that need to be created or modified
+    - needing a structured plan before starting complex multi-file work
+    - prioritizing a backlog of tasks by urgency, impact, and dependencies
   - name: gamedev
     path: personas/domain/gamedev
     description: Game development patterns for Bevy/Rust ECS, game loops, state machines,
       physics, and audio. Invoke with /gamedev.
     version: 2.0.0
+    tags:
+    - data
+    - design
+    - domain
+    - low
+    - persona
+    - rust
+    triggers:
+    - building games with bevy/rust or designing ecs architectures
+    - implementing game state machines, physics, collision, or spawning systems
+    - needing reference patterns for bevy components, systems, events, or resources
+    - optimizing game loop performance or debugging frame budget issues
   - name: gameplay-tester
     path: personas/domain/gameplay-tester
     description: Professional gameplay tester and QA analyst persona for playtesting,
       bug finding, UX assessment, balance evaluation, and player experience feedback.
       Use when evaluating game feel, finding bugs, assessing difficulty curves, or
       providing player-perspective feedback on games and interactive applications.
+    tags:
+    - accessibility
+    triggers:
+    - after implementing a new feature
+    - before a release or demo
+    - when assessing player experience
+    - when balancing difficulty or progression
+    - when creating qa documentation
+    - when preparing for external playtesters
+    - when something "feels off" but you can't identify why
   - name: tie-dye-business-coach
     path: personas/domain/tie-dye-business-coach
     description: Socratic business coaching for handmade tie-dye businesses—diagnoses
       before prescribing, builds business intuition
     version: 2.0.0
+    tags:
+    - analytics
+    - content
+    - conversion
+    - domain
+    - go
+    - low
+    - persona
+    triggers:
+    - '"are you tracking expenses separately from personal finances?"'
+    - '"are you treating this as supplemental income or building toward full-time?"'
+    - '"do you have an email list or social following? how engaged are they?"'
+    - '"do you know your true hourly rate after materials?"'
+    - '"have you tested different price points? what happened?"'
+    - '"how did you arrive at your current prices?"'
+    - '"how many active listings do you have, and what''s your conversion rate?"'
+    - '"how many hours per week can you realistically dedicate to the business?"'
+    - '"walk me through your current tie-dye process—what''s your batch size and how
+      lon'
+    - '"what does your shop analytics show for traffic sources?"'
+    - '"what state are you in? (affects llc requirements and sales tax)"'
+    - '"what''s your approximate annual revenue/profit?"'
+    - '"what''s your best-selling item and why do you think it sells?"'
+    - '"what''s your content creation capacity—can you shoot photos/video weekly?"'
+    - '"what''s your cost per item including materials, dyes, blanks, and your time?"'
+    - '"what''s your current monthly revenue, and what would ''success'' look like
+      in 6 mo'
+    - '"when did you last update your listings/photos/tags?"'
+    - '"where does your current traffic come from—etsy search, social, word of mouth?"'
+    - analyzing pricing, costs, and margins for handmade products
+    - ask 1-2 targeted diagnostic questions
   - name: hauling-business-advisor
     path: personas/domain/hauling-business-advisor
     description: Provides data-driven operational insights and recommendations for
       junk removal and hauling business optimization
     version: 2.0.0
+    tags:
+    - data
+    - domain
+    - low
+    - performance
+    - persona
+    - review
+    triggers:
+    - analyzing marketing spend and lead source roi
+    - calculate key performance indicators
+    - compare to industry benchmarks
+    - evaluating or optimizing pricing strategy across job types
+    - flag areas of concern
+    - highlight wins and strengths
+    - identify trends and patterns
+    - planning capacity expansion, seasonal staffing, or fleet decisions
+    - reviewing business performance metrics (revenue, margins, utilization)
   - name: g13-layout
     path: personas/domain/g13-layout
     description: Interactive G13 button position editor. Click on device image to
       set button coordinates. Invoke with /g13-layout.
+    tags:
+    - bash
+    - python
   - name: streamlit
     path: personas/domain/streamlit
     description: Streamlit app patterns for layout, state management, data display,
       and deployment. Invoke with /streamlit.
     version: 2.0.0
+    tags:
+    - data
+    - dockerfile
+    - domain
+    - low
+    - persona
+    - python
+    triggers:
+    - building streamlit dashboards or data apps
+    - deploying streamlit apps in docker or creating kiosk/tv display interfaces
+    - managing session state across reruns or optimizing with caching
+    - needing reference patterns for forms, layouts, sidebar filters, or auto-refresh
   - name: arete-studio-strategy-os
     path: personas/domain/arete-studio-strategy-os
     description: Strategy and operating system persona for Arete. Converts intelligence
       into execution plans for workflow, process, AI strategy, and business growth.
     version: 2.0.0
+    tags:
+    - domain
+    - infrastructure
+    - low
+    - persona
+    triggers:
+    - building weekly, monthly, and quarterly plans
+    - converting research into workflow and process upgrades
+    - defining ai strategy and operating priorities
+    - selecting what to keep, kill, or pivot
   - name: hauling-lead-qualifier
     path: personas/domain/hauling-lead-qualifier
     description: Qualifies and prioritizes incoming leads for junk removal businesses
       based on job value, urgency, and conversion likelihood
     version: 2.0.0
+    tags:
+    - conversion
+    - domain
+    - low
+    - persona
+    triggers:
+    - detecting red flags, scam indicators, or problem customer signals
+    - evaluating lead source performance and conversion rates
+    - extract key information from inquiry
+    - flag special considerations
+    - identify source and apply source logic
+    - processing an incoming lead or inquiry that needs qualification and scoring
+    - recommend response approach
+    - score lead value and urgency
+    - triaging a batch of leads to determine response priority order
   - name: ogma
     path: personas/domain/ogma
     description: Reverse-Engineering Synthesis Persona
+    tags:
+    - bash
   - name: hauling-quote-generator
     path: personas/domain/hauling-quote-generator
     description: Converts load estimates into professional customer-facing quotes
       with itemized pricing, fees, and terms for junk removal and hauling businesses
     version: 2.0.0
+    tags:
+    - domain
+    - low
+    - persona
+    triggers:
+    - add applicable special disposal fees
+    - apply labor multipliers
+    - calculate base price from volume/weight
+    - converting a load estimate into a professional customer-facing quote
+    - creating tiered service options (full service, heavy items only, load & haul)
+    - generate professional quote document
+    - generating quick text/sms quotes for fast customer response
+    - include travel/fuel if applicable
+    - pricing special disposal items (mattresses, appliances, hazmat, e-waste)
   - name: eve-esi
     path: personas/domain/eve-esi
     description: EVE Online ESI API integration patterns, authentication flows, rate
       limiting, and data modeling. Invoke with /eve-esi.
     version: 2.0.0
+    tags:
+    - api
+    - data
+    - domain
+    - low
+    - persona
+    - python
+    triggers:
+    - building eve online tools (market trackers, industry planners, skill monitors)
+    - integrating esi api endpoints or implementing eve sso authentication
+    - optimizing api call patterns with etag caching and pagination
+    - working with sde (static data export) data models
   - name: hauling-image-estimator
     path: personas/domain/hauling-image-estimator
     description: Analyzes photos of junk, debris, or estate contents to estimate volume,
       weight, item categories, and special disposal requirements for hauling/removal
       businesses
     version: 2.0.0
+    tags:
+    - domain
+    - low
+    - persona
+    triggers:
+    - analyzing photos of items to produce volume, weight, and truck load estimates
+    - calculate labor intensity score
+    - comparing multiple photos from the same job to build a running total
+    - estimate visible volume, then apply depth multiplier
+    - identify special disposal items
+    - identifying special disposal items (hazmat, e-waste, appliances, mattresses)
+      fro
+    - note access challenges (stairs, narrow paths, distance to truck)
+    - providing quick ballpark estimates for phone/text quoting from photos
+    - scan for item categories systematically
   - name: eve-frontier-data
     path: personas/domain/eve-frontier-data
     description: EVE Frontier data pipelines — killmail ingestion, smart assembly
       tracking, entity normalization, polling architecture, and SQLite/PostgreSQL
       storage patterns. Invoke with /eve-frontier-data.
+    tags:
+    - api
+    - bash
+    - data
+    - database
+    - domain
+    - persona
+    - python
+    triggers:
+    - builds data ingestion pipelines for eve frontier game data
+    - builds discord bots or dashboards consuming frontier data
+    - designs database schemas for frontier data
+    - implements killmail, smart assembly, or entity tracking systems
+    - works on polling architecture or incremental sync patterns
   engineering:
   - name: issue
     path: personas/engineering/issue
     description: GitHub Issue Creator
+    tags:
+    - bash
   - name: review
     path: personas/engineering/review
     description: Code Review Checklist
+    tags:
+    - python
   - name: senior-software-analyst
     path: personas/engineering/senior-software-analyst
     description: Senior software analyst persona for codebase auditing, architecture
@@ -324,29 +1091,103 @@ personas:
       Use when you need to understand an unfamiliar codebase, evaluate architecture
       decisions, create documentation, or assess project health before making changes.
     version: 2.0.0
+    tags:
+    - bash
+    - engineering
+    - low
+    - persona
+    - security
+    triggers:
+    - 'auditing project health: technical debt, missing tests, architectural issues'
+    - coordinating multi-agent parallel analysis of large codebases
+    - exploring an unfamiliar codebase before starting development work
+    - mapping system architecture, component boundaries, and data flows
   - name: code-builder
     path: personas/engineering/code-builder
     description: Writes clean, production-ready code based on plans
     version: 2.0.0
+    tags:
+    - api
+    - data
+    - documentation
+    - engineering
+    - low
+    - persona
+    - review
+    triggers:
+    - add comments explaining "why" not "what"
+    - break implementation into logical, testable units
+    - fixing a specific bug with minimal, targeted changes
+    - follow the principle of least surprise
+    - implementing new features or components based on a design or specification
+    - refactoring existing code to improve structure without changing behavior
+    - review the plan thoroughly before starting
+    - write the interface/api first, then implement
+    - writing production code that needs to be testable and maintainable
   - name: software-architect
     path: personas/engineering/software-architect
     description: Designs system architecture and makes technical decisions
     has_schema: true
     version: 2.0.0
+    tags:
+    - architecture
+    - data
+    - debugging
+    - deployment
+    - design
+    - engineering
+    - low
+    - monitoring
+    - persona
+    - security
+    triggers:
+    - consider non-functional requirements (latency, throughput, availability)
+    - define data models and flows
+    - defining component boundaries, data models, and integration patterns
+    - designing a new system, service, or major feature from scratch
+    - evaluating technology choices, framework selection, or migration strategies
+    - gather requirements and constraints first
+    - identify system boundaries and integrations
+    - planning mcp server architecture or claude code plugin structure
   - name: refactor
     path: personas/engineering/refactor
     description: Code Refactoring Analysis
+    tags:
+    - python
   - name: spec
     path: personas/engineering/spec
     description: Technical Specification Writer
+    tags:
+    - python
   - name: senior-software-engineer
     path: personas/engineering/senior-software-engineer
     description: Expert code reviewer, architect, and engineering mentor
     has_schema: true
     version: 2.0.0
+    tags:
+    - engineering
+    - low
+    - performance
+    - persona
+    - review
+    - security
+    triggers:
+    - acknowledge what was done well
+    - 'categorize findings: critical / suggestion / nit'
+    - debugging complex issues that require systematic root-cause analysis
+    - designing or evaluating system architecture and making technology trade-off
+      deci
+    - identify bugs, security issues, and logic errors first
+    - mentoring on engineering best practices or setting up claude code project struct
+    - note missing tests or edge cases
+    - provide concrete fix suggestions, not just complaints
+    - reviewing code for quality, security, and maintainability across any language
+      or
   - name: types
     path: personas/engineering/types
     description: Python Type Hint Generator
+    tags:
+    - python
   - name: plan
     path: personas/engineering/plan
     description: Implementation Planning
@@ -356,57 +1197,159 @@ personas:
   - name: sql
     path: personas/engineering/sql
     description: SQL Query Optimization
+    tags:
+    - sql
   - name: learn
     path: personas/engineering/learn
     description: Learning Resources & Path
   - name: explain
     path: personas/engineering/explain
     description: Deep Code Explanation
+    tags:
+    - python
   - name: crud
     path: personas/engineering/crud
     description: CRUD Boilerplate Generator
+    tags:
+    - python
   - name: migrate
     path: personas/engineering/migrate
     description: Code Migration Helper
+    tags:
+    - bash
+    - python
   - name: code-reviewer
     path: personas/engineering/code-reviewer
     description: Reviews code for quality, security, and best practices
     has_schema: true
     version: 2.0.0
+    tags:
+    - bash
+    - data
+    - engineering
+    - low
+    - performance
+    - persona
+    - review
+    - security
+    triggers:
+    - 'categorize findings by severity: critical / suggestion / nit'
+    - consider the scope and intent of the change
+    - evaluating test coverage and completeness for a set of changes
+    - focus on bugs and security issues first
+    - performing focused security or performance review of a specific change
+    - reviewing a pr, diff, or code snippet for bugs, quality, and best practices
+    - running multi-reviewer parallel analysis on large or critical prs
+    - verify tests cover the changes
   - name: documentation-writer
     path: personas/engineering/documentation-writer
     description: Creates comprehensive documentation for code and systems
     version: 2.0.0
+    tags:
+    - api
+    - bash
+    - documentation
+    - engineering
+    - low
+    - persona
+    triggers:
+    - creating developer onboarding documentation for a codebase
+    - document all parameters, return values, and errors
+    - documenting configuration options, error codes, or troubleshooting steps
+    - group related endpoints logically
+    - include realistic code examples
+    - note any side effects or preconditions
+    - producing audience-appropriate technical writing (executive, developer, end-user
+    - writing api reference documentation, user guides, or readme files
   - name: estimate
     path: personas/engineering/estimate
     description: Task Estimation Techniques
   - name: readme
     path: personas/engineering/readme
     description: README Generator
+    tags:
+    - bash
+    - python
   - name: mock
     path: personas/engineering/mock
     description: Test Mock & Fixture Generator
+    tags:
+    - python
   - name: seed
     path: personas/engineering/seed
     description: Test Data Generation
+    tags:
+    - csv
+    - python
+    - sql
   - name: testing-specialist
     path: personas/engineering/testing-specialist
     description: Creates comprehensive test suites for implementations
     has_schema: true
     version: 2.0.0
+    tags:
+    - engineering
+    - low
+    - persona
+    - testing
+    triggers:
+    - cover all branches and conditions
+    - creating integration tests for component interactions
+    - designing test strategies for edge cases, error conditions, and security scenari
+    - mock external dependencies
+    - reviewing existing test coverage and identifying gaps
+    - test boundary values and edge cases
+    - test each function in isolation
+    - writing a comprehensive test suite for new or existing code
   - name: scaffold
     path: personas/engineering/scaffold
     description: Project Scaffolding
+    tags:
+    - python
+    - rust
+    - toml
   - name: api-docs
     path: personas/engineering/api-docs
     description: API Documentation Generator
+    tags:
+    - python
   - name: e2e
     path: personas/engineering/e2e
     description: End-to-End Test Setup
+    tags:
+    - bash
+    - ini
+    - python
   - name: composite-scorer
     path: personas/engineering/composite-scorer
     description: Weighted 0-100 composite scoring with category breakdowns, grade
       bands, and priority actions
+    tags:
+    - api
+    - architecture
+    - ci/cd
+    - content
+    - documentation
+    - engineering
+    - infrastructure
+    - low
+    - monitoring
+    - performance
+    - persona
+    - security
+    - seo
+    - testing
+    triggers:
+    - accept user-defined categories with weights
+    - apply the standard output contract to any domain
+    - ask for scoring criteria per category if not provided
+    - building a multi-factor scoring system for a new domain
+    - 'categories (adapt weights to project):'
+    - comparing alternatives using weighted decision matrices
+    - creating quality gates for ci/cd pipelines or review workflows
+    - evaluating content, code, infrastructure, or any artifact against quality criter
+    - generating readiness assessments (publish-ready, deploy-ready, ship-ready)
+    - validate weights sum to 1.0 (warn and normalize if not)
   security:
   - name: accessibility-checker
     path: personas/security/accessibility-checker
@@ -415,12 +1358,44 @@ personas:
       contrast, and semantic HTML. Use when reviewing UI code for accessibility, fixing
       a11y issues, or ensuring compliance with ADA/Section 508 requirements.
     version: 2.0.0
+    tags:
+    - accessibility
+    - compliance
+    - content
+    - css
+    - html
+    - javascript
+    - low
+    - persona
+    - security
+    - testing
+    triggers:
+    - auditing a ui component or page for wcag 2.2 aa/aaa conformance
+    - check color contrast ratios
+    - check semantic html structure
+    - fixing specific accessibility issues with standards-referenced remediation
+    - reviewing code changes for accessibility regressions (semantic html, aria, keybo
+    - setting up automated accessibility testing (axe-core, lighthouse, eslint-plugin
+    - test keyboard interaction pattern against wai-aria apg
+    - validate focus management
+    - verify aria roles, states, and properties
   - name: security-sweep
     path: personas/security/security-sweep
     description: Fleet-wide security audit — runs /security-auditor across multiple
       repos, aggregates findings to FLEET-SECURITY.md, surfaces NEW findings since
       last sweep. Use for periodic fleet hardening, post-Dependabot-sweep verification,
       or before security-sensitive releases.
+    tags:
+    - bash
+    - low
+    - persona
+    - security
+    triggers:
+    - auditing the entire arete fleet for periodic hardening (monthly/quarterly cadenc
+    - investigating whether a cve disclosed in a shared dependency affects multiple
+      re
+    - preparing the portfolio for an external audit (tiaid assessment, job application
+    - verifying no security regressions after a fleet-wide dependabot sweep
   - name: security-auditor
     path: personas/security/security-auditor
     description: SAST + OWASP audit with LLM-triaged findings. Runs semgrep/bandit/gitleaks/pip-audit,
@@ -429,92 +1404,482 @@ personas:
       pre-pen-test prep.
     has_schema: true
     version: 3.0.0
+    tags:
+    - api
+    - bash
+    - diff
+    - infrastructure
+    - low
+    - persona
+    - python
+    - review
+    - security
+    triggers:
+    - conducting a structured security audit against owasp top 10
+    - performing threat modeling (stride) or preparing for penetration testing
+    - reviewing authentication, authorization, and cryptographic implementations
+    - scanning for hardcoded secrets, credentials, and api keys in a codebase
   web:
   - name: a11y
     path: personas/web/a11y
     description: Accessibility Checklist
+    tags:
+    - bash
+    - css
+    - tsx
   - name: headline-hook-generator
     path: personas/web/headline-hook-generator
     description: Generates scored headline variations, meta elements, and video hooks
       using proven conversion formulas
+    tags:
+    - content
+    - conversion
+    - low
+    - persona
+    - seo
+    - testing
+    - web
+    triggers:
+    - creating meta titles (50-60 chars) and meta descriptions (150-160 chars)
+    - generating headline options for a blog post, landing page, or ad
+    - producing email subject line variations for a/b testing
+    - selecting the strongest headline from a set of options
+    - writing first-3-second video hooks for retention
   - name: web-performance
     path: personas/web/web-performance
     description: Optimizes website performance — Core Web Vitals, bundle analysis,
       image optimization, caching strategies, lazy loading, and Lighthouse score improvement.
+    tags:
+    - accessibility
+    - analytics
+    - content
+    - data
+    - javascript
+    - low
+    - performance
+    - persona
+    - review
+    - seo
+    - web
+    triggers:
+    - analyze network waterfall for bottlenecks
+    - analyzing and reducing javascript bundle size
+    - check core web vitals (lcp, inp, cls)
+    - diagnosing slow page loads or poor lighthouse scores
+    - fixing core web vitals issues (lcp, inp, cls)
+    - identify largest resources (js, css, images, fonts)
+    - implementing caching strategies (http cache, cdn, service worker)
+    - improving server response time (ttfb)
+    - measure ttfb and server response time
+    - optimizing font loading
+    - optimizing images (format, compression, responsive loading)
+    - reducing third-party script impact
+    - review third-party script impact
+    - run lighthouse audit (performance, accessibility, best practices, seo)
   - name: web-designer
     path: personas/web/web-designer
     description: Designs website layouts, color systems, typography, and visual hierarchy.
       Translates brand identity to Tailwind CSS design tokens and modern design systems.
+    tags:
+    - black
+    - content
+    - css
+    - design
+    - low
+    - mobile
+    - persona
+    - typescript
+    - web
+    triggers:
+    - 'accent-foreground: 222 47% 11%;'
+    - 'accent: 210 40% 96%;'
+    - adding animations and microinteractions
+    - apply visual hierarchy through type scale, weight, and color
+    - 'background: 0 0% 100%;'
+    - 'background: 222 47% 11%;'
+    - building a spacing and layout system
+    - create typography scale with consistent ratio
+    - creating a color system or palette for a website
+    - define all visual states (default, hover, focus, active, disabled)
+    - define color primitives (hue scales) and semantic tokens (background, foreground
+    - define grid structure and content areas
+    - define semantic color tokens that map to different values per theme
+    - define spacing scale (4px base grid)
+    - design responsive behavior at each breakpoint
+    - designing component aesthetics (cards, buttons, forms, navigation)
+    - designing typography scales and font pairings
+    - ensure focus indicators are visible for keyboard navigation
+    - extract primary, secondary, and accent colors from brand assets
+    - 'foreground: 210 40% 98%;'
   - name: pixel-pick
     path: personas/web/pixel-pick
     description: Interactive coordinate picker - click on an image to get exact pixel
       coordinates. Useful for mapping UI element positions. Invoke with /pixel-pick
       <image-path>.
+    tags:
+    - bash
+    - python
   - name: seo-content-pipeline
     path: personas/web/seo-content-pipeline
     description: 'Orchestrates the full SEO content pipeline: research, write, optimize,
       scrub, publish with staged directories'
+    tags:
+    - content
+    - data
+    - low
+    - persona
+    - review
+    - seo
+    - web
+    triggers:
+    - building a content calendar with seo-informed topic selection
+    - planning and executing a full content piece from keyword research to publish-rea
+    - producing content that needs research briefs, drafts, seo scoring, and optimizat
+    - running a multi-stage content workflow with staged directories (topics/ through
+    - writing long-form articles optimized for both readers and search engines
   - name: web-analytics
     path: personas/web/web-analytics
     description: Implements and interprets web analytics — GA4 setup, event tracking,
       conversion funnels, Google Search Console, UTM strategy, and A/B testing frameworks.
+    tags:
+    - analytics
+    - data
+    - javascript
+    - low
+    - migration
+    - persona
+    - web
+    triggers:
+    - analyzing traffic patterns and user behavior
+    - configure enhanced measurement settings
+    - configuring utm parameters for campaign tracking
+    - designing a tracking plan (events, conversions, goals)
+    - implement consent management
+    - implementing custom event tracking (form submissions, cta clicks, scroll depth)
+    - implementing gdpr-compliant cookie consent
+    - install ga4 property and data stream
+    - planning a/b tests
+    - set up google tag manager if needed
+    - setting up google analytics 4 on a new website
+    - setting up google search console integration
+    - verify data is flowing
   - name: web-content-writer
     path: personas/web/web-content-writer
     description: Writes website copy, blog posts, landing pages, and email content
       — SEO-aware, conversion-optimized, audience-targeted, and voice-consistent.
+    tags:
+    - content
+    - low
+    - persona
+    - web
+    triggers:
+    - crafting product descriptions and feature pages
+    - creating blog posts optimized for search and engagement
+    - creating content briefs for other writers
+    - developing content strategy (editorial calendars, topic clusters)
+    - end with a clear, action-oriented cta
+    - follow with a subheadline that elaborates or qualifies
+    - include social proof (testimonials, stats, logos)
+    - 'structure sections: hero → problem → solution → features → social proof → cta'
+    - write a headline that communicates the core value in under 10 words
+    - write benefit-driven feature descriptions (not just feature lists)
+    - writing about pages, team bios, or company narratives
+    - writing email content (newsletters, drip campaigns, transactional)
+    - writing landing page copy (hero sections, feature blocks, ctas)
   - name: web-frontend-builder
     path: personas/web/web-frontend-builder
     description: Builds production-grade frontend interfaces with React, Next.js,
       or static HTML/CSS. Component architecture, responsive design, and performance
       optimization.
+    tags:
+    - eslint
+    - frontend
+    - low
+    - mobile
+    - next.js
+    - persona
+    - prettier
+    - react
+    - tsx
+    - typescript
+    - web
+    triggers:
+    - add `.env.example` with documented variables
+    - ask about target stack (next.js app router, vite + react, astro, static)
+    - building ui components, pages, or layouts
+    - configure path aliases (`@/components`, `@/lib`)
+    - configuring build tools (vite, webpack, turbopack)
+    - create folder structure matching the chosen framework
+    - implementing responsive design with mobile-first approach
+    - integrating component libraries (shadcn/ui, radix, headless ui)
+    - scaffolding a new frontend project (react, next.js, astro, static html)
+    - set up base layout with responsive navigation
+    - set up typescript, eslint, prettier, tailwind css
+    - setting up state management (hooks, context, zustand)
   - name: web-merchant
     path: personas/web/web-merchant
     description: Builds e-commerce functionality — product catalogs, shopping carts,
       Stripe/PayPal integration, order management, Shopify storefronts, and subscription
       billing.
+    tags:
+    - compliance
+    - data
+    - database
+    - frontend
+    - medium
+    - persona
+    - stripe
+    - web
+    triggers:
+    - building shopping cart and checkout flows
+    - choose the right stripe integration (checkout, elements, payment intents)
+    - configure webhook endpoint for payment events
+    - delivering digital products (license keys, download links)
+    - designing product catalog data models (variants, pricing, inventory)
+    - handle success, failure, and pending states
+    - handling webhooks for payment events
+    - implement idempotency for retry safety
+    - implementing subscription and recurring billing
+    - integrating stripe checkout, stripe elements, or paypal
+    - managing order lifecycle (pending, paid, fulfilled, refunded)
+    - set up server-side payment intent creation
+    - setting up shopify storefront (liquid templates, storefront api)
   - name: web-seo-optimizer
     path: personas/web/web-seo-optimizer
     description: Optimizes websites for search engines — technical SEO, structured
       data markup, Core Web Vitals, crawlability, sitemaps, and programmatic SEO patterns.
+    tags:
+    - architecture
+    - content
+    - data
+    - html
+    - low
+    - mobile
+    - persona
+    - review
+    - seo
+    - web
+    - xml
+    triggers:
+    - analyze site architecture and url structure
+    - audit crawlability (internal links, orphan pages, redirect chains)
+    - auditing a website for technical seo issues
+    - building programmatic seo pages at scale
+    - check for duplicate content issues
+    - check indexation status (robots.txt, meta robots, x-robots-tag)
+    - generating sitemaps and configuring robots.txt
+    - implementing structured data (json-ld schemas)
+    - improving core web vitals scores
+    - optimizing for ai/llm search engines (aeo)
+    - optimizing meta tags, titles, and open graph tags
+    - review http status codes (404s, redirect loops)
+    - verify canonical urls and hreflang tags
   - name: align-debug
     path: personas/web/align-debug
     description: Overlay coordinate grid on screenshots for visual debugging. Helps
       align UI elements by showing pixel coordinates. Invoke with /align-debug <image-path>.
+    tags:
+    - python
   - name: content-scrubber
     path: personas/web/content-scrubber
     description: Detects and removes AI-generated patterns from content — em-dashes,
       filler phrases, robotic rhythm
+    tags:
+    - content
+    - low
+    - persona
+    - review
+    - web
+    triggers:
+    - as a mandatory final step before publishing in any content pipeline
+    - polishing marketing copy, blog posts, or documentation for human voice
+    - preparing ai-assisted content for publication (articles, scripts, landing pages)
+    - reviewing content that needs to pass ai detection tools
+    - scrubbing video scripts before tts rendering
   - name: web-backend-builder
     path: personas/web/web-backend-builder
     description: Builds backend APIs and server logic with FastAPI, Flask, Express,
       or Next.js API routes. Database design, authentication, and API documentation.
+    tags:
+    - api
+    - data
+    - database
+    - design
+    - frontend
+    - low
+    - openapi
+    - persona
+    - security
+    - sql
+    - web
+    triggers:
+    - choose appropriate http methods (get, post, put, patch, delete)
+    - define resource-oriented url structure
+    - design request/response schemas with types
+    - designing and implementing rest or graphql apis
+    - designing database schemas and writing migrations
+    - document error responses
+    - generating openapi/swagger documentation
+    - implementing authentication and authorization (oauth, jwt, sessions)
+    - integrating with third-party apis and webhooks
+    - plan pagination, filtering, and sorting
+    - setting up middleware pipelines (cors, rate limiting, logging)
   - name: cro-analyst
     path: personas/web/cro-analyst
     description: Conversion rate optimization analysis with above-fold, CTA, trust
       signal, and cognitive load scoring
+    tags:
+    - content
+    - conversion
+    - low
+    - mobile
+    - persona
+    - testing
+    - web
+    triggers:
+    - '[ ] headline communicates primary benefit (not feature)'
+    - '[ ] no competing elements distract from primary action'
+    - '[ ] primary cta is visible without scrolling'
+    - '[ ] subheadline clarifies or reinforces headline'
+    - '[ ] trust signal present (logo bar, testimonial snippet, "as seen in")'
+    - '[ ] value proposition is clear within 5 seconds'
+    - '[ ] visual hierarchy guides eye to cta'
+    - '[issue 1: e.g., "primary cta uses passive language — ''learn more'' vs. ''start
+      fre'
+    - '[issue 2]'
+    - 'above fold: [n] ctas'
+    - auditing cta placement, copy, and friction across a page
+    - 'below fold: [n] ctas'
+    - comparing two page variants for a/b testing recommendations
+    - evaluating a landing page or sales page for conversion potential
+    - identifying missing trust signals, objection handling, or social proof
+    - 'mid-page: [n] ctas'
+    - producing a conversion readiness score before a launch or campaign
+    - 'recommended: primary cta above fold + repeated every 2-3 scroll depths'
   - name: brand-voice-architect
     path: personas/web/brand-voice-architect
     description: Defines and maintains brand voice context files that drive all content
       generation across channels
+    tags:
+    - compliance
+    - content
+    - low
+    - persona
+    - web
+    triggers:
+    - auditing existing content for voice consistency
+    - creating context files (brand-voice.md, style-guide.md, etc.) for content pipeli
+    - documenting forbidden phrases, terminology rules, or tone boundaries
+    - establishing brand voice for a new project, product, or channel
+    - onboarding a new content channel that needs voice adaptation (blog, social,
+      vide
   - name: web-deployer
     path: personas/web/web-deployer
     description: Deploys websites to Vercel, Fly.io, Netlify, Cloudflare, or VPS.
       DNS configuration, SSL certificates, CI/CD pipelines, and zero-downtime deployments.
+    tags:
+    - bash
+    - ci/cd
+    - deployment
+    - medium
+    - migration
+    - monitoring
+    - persona
+    - testing
+    - web
+    triggers:
+    - building ci/cd deployment pipelines (github actions)
+    - configure environment variables
+    - configuring custom domains and dns records
+    - containerizing applications for vps deployment
+    - deploy and verify
+    - deploying a website to production for the first time
+    - identify the right platform based on project requirements
+    - managing environment variables across dev/staging/production
+    - migrating between hosting platforms
+    - set up custom domain if provided
+    - set up project linking and configuration
+    - setting up ssl/tls certificates
+    - troubleshooting deployment failures or dns issues
   - name: web-security-hardener
     path: personas/web/web-security-hardener
     description: Hardens websites against common attacks — security headers, CSP policies,
       input validation, CORS configuration, dependency auditing, and OWASP Top 10
       mitigation.
+    tags:
+    - data
+    - medium
+    - persona
+    - security
+    - web
+    triggers:
+    - auditing and configuring http security headers
+    - auditing dependencies for known vulnerabilities
+    - configuring cors for api endpoints
+    - designing content security policy (csp) rules
+    - generate recommended header configuration
+    - hardening authentication and session management
+    - identify missing or misconfigured headers
+    - implementing input validation and sanitization
+    - reviewing cookie security attributes
+    - scan current headers with `curl -i` or securityheaders.com
+    - securing file uploads
+    - test headers don't break functionality
+    - verify with mozilla observatory
   - name: web-cms-manager
     path: personas/web/web-cms-manager
     description: Manages content management systems — WordPress themes/plugins, Ghost
       configuration, headless CMS integration (Sanity, Contentful, Strapi), and content
       modeling.
+    tags:
+    - api
+    - bash
+    - cms
+    - content
+    - data
+    - database
+    - design
+    - frontend
+    - graphql
+    - low
+    - migration
+    - performance
+    - persona
+    - php
+    - redis
+    - rest
+    - review
+    - security
+    - testing
+    - web
+    triggers:
+    - build preview mode for draft content
+    - configure caching (wp super cache, redis object cache)
+    - configure custom integrations via webhooks and api
+    - configure ghost with custom theme (handlebars templates)
+    - configure webhook triggers for content updates
+    - configuring ghost cms for blogging
+    - create child themes for customization (never edit parent theme)
+    - design schema/content models in the cms
+    - designing content models (types, fields, relationships, taxonomies)
+    - follow wordpress coding standards for php
+    - handle image transformations via cms image cdn
+    - harden security (limit login attempts, disable xml-rpc, update regularly)
+    - implement isr (incremental static regeneration) or revalidation
+    - integrating headless cms (sanity, contentful, strapi) with a frontend
+    - migrating content between cms platforms
+    - optimize for performance (built-in image optimization)
+    - optimizing cms performance (caching, database queries)
+    - set up api access (rest or graphql)
+    - set up content scheduling and editorial workflow
+    - set up membership and newsletter features
   - name: compare
     path: personas/web/compare
     description: Side-by-side image comparison with difference highlighting. Useful
       for visual regression testing and UI changes. Invoke with /compare <image1>
       <image2>.
+    tags:
+    - python
 agents:
   analysis:
   - name: entity-resolver
@@ -524,6 +1889,22 @@ agents:
     has_schema: true
     risk_level: medium
     consensus: majority
+    tags:
+    - agent
+    - analysis
+    - data
+    - database
+    - go
+    - medium
+    - python
+    - review
+    - sql
+    triggers:
+    - after ner extracts entities from a new document batch and duplicates need consol
+    - assessing confidence that two entity mentions refer to the same real-world entit
+    - during convergent intent resolution when agents reference the same entity differ
+    - finding and reviewing suspected duplicates in an entity database
+    - manually merging entities the user has identified as the same real-world entity
   - name: handoff
     path: agents/analysis/handoff
     description: Packages project state into structured context documents for agent
@@ -531,6 +1912,18 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - analysis
+    - api
+    - content
+    - low
+    triggers:
+    - creating a checkpoint before a risky operation
+    - ending a work session and another session will continue the work
+    - handing off work to another developer or ai agent
+    - packaging context for an agent-pipeline automated run
+    - switching between projects and need to capture current state
   - name: document-forensics
     path: agents/analysis/document-forensics
     description: Investigative methodology for analyzing document collections — provenance
@@ -538,6 +1931,21 @@ agents:
     has_schema: true
     risk_level: medium
     consensus: majority
+    tags:
+    - agent
+    - analysis
+    - bash
+    - content
+    - medium
+    - python
+    triggers:
+    - analyzing foia releases, court records, leaked documents, or any investigative
+      d
+    - building evidentiary chains across multiple documents for a specific topic
+    - extracting and analyzing pdf/image metadata for provenance and authenticity
+    - investigating what is suspicious, inconsistent, or hidden within documents
+    - performing the full investigative workflow (inventory, provenance, timeline,
+      ent
   - name: release-engineer
     path: agents/analysis/release-engineer
     description: Automates the last mile of shipping software — verifies release readiness,
@@ -545,6 +1953,22 @@ agents:
     has_schema: true
     risk_level: high
     consensus: majority
+    tags:
+    - agent
+    - analysis
+    - bash
+    - documentation
+    - high
+    - security
+    triggers:
+    - after a technical-debt-auditor run resolves critical/high items and the repo
+      is
+    - generating changelogs from git history for a new version
+    - preparing a repository for public release, tagging a version, or publishing
+      to a
+    - running portfolio-wide release readiness checks across multiple repositories
+    - the user says "ship it", "release this", "tag a new version", or "make this
+      publ
   - name: context-mapper
     path: agents/analysis/context-mapper
     description: Pre-execution mapping of codebases, document collections, or problem
@@ -553,6 +1977,22 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - analysis
+    - architecture
+    - bash
+    - data
+    - low
+    - python
+    - rust
+    triggers:
+    - a previous context map is stale (files changed since map creation)
+    - an agent reports confusion about project structure or conventions
+    - analyzing a document collection before forensic or analytical work begins
+    - starting any gorgon workflow that involves multiple agents operating on the
+      same
+    - switching between projects in a multi-repo workflow and agents need fresh contex
   - name: technical-debt-auditor
     path: agents/analysis/technical-debt-auditor
     description: Systematic technical debt assessment — scans for security issues,
@@ -561,6 +2001,23 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - analysis
+    - bash
+    - ci/cd
+    - data
+    - database
+    - docker
+    - low
+    - security
+    triggers:
+    - assessing overall project health as part of portfolio polish or pre-job-applicat
+    - auditing a repository for technical debt before making it public or presenting
+      i
+    - comparing debt levels across multiple repositories to prioritize effort
+    - preparing a project for release (run this before release-engineer)
+    - tracking debt improvement over time by comparing current results against a previ
   - name: workflow-debugger
     path: agents/analysis/workflow-debugger
     description: Diagnoses why Gorgon workflows fail — reads checkpoint state, agent
@@ -568,6 +2025,20 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - analysis
+    - bash
+    - data
+    - database
+    - infrastructure
+    - low
+    triggers:
+    - a gorgon workflow failed and you need to understand why
+    - a pipeline hung and never completed
+    - a workflow ran out of budget before completing
+    - an agent produced unexpected or garbage output within a workflow
+    - post-mortem analysis is needed after a successful workflow to find optimization
   - name: intent-author
     path: agents/analysis/intent-author
     description: Teaches agents how to publish well-structured intents for Convergent's
@@ -575,6 +2046,20 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - analysis
+    - backend
+    - low
+    - python
+    - review
+    triggers:
+    - an agent needs to publish a new intent to the convergent intent graph
+    - an agent's work reaches a decision point (choosing a data model, api shape,
+      depe
+    - during intent validation before publishing to the graph
+    - reviewing whether existing intents are well-formed and machine-comparable
+    - updating an existing intent because stability changed or scope was refined
   browser:
   - name: web-scrape
     path: agents/browser/web-scrape
@@ -583,6 +2068,20 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - api
+    - content
+    - data
+    - javascript
+    - low
+    - python
+    triggers:
+    - capturing a visual screenshot of a rendered page
+    - converting html content to clean readable text for analysis
+    - extracting structured data from a specific known url (tables, text, metadata)
+    - harvesting and categorizing links from a page
+    - parsing page metadata (title, description, og tags) for indexing or preview
   - name: web-search
     path: agents/browser/web-search
     description: Search the web for information with rate limiting, caching, and structured
@@ -590,6 +2089,22 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - api
+    - content
+    - data
+    - documentation
+    - low
+    - python
+    - web
+    triggers:
+    - a task requires information beyond the model's training cutoff date
+    - comparing multiple sources to establish consensus on a topic
+    - gathering documentation, release notes, or changelogs for specific software
+      vers
+    - monitoring news or current events relevant to a task
+    - verifying claims or facts against current sources
   email:
   - name: email-compose
     path: agents/email/email-compose
@@ -598,6 +2113,19 @@ agents:
     has_schema: true
     risk_level: high
     consensus: unanimous+user
+    tags:
+    - agent
+    - content
+    - data
+    - high
+    - orchestration
+    - python
+    - review
+    triggers:
+    - composing and sending emails programmatically through smtp
+    - generating email drafts from templates with variable substitution
+    - managing a draft-review-approve workflow before delivery
+    - sending notifications, reports, or alerts via email
   integrations:
   - name: github-operations
     path: agents/integrations/github-operations
@@ -606,6 +2134,21 @@ agents:
     has_schema: true
     risk_level: medium
     consensus: majority
+    tags:
+    - agent
+    - api
+    - bash
+    - data
+    - integrations
+    - medium
+    - review
+    - security
+    triggers:
+    - cloning, branching, committing, or pushing to git repositories
+    - creating, reviewing, or merging pull requests via github
+    - managing github issues (creating, labeling, closing)
+    - performing any operation that touches git history or remote state
+    - publishing claude code plugins or skills as github repos
   - name: api-client
     path: agents/integrations/api-client
     description: Authenticated HTTP API client with retry logic, rate limiting, response
@@ -614,6 +2157,21 @@ agents:
     has_schema: true
     risk_level: low
     consensus: any
+    tags:
+    - agent
+    - api
+    - data
+    - debugging
+    - integrations
+    - low
+    - python
+    - review
+    triggers:
+    - executing batch requests against multiple endpoints with concurrency control
+    - fetching paginated data from api endpoints that return collections
+    - integrating with third-party services (slack, jira, stripe, etc.) via their
+      rest
+    - making authenticated http requests to external rest apis
   orchestration:
   - name: multi-agent-supervisor
     path: agents/orchestration/multi-agent-supervisor
@@ -623,6 +2181,19 @@ agents:
     has_schema: true
     risk_level: high
     consensus: adaptive
+    tags:
+    - agent
+    - bash
+    - data
+    - high
+    - orchestration
+    - review
+    triggers:
+    - a task requires browser, email, file, app, and system operations in combination
+    - coordinating multiple specialized agents on a complex task that requires diverse
+    - managing multi-step workflows where steps have dependencies and ordering constra
+    - orchestrating task pipelines that need safety controls, consensus, and state
+      tra
   - name: agent-teams-orchestrator
     path: agents/orchestration/agent-teams-orchestrator
     description: Designs and coordinates Claude Code Agent Teams — multi-agent collaboration
@@ -631,6 +2202,19 @@ agents:
     has_schema: true
     risk_level: medium
     consensus: majority
+    tags:
+    - agent
+    - bash
+    - design
+    - medium
+    - orchestration
+    triggers:
+    - a task has naturally parallel subtasks with clear boundaries (e.g., multi-module
+    - combined output requires cross-referencing, not just concatenation (e.g., compet
+    - single-agent approach would require sequential context switching across large
+      sc
+    - task scope exceeds what fits comfortably in one context window
+    - you need true parallel execution with independent context windows
   system:
   - name: process-runner
     path: agents/system/process-runner
@@ -640,6 +2224,20 @@ agents:
     has_schema: true
     risk_level: medium
     consensus: any
+    tags:
+    - agent
+    - medium
+    - python
+    - security
+    - shell
+    - system
+    triggers:
+    - executing build tools, test suites, or linters where exit codes and stderr matte
+    - running command pipelines where each step must be validated against the blocklis
+    - running shell commands that need safety controls (blocklist, timeout, audit
+      logg
+    - starting long-running background processes that need pid tracking and graceful
+      s
   - name: file-operations
     path: agents/system/file-operations
     description: Safe filesystem operations with path protection, backup enforcement,
@@ -647,6 +2245,20 @@ agents:
     has_schema: true
     risk_level: medium
     consensus: adaptive
+    tags:
+    - agent
+    - content
+    - data
+    - medium
+    - security
+    - shell
+    - system
+    triggers:
+    - batch file operations requiring atomic rollback
+    - operating on files near protected system paths
+    - operations that need structured output (success/failure, backup paths, byte
+      coun
+    - performing filesystem operations that need safety controls (backup, validation,
 workflows:
 - name: agent-pipeline
   path: workflows/agent-pipeline
@@ -654,11 +2266,30 @@ workflows:
     agents with review loops
   has_schema: true
   phase: full-lifecycle
+  tags:
+  - automation
+  - medium
+  - workflow
+  triggers:
+  - adding ci/cd automation where ai agents handle implementation from issues
+  - configuring the issue → pr → review → merge pipeline
+  - repos with well-defined issue templates and coding conventions (claude.md)
+  - setting up automated agent implementation in a github repository
 - name: conductor
   path: workflows/conductor
   description: Context-driven development workflow — interactive setup, spec generation,
     TDD implementation with checkpoints and revert
   phase: full-lifecycle
+  tags:
+  - development
+  - medium
+  - workflow
+  triggers:
+  - managing multiple feature tracks with prioritization
+  - planning and implementing a feature that spans multiple files or concerns
+  - starting a new project and need to establish foundational artifacts (product.md,
+  - you need the ability to revert by logical unit (track, phase, or task)
+  - you want tdd-driven implementation with explicit user approval between phases
 - name: context-mapping
   path: workflows/context-mapping
   description: Pre-execution context mapping phase inspired by Blitzy — maps codebase
@@ -667,6 +2298,19 @@ workflows:
     codebases.
   has_schema: true
   phase: full-lifecycle
+  tags:
+  - analysis
+  - data
+  - express
+  - medium
+  - typescript
+  - workflow
+  triggers:
+  - '"question or ambiguity that needs resolution"'
+  - multiple agents or changes might interact with the same files
+  - planning multi-file changes that touch shared dependencies
+  - starting a complex task in an unfamiliar or large codebase
+  - you need to validate assumptions about codebase conventions before execution
 - name: evaluation
   path: workflows/evaluation
   description: Evaluation-mode prompt scaffold. Use when you have candidates (options,
@@ -674,6 +2318,8 @@ workflows:
     — not opinions. Always produces a decision plus evidence. "It depends" is not
     an acceptable output. Invoke with /evaluation.
   phase: full-lifecycle
+  tags:
+  - bash
 - name: exploration
   path: workflows/exploration
   description: Exploration-mode prompt scaffold. Use when the option space isn't mapped
@@ -681,6 +2327,8 @@ workflows:
     The output is a list of options with evidence, not a recommendation. Invoke with
     /exploration.
   phase: full-lifecycle
+  tags:
+  - bash
 - name: feature-implementation
   path: workflows/feature-implementation
   description: End-to-end feature implementation workflow using WHY/WHAT/HOW framework
@@ -688,11 +2336,31 @@ workflows:
     Use when implementing a complete feature across multiple files.
   has_schema: true
   phase: full-lifecycle
+  tags:
+  - engineering
+  - medium
+  - workflow
+  triggers:
+  - coordinating multiple agents or personas through a structured pipeline
+  - implementing a complete feature that spans multiple files
+  - the work requires context mapping, design, implementation, testing, and pr deliv
+  - you need quality gates between phases to catch issues early
 - name: feature-pipeline
   path: workflows/feature-pipeline
   description: Multi-phase feature development with checkpoint gates, parallel agent
     streams, and phased artifact output
   phase: full-lifecycle
+  tags:
+  - development
+  - medium
+  - workflow
+  triggers:
+  - clean revert per phase is important
+  - implementing a feature that touches multiple layers (backend, frontend, tests,
+    d
+  - the feature needs a security and performance review before delivery
+  - you need numbered output artifacts for traceability
+  - you want parallel agent execution for backend, frontend, and test writing
 - name: goal
   path: workflows/goal
   description: Manage the build-mode goal-loop — set, inspect, pause, resume, extend,
@@ -705,6 +2373,8 @@ workflows:
     spec is clear — produce the final deliverable with no exploratory sprawl, no meta-commentary,
     no preamble. Output is the artifact itself, nothing else. Invoke with /production.
   phase: full-lifecycle
+  tags:
+  - bash
 - name: release-engineering
   path: workflows/release-engineering
   description: End-to-end release workflow — preflight checks, code review, changelog
@@ -720,6 +2390,21 @@ workflows:
     meaningful work.
   has_schema: true
   phase: full-lifecycle
+  tags:
+  - architecture
+  - content
+  - deployment
+  - documentation
+  - infrastructure
+  - low
+  - review
+  - session-management
+  - workflow
+  triggers:
+  - before any extended break from a project
+  - completing a multi-step task that produced decisions or learnings
+  - finishing a claude code session where meaningful work was done
+  - switching away from a project mid-day
 - name: session-start
   path: workflows/session-start
   description: Session bootstrap workflow — audits project context, suggests session
@@ -727,12 +2412,25 @@ workflows:
     any non-trivial engineering session.
   has_schema: true
   phase: full-lifecycle
+  tags:
+  - low
+  - migration
+  - security
+  - session-management
+  - workflow
+  triggers:
+  - beginning a session that will span multiple tasks
+  - returning to a project after days or weeks away
+  - starting a new claude code session on any project
+  - switching to a different project mid-session
 - name: specification
   path: workflows/specification
   description: Specification-mode prompt scaffold. Use when the decision is made and
     you need a buildable, testable, reviewable spec. Output is fixed-structure with
     measurable acceptance criteria. Never re-argues the premise. Invoke with /specification.
   phase: full-lifecycle
+  tags:
+  - bash
 stats:
   total_personas: 114
   total_agents: 17

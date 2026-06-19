@@ -7,5 +7,17 @@
   "description": "Fleet-wide security audit \u2014 runs /security-auditor across multiple repos, aggregates findings to FLEET-SECURITY.md, surfaces NEW findings since last sweep. Use for periodic fleet hardening, post-Dependabot-sweep verification, or before security-sensitive releases.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "bash",
+    "low",
+    "persona",
+    "security"
+  ],
+  "triggers": [
+    "auditing the entire arete fleet for periodic hardening (monthly/quarterly cadenc",
+    "investigating whether a cve disclosed in a shared dependency affects multiple re",
+    "preparing the portfolio for an external audit (tiaid assessment, job application",
+    "verifying no security regressions after a fleet-wide dependabot sweep"
+  ]
 }

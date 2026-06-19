@@ -7,5 +7,19 @@
   "description": "Linux networking troubleshooting \u2014 DNS, firewalls, ports, routing, and connectivity diagnostics. Invoke with /networking.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "data",
+    "debugging",
+    "devops",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "configuring firewalls (ufw, iptables, nftables) for new services",
+    "debugging connectivity issues between services or hosts",
+    "diagnosing dns resolution failures or routing problems",
+    "troubleshooting docker or container networking"
+  ]
 }

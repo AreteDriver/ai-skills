@@ -48,6 +48,10 @@ def _build_registry(manifests):
                 entry["has_references"] = True
             if m.get("version") and m["version"] != "1.0.0":
                 entry["version"] = m["version"]
+            if m.get("tags"):
+                entry["tags"] = m["tags"]
+            if m.get("triggers"):
+                entry["triggers"] = m["triggers"]
             personas.setdefault(cat, []).append(entry)
 
         elif m["type"] == "agent":
@@ -71,6 +75,10 @@ def _build_registry(manifests):
                 entry["has_sub_agents"] = m["has_sub_agents"]
             if m.get("sub_agents"):
                 entry["sub_agents"] = m["sub_agents"]
+            if m.get("tags"):
+                entry["tags"] = m["tags"]
+            if m.get("triggers"):
+                entry["triggers"] = m["triggers"]
             agents.setdefault(cat, []).append(entry)
 
         elif m["type"] == "workflow":
@@ -83,6 +91,10 @@ def _build_registry(manifests):
                 entry["has_schema"] = True
             if m.get("phase"):
                 entry["phase"] = m["phase"]
+            if m.get("tags"):
+                entry["tags"] = m["tags"]
+            if m.get("triggers"):
+                entry["triggers"] = m["triggers"]
             workflows.append(entry)
 
     # Sort categories and entries for stability

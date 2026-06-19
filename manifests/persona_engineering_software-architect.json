@@ -7,5 +7,27 @@
   "description": "Designs system architecture and makes technical decisions",
   "has_schema": true,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "architecture",
+    "data",
+    "debugging",
+    "deployment",
+    "design",
+    "engineering",
+    "low",
+    "monitoring",
+    "persona",
+    "security"
+  ],
+  "triggers": [
+    "consider non-functional requirements (latency, throughput, availability)",
+    "define data models and flows",
+    "defining component boundaries, data models, and integration patterns",
+    "designing a new system, service, or major feature from scratch",
+    "evaluating technology choices, framework selection, or migration strategies",
+    "gather requirements and constraints first",
+    "identify system boundaries and integrations",
+    "planning mcp server architecture or claude code plugin structure"
+  ]
 }

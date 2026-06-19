@@ -9,5 +9,19 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "medium",
-  "consensus": "majority"
+  "consensus": "majority",
+  "tags": [
+    "agent",
+    "bash",
+    "design",
+    "medium",
+    "orchestration"
+  ],
+  "triggers": [
+    "a task has naturally parallel subtasks with clear boundaries (e.g., multi-module",
+    "combined output requires cross-referencing, not just concatenation (e.g., compet",
+    "single-agent approach would require sequential context switching across large sc",
+    "task scope exceeds what fits comfortably in one context window",
+    "you need true parallel execution with independent context windows"
+  ]
 }

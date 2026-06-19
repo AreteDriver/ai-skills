@@ -9,5 +9,23 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "low",
-  "consensus": "any"
+  "consensus": "any",
+  "tags": [
+    "agent",
+    "analysis",
+    "bash",
+    "ci/cd",
+    "data",
+    "database",
+    "docker",
+    "low",
+    "security"
+  ],
+  "triggers": [
+    "assessing overall project health as part of portfolio polish or pre-job-applicat",
+    "auditing a repository for technical debt before making it public or presenting i",
+    "comparing debt levels across multiple repositories to prioritize effort",
+    "preparing a project for release (run this before release-engineer)",
+    "tracking debt improvement over time by comparing current results against a previ"
+  ]
 }

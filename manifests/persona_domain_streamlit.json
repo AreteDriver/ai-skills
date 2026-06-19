@@ -7,5 +7,19 @@
   "description": "Streamlit app patterns for layout, state management, data display, and deployment. Invoke with /streamlit.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "dockerfile",
+    "domain",
+    "low",
+    "persona",
+    "python"
+  ],
+  "triggers": [
+    "building streamlit dashboards or data apps",
+    "deploying streamlit apps in docker or creating kiosk/tv display interfaces",
+    "managing session state across reruns or optimizing with caching",
+    "needing reference patterns for forms, layouts, sidebar filters, or auto-refresh"
+  ]
 }

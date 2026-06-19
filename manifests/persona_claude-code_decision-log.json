@@ -7,5 +7,7 @@
   "description": "Log high-leverage decisions from the current work session to the Arete Decision Log. Extracts architecture, UX, scope, tooling, and philosophy decisions. Invoke with /decision-log or /adl.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [],
+  "triggers": []
 }

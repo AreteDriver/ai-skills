@@ -11,9 +11,12 @@ Usage:
 import glob
 import json
 import os
+import sys
 import yaml
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(REPO_ROOT, "scripts"))
+from extract_tags import extract_tags
 MANIFESTS_DIR = os.path.join(REPO_ROOT, "manifests")
 
 
@@ -165,6 +168,12 @@ def generate_manifests():
 
     if duplicates:
         raise ValueError(f"Duplicate skill IDs found: {duplicates}")
+
+    # Enrich with tags and triggers
+    for m in all_manifests:
+        enriched = extract_tags(m["path"])
+        m["tags"] = enriched.get("tags", [])
+        m["triggers"] = enriched.get("triggers", [])
 
     # Write individual manifest files
     for m in all_manifests:

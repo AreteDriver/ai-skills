@@ -7,5 +7,9 @@
   "description": "Overlay coordinate grid on screenshots for visual debugging. Helps align UI elements by showing pixel coordinates. Invoke with /align-debug <image-path>.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "python"
+  ],
+  "triggers": []
 }

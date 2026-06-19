@@ -9,5 +9,23 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "medium",
-  "consensus": "majority"
+  "consensus": "majority",
+  "tags": [
+    "agent",
+    "analysis",
+    "data",
+    "database",
+    "go",
+    "medium",
+    "python",
+    "review",
+    "sql"
+  ],
+  "triggers": [
+    "after ner extracts entities from a new document batch and duplicates need consol",
+    "assessing confidence that two entity mentions refer to the same real-world entit",
+    "during convergent intent resolution when agents reference the same entity differ",
+    "finding and reviewing suspected duplicates in an entity database",
+    "manually merging entities the user has identified as the same real-world entity"
+  ]
 }

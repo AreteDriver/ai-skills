@@ -7,5 +7,31 @@
   "description": "Monitor and control system processes with safety protections. Invoke with /process-management.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "database",
+    "devops",
+    "low",
+    "monitoring",
+    "persona",
+    "python"
+  ],
+  "triggers": [
+    "alert on anomalies",
+    "check service status first",
+    "collect cpu, memory, disk, network metrics",
+    "handle dependencies properly",
+    "identify resource-heavy processes",
+    "investigating process state, open files, or connections before taking action",
+    "log all actions",
+    "monitoring system resource usage or identifying resource-heavy processes",
+    "safely terminating or managing running processes",
+    "track trends over time",
+    "use appropriate signals",
+    "use systemctl for service operations",
+    "verify process exists and identity",
+    "verify service health after changes",
+    "wait for confirmation"
+  ]
 }

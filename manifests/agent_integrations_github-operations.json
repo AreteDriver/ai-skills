@@ -9,5 +9,22 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "medium",
-  "consensus": "majority"
+  "consensus": "majority",
+  "tags": [
+    "agent",
+    "api",
+    "bash",
+    "data",
+    "integrations",
+    "medium",
+    "review",
+    "security"
+  ],
+  "triggers": [
+    "cloning, branching, committing, or pushing to git repositories",
+    "creating, reviewing, or merging pull requests via github",
+    "managing github issues (creating, labeling, closing)",
+    "performing any operation that touches git history or remote state",
+    "publishing claude code plugins or skills as github repos"
+  ]
 }

@@ -7,5 +7,25 @@
   "description": "Reviews code for quality, security, and best practices",
   "has_schema": true,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "data",
+    "engineering",
+    "low",
+    "performance",
+    "persona",
+    "review",
+    "security"
+  ],
+  "triggers": [
+    "categorize findings by severity: critical / suggestion / nit",
+    "consider the scope and intent of the change",
+    "evaluating test coverage and completeness for a set of changes",
+    "focus on bugs and security issues first",
+    "performing focused security or performance review of a specific change",
+    "reviewing a pr, diff, or code snippet for bugs, quality, and best practices",
+    "running multi-reviewer parallel analysis on large or critical prs",
+    "verify tests cover the changes"
+  ]
 }

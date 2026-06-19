@@ -8,5 +8,17 @@
   "has_schema": false,
   "has_references": false,
   "version": "1.0.0",
-  "phase": "full-lifecycle"
+  "phase": "full-lifecycle",
+  "tags": [
+    "development",
+    "medium",
+    "workflow"
+  ],
+  "triggers": [
+    "clean revert per phase is important",
+    "implementing a feature that touches multiple layers (backend, frontend, tests, d",
+    "the feature needs a security and performance review before delivery",
+    "you need numbered output artifacts for traceability",
+    "you want parallel agent execution for backend, frontend, and test writing"
+  ]
 }

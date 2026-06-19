@@ -7,5 +7,21 @@
   "description": "Converts load estimates into professional customer-facing quotes with itemized pricing, fees, and terms for junk removal and hauling businesses",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "domain",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "add applicable special disposal fees",
+    "apply labor multipliers",
+    "calculate base price from volume/weight",
+    "converting a load estimate into a professional customer-facing quote",
+    "creating tiered service options (full service, heavy items only, load & haul)",
+    "generate professional quote document",
+    "generating quick text/sms quotes for fast customer response",
+    "include travel/fuel if applicable",
+    "pricing special disposal items (mattresses, appliances, hazmat, e-waste)"
+  ]
 }

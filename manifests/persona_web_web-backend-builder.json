@@ -7,5 +7,31 @@
   "description": "Builds backend APIs and server logic with FastAPI, Flask, Express, or Next.js API routes. Database design, authentication, and API documentation.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "data",
+    "database",
+    "design",
+    "frontend",
+    "low",
+    "openapi",
+    "persona",
+    "security",
+    "sql",
+    "web"
+  ],
+  "triggers": [
+    "choose appropriate http methods (get, post, put, patch, delete)",
+    "define resource-oriented url structure",
+    "design request/response schemas with types",
+    "designing and implementing rest or graphql apis",
+    "designing database schemas and writing migrations",
+    "document error responses",
+    "generating openapi/swagger documentation",
+    "implementing authentication and authorization (oauth, jwt, sessions)",
+    "integrating with third-party apis and webhooks",
+    "plan pagination, filtering, and sorting",
+    "setting up middleware pipelines (cors, rate limiting, logging)"
+  ]
 }

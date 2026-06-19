@@ -7,5 +7,23 @@
   "description": "Manages Claude Code's persistent memory system \u2014 auto-memory files, cross-session context, project memory directories, and task handoff protocols. Use when organizing session memory, creating handoff documents, managing MEMORY.md files, or establishing continuity between Claude Code sessions.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "claude-code",
+    "content",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "add links from memory.md to topic files",
+    "audit existing memory files for relevance",
+    "consolidate duplicates and remove outdated entries",
+    "create topic files for detailed information",
+    "creating session handoff documents for multi-session work",
+    "designing memory architecture for a new project",
+    "ensure memory.md stays under 200 lines",
+    "pruning stale memory entries or consolidating duplicate knowledge",
+    "setting up or reorganizing project memory files (memory.md, topic files)"
+  ]
 }

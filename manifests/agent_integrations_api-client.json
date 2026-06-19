@@ -9,5 +9,21 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "low",
-  "consensus": "any"
+  "consensus": "any",
+  "tags": [
+    "agent",
+    "api",
+    "data",
+    "debugging",
+    "integrations",
+    "low",
+    "python",
+    "review"
+  ],
+  "triggers": [
+    "executing batch requests against multiple endpoints with concurrency control",
+    "fetching paginated data from api endpoints that return collections",
+    "integrating with third-party services (slack, jira, stripe, etc.) via their rest",
+    "making authenticated http requests to external rest apis"
+  ]
 }

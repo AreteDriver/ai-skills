@@ -7,5 +7,21 @@
   "description": "Orchestrates the full SEO content pipeline: research, write, optimize, scrub, publish with staged directories",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "content",
+    "data",
+    "low",
+    "persona",
+    "review",
+    "seo",
+    "web"
+  ],
+  "triggers": [
+    "building a content calendar with seo-informed topic selection",
+    "planning and executing a full content piece from keyword research to publish-rea",
+    "producing content that needs research briefs, drafts, seo scoring, and optimizat",
+    "running a multi-stage content workflow with staged directories (topics/ through",
+    "writing long-form articles optimized for both readers and search engines"
+  ]
 }

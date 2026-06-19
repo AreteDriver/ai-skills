@@ -7,5 +7,38 @@
   "description": "REST and GraphQL API testing \u2014 contract validation, load testing, regression suites, and endpoint verification",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "data",
+    "database",
+    "design",
+    "low",
+    "openapi",
+    "performance",
+    "persona",
+    "testing"
+  ],
+  "triggers": [
+    "analyze failure patterns (timing, ordering, state leakage)",
+    "build ci-friendly comparison with clear failure messages",
+    "building contract test suites (consumer-driven or provider)",
+    "capture baseline responses as golden files (sanitize timestamps, ids)",
+    "check for shared mutable state between tests",
+    "configure virtual user profiles with realistic think times",
+    "creating regression test baselines with golden file comparison",
+    "debugging flaky api tests or intermittent failures",
+    "define slos (p50, p95, p99 latency targets, error rate thresholds)",
+    "design diff strategies (structural vs exact match)",
+    "design workload scenarios (ramp-up, steady state, spike)",
+    "flag undocumented endpoints or response codes",
+    "generate request/response pairs covering all documented schemas",
+    "handle expected schema evolution vs unexpected changes",
+    "identify resource bottlenecks from test results",
+    "parse the openapi spec and identify all endpoints",
+    "recommend retry strategies only as last resort",
+    "reviewing api test coverage gaps",
+    "setting up load/stress testing with k6 or artillery",
+    "use tools like schemathesis, dredd, or pact for automated validation"
+  ]
 }

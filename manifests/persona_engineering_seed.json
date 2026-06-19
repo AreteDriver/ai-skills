@@ -7,5 +7,11 @@
   "description": "Test Data Generation",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "csv",
+    "python",
+    "sql"
+  ],
+  "triggers": []
 }

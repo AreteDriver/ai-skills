@@ -9,5 +9,19 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "high",
-  "consensus": "adaptive"
+  "consensus": "adaptive",
+  "tags": [
+    "agent",
+    "bash",
+    "data",
+    "high",
+    "orchestration",
+    "review"
+  ],
+  "triggers": [
+    "a task requires browser, email, file, app, and system operations in combination",
+    "coordinating multiple specialized agents on a complex task that requires diverse",
+    "managing multi-step workflows where steps have dependencies and ordering constra",
+    "orchestrating task pipelines that need safety controls, consensus, and state tra"
+  ]
 }

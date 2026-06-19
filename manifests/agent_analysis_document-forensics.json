@@ -9,5 +9,20 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "medium",
-  "consensus": "majority"
+  "consensus": "majority",
+  "tags": [
+    "agent",
+    "analysis",
+    "bash",
+    "content",
+    "medium",
+    "python"
+  ],
+  "triggers": [
+    "analyzing foia releases, court records, leaked documents, or any investigative d",
+    "building evidentiary chains across multiple documents for a specific topic",
+    "extracting and analyzing pdf/image metadata for provenance and authenticity",
+    "investigating what is suspicious, inconsistent, or hidden within documents",
+    "performing the full investigative workflow (inventory, provenance, timeline, ent"
+  ]
 }

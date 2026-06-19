@@ -7,5 +7,18 @@
   "description": "Senior software analyst persona for codebase auditing, architecture mapping, documentation review, technical debt assessment, and system understanding. Use when you need to understand an unfamiliar codebase, evaluate architecture decisions, create documentation, or assess project health before making changes.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "engineering",
+    "low",
+    "persona",
+    "security"
+  ],
+  "triggers": [
+    "auditing project health: technical debt, missing tests, architectural issues",
+    "coordinating multi-agent parallel analysis of large codebases",
+    "exploring an unfamiliar codebase before starting development work",
+    "mapping system architecture, component boundaries, and data flows"
+  ]
 }

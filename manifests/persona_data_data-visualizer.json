@@ -7,5 +7,24 @@
   "description": "Creates charts, dashboards, and visual representations of data",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "accessibility",
+    "data",
+    "design",
+    "low",
+    "persona",
+    "python",
+    "visualization"
+  ],
+  "triggers": [
+    "add appropriate context and annotations",
+    "apply consistent styling",
+    "building interactive visualizations for web or presentation contexts",
+    "choosing the right chart type for a given data relationship",
+    "creating charts, plots, or visual representations of analyzed data",
+    "designing dashboard layouts with multiple coordinated views",
+    "optimize for the key message",
+    "select the right chart type for the data"
+  ]
 }

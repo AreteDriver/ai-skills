@@ -9,5 +9,22 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "low",
-  "consensus": "any"
+  "consensus": "any",
+  "tags": [
+    "agent",
+    "analysis",
+    "architecture",
+    "bash",
+    "data",
+    "low",
+    "python",
+    "rust"
+  ],
+  "triggers": [
+    "a previous context map is stale (files changed since map creation)",
+    "an agent reports confusion about project structure or conventions",
+    "analyzing a document collection before forensic or analytical work begins",
+    "starting any gorgon workflow that involves multiple agents operating on the same",
+    "switching between projects in a multi-repo workflow and agents need fresh contex"
+  ]
 }

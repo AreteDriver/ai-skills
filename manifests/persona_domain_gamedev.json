@@ -7,5 +7,19 @@
   "description": "Game development patterns for Bevy/Rust ECS, game loops, state machines, physics, and audio. Invoke with /gamedev.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "design",
+    "domain",
+    "low",
+    "persona",
+    "rust"
+  ],
+  "triggers": [
+    "building games with bevy/rust or designing ecs architectures",
+    "implementing game state machines, physics, collision, or spawning systems",
+    "needing reference patterns for bevy components, systems, events, or resources",
+    "optimizing game loop performance or debugging frame budget issues"
+  ]
 }

@@ -7,5 +7,9 @@
   "description": "Reverse-Engineering Synthesis Persona",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "bash"
+  ],
+  "triggers": []
 }

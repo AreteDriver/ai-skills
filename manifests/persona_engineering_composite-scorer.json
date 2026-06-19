@@ -7,5 +7,33 @@
   "description": "Weighted 0-100 composite scoring with category breakdowns, grade bands, and priority actions",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "architecture",
+    "ci/cd",
+    "content",
+    "documentation",
+    "engineering",
+    "infrastructure",
+    "low",
+    "monitoring",
+    "performance",
+    "persona",
+    "security",
+    "seo",
+    "testing"
+  ],
+  "triggers": [
+    "accept user-defined categories with weights",
+    "apply the standard output contract to any domain",
+    "ask for scoring criteria per category if not provided",
+    "building a multi-factor scoring system for a new domain",
+    "categories (adapt weights to project):",
+    "comparing alternatives using weighted decision matrices",
+    "creating quality gates for ci/cd pipelines or review workflows",
+    "evaluating content, code, infrastructure, or any artifact against quality criter",
+    "generating readiness assessments (publish-ready, deploy-ready, ship-ready)",
+    "validate weights sum to 1.0 (warn and normalize if not)"
+  ]
 }

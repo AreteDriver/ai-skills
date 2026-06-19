@@ -7,5 +7,22 @@
   "description": "Performance profiling and optimization for Python, Rust, and web applications. Invoke with /perf.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "data",
+    "devops",
+    "low",
+    "performance",
+    "persona",
+    "python",
+    "rust",
+    "sql"
+  ],
+  "triggers": [
+    "application is slower than expected and needs profiling",
+    "establishing performance baselines before optimization",
+    "investigating memory leaks or excessive resource consumption",
+    "optimizing database queries or hot code paths"
+  ]
 }

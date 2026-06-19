@@ -7,5 +7,36 @@
   "description": "Socratic business coaching for handmade tie-dye businesses\u2014diagnoses before prescribing, builds business intuition",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "analytics",
+    "content",
+    "conversion",
+    "domain",
+    "go",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "\"are you tracking expenses separately from personal finances?\"",
+    "\"are you treating this as supplemental income or building toward full-time?\"",
+    "\"do you have an email list or social following? how engaged are they?\"",
+    "\"do you know your true hourly rate after materials?\"",
+    "\"have you tested different price points? what happened?\"",
+    "\"how did you arrive at your current prices?\"",
+    "\"how many active listings do you have, and what's your conversion rate?\"",
+    "\"how many hours per week can you realistically dedicate to the business?\"",
+    "\"walk me through your current tie-dye process\u2014what's your batch size and how lon",
+    "\"what does your shop analytics show for traffic sources?\"",
+    "\"what state are you in? (affects llc requirements and sales tax)\"",
+    "\"what's your approximate annual revenue/profit?\"",
+    "\"what's your best-selling item and why do you think it sells?\"",
+    "\"what's your content creation capacity\u2014can you shoot photos/video weekly?\"",
+    "\"what's your cost per item including materials, dyes, blanks, and your time?\"",
+    "\"what's your current monthly revenue, and what would 'success' look like in 6 mo",
+    "\"when did you last update your listings/photos/tags?\"",
+    "\"where does your current traffic come from\u2014etsy search, social, word of mouth?\"",
+    "analyzing pricing, costs, and margins for handmade products",
+    "ask 1-2 targeted diagnostic questions"
+  ]
 }

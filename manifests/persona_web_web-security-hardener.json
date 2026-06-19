@@ -7,5 +7,27 @@
   "description": "Hardens websites against common attacks \u2014 security headers, CSP policies, input validation, CORS configuration, dependency auditing, and OWASP Top 10 mitigation.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "data",
+    "medium",
+    "persona",
+    "security",
+    "web"
+  ],
+  "triggers": [
+    "auditing and configuring http security headers",
+    "auditing dependencies for known vulnerabilities",
+    "configuring cors for api endpoints",
+    "designing content security policy (csp) rules",
+    "generate recommended header configuration",
+    "hardening authentication and session management",
+    "identify missing or misconfigured headers",
+    "implementing input validation and sanitization",
+    "reviewing cookie security attributes",
+    "scan current headers with `curl -i` or securityheaders.com",
+    "securing file uploads",
+    "test headers don't break functionality",
+    "verify with mozilla observatory"
+  ]
 }

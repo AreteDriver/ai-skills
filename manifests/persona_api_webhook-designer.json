@@ -7,5 +7,40 @@
   "description": "Webhook architecture \u2014 payload design, retry strategies, HMAC signature verification, and event-driven patterns",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "data",
+    "debugging",
+    "design",
+    "go",
+    "low",
+    "migration",
+    "monitoring",
+    "persona",
+    "python",
+    "security"
+  ],
+  "triggers": [
+    "add circuit breaker for consistently failing endpoints",
+    "building retry logic with exponential backoff and dead letter queues",
+    "debugging webhook delivery failures or duplicate processing",
+    "deduplicate by event id (idempotency table)",
+    "define event taxonomy (resource.action pattern: `order.created`, `user.updated`)",
+    "defining webhook event schemas and versioning strategies",
+    "design envelope format (id, type, timestamp, version, data)",
+    "design idempotency key strategy for receivers",
+    "design retry schedule (exponential backoff: 1m, 5m, 30m, 2h, 12h)",
+    "designing webhook sender/receiver architecture",
+    "determine subscription model (topic-based, filter expressions)",
+    "generate per-subscriber signing secrets (rotate-able)",
+    "handle out-of-order delivery gracefully",
+    "implement dead letter queue for permanently failed deliveries",
+    "implement event replay capability for recovery",
+    "implement hmac-sha256 signing (timestamp + payload body)",
+    "implementing hmac signature verification for webhook payloads",
+    "include timestamp in signature to prevent replay attacks (5-minute window)",
+    "plan schema versioning strategy (url path vs header vs envelope field)",
+    "provide verification code in python, node.js, and go"
+  ]
 }

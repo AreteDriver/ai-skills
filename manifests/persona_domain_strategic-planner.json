@@ -7,5 +7,21 @@
   "description": "Breaks down features into actionable implementation plans",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "domain",
+    "low",
+    "persona",
+    "testing"
+  ],
+  "triggers": [
+    "analyze the feature requirements thoroughly",
+    "breaking down a new feature request into implementation steps",
+    "decomposing a large project into phased milestones",
+    "define clear acceptance criteria",
+    "determine the optimal implementation sequence",
+    "identify all components that need to be created or modified",
+    "needing a structured plan before starting complex multi-file work",
+    "prioritizing a backlog of tasks by urgency, impact, and dependencies"
+  ]
 }

@@ -8,5 +8,22 @@
   "has_schema": true,
   "has_references": false,
   "version": "1.0.0",
-  "phase": "full-lifecycle"
+  "phase": "full-lifecycle",
+  "tags": [
+    "architecture",
+    "content",
+    "deployment",
+    "documentation",
+    "infrastructure",
+    "low",
+    "review",
+    "session-management",
+    "workflow"
+  ],
+  "triggers": [
+    "before any extended break from a project",
+    "completing a multi-step task that produced decisions or learnings",
+    "finishing a claude code session where meaningful work was done",
+    "switching away from a project mid-day"
+  ]
 }

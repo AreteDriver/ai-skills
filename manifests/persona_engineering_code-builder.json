@@ -7,5 +7,25 @@
   "description": "Writes clean, production-ready code based on plans",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "api",
+    "data",
+    "documentation",
+    "engineering",
+    "low",
+    "persona",
+    "review"
+  ],
+  "triggers": [
+    "add comments explaining \"why\" not \"what\"",
+    "break implementation into logical, testable units",
+    "fixing a specific bug with minimal, targeted changes",
+    "follow the principle of least surprise",
+    "implementing new features or components based on a design or specification",
+    "refactoring existing code to improve structure without changing behavior",
+    "review the plan thoroughly before starting",
+    "write the interface/api first, then implement",
+    "writing production code that needs to be testable and maintainable"
+  ]
 }

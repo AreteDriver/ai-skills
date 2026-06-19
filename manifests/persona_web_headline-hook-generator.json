@@ -7,5 +7,21 @@
   "description": "Generates scored headline variations, meta elements, and video hooks using proven conversion formulas",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "content",
+    "conversion",
+    "low",
+    "persona",
+    "seo",
+    "testing",
+    "web"
+  ],
+  "triggers": [
+    "creating meta titles (50-60 chars) and meta descriptions (150-160 chars)",
+    "generating headline options for a blog post, landing page, or ad",
+    "producing email subject line variations for a/b testing",
+    "selecting the strongest headline from a set of options",
+    "writing first-3-second video hooks for retention"
+  ]
 }

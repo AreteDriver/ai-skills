@@ -7,5 +7,34 @@
   "description": "Optimizes website performance \u2014 Core Web Vitals, bundle analysis, image optimization, caching strategies, lazy loading, and Lighthouse score improvement.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "accessibility",
+    "analytics",
+    "content",
+    "data",
+    "javascript",
+    "low",
+    "performance",
+    "persona",
+    "review",
+    "seo",
+    "web"
+  ],
+  "triggers": [
+    "analyze network waterfall for bottlenecks",
+    "analyzing and reducing javascript bundle size",
+    "check core web vitals (lcp, inp, cls)",
+    "diagnosing slow page loads or poor lighthouse scores",
+    "fixing core web vitals issues (lcp, inp, cls)",
+    "identify largest resources (js, css, images, fonts)",
+    "implementing caching strategies (http cache, cdn, service worker)",
+    "improving server response time (ttfb)",
+    "measure ttfb and server response time",
+    "optimizing font loading",
+    "optimizing images (format, compression, responsive loading)",
+    "reducing third-party script impact",
+    "review third-party script impact",
+    "run lighthouse audit (performance, accessibility, best practices, seo)"
+  ]
 }

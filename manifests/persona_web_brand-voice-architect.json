@@ -7,5 +7,19 @@
   "description": "Defines and maintains brand voice context files that drive all content generation across channels",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "compliance",
+    "content",
+    "low",
+    "persona",
+    "web"
+  ],
+  "triggers": [
+    "auditing existing content for voice consistency",
+    "creating context files (brand-voice.md, style-guide.md, etc.) for content pipeli",
+    "documenting forbidden phrases, terminology rules, or tone boundaries",
+    "establishing brand voice for a new project, product, or channel",
+    "onboarding a new content channel that needs voice adaptation (blog, social, vide"
+  ]
 }

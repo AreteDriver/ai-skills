@@ -7,5 +7,30 @@
   "description": "Designs Claude Code hooks \u2014 lifecycle event handlers (PreToolUse, PostToolUse) that enforce quality gates, block dangerous operations, auto-lint, run tests before commits, and log tool usage. Use when creating, debugging, or configuring Claude Code hooks for automated enforcement and workflow automation.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "claude-code",
+    "design",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "adding audit logging or auto-formatting hooks to claude code",
+    "block deletion of critical files",
+    "block writes to protected directories (.git, node_modules, /etc)",
+    "creating pretooluse or posttooluse hooks for quality gates or safety rails",
+    "debugging hook scripts that aren't firing or blocking correctly",
+    "design hooks that validate at natural checkpoints (commit, push, pr)",
+    "designing a hook strategy for a project (what to gate and where)",
+    "ensure tests pass before allowing commits",
+    "log all tool invocations with timestamps",
+    "measure tool execution duration",
+    "output logs in structured format (json lines)",
+    "prevent force-push to main/production branches",
+    "provide actionable error messages when blocking",
+    "require confirmation patterns for destructive operations",
+    "run linters on changed files only (not entire codebase)",
+    "track file modifications for audit trails"
+  ]
 }

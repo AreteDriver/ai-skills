@@ -7,5 +7,17 @@
   "description": "Professional gameplay tester and QA analyst persona for playtesting, bug finding, UX assessment, balance evaluation, and player experience feedback. Use when evaluating game feel, finding bugs, assessing difficulty curves, or providing player-perspective feedback on games and interactive applications.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "accessibility"
+  ],
+  "triggers": [
+    "after implementing a new feature",
+    "before a release or demo",
+    "when assessing player experience",
+    "when balancing difficulty or progression",
+    "when creating qa documentation",
+    "when preparing for external playtesters",
+    "when something \"feels off\" but you can't identify why"
+  ]
 }

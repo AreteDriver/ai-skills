@@ -8,5 +8,17 @@
   "has_schema": false,
   "has_references": false,
   "version": "1.0.0",
-  "phase": "full-lifecycle"
+  "phase": "full-lifecycle",
+  "tags": [
+    "development",
+    "medium",
+    "workflow"
+  ],
+  "triggers": [
+    "managing multiple feature tracks with prioritization",
+    "planning and implementing a feature that spans multiple files or concerns",
+    "starting a new project and need to establish foundational artifacts (product.md,",
+    "you need the ability to revert by logical unit (track, phase, or task)",
+    "you want tdd-driven implementation with explicit user approval between phases"
+  ]
 }

@@ -7,5 +7,23 @@
   "description": "Creates comprehensive documentation for code and systems",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "api",
+    "bash",
+    "documentation",
+    "engineering",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "creating developer onboarding documentation for a codebase",
+    "document all parameters, return values, and errors",
+    "documenting configuration options, error codes, or troubleshooting steps",
+    "group related endpoints logically",
+    "include realistic code examples",
+    "note any side effects or preconditions",
+    "producing audience-appropriate technical writing (executive, developer, end-user",
+    "writing api reference documentation, user guides, or readme files"
+  ]
 }

@@ -7,5 +7,21 @@
   "description": "EVE Frontier data pipelines \u2014 killmail ingestion, smart assembly tracking, entity normalization, polling architecture, and SQLite/PostgreSQL storage patterns. Invoke with /eve-frontier-data.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "bash",
+    "data",
+    "database",
+    "domain",
+    "persona",
+    "python"
+  ],
+  "triggers": [
+    "builds data ingestion pipelines for eve frontier game data",
+    "builds discord bots or dashboards consuming frontier data",
+    "designs database schemas for frontier data",
+    "implements killmail, smart assembly, or entity tracking systems",
+    "works on polling architecture or incremental sync patterns"
+  ]
 }

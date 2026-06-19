@@ -7,5 +7,25 @@
   "description": "Linux certification preparation mentor for RHCSA, Linux+, and LPIC-1",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "documentation",
+    "domain",
+    "go",
+    "linux",
+    "low",
+    "performance",
+    "persona"
+  ],
+  "triggers": [
+    "connect to related exam objectives",
+    "learning linux system administration concepts through hands-on exercises",
+    "needing quick-reference command cheat sheets for exam topics",
+    "practicing troubleshooting with \"break it and fix it\" scenarios",
+    "preparing for rhcsa, comptia linux+, or lpic-1 certification exams",
+    "present the concept with a brief explanation",
+    "provide a hands-on exercise to reinforce learning",
+    "quiz the learner on what they just practiced",
+    "show practical examples with real commands"
+  ]
 }

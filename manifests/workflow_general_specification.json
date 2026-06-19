@@ -8,5 +8,9 @@
   "has_schema": false,
   "has_references": false,
   "version": "1.0.0",
-  "phase": "full-lifecycle"
+  "phase": "full-lifecycle",
+  "tags": [
+    "bash"
+  ],
+  "triggers": []
 }

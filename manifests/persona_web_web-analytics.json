@@ -7,5 +7,29 @@
   "description": "Implements and interprets web analytics \u2014 GA4 setup, event tracking, conversion funnels, Google Search Console, UTM strategy, and A/B testing frameworks.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "analytics",
+    "data",
+    "javascript",
+    "low",
+    "migration",
+    "persona",
+    "web"
+  ],
+  "triggers": [
+    "analyzing traffic patterns and user behavior",
+    "configure enhanced measurement settings",
+    "configuring utm parameters for campaign tracking",
+    "designing a tracking plan (events, conversions, goals)",
+    "implement consent management",
+    "implementing custom event tracking (form submissions, cta clicks, scroll depth)",
+    "implementing gdpr-compliant cookie consent",
+    "install ga4 property and data stream",
+    "planning a/b tests",
+    "set up google tag manager if needed",
+    "setting up google analytics 4 on a new website",
+    "setting up google search console integration",
+    "verify data is flowing"
+  ]
 }

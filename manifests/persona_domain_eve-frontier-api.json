@@ -7,5 +7,19 @@
   "description": "EVE Frontier World API integration \u2014 endpoints, auth (FusionAuth + Sui zkLogin), pagination, data normalization, and resilience patterns. Invoke with /eve-frontier-api.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "data",
+    "domain",
+    "persona",
+    "python"
+  ],
+  "triggers": [
+    "asks about eve frontier data models or api patterns",
+    "builds tools consuming eve frontier world api endpoints",
+    "implements fusionauth oauth2 / sui zklogin authentication",
+    "needs to handle world api pagination or response format quirks",
+    "works with smart characters, tribes, smart assemblies, killmails, or types"
+  ]
 }

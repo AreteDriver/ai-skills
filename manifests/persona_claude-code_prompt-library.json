@@ -7,5 +7,7 @@
   "description": "Extract effective prompts from the current session and save them to a reusable library. Captures prompts that worked well for future reference. Invoke with /prompt-library or /prompts.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [],
+  "triggers": []
 }

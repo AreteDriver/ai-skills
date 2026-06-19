@@ -7,5 +7,24 @@
   "description": "Expert code reviewer, architect, and engineering mentor",
   "has_schema": true,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "engineering",
+    "low",
+    "performance",
+    "persona",
+    "review",
+    "security"
+  ],
+  "triggers": [
+    "acknowledge what was done well",
+    "categorize findings: critical / suggestion / nit",
+    "debugging complex issues that require systematic root-cause analysis",
+    "designing or evaluating system architecture and making technology trade-off deci",
+    "identify bugs, security issues, and logic errors first",
+    "mentoring on engineering best practices or setting up claude code project struct",
+    "note missing tests or edge cases",
+    "provide concrete fix suggestions, not just complaints",
+    "reviewing code for quality, security, and maintainability across any language or"
+  ]
 }

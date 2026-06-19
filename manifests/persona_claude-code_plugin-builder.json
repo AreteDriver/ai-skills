@@ -7,5 +7,34 @@
   "description": "Builds Claude Code plugins \u2014 shareable packages that bundle skills, hooks, MCP server configs, and agent definitions into a single distributable unit with plugin.json manifest. Use when creating, scaffolding, packaging, or publishing Claude Code plugins.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "claude-code",
+    "low",
+    "persona",
+    "testing"
+  ],
+  "triggers": [
+    "add .gitignore for plugin development",
+    "add readme template",
+    "add reference files for domain-specific knowledge",
+    "ask about the plugin's purpose and scope",
+    "check skill descriptions are within budget",
+    "create plugin.json with proper metadata",
+    "document what each hook does and why",
+    "ensure all referenced files exist",
+    "generate installation instructions",
+    "generate the directory structure",
+    "identify the correct lifecycle event (pretooluse vs posttooluse)",
+    "keep skill instructions concise but complete",
+    "packaging hooks, skills, and mcp configs into a distributable plugin",
+    "prefer blocking at submission (pretooluse on git commit) over blocking mid-task",
+    "preparing a plugin for publication (validation, licensing, versioning)",
+    "scaffold skill.md files with frontmatter",
+    "scaffolding a new claude code plugin from scratch",
+    "set `user-invocable` and `disable-model-invocation` correctly",
+    "tag the release with semantic version",
+    "test hooks don't interfere with normal claude operation"
+  ]
 }

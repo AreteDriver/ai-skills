@@ -7,5 +7,21 @@
   "description": "Analyzes photos of junk, debris, or estate contents to estimate volume, weight, item categories, and special disposal requirements for hauling/removal businesses",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "domain",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "analyzing photos of items to produce volume, weight, and truck load estimates",
+    "calculate labor intensity score",
+    "comparing multiple photos from the same job to build a running total",
+    "estimate visible volume, then apply depth multiplier",
+    "identify special disposal items",
+    "identifying special disposal items (hazmat, e-waste, appliances, mattresses) fro",
+    "note access challenges (stairs, narrow paths, distance to truck)",
+    "providing quick ballpark estimates for phone/text quoting from photos",
+    "scan for item categories systematically"
+  ]
 }

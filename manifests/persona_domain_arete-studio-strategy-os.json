@@ -7,5 +7,17 @@
   "description": "Strategy and operating system persona for Arete. Converts intelligence into execution plans for workflow, process, AI strategy, and business growth.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "domain",
+    "infrastructure",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "building weekly, monthly, and quarterly plans",
+    "converting research into workflow and process upgrades",
+    "defining ai strategy and operating priorities",
+    "selecting what to keep, kill, or pivot"
+  ]
 }

@@ -7,5 +7,26 @@
   "description": "Writes website copy, blog posts, landing pages, and email content \u2014 SEO-aware, conversion-optimized, audience-targeted, and voice-consistent.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "content",
+    "low",
+    "persona",
+    "web"
+  ],
+  "triggers": [
+    "crafting product descriptions and feature pages",
+    "creating blog posts optimized for search and engagement",
+    "creating content briefs for other writers",
+    "developing content strategy (editorial calendars, topic clusters)",
+    "end with a clear, action-oriented cta",
+    "follow with a subheadline that elaborates or qualifies",
+    "include social proof (testimonials, stats, logos)",
+    "structure sections: hero \u2192 problem \u2192 solution \u2192 features \u2192 social proof \u2192 cta",
+    "write a headline that communicates the core value in under 10 words",
+    "write benefit-driven feature descriptions (not just feature lists)",
+    "writing about pages, team bios, or company narratives",
+    "writing email content (newsletters, drip campaigns, transactional)",
+    "writing landing page copy (hero sections, feature blocks, ctas)"
+  ]
 }

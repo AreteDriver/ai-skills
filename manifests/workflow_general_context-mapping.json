@@ -8,5 +8,20 @@
   "has_schema": true,
   "has_references": false,
   "version": "2.0.0",
-  "phase": "full-lifecycle"
+  "phase": "full-lifecycle",
+  "tags": [
+    "analysis",
+    "data",
+    "express",
+    "medium",
+    "typescript",
+    "workflow"
+  ],
+  "triggers": [
+    "\"question or ambiguity that needs resolution\"",
+    "multiple agents or changes might interact with the same files",
+    "planning multi-file changes that touch shared dependencies",
+    "starting a complex task in an unfamiliar or large codebase",
+    "you need to validate assumptions about codebase conventions before execution"
+  ]
 }

@@ -7,5 +7,18 @@
   "description": "Cross-session continuity for Claude Code \u2014 resume context, structured handoffs, session history tracking",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "claude-code",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "ending a session and want to capture state for the next session (or another agen",
+    "handing off work between ai agents or from ai to human",
+    "managing swing shift workflows where sessions start and end at predictable times",
+    "running parallel agent sessions that need to stay synchronized",
+    "starting a new claude code session and need to resume prior work"
+  ]
 }

@@ -7,5 +7,31 @@
   "description": "Deploys websites to Vercel, Fly.io, Netlify, Cloudflare, or VPS. DNS configuration, SSL certificates, CI/CD pipelines, and zero-downtime deployments.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "bash",
+    "ci/cd",
+    "deployment",
+    "medium",
+    "migration",
+    "monitoring",
+    "persona",
+    "testing",
+    "web"
+  ],
+  "triggers": [
+    "building ci/cd deployment pipelines (github actions)",
+    "configure environment variables",
+    "configuring custom domains and dns records",
+    "containerizing applications for vps deployment",
+    "deploy and verify",
+    "deploying a website to production for the first time",
+    "identify the right platform based on project requirements",
+    "managing environment variables across dev/staging/production",
+    "migrating between hosting platforms",
+    "set up custom domain if provided",
+    "set up project linking and configuration",
+    "setting up ssl/tls certificates",
+    "troubleshooting deployment failures or dns issues"
+  ]
 }

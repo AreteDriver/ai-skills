@@ -7,5 +7,41 @@
   "description": "Database operations \u2014 schema design, migration authoring, query optimization, and SQL/ORM patterns",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "data",
+    "database",
+    "deployment",
+    "design",
+    "low",
+    "migration",
+    "performance",
+    "persona",
+    "review",
+    "sqlite",
+    "visualization"
+  ],
+  "triggers": [
+    "ask about cardinality (1:1, 1:n, m:n) for relationships",
+    "calculate index selectivity before suggesting new indexes",
+    "check for data-dependent migrations (backfill before constraint)",
+    "check for n+1 query patterns in orm code",
+    "check lock ordering and transaction scope",
+    "choosing between orm patterns and raw sql",
+    "consider partial indexes for filtered queries",
+    "debugging deadlocks, lock contention, or connection pool issues",
+    "design for soft deletes vs hard deletes based on requirements",
+    "designing database schemas (tables, indexes, constraints, relationships)",
+    "draw ascii erd for visualization",
+    "generate both upgrade and downgrade functions",
+    "identify long-running transactions holding locks",
+    "identify sequential scans on large tables",
+    "include created_at/updated_at timestamps by default",
+    "include safety checks (idempotent operations where possible)",
+    "optimizing slow queries with explain analyze",
+    "planning data model changes for existing production databases",
+    "propose column types with explicit sizing (varchar(255), not text unless needed)",
+    "recommend covering indexes for frequent query patterns"
+  ]
 }

@@ -7,5 +7,20 @@
   "description": "Creates executive summaries, reports, and documentation of findings",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "creating analytical or technical reports with methodology and evidence",
+    "focus on decisions and actions needed",
+    "keep it concise (1-2 pages max)",
+    "lead with the most important findings",
+    "producing stakeholder-facing documentation with layered detail levels",
+    "quantify impact where possible",
+    "structuring incident reports, status reports, or recommendation reports",
+    "writing executive summaries that distill findings for leadership"
+  ]
 }

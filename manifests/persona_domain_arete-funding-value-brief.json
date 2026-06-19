@@ -7,5 +7,17 @@
   "description": "Converts Arete execution signals into investor-grade funding narratives, milestone proofs, and de-risking plans.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "domain",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "building milestone proof chains for de-risking",
+    "preparing investor updates, memos, or raise narratives",
+    "prioritizing use-of-funds decisions",
+    "translating workflow outcomes into business value"
+  ]
 }

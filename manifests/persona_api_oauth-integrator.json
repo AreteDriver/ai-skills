@@ -7,5 +7,42 @@
   "description": "OAuth and API authentication \u2014 OAuth 2.0 flows, PKCE, token lifecycle, JWT validation, and provider integration",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "api",
+    "architecture",
+    "debugging",
+    "design",
+    "frontend",
+    "jwt",
+    "low",
+    "migration",
+    "mobile",
+    "oauth",
+    "persona",
+    "security",
+    "web"
+  ],
+  "triggers": [
+    "audit current auth implementation for security gaps",
+    "build token exchange endpoint",
+    "build user migration path (re-auth vs silent migration)",
+    "check for common provider-specific gotchas",
+    "check token expiration and clock skew",
+    "choose between session-based and stateless jwt approaches",
+    "confirm scope grants match requested scopes",
+    "debugging oauth redirect loops, token errors, or scope issues",
+    "decode the jwt and inspect all claims (without verifying \u2014 just for debugging)",
+    "design backward-compatible token validation (accept old + new)",
+    "design scope hierarchy and permission model",
+    "design token lifecycle (issuance \u2192 refresh \u2192 revocation \u2192 cleanup)",
+    "designing token refresh and revocation strategies",
+    "generate state parameter for csrf protection",
+    "identify the correct flow for the client type (web/mobile/server/cli)",
+    "implement pkce (code_verifier + code_challenge with s256)",
+    "implementing oauth 2.0 flows (authorization code, pkce, client credentials)",
+    "integrating third-party oauth providers (google, github, discord, eve online sso",
+    "migrating between authentication systems",
+    "plan migration with zero-downtime token transition"
+  ]
 }

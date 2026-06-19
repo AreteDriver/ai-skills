@@ -7,5 +7,20 @@
   "description": "Backup strategy design, data integrity verification, and disaster recovery planning. Invoke with /backup.",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "bash",
+    "data",
+    "devops",
+    "ini",
+    "low",
+    "persona",
+    "testing"
+  ],
+  "triggers": [
+    "creating or reviewing disaster recovery plans and runbooks",
+    "designing backup strategies for new projects or migrating existing ones",
+    "investigating backup integrity failures or restore issues",
+    "setting up automated backup schedules with verification"
+  ]
 }

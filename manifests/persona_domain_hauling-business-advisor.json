@@ -7,5 +7,24 @@
   "description": "Provides data-driven operational insights and recommendations for junk removal and hauling business optimization",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "domain",
+    "low",
+    "performance",
+    "persona",
+    "review"
+  ],
+  "triggers": [
+    "analyzing marketing spend and lead source roi",
+    "calculate key performance indicators",
+    "compare to industry benchmarks",
+    "evaluating or optimizing pricing strategy across job types",
+    "flag areas of concern",
+    "highlight wins and strengths",
+    "identify trends and patterns",
+    "planning capacity expansion, seasonal staffing, or fleet decisions",
+    "reviewing business performance metrics (revenue, margins, utilization)"
+  ]
 }

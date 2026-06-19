@@ -7,5 +7,32 @@
   "description": "Builds production-grade frontend interfaces with React, Next.js, or static HTML/CSS. Component architecture, responsive design, and performance optimization.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "eslint",
+    "frontend",
+    "low",
+    "mobile",
+    "next.js",
+    "persona",
+    "prettier",
+    "react",
+    "tsx",
+    "typescript",
+    "web"
+  ],
+  "triggers": [
+    "add `.env.example` with documented variables",
+    "ask about target stack (next.js app router, vite + react, astro, static)",
+    "building ui components, pages, or layouts",
+    "configure path aliases (`@/components`, `@/lib`)",
+    "configuring build tools (vite, webpack, turbopack)",
+    "create folder structure matching the chosen framework",
+    "implementing responsive design with mobile-first approach",
+    "integrating component libraries (shadcn/ui, radix, headless ui)",
+    "scaffolding a new frontend project (react, next.js, astro, static html)",
+    "set up base layout with responsive navigation",
+    "set up typescript, eslint, prettier, tailwind css",
+    "setting up state management (hooks, context, zustand)"
+  ]
 }

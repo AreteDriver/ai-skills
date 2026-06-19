@@ -7,5 +7,22 @@
   "description": "Qualifies and prioritizes incoming leads for junk removal businesses based on job value, urgency, and conversion likelihood",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "conversion",
+    "domain",
+    "low",
+    "persona"
+  ],
+  "triggers": [
+    "detecting red flags, scam indicators, or problem customer signals",
+    "evaluating lead source performance and conversion rates",
+    "extract key information from inquiry",
+    "flag special considerations",
+    "identify source and apply source logic",
+    "processing an incoming lead or inquiry that needs qualification and scoring",
+    "recommend response approach",
+    "score lead value and urgency",
+    "triaging a batch of leads to determine response priority order"
+  ]
 }

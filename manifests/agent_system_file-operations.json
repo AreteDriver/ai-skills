@@ -9,5 +9,20 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "medium",
-  "consensus": "adaptive"
+  "consensus": "adaptive",
+  "tags": [
+    "agent",
+    "content",
+    "data",
+    "medium",
+    "security",
+    "shell",
+    "system"
+  ],
+  "triggers": [
+    "batch file operations requiring atomic rollback",
+    "operating on files near protected system paths",
+    "operations that need structured output (success/failure, backup paths, byte coun",
+    "performing filesystem operations that need safety controls (backup, validation,"
+  ]
 }

@@ -7,5 +7,22 @@
   "description": "Sets up Claude Code security hooks \u2014 protective PreToolUse guards that block sensitive file access, dangerous commands, destructive git ops, system path writes, network calls, and permission changes. Includes 7 ready-to-deploy hook scripts.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "bash",
+    "claude-code",
+    "data",
+    "linux",
+    "low",
+    "macos",
+    "persona",
+    "shell"
+  ],
+  "triggers": [
+    "adding confirmation gates for network operations and permission changes",
+    "guarding against command injection, path traversal, and dangerous bash commands",
+    "preventing destructive git operations (force-push, reset --hard, branch -d)",
+    "setting up security guardrails for a new project's `.claude/settings.json`",
+    "writing hook scripts that block access to secrets, credentials, and env files"
+  ]
 }

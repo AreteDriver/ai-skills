@@ -8,5 +8,18 @@
   "has_schema": true,
   "has_references": false,
   "version": "1.0.0",
-  "phase": "full-lifecycle"
+  "phase": "full-lifecycle",
+  "tags": [
+    "low",
+    "migration",
+    "security",
+    "session-management",
+    "workflow"
+  ],
+  "triggers": [
+    "beginning a session that will span multiple tasks",
+    "returning to a project after days or weeks away",
+    "starting a new claude code session on any project",
+    "switching to a different project mid-session"
+  ]
 }

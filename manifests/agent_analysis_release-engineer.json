@@ -9,5 +9,20 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "high",
-  "consensus": "majority"
+  "consensus": "majority",
+  "tags": [
+    "agent",
+    "analysis",
+    "bash",
+    "documentation",
+    "high",
+    "security"
+  ],
+  "triggers": [
+    "after a technical-debt-auditor run resolves critical/high items and the repo is",
+    "generating changelogs from git history for a new version",
+    "preparing a repository for public release, tagging a version, or publishing to a",
+    "running portfolio-wide release readiness checks across multiple repositories",
+    "the user says \"ship it\", \"release this\", \"tag a new version\", or \"make this publ"
+  ]
 }

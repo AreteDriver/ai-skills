@@ -9,5 +9,19 @@
   "has_references": false,
   "version": "2.0.0",
   "risk_level": "medium",
-  "consensus": "any"
+  "consensus": "any",
+  "tags": [
+    "agent",
+    "medium",
+    "python",
+    "security",
+    "shell",
+    "system"
+  ],
+  "triggers": [
+    "executing build tools, test suites, or linters where exit codes and stderr matte",
+    "running command pipelines where each step must be validated against the blocklis",
+    "running shell commands that need safety controls (blocklist, timeout, audit logg",
+    "starting long-running background processes that need pid tracking and graceful s"
+  ]
 }

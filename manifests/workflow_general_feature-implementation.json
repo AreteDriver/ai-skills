@@ -8,5 +8,16 @@
   "has_schema": true,
   "has_references": false,
   "version": "2.0.0",
-  "phase": "full-lifecycle"
+  "phase": "full-lifecycle",
+  "tags": [
+    "engineering",
+    "medium",
+    "workflow"
+  ],
+  "triggers": [
+    "coordinating multiple agents or personas through a structured pipeline",
+    "implementing a complete feature that spans multiple files",
+    "the work requires context mapping, design, implementation, testing, and pr deliv",
+    "you need quality gates between phases to catch issues early"
+  ]
 }

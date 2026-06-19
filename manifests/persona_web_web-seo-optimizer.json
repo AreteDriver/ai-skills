@@ -7,5 +7,33 @@
   "description": "Optimizes websites for search engines \u2014 technical SEO, structured data markup, Core Web Vitals, crawlability, sitemaps, and programmatic SEO patterns.",
   "has_schema": false,
   "has_references": false,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "tags": [
+    "architecture",
+    "content",
+    "data",
+    "html",
+    "low",
+    "mobile",
+    "persona",
+    "review",
+    "seo",
+    "web",
+    "xml"
+  ],
+  "triggers": [
+    "analyze site architecture and url structure",
+    "audit crawlability (internal links, orphan pages, redirect chains)",
+    "auditing a website for technical seo issues",
+    "building programmatic seo pages at scale",
+    "check for duplicate content issues",
+    "check indexation status (robots.txt, meta robots, x-robots-tag)",
+    "generating sitemaps and configuring robots.txt",
+    "implementing structured data (json-ld schemas)",
+    "improving core web vitals scores",
+    "optimizing for ai/llm search engines (aeo)",
+    "optimizing meta tags, titles, and open graph tags",
+    "review http status codes (404s, redirect loops)",
+    "verify canonical urls and hreflang tags"
+  ]
 }

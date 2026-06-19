@@ -7,5 +7,25 @@
   "description": "Handles data collection, ingestion, cleaning, and pipeline design",
   "has_schema": false,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "data",
+    "design",
+    "low",
+    "monitoring",
+    "pandas",
+    "performance",
+    "persona",
+    "python"
+  ],
+  "triggers": [
+    "build in monitoring and alerting",
+    "building data cleaning and normalization workflows",
+    "define clear input/output contracts",
+    "defining data schemas, validation rules, or quality checks",
+    "design for idempotency and replayability",
+    "designing data ingestion, transformation, or etl/elt pipelines",
+    "handle schema evolution gracefully",
+    "planning for schema evolution, data growth, or pipeline monitoring"
+  ]
 }

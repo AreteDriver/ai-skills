@@ -7,5 +7,21 @@
   "description": "Creates comprehensive test suites for implementations",
   "has_schema": true,
   "has_references": false,
-  "version": "2.0.0"
+  "version": "2.0.0",
+  "tags": [
+    "engineering",
+    "low",
+    "persona",
+    "testing"
+  ],
+  "triggers": [
+    "cover all branches and conditions",
+    "creating integration tests for component interactions",
+    "designing test strategies for edge cases, error conditions, and security scenari",
+    "mock external dependencies",
+    "reviewing existing test coverage and identifying gaps",
+    "test boundary values and edge cases",
+    "test each function in isolation",
+    "writing a comprehensive test suite for new or existing code"
+  ]
 }
