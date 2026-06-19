@@ -67,3 +67,32 @@ jobs:
             echo "  python3 scripts/generate-docs.py"
             exit 1
           }
+
+  evals:
+    name: Behavioral Quality Evals
+    runs-on: ubuntu-latest
+    needs: validate
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run evals on all skills
+        run: python3 scripts/run-evals.py --all --report
+
+      - name: Upload quality card
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-quality-card
+          path: evals/reports/quality-card.md
+
+      - name: Run installer integration tests
+        run: python3 -m pytest tests/test_installer.py -v --tb=short
