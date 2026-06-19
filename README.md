@@ -3,7 +3,7 @@
 [![Validate Skills](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai/code)
-[![Skills](https://img.shields.io/badge/Skills-70-blue)]()
+[![Skills](https://img.shields.io/badge/Skills-144-blue)]()
 
 **Production-ready skills for Claude Code personas, Gorgon agent capabilities, and orchestrated workflows.**
 
@@ -120,11 +120,12 @@ Now open Claude Code — your pirate engineer is ready. See the full [Quickstart
 │  (how Claude    │ (what Gorgon  │ (multi-step   │
 │   behaves)      │  agents do)   │  execution)   │
 ├─────────────────┼───────────────┼───────────────┤
-│ 51 skills       │ 16 skills     │ 3 workflows   │
+│ 114 skills      │ 17 skills     │ 13 workflows  │
 │ SKILL.md only   │ SKILL.md +    │ SKILL.md +    │
 │                 │ schema.yaml   │ schema.yaml   │
 └─────────────────┴───────────────┴───────────────┘
 ```
+<!-- auto-generated: counts from registry.yaml -->
 
 ## Personas — User Behavior Skills
 

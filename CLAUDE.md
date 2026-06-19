@@ -7,7 +7,7 @@
 **Repo**: github.com/AreteDriver/ai-skills (public, MIT)
 **Purpose**: Production-ready, installable skills that transform Claude Code into specialized personas, define typed agent capabilities for orchestration frameworks, and coordinate multi-step workflows via the WHY/WHAT/HOW framework.
 
-**Scale**: 70 skills across personas / agents / workflows. Installable per-skill, per-bundle, or wholesale into `~/.claude/`.
+**Scale**: 144 skills across personas / agents / workflows (counts from `registry.yaml`). Installable per-skill, per-bundle, or wholesale into `~/.claude/`.
 
 ### Key concepts
 
