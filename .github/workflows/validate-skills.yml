@@ -55,10 +55,15 @@ jobs:
       - name: Run catalog drift tests
         run: python3 -m pytest tests/test_catalog_drift.py -v --tb=short
 
-      - name: Verify registry freshness
+      - name: Verify generated output freshness
         run: |
-          python3 scripts/reconcile-registry.py
-          git diff --exit-code registry.yaml || {
-            echo "::error::registry.yaml is stale. Run 'python3 scripts/reconcile-registry.py' and commit."
+          python3 scripts/generate-manifests.py
+          python3 scripts/generate-registry.py
+          python3 scripts/generate-docs.py
+          git diff --exit-code manifests/ registry.yaml docs/generated/ || {
+            echo "::error::Generated output is stale. Run the generation pipeline and commit:"
+            echo "  python3 scripts/generate-manifests.py"
+            echo "  python3 scripts/generate-registry.py"
+            echo "  python3 scripts/generate-docs.py"
             exit 1
           }
