@@ -1,275 +1,203 @@
+# AI Skills Registry v1.0
+# AUTO-GENERATED from manifests/ — do not edit manually.
+# Run: python3 scripts/generate-manifests.py && python3 scripts/generate-registry.py
+# Used by Gorgon's SkillLibrary loader to discover and validate skills.
+
 schema_version: 1.0.0
 repository: AreteDriver/ai-skills
 personas:
   api:
-  - name: database-ops
-    path: personas/api/database-ops
-    description: Database operations — schema design, migration authoring, query optimization
-    has_schema: false
-  - name: oauth-integrator
-    path: personas/api/oauth-integrator
-    description: OAuth and API authentication — OAuth 2.0 flows, PKCE, token lifecycle,
-      JWT
-    has_schema: false
   - name: api-tester
     path: personas/api/api-tester
     description: REST and GraphQL API testing — contract validation, load testing,
-      regression suites
-    has_schema: false
+      regression suites, and endpoint verification
+  - name: database-ops
+    path: personas/api/database-ops
+    description: Database operations — schema design, migration authoring, query optimization,
+      and SQL/ORM patterns
+  - name: oauth-integrator
+    path: personas/api/oauth-integrator
+    description: OAuth and API authentication — OAuth 2.0 flows, PKCE, token lifecycle,
+      JWT validation, and provider integration
   - name: webhook-designer
     path: personas/api/webhook-designer
-    description: Webhook architecture — payload design, retry strategies, HMAC verification
-    has_schema: false
+    description: Webhook architecture — payload design, retry strategies, HMAC signature
+      verification, and event-driven patterns
   claude-code:
+  - name: plugin-builder
+    path: personas/claude-code/plugin-builder
+    description: Builds Claude Code plugins — shareable packages that bundle skills,
+      hooks, MCP server configs, and agent definitions into a single distributable
+      unit with plugin.json manifest. Use when creating, scaffolding, packaging, or
+      publishing Claude Code plugins.
+    version: 2.0.0
+  - name: cicd-pipeline
+    path: personas/claude-code/cicd-pipeline
+    description: Designs CI/CD pipelines that integrate Claude Code in headless mode
+      for automated code review, test analysis, deployment gating, and PR triage.
+      Use when building GitHub Actions workflows, GitLab CI pipelines, or any automation
+      that uses Claude Code non-interactively via `claude -p` or the Agent SDK.
+    version: 2.0.0
+  - name: session-memory-manager
+    path: personas/claude-code/session-memory-manager
+    description: Manages Claude Code's persistent memory system — auto-memory files,
+      cross-session context, project memory directories, and task handoff protocols.
+      Use when organizing session memory, creating handoff documents, managing MEMORY.md
+      files, or establishing continuity between Claude Code sessions.
+    version: 2.0.0
   - name: decision-log
     path: personas/claude-code/decision-log
     description: Log high-leverage decisions from the current work session to the
       Arete Decision Log. Extracts architecture, UX, scope, tooling, and philosophy
       decisions. Invoke with /decision-log or /adl.
-    has_schema: false
-  - name: security-hooks
-    path: personas/claude-code/security-hooks
-    description: Claude Code security hooks — 7 protective PreToolUse guards for sensitive
-      files, dangerous commands, and system paths
-    has_schema: false
   - name: prompt-library
     path: personas/claude-code/prompt-library
     description: Extract effective prompts from the current session and save them
       to a reusable library. Captures prompts that worked well for future reference.
       Invoke with /prompt-library or /prompts.
-    has_schema: false
-  - name: session-memory-manager
-    path: personas/claude-code/session-memory-manager
-    description: Cross-session context persistence and recall
-    has_schema: false
-  - name: cicd-pipeline
-    path: personas/claude-code/cicd-pipeline
-    description: CI/CD pipeline design for Claude Code projects
-    has_schema: false
-  - name: mcp-server-builder
-    path: personas/claude-code/mcp-server-builder
-    description: Model Context Protocol server implementation
-    has_schema: false
-  - name: session-manager
-    path: personas/claude-code/session-manager
-    description: Cross-session continuity with start, resume, sync, and complete lifecycle
-    has_schema: false
+  - name: security-hooks
+    path: personas/claude-code/security-hooks
+    description: Sets up Claude Code security hooks — protective PreToolUse guards
+      that block sensitive file access, dangerous commands, destructive git ops, system
+      path writes, network calls, and permission changes. Includes 7 ready-to-deploy
+      hook scripts.
   - name: hooks-designer
     path: personas/claude-code/hooks-designer
-    description: Claude Code hook design and lifecycle event handling
-    has_schema: false
-  - name: plugin-builder
-    path: personas/claude-code/plugin-builder
-    description: Claude Code plugin packaging and distribution
-    has_schema: false
+    description: Designs Claude Code hooks — lifecycle event handlers (PreToolUse,
+      PostToolUse) that enforce quality gates, block dangerous operations, auto-lint,
+      run tests before commits, and log tool usage. Use when creating, debugging,
+      or configuring Claude Code hooks for automated enforcement and workflow automation.
+    version: 2.0.0
+  - name: mcp-server-builder
+    path: personas/claude-code/mcp-server-builder
+    description: Builds and configures Model Context Protocol (MCP) servers — tools
+      that extend Claude Code with custom capabilities like database access, API integrations,
+      semantic search, and UI components. Use when creating MCP servers, configuring
+      existing ones, debugging MCP connections, or designing tool interfaces for Claude.
+    version: 2.0.0
+  - name: session-manager
+    path: personas/claude-code/session-manager
+    description: Cross-session continuity for Claude Code — resume context, structured
+      handoffs, session history tracking
   data:
   - name: data-engineer
     path: personas/data/data-engineer
-    description: ETL pipelines, data modeling, and warehouse design
-    has_schema: false
+    description: Handles data collection, ingestion, cleaning, and pipeline design
+    version: 2.0.0
   - name: report-generator
     path: personas/data/report-generator
-    description: Structured report creation from data sources
-    has_schema: false
+    description: Creates executive summaries, reports, and documentation of findings
+    version: 2.0.0
   - name: data-analyst
     path: personas/data/data-analyst
-    description: Statistical analysis, visualization, and insight extraction
-    has_schema: false
+    description: Performs statistical analysis, finds patterns, and generates insights
+    version: 2.0.0
   - name: data-visualizer
     path: personas/data/data-visualizer
-    description: Chart design and data presentation specialist
-    has_schema: false
+    description: Creates charts, dashboards, and visual representations of data
+    version: 2.0.0
   devops:
-  - name: test
-    path: personas/devops/test
-    description: Run pytest with coverage summary. Provides quick feedback on test
-      status and coverage. Invoke with /test or /test <path>.
-    has_schema: false
-  - name: logs
-    path: personas/devops/logs
-    description: Logging Setup & Analysis
-    has_schema: false
-  - name: profile
-    path: personas/devops/profile
-    description: Performance Profiling Guide
-    has_schema: false
-  - name: health
-    path: personas/devops/health
-    description: Project Health Audit
-    has_schema: false
-  - name: systemd
-    path: personas/devops/systemd
-    description: Systemd service management and unit file authoring
-    has_schema: false
-  - name: commit
-    path: personas/devops/commit
-    description: Create well-formatted git commits with conventional commit style.
-      Analyzes staged changes and generates appropriate commit messages. Invoke with
-      /commit or after completing a task.
-    has_schema: false
-  - name: build
-    path: personas/devops/build
-    description: Build and install the project in development mode. Handles venv creation
-      and editable installs. Invoke with /build.
-    has_schema: false
-  - name: networking
-    path: personas/devops/networking
-    description: Network configuration, troubleshooting, and security
-    has_schema: false
-  - name: ci
-    path: personas/devops/ci
-    description: GitHub Actions Workflow Generator
-    has_schema: false
-  - name: debug
-    path: personas/devops/debug
-    description: Systematic Debugging Workflow
-    has_schema: false
-  - name: backup
-    path: personas/devops/backup
-    description: Backup strategy, scheduling, and disaster recovery
-    has_schema: false
   - name: release
     path: personas/devops/release
     description: Create a new version release with proper tagging and changelog. Handles
       version bumping, tagging, and GitHub release creation. Invoke with /release
       [patch|minor|major] or just /release for patch.
-    has_schema: false
-  - name: deps
-    path: personas/devops/deps
-    description: Check for outdated dependencies and security vulnerabilities. Invoke
-      with /deps.
-    has_schema: false
+  - name: commit
+    path: personas/devops/commit
+    description: Create well-formatted git commits with conventional commit style.
+      Analyzes staged changes and generates appropriate commit messages. Invoke with
+      /commit or after completing a task.
+  - name: backup
+    path: personas/devops/backup
+    description: Backup strategy design, data integrity verification, and disaster
+      recovery planning. Invoke with /backup.
+    version: 2.0.0
+  - name: networking
+    path: personas/devops/networking
+    description: Linux networking troubleshooting — DNS, firewalls, ports, routing,
+      and connectivity diagnostics. Invoke with /networking.
+    version: 2.0.0
+  - name: changelog
+    path: personas/devops/changelog
+    description: Generate Changelog from Commits
+  - name: debug
+    path: personas/devops/debug
+    description: Systematic Debugging Workflow
+  - name: deploy
+    path: personas/devops/deploy
+    description: Deployment Checklist & Setup
+  - name: monitor
+    path: personas/devops/monitor
+    description: Observability patterns for logging, metrics, alerting, and health
+      checks in production systems. Invoke with /monitor.
+    version: 2.0.0
+  - name: pre-release
+    path: personas/devops/pre-release
+    description: Pre-Release Checklist
+  - name: process-management
+    path: personas/devops/process-management
+    description: Monitor and control system processes with safety protections. Invoke
+      with /process-management.
+    version: 2.0.0
+  - name: ci
+    path: personas/devops/ci
+    description: GitHub Actions Workflow Generator
   - name: postmortem
     path: personas/devops/postmortem
     description: Incident Postmortem Template
-    has_schema: false
-  - name: monitor
-    path: personas/devops/monitor
-    description: System monitoring, alerting, and observability
-    has_schema: false
+  - name: systemd
+    path: personas/devops/systemd
+    description: Systemd service management, unit files, timers, journalctl, and troubleshooting.
+      Invoke with /systemd.
+    version: 2.0.0
   - name: lint
     path: personas/devops/lint
     description: Run ruff linter and formatter. Checks code quality and auto-fixes
       issues. Invoke with /lint or /lint <path>.
-    has_schema: false
+  - name: profile
+    path: personas/devops/profile
+    description: Performance Profiling Guide
+  - name: test
+    path: personas/devops/test
+    description: Run pytest with coverage summary. Provides quick feedback on test
+      status and coverage. Invoke with /test or /test <path>.
+  - name: perf
+    path: personas/devops/perf
+    description: Performance profiling and optimization for Python, Rust, and web
+      applications. Invoke with /perf.
+    version: 2.0.0
   - name: pr
     path: personas/devops/pr
     description: Pull Request Creator
-    has_schema: false
-  - name: deploy
-    path: personas/devops/deploy
-    description: Deployment Checklist & Setup
-    has_schema: false
-  - name: perf
-    path: personas/devops/perf
-    description: Performance profiling and optimization
-    has_schema: false
-  - name: process-management
-    path: personas/devops/process-management
-    description: Process lifecycle and resource management
-    has_schema: false
-  - name: env
-    path: personas/devops/env
-    description: Environment Management
-    has_schema: false
   - name: docker
     path: personas/devops/docker
     description: Dockerfile Generator
-    has_schema: false
-  - name: changelog
-    path: personas/devops/changelog
-    description: Generate Changelog from Commits
-    has_schema: false
+  - name: deps
+    path: personas/devops/deps
+    description: Check for outdated dependencies and security vulnerabilities. Invoke
+      with /deps.
+  - name: logs
+    path: personas/devops/logs
+    description: Logging Setup & Analysis
+  - name: health
+    path: personas/devops/health
+    description: Project Health Audit
+  - name: build
+    path: personas/devops/build
+    description: Build and install the project in development mode. Handles venv creation
+      and editable installs. Invoke with /build.
   - name: package
     path: personas/devops/package
     description: Release Packaging Checklist
-    has_schema: false
-  - name: pre-release
-    path: personas/devops/pre-release
-    description: Pre-Release Checklist
-    has_schema: false
+  - name: env
+    path: personas/devops/env
+    description: Environment Management
   domain:
-  - name: eve-frontier-chain
-    path: personas/domain/eve-frontier-chain
-    description: EVE Frontier on-chain patterns — MUD v2 contracts, Sui SDK, reputation
-      systems
-    has_schema: false
-  - name: apple-dev-best-practices
-    path: personas/domain/apple-dev-best-practices
-    description: Apple platform development best practices (Swift, SwiftUI, Xcode)
-    has_references: true
-    has_schema: false
-  - name: arete-research-command-center
-    path: personas/domain/arete-research-command-center
-    description: Multi-source intelligence workflow for Arete strategy, execution,
-      and agentic planning
-    has_references: true
-    has_schema: false
-  - name: hauling-image-estimator
-    path: personas/domain/hauling-image-estimator
-    description: Visual load estimation for hauling jobs
-    has_references: true
-    has_schema: false
-  - name: eve-frontier-data
-    path: personas/domain/eve-frontier-data
-    description: EVE Frontier data pipelines — killmail ingestion, entity tracking,
-      polling architecture
-    has_schema: false
-  - name: hauling-quote-generator
-    path: personas/domain/hauling-quote-generator
-    description: Hauling job quote generation with pricing models
-    has_references: true
-    has_schema: false
-  - name: eve-frontier-api
-    path: personas/domain/eve-frontier-api
-    description: EVE Frontier World API integration, auth, pagination, and data normalization
-    has_schema: false
-  - name: ogma
-    path: personas/domain/ogma
-    description: Reverse-Engineering Synthesis Persona
-    has_schema: false
-  - name: streamlit
-    path: personas/domain/streamlit
-    description: Streamlit app development and deployment
-    has_schema: false
-  - name: arete-funding-value-brief
-    path: personas/domain/arete-funding-value-brief
-    description: Investor-grade funding narrative persona driven by evidence and milestone
-      de-risking
-    has_references: true
-    has_schema: false
-  - name: hauling-lead-qualifier
-    path: personas/domain/hauling-lead-qualifier
-    description: Hauling lead qualification and pricing guidance
-    has_schema: false
-  - name: strategic-planner
-    path: personas/domain/strategic-planner
-    description: Business strategy and planning frameworks
-    has_schema: false
-  - name: mentor-linux
-    path: personas/domain/mentor-linux
-    description: Linux certification study mentor and lab guide
-    has_schema: false
-  - name: g13-layout
-    path: personas/domain/g13-layout
-    description: Interactive G13 button position editor. Click on device image to
-      set button coordinates. Invoke with /g13-layout.
-    has_schema: false
-  - name: hauling-business-advisor
-    path: personas/domain/hauling-business-advisor
-    description: Junk hauling business operations advisor
-    has_schema: false
-  - name: gamedev
-    path: personas/domain/gamedev
-    description: Game development patterns and engine integration
-    has_schema: false
-  - name: gameplay-tester
-    path: personas/domain/gameplay-tester
-    description: Professional gameplay tester and QA analyst persona for playtesting,
-      bug finding, UX assessment, balance evaluation, and player experience feedback.
-      Use when evaluating game feel, finding bugs, assessing difficulty curves, or
-      providing player-perspective feedback on games and interactive applications.
-    has_schema: false
+  - name: hauling-job-scheduler
+    path: personas/domain/hauling-job-scheduler
+    description: Optimizes job scheduling, route planning, and capacity management
+      for junk removal and hauling operations
+    version: 2.0.0
   - name: board-of-advisors
     path: personas/domain/board-of-advisors
     description: USE WHEN the user is making a non-trivial decision (architecture,
@@ -279,370 +207,458 @@ personas:
       where they agree, where they diverge, and the recommended call with the dissenting
       case preserved. Do NOT use for execution tasks, code changes, or yes/no questions
       with one right answer. Invoke with /board-of-advisors.
-    has_schema: false
-  - name: eve-esi
-    path: personas/domain/eve-esi
-    description: EVE Online ESI API integration specialist
-    has_schema: false
+  - name: arete-research-command-center
+    path: personas/domain/arete-research-command-center
+    description: Multi-source intelligence workflow for Arete. Converts podcast/video/research
+      batches into ranked actions for product, brand, funding, and agentic execution.
+    version: 2.0.0
+  - name: eve-frontier-api
+    path: personas/domain/eve-frontier-api
+    description: EVE Frontier World API integration — endpoints, auth (FusionAuth
+      + Sui zkLogin), pagination, data normalization, and resilience patterns. Invoke
+      with /eve-frontier-api.
+  - name: apple-dev-best-practices
+    path: personas/domain/apple-dev-best-practices
+    description: Apple platform development best practices for Swift 6, SwiftUI, SwiftData,
+      and iOS/macOS apps. Use when building any iOS or macOS app, writing Swift code,
+      designing SwiftUI views, working with Xcode projects, implementing navigation,
+      state management, concurrency, networking, persistence, or testing on Apple
+      platforms. Triggers on Swift, SwiftUI, iOS, macOS, Xcode, UIKit, SwiftData,
+      Core Data, XCTest, StoreKit, CloudKit, MapKit, HealthKit, or any Apple framework.
+      Also use when reviewing Swift code, debugging iOS apps, migrating UIKit to SwiftUI,
+      or planning Apple platform architecture.
+    version: 2.0.0
+  - name: mentor-linux
+    path: personas/domain/mentor-linux
+    description: Linux certification preparation mentor for RHCSA, Linux+, and LPIC-1
+    version: 2.0.0
+  - name: eve-frontier-chain
+    path: personas/domain/eve-frontier-chain
+    description: EVE Frontier on-chain patterns — MUD v2 smart contracts, Sui SDK
+      integration, smart assembly gating, and on-chain reputation systems. Invoke
+      with /eve-frontier-chain.
+  - name: arete-funding-value-brief
+    path: personas/domain/arete-funding-value-brief
+    description: Converts Arete execution signals into investor-grade funding narratives,
+      milestone proofs, and de-risking plans.
+    version: 2.0.0
+  - name: strategic-planner
+    path: personas/domain/strategic-planner
+    description: Breaks down features into actionable implementation plans
+    version: 2.0.0
+  - name: gamedev
+    path: personas/domain/gamedev
+    description: Game development patterns for Bevy/Rust ECS, game loops, state machines,
+      physics, and audio. Invoke with /gamedev.
+    version: 2.0.0
+  - name: gameplay-tester
+    path: personas/domain/gameplay-tester
+    description: Professional gameplay tester and QA analyst persona for playtesting,
+      bug finding, UX assessment, balance evaluation, and player experience feedback.
+      Use when evaluating game feel, finding bugs, assessing difficulty curves, or
+      providing player-perspective feedback on games and interactive applications.
   - name: tie-dye-business-coach
     path: personas/domain/tie-dye-business-coach
-    description: Tie-dye business coaching with Socratic method
-    has_references: true
-    has_schema: false
-  - name: hauling-job-scheduler
-    path: personas/domain/hauling-job-scheduler
-    description: Hauling job scheduling and route optimization
-    has_schema: false
+    description: Socratic business coaching for handmade tie-dye businesses—diagnoses
+      before prescribing, builds business intuition
+    version: 2.0.0
+  - name: hauling-business-advisor
+    path: personas/domain/hauling-business-advisor
+    description: Provides data-driven operational insights and recommendations for
+      junk removal and hauling business optimization
+    version: 2.0.0
+  - name: g13-layout
+    path: personas/domain/g13-layout
+    description: Interactive G13 button position editor. Click on device image to
+      set button coordinates. Invoke with /g13-layout.
+  - name: streamlit
+    path: personas/domain/streamlit
+    description: Streamlit app patterns for layout, state management, data display,
+      and deployment. Invoke with /streamlit.
+    version: 2.0.0
   - name: arete-studio-strategy-os
     path: personas/domain/arete-studio-strategy-os
-    description: Arete operating system for strategy, workflow design, and measurable
-      execution loops
-    has_references: true
-    has_schema: false
+    description: Strategy and operating system persona for Arete. Converts intelligence
+      into execution plans for workflow, process, AI strategy, and business growth.
+    version: 2.0.0
+  - name: hauling-lead-qualifier
+    path: personas/domain/hauling-lead-qualifier
+    description: Qualifies and prioritizes incoming leads for junk removal businesses
+      based on job value, urgency, and conversion likelihood
+    version: 2.0.0
+  - name: ogma
+    path: personas/domain/ogma
+    description: Reverse-Engineering Synthesis Persona
+  - name: hauling-quote-generator
+    path: personas/domain/hauling-quote-generator
+    description: Converts load estimates into professional customer-facing quotes
+      with itemized pricing, fees, and terms for junk removal and hauling businesses
+    version: 2.0.0
+  - name: eve-esi
+    path: personas/domain/eve-esi
+    description: EVE Online ESI API integration patterns, authentication flows, rate
+      limiting, and data modeling. Invoke with /eve-esi.
+    version: 2.0.0
+  - name: hauling-image-estimator
+    path: personas/domain/hauling-image-estimator
+    description: Analyzes photos of junk, debris, or estate contents to estimate volume,
+      weight, item categories, and special disposal requirements for hauling/removal
+      businesses
+    version: 2.0.0
+  - name: eve-frontier-data
+    path: personas/domain/eve-frontier-data
+    description: EVE Frontier data pipelines — killmail ingestion, smart assembly
+      tracking, entity normalization, polling architecture, and SQLite/PostgreSQL
+      storage patterns. Invoke with /eve-frontier-data.
   engineering:
-  - name: review
-    path: personas/engineering/review
-    description: Code Review Checklist
-    has_schema: false
-  - name: arch
-    path: personas/engineering/arch
-    description: Architecture Diagram Generator
-    has_schema: false
-  - name: types
-    path: personas/engineering/types
-    description: Python Type Hint Generator
-    has_schema: false
-  - name: seed
-    path: personas/engineering/seed
-    description: Test Data Generation
-    has_schema: false
-  - name: documentation-writer
-    path: personas/engineering/documentation-writer
-    description: Technical documentation and API reference writing
-    has_schema: false
-  - name: spec
-    path: personas/engineering/spec
-    description: Technical Specification Writer
-    has_schema: false
-  - name: e2e
-    path: personas/engineering/e2e
-    description: End-to-End Test Setup
-    has_schema: false
-  - name: scaffold
-    path: personas/engineering/scaffold
-    description: Project Scaffolding
-    has_schema: false
-  - name: code-builder
-    path: personas/engineering/code-builder
-    description: Production-grade code generation with quality controls
-    has_schema: false
-  - name: plan
-    path: personas/engineering/plan
-    description: Implementation Planning
-    has_schema: false
   - name: issue
     path: personas/engineering/issue
     description: GitHub Issue Creator
-    has_schema: false
-  - name: composite-scorer
-    path: personas/engineering/composite-scorer
-    description: Weighted 0-100 composite scoring with category breakdowns and priority
-      actions
-    has_references: true
-    has_schema: false
-  - name: estimate
-    path: personas/engineering/estimate
-    description: Task Estimation Techniques
-    has_schema: false
-  - name: explain
-    path: personas/engineering/explain
-    description: Deep Code Explanation
-    has_schema: false
+  - name: review
+    path: personas/engineering/review
+    description: Code Review Checklist
+  - name: senior-software-analyst
+    path: personas/engineering/senior-software-analyst
+    description: Senior software analyst persona for codebase auditing, architecture
+      mapping, documentation review, technical debt assessment, and system understanding.
+      Use when you need to understand an unfamiliar codebase, evaluate architecture
+      decisions, create documentation, or assess project health before making changes.
+    version: 2.0.0
+  - name: code-builder
+    path: personas/engineering/code-builder
+    description: Writes clean, production-ready code based on plans
+    version: 2.0.0
   - name: software-architect
     path: personas/engineering/software-architect
-    description: System design and architectural decision specialist
+    description: Designs system architecture and makes technical decisions
     has_schema: true
-  - name: code-reviewer
-    path: personas/engineering/code-reviewer
-    description: Systematic code review with severity-ranked findings
-    has_schema: true
-  - name: crud
-    path: personas/engineering/crud
-    description: CRUD Boilerplate Generator
-    has_schema: false
-  - name: api-docs
-    path: personas/engineering/api-docs
-    description: API Documentation Generator
-    has_schema: false
+    version: 2.0.0
   - name: refactor
     path: personas/engineering/refactor
     description: Code Refactoring Analysis
-    has_schema: false
-  - name: migrate
-    path: personas/engineering/migrate
-    description: Code Migration Helper
-    has_schema: false
+  - name: spec
+    path: personas/engineering/spec
+    description: Technical Specification Writer
   - name: senior-software-engineer
     path: personas/engineering/senior-software-engineer
     description: Expert code reviewer, architect, and engineering mentor
-    has_references: true
     has_schema: true
-  - name: senior-software-analyst
-    path: personas/engineering/senior-software-analyst
-    description: Requirements analysis and system specification expert
-    has_schema: false
-  - name: mock
-    path: personas/engineering/mock
-    description: Test Mock & Fixture Generator
-    has_schema: false
-  - name: readme
-    path: personas/engineering/readme
-    description: README Generator
-    has_schema: false
-  - name: testing-specialist
-    path: personas/engineering/testing-specialist
-    description: Test strategy, TDD, and coverage optimization
-    has_schema: true
-  - name: learn
-    path: personas/engineering/learn
-    description: Learning Resources & Path
-    has_schema: false
+    version: 2.0.0
+  - name: types
+    path: personas/engineering/types
+    description: Python Type Hint Generator
+  - name: plan
+    path: personas/engineering/plan
+    description: Implementation Planning
+  - name: arch
+    path: personas/engineering/arch
+    description: Architecture Diagram Generator
   - name: sql
     path: personas/engineering/sql
     description: SQL Query Optimization
-    has_schema: false
+  - name: learn
+    path: personas/engineering/learn
+    description: Learning Resources & Path
+  - name: explain
+    path: personas/engineering/explain
+    description: Deep Code Explanation
+  - name: crud
+    path: personas/engineering/crud
+    description: CRUD Boilerplate Generator
+  - name: migrate
+    path: personas/engineering/migrate
+    description: Code Migration Helper
+  - name: code-reviewer
+    path: personas/engineering/code-reviewer
+    description: Reviews code for quality, security, and best practices
+    has_schema: true
+    version: 2.0.0
+  - name: documentation-writer
+    path: personas/engineering/documentation-writer
+    description: Creates comprehensive documentation for code and systems
+    version: 2.0.0
+  - name: estimate
+    path: personas/engineering/estimate
+    description: Task Estimation Techniques
+  - name: readme
+    path: personas/engineering/readme
+    description: README Generator
+  - name: mock
+    path: personas/engineering/mock
+    description: Test Mock & Fixture Generator
+  - name: seed
+    path: personas/engineering/seed
+    description: Test Data Generation
+  - name: testing-specialist
+    path: personas/engineering/testing-specialist
+    description: Creates comprehensive test suites for implementations
+    has_schema: true
+    version: 2.0.0
+  - name: scaffold
+    path: personas/engineering/scaffold
+    description: Project Scaffolding
+  - name: api-docs
+    path: personas/engineering/api-docs
+    description: API Documentation Generator
+  - name: e2e
+    path: personas/engineering/e2e
+    description: End-to-End Test Setup
+  - name: composite-scorer
+    path: personas/engineering/composite-scorer
+    description: Weighted 0-100 composite scoring with category breakdowns, grade
+      bands, and priority actions
   security:
-  - name: security-sweep
-    path: personas/security/security-sweep
-    description: Fleet-wide security audit aggregator — runs security-auditor across
-      multiple repos, writes FLEET-SECURITY.md to notes/
-    has_schema: false
   - name: accessibility-checker
     path: personas/security/accessibility-checker
-    description: WCAG 2.2 compliance audit and remediation
-    has_schema: false
+    description: Audits web applications for accessibility compliance — WCAG 2.2 AA/AAA
+      conformance, ARIA patterns, keyboard navigation, screen reader support, color
+      contrast, and semantic HTML. Use when reviewing UI code for accessibility, fixing
+      a11y issues, or ensuring compliance with ADA/Section 508 requirements.
+    version: 2.0.0
+  - name: security-sweep
+    path: personas/security/security-sweep
+    description: Fleet-wide security audit — runs /security-auditor across multiple
+      repos, aggregates findings to FLEET-SECURITY.md, surfaces NEW findings since
+      last sweep. Use for periodic fleet hardening, post-Dependabot-sweep verification,
+      or before security-sensitive releases.
   - name: security-auditor
     path: personas/security/security-auditor
-    description: SAST + OWASP audit with LLM-triaged findings, per-repo SECURITY_FINDINGS.md,
-      --diff regression tracking
+    description: SAST + OWASP audit with LLM-triaged findings. Runs semgrep/bandit/gitleaks/pip-audit,
+      filters false-positives, drafts remediation patches, persists SECURITY_FINDINGS.md
+      with --diff for regression tracking. Use for security reviews, vuln scans, hardening,
+      pre-pen-test prep.
     has_schema: true
+    version: 3.0.0
   web:
-  - name: content-scrubber
-    path: personas/web/content-scrubber
-    description: Detects and removes AI-generated patterns from content
-    has_schema: false
-  - name: cro-analyst
-    path: personas/web/cro-analyst
-    description: Conversion rate optimization analysis with composite scoring
-    has_schema: false
-  - name: web-designer
-    path: personas/web/web-designer
-    description: Website visual design, color systems, typography, and design tokens
-    has_schema: false
-  - name: web-performance
-    path: personas/web/web-performance
-    description: Core Web Vitals, bundle analysis, caching, and Lighthouse optimization
-    has_schema: false
-  - name: compare
-    path: personas/web/compare
-    description: Side-by-side image comparison with difference highlighting. Useful
-      for visual regression testing and UI changes. Invoke with /compare <image1>
-      <image2>.
-    has_schema: false
+  - name: a11y
+    path: personas/web/a11y
+    description: Accessibility Checklist
   - name: headline-hook-generator
     path: personas/web/headline-hook-generator
-    description: High-converting headline and hook generation with scoring
-    has_schema: false
-  - name: web-deployer
-    path: personas/web/web-deployer
-    description: Deploy websites to Vercel, Fly.io, Netlify, Cloudflare, or VPS
-    has_schema: false
-  - name: web-frontend-builder
-    path: personas/web/web-frontend-builder
-    description: Production-grade frontend with React, Next.js, or static HTML/CSS
-    has_schema: false
-  - name: web-analytics
-    path: personas/web/web-analytics
-    description: GA4 setup, event tracking, conversion funnels, and Search Console
-    has_schema: false
-  - name: align-debug
-    path: personas/web/align-debug
-    description: Overlay coordinate grid on screenshots for visual debugging. Helps
-      align UI elements by showing pixel coordinates. Invoke with /align-debug <image-path>.
-    has_schema: false
-  - name: seo-content-pipeline
-    path: personas/web/seo-content-pipeline
-    description: Full SEO content pipeline — research, write, optimize, scrub, publish
-    has_schema: false
-  - name: brand-voice-architect
-    path: personas/web/brand-voice-architect
-    description: Brand voice context file creation and channel voice definition
-    has_schema: false
+    description: Generates scored headline variations, meta elements, and video hooks
+      using proven conversion formulas
+  - name: web-performance
+    path: personas/web/web-performance
+    description: Optimizes website performance — Core Web Vitals, bundle analysis,
+      image optimization, caching strategies, lazy loading, and Lighthouse score improvement.
+  - name: web-designer
+    path: personas/web/web-designer
+    description: Designs website layouts, color systems, typography, and visual hierarchy.
+      Translates brand identity to Tailwind CSS design tokens and modern design systems.
   - name: pixel-pick
     path: personas/web/pixel-pick
     description: Interactive coordinate picker - click on an image to get exact pixel
       coordinates. Useful for mapping UI element positions. Invoke with /pixel-pick
       <image-path>.
-    has_schema: false
-  - name: web-backend-builder
-    path: personas/web/web-backend-builder
-    description: Backend APIs with FastAPI, Flask, Express, or Next.js API routes
-    has_schema: false
-  - name: a11y
-    path: personas/web/a11y
-    description: Accessibility Checklist
-    has_schema: false
-  - name: web-security-hardener
-    path: personas/web/web-security-hardener
-    description: Security headers, CSP, input validation, and OWASP Top 10 hardening
-    has_schema: false
-  - name: web-cms-manager
-    path: personas/web/web-cms-manager
-    description: WordPress, Ghost, and headless CMS integration and content modeling
-    has_schema: false
+  - name: seo-content-pipeline
+    path: personas/web/seo-content-pipeline
+    description: 'Orchestrates the full SEO content pipeline: research, write, optimize,
+      scrub, publish with staged directories'
+  - name: web-analytics
+    path: personas/web/web-analytics
+    description: Implements and interprets web analytics — GA4 setup, event tracking,
+      conversion funnels, Google Search Console, UTM strategy, and A/B testing frameworks.
   - name: web-content-writer
     path: personas/web/web-content-writer
-    description: Website copy, blog posts, landing pages, and email content
-    has_schema: false
-  - name: web-seo-optimizer
-    path: personas/web/web-seo-optimizer
-    description: Technical SEO, structured data, Core Web Vitals, and crawlability
-    has_schema: false
+    description: Writes website copy, blog posts, landing pages, and email content
+      — SEO-aware, conversion-optimized, audience-targeted, and voice-consistent.
+  - name: web-frontend-builder
+    path: personas/web/web-frontend-builder
+    description: Builds production-grade frontend interfaces with React, Next.js,
+      or static HTML/CSS. Component architecture, responsive design, and performance
+      optimization.
   - name: web-merchant
     path: personas/web/web-merchant
-    description: E-commerce with Stripe, product catalogs, carts, and Shopify
-    has_schema: false
+    description: Builds e-commerce functionality — product catalogs, shopping carts,
+      Stripe/PayPal integration, order management, Shopify storefronts, and subscription
+      billing.
+  - name: web-seo-optimizer
+    path: personas/web/web-seo-optimizer
+    description: Optimizes websites for search engines — technical SEO, structured
+      data markup, Core Web Vitals, crawlability, sitemaps, and programmatic SEO patterns.
+  - name: align-debug
+    path: personas/web/align-debug
+    description: Overlay coordinate grid on screenshots for visual debugging. Helps
+      align UI elements by showing pixel coordinates. Invoke with /align-debug <image-path>.
+  - name: content-scrubber
+    path: personas/web/content-scrubber
+    description: Detects and removes AI-generated patterns from content — em-dashes,
+      filler phrases, robotic rhythm
+  - name: web-backend-builder
+    path: personas/web/web-backend-builder
+    description: Builds backend APIs and server logic with FastAPI, Flask, Express,
+      or Next.js API routes. Database design, authentication, and API documentation.
+  - name: cro-analyst
+    path: personas/web/cro-analyst
+    description: Conversion rate optimization analysis with above-fold, CTA, trust
+      signal, and cognitive load scoring
+  - name: brand-voice-architect
+    path: personas/web/brand-voice-architect
+    description: Defines and maintains brand voice context files that drive all content
+      generation across channels
+  - name: web-deployer
+    path: personas/web/web-deployer
+    description: Deploys websites to Vercel, Fly.io, Netlify, Cloudflare, or VPS.
+      DNS configuration, SSL certificates, CI/CD pipelines, and zero-downtime deployments.
+  - name: web-security-hardener
+    path: personas/web/web-security-hardener
+    description: Hardens websites against common attacks — security headers, CSP policies,
+      input validation, CORS configuration, dependency auditing, and OWASP Top 10
+      mitigation.
+  - name: web-cms-manager
+    path: personas/web/web-cms-manager
+    description: Manages content management systems — WordPress themes/plugins, Ghost
+      configuration, headless CMS integration (Sanity, Contentful, Strapi), and content
+      modeling.
+  - name: compare
+    path: personas/web/compare
+    description: Side-by-side image comparison with difference highlighting. Useful
+      for visual regression testing and UI changes. Invoke with /compare <image1>
+      <image2>.
 agents:
   analysis:
-  - name: technical-debt-auditor
-    path: agents/analysis/technical-debt-auditor
-    description: Systematic repo health assessment with 6-axis scoring and 5 sub-agents
-    has_schema: true
-    has_workflow: true
-    has_sub_agents: true
-    sub_agents:
-    - scanner
-    - executor
-    - analyzer
-    - reporter
-    - aggregator
-    risk_level: low
-    consensus: none
-  - name: release-engineer
-    path: agents/analysis/release-engineer
-    description: Last-mile shipping automation — preflight checks, versioning, changelog,
-      publish
-    has_schema: true
-    risk_level: medium
-    consensus: required_for_publish
   - name: entity-resolver
     path: agents/analysis/entity-resolver
-    description: Fuzzy entity matching, deduplication, and identity consolidation
+    description: Resolves entity ambiguity across document corpora — fuzzy name matching,
+      alias detection, identity consolidation, and confidence-scored entity merging
     has_schema: true
-    risk_level: low
-    consensus: none
-  - name: intent-author
-    path: agents/analysis/intent-author
-    description: Teaches agents to publish well-structured Convergent intents
-    has_schema: true
-    risk_level: low
-    consensus: none
+    risk_level: medium
+    consensus: majority
   - name: handoff
     path: agents/analysis/handoff
     description: Packages project state into structured context documents for agent
-      or human pickup
+      sessions, human pickup, or Quorum IntentNodes
     has_schema: true
     risk_level: low
-    consensus: none
-  - name: context-mapper
-    path: agents/analysis/context-mapper
-    description: Pre-execution codebase and corpus mapping for agent context
-    has_schema: true
-    risk_level: low
-    consensus: none
-  - name: workflow-debugger
-    path: agents/analysis/workflow-debugger
-    description: Root-cause analysis for failed Gorgon workflows
-    has_schema: true
-    risk_level: low
-    consensus: none
+    consensus: any
   - name: document-forensics
     path: agents/analysis/document-forensics
-    description: Investigative methodology for document analysis and provenance
+    description: Investigative methodology for analyzing document collections — provenance
+      analysis, anomaly detection, redaction detection, and cross-document validation
+    has_schema: true
+    risk_level: medium
+    consensus: majority
+  - name: release-engineer
+    path: agents/analysis/release-engineer
+    description: Automates the last mile of shipping software — verifies release readiness,
+      generates changelogs, tags versions, and pushes releases
+    has_schema: true
+    risk_level: high
+    consensus: majority
+  - name: context-mapper
+    path: agents/analysis/context-mapper
+    description: Pre-execution mapping of codebases, document collections, or problem
+      spaces. Runs BEFORE any Gorgon workflow to give all agents shared situational
+      awareness
     has_schema: true
     risk_level: low
-    consensus: none
+    consensus: any
+  - name: technical-debt-auditor
+    path: agents/analysis/technical-debt-auditor
+    description: Systematic technical debt assessment — scans for security issues,
+      correctness gaps, infrastructure debt, maintainability problems, documentation
+      quality, and dependency freshness
+    has_schema: true
+    risk_level: low
+    consensus: any
+  - name: workflow-debugger
+    path: agents/analysis/workflow-debugger
+    description: Diagnoses why Gorgon workflows fail — reads checkpoint state, agent
+      logs, budget traces, and output contracts to produce root-cause analysis
+    has_schema: true
+    risk_level: low
+    consensus: any
+  - name: intent-author
+    path: agents/analysis/intent-author
+    description: Teaches agents how to publish well-structured intents for Convergent's
+      intent graph — schema, quality criteria, and authoring patterns
+    has_schema: true
+    risk_level: low
+    consensus: any
   browser:
   - name: web-scrape
     path: agents/browser/web-scrape
-    description: Ethical web scraping with robots.txt compliance
+    description: Fetch and parse web content with ethical scraping practices, rate
+      limiting, and structured extraction
     has_schema: true
     risk_level: low
-    consensus: none
+    consensus: any
   - name: web-search
     path: agents/browser/web-search
-    description: Web search with rate limiting and caching
+    description: Search the web for information with rate limiting, caching, and structured
+      source attribution
     has_schema: true
     risk_level: low
-    consensus: none
+    consensus: any
   email:
   - name: email-compose
     path: agents/email/email-compose
-    description: Email composition with draft-review-send workflow
+    description: Compose and send emails with safety controls, draft-review-approve
+      workflow, and SMTP delivery
     has_schema: true
     risk_level: high
-    consensus: required_for_send
+    consensus: unanimous+user
   integrations:
   - name: github-operations
     path: agents/integrations/github-operations
-    description: Git CLI and GitHub API repository management
+    description: Repository management through Git CLI and GitHub API with branch
+      protection, commit conventions, and security controls
     has_schema: true
     risk_level: medium
-    consensus: required_for_push
+    consensus: majority
   - name: api-client
     path: agents/integrations/api-client
-    description: Authenticated HTTP API client with retry and rate limiting
+    description: Authenticated HTTP API client with retry logic, rate limiting, response
+      parsing, and structured error handling. Supports OAuth2, API key, and bearer
+      token auth.
     has_schema: true
     risk_level: low
-    consensus: none
+    consensus: any
   orchestration:
   - name: multi-agent-supervisor
     path: agents/orchestration/multi-agent-supervisor
-    description: Gorgon supervisor with triumvirate consensus
+    description: Hierarchical multi-agent orchestration supervisor that decomposes
+      tasks, delegates to specialized worker agents, tracks state, and employs triumvirate
+      consensus for high-stakes operations
     has_schema: true
-    risk_level: medium
+    risk_level: high
     consensus: adaptive
   - name: agent-teams-orchestrator
     path: agents/orchestration/agent-teams-orchestrator
-    description: Claude Code Agent Teams parallel coordination
+    description: Designs and coordinates Claude Code Agent Teams — multi-agent collaboration
+      where teammate sessions work in parallel with direct communication, task claiming
+      via file locks, and cross-referencing findings
     has_schema: true
     risk_level: medium
-    consensus: none
+    consensus: majority
   system:
-  - name: file-operations
-    path: agents/system/file-operations
-    description: Safe filesystem operations with protection and validation
-    has_schema: true
-    risk_level: medium
-    consensus: required_for_destructive
   - name: process-runner
     path: agents/system/process-runner
-    description: Subprocess execution with safety controls and structured output
+    description: Execute and manage subprocesses with timeout, output capture, and
+      safety controls. Blocks dangerous commands, enforces resource limits, and returns
+      structured results with exit codes, stdout, stderr, and timing.
     has_schema: true
     risk_level: medium
-    consensus: none
+    consensus: any
+  - name: file-operations
+    path: agents/system/file-operations
+    description: Safe filesystem operations with path protection, backup enforcement,
+      and audit logging
+    has_schema: true
+    risk_level: medium
+    consensus: adaptive
 workflows:
 - name: agent-pipeline
   path: workflows/agent-pipeline
-  description: Automated Issue-to-PR-to-Merge pipeline with AI agents and review loops
+  description: Automated Issue-to-PR-to-Merge pipeline using GitHub Actions and AI
+    agents with review loops
   has_schema: true
   phase: full-lifecycle
 - name: conductor
   path: workflows/conductor
-  description: Context-driven development — setup, spec, plan, implement with checkpoint
-    gates
+  description: Context-driven development workflow — interactive setup, spec generation,
+    TDD implementation with checkpoints and revert
   phase: full-lifecycle
-  has_schema: false
 - name: context-mapping
   path: workflows/context-mapping
   description: Pre-execution context mapping phase inspired by Blitzy — maps codebase
@@ -657,7 +673,6 @@ workflows:
     outputs, PRs, copy variants, vendors) and need a scored comparison with a verdict
     — not opinions. Always produces a decision plus evidence. "It depends" is not
     an acceptable output. Invoke with /evaluation.
-  has_schema: false
   phase: full-lifecycle
 - name: exploration
   path: workflows/exploration
@@ -665,57 +680,58 @@ workflows:
     yet — generate distinct alternatives, surface unknowns, challenge assumptions.
     The output is a list of options with evidence, not a recommendation. Invoke with
     /exploration.
-  has_schema: false
   phase: full-lifecycle
 - name: feature-implementation
   path: workflows/feature-implementation
-  description: End-to-end feature implementation using WHY/WHAT/HOW
+  description: End-to-end feature implementation workflow using WHY/WHAT/HOW framework
+    — from requirements through context mapping, implementation, testing, and PR creation.
+    Use when implementing a complete feature across multiple files.
   has_schema: true
   phase: full-lifecycle
 - name: feature-pipeline
   path: workflows/feature-pipeline
-  description: Multi-phase feature development with parallel agents and checkpoint
-    gates
+  description: Multi-phase feature development with checkpoint gates, parallel agent
+    streams, and phased artifact output
   phase: full-lifecycle
-  has_schema: false
 - name: goal
   path: workflows/goal
   description: Manage the build-mode goal-loop — set, inspect, pause, resume, extend,
     or clear a durable build objective with a budget ceiling. Drives the goal-loop
     + goal-gate hooks via a repo-root .goal-active sentinel. Invoke with /goal.
-  has_schema: false
   phase: full-lifecycle
 - name: production
   path: workflows/production
   description: Production-mode prompt scaffold. Use when the decision is made and
     spec is clear — produce the final deliverable with no exploratory sprawl, no meta-commentary,
     no preamble. Output is the artifact itself, nothing else. Invoke with /production.
-  has_schema: false
   phase: full-lifecycle
 - name: release-engineering
   path: workflows/release-engineering
-  description: End-to-end release pipeline — preflight, review, changelog, version,
-    tag, publish
+  description: End-to-end release workflow — preflight checks, code review, changelog
+    generation, version bump, tagging, and publishing. Coordinates release-engineer
+    agent, code-reviewer persona, and github-operations agent through the WHY/WHAT/HOW
+    framework.
   has_schema: true
   phase: full-lifecycle
 - name: session-end
   path: workflows/session-end
-  description: Session wrap-up — captures decisions, syncs memory, commits cleanly,
-    tracks metrics
+  description: Session wrap-up workflow — captures decisions, syncs memory, reports
+    costs, updates tasks, and commits cleanly. Run before ending any session with
+    meaningful work.
   has_schema: true
-  phase: post-execution
+  phase: full-lifecycle
 - name: session-start
   path: workflows/session-start
-  description: Session bootstrap — audits project context, suggests template, checks
-    health, surfaces pending work
+  description: Session bootstrap workflow — audits project context, suggests session
+    template, checks service health, and pulls pending tasks. Run at the start of
+    any non-trivial engineering session.
   has_schema: true
-  phase: pre-execution
+  phase: full-lifecycle
 - name: specification
   path: workflows/specification
   description: Specification-mode prompt scaffold. Use when the decision is made and
     you need a buildable, testable, reviewable spec. Output is fixed-structure with
     measurable acceptance criteria. Never re-argues the premise. Invoke with /specification.
-  has_schema: false
   phase: full-lifecycle
 stats:
   total_personas: 114
