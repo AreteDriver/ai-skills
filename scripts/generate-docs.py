@@ -107,6 +107,42 @@ def _generate_search_index(registry):
     return "\n".join(lines) + "\n"
 
 
+def _generate_lifecycle_dashboard(registry):
+    lines = ["# Lifecycle Dashboard\n", "| Name | Type | Category | Lifecycle | Schema | Examples | Tags |", "|------|------|----------|-----------|--------|----------|------|"]
+    all_items = []
+    for cat, items in registry.get("personas", {}).items():
+        for item in items:
+            item["_type"] = "persona"
+            item["_category"] = cat
+            all_items.append(item)
+    for cat, items in registry.get("agents", {}).items():
+        for item in items:
+            item["_type"] = "agent"
+            item["_category"] = cat
+            all_items.append(item)
+    for item in registry.get("workflows", []):
+        item["_type"] = "workflow"
+        item["_category"] = item.get("phase", "general")
+        all_items.append(item)
+
+    all_items.sort(key=lambda x: (x.get("lifecycle", "experimental"), x["name"]))
+
+    for item in all_items:
+        name = item["name"]
+        path = item.get("path", "")
+        link = f"[{name}](../../{path}/SKILL.md)"
+        stype = item["_type"]
+        cat = item["_category"]
+        life = item.get("lifecycle", "experimental")
+        schema = "✓" if item.get("has_schema") else ""
+        examples = "✓" if os.path.exists(os.path.join(REPO_ROOT, path, "examples")) else ""
+        tags = ", ".join(item.get("tags", [])[:5])
+        lines.append(f"| {link} | {stype} | {cat} | {life} | {schema} | {examples} | {tags} |")
+
+    lines.append("")
+    return "\n".join(lines) + "\n"
+
+
 def _generate_counts(registry):
     stats = registry.get("stats", {})
     lines = [
@@ -141,6 +177,7 @@ def generate_docs():
         "catalog-workflows.md": _generate_workflow_table(registry),
         "counts.md": _generate_counts(registry),
         "search-index.md": _generate_search_index(registry),
+        "lifecycle-dashboard.md": _generate_lifecycle_dashboard(registry),
     }
 
     for filename, content in artifacts.items():
