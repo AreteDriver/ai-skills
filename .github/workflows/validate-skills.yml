@@ -88,6 +88,9 @@ jobs:
       - name: Run evals on all skills
         run: python3 scripts/run-evals.py --all --report
 
+      - name: Check eval coverage gate
+        run: python3 scripts/check-eval-coverage.py --threshold 0.90
+
       - name: Upload quality card
         uses: actions/upload-artifact@v4
         with:
