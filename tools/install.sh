@@ -15,6 +15,8 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SKILLS_DIR="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
 HOOKS_DIR="${CLAUDE_HOOKS_DIR:-$HOME/.claude/hooks}"
 SYMLINK=false
+DRY_RUN=false
+PREVIEW=false
 ACTION=""
 TARGET=""
 
@@ -45,6 +47,8 @@ ACTIONS:
 
 OPTIONS:
     --symlink                   Symlink instead of copy (for development)
+    --dry-run                   Show what would be installed without copying
+    --preview                   Show bundle contents before installing
     --dir <path>                Override install directory (default: ~/.claude/skills)
     --help                      Show this help
 
@@ -69,26 +73,28 @@ EOF
 }
 
 # ─────────────────────────────────────────────
-# Bundle definitions
+# Bundle resolution (delegated to Python for YAML parsing)
 # ─────────────────────────────────────────────
-# Bash 3.2-compatible (macOS ships 3.2, which has no associative arrays).
-# BUNDLE_NAMES lists bundles; bundle_skills() returns a bundle's skill paths.
-BUNDLE_NAMES="webapp-security release-engineering data-pipeline full-stack-dev claude-code-dev website-builder website-ecommerce website-content api-integration content-ops"
+BUNDLE_RESOLVER="$REPO_ROOT/scripts/resolve-bundle.py"
 
 bundle_skills() {
-    case "$1" in
-        webapp-security)     echo "personas/engineering/code-reviewer personas/security/security-auditor personas/engineering/testing-specialist personas/security/accessibility-checker" ;;
-        release-engineering) echo "personas/engineering/code-reviewer personas/claude-code/cicd-pipeline" ;;
-        data-pipeline)       echo "personas/data/data-engineer personas/data/data-analyst personas/data/data-visualizer personas/data/report-generator" ;;
-        full-stack-dev)      echo "personas/engineering/senior-software-engineer personas/engineering/code-reviewer personas/engineering/testing-specialist personas/engineering/software-architect personas/engineering/documentation-writer" ;;
-        claude-code-dev)     echo "personas/claude-code/hooks-designer personas/claude-code/plugin-builder personas/claude-code/mcp-server-builder personas/claude-code/cicd-pipeline personas/claude-code/session-memory-manager" ;;
-        website-builder)     echo "personas/web/web-frontend-builder personas/web/web-backend-builder personas/web/web-deployer personas/web/web-designer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-performance personas/web/web-security-hardener" ;;
-        website-ecommerce)   echo "personas/web/web-frontend-builder personas/web/web-merchant personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-deployer" ;;
-        website-content)     echo "personas/web/web-cms-manager personas/web/web-content-writer personas/web/web-seo-optimizer personas/web/web-analytics personas/web/web-designer" ;;
-        api-integration)     echo "personas/api/api-tester personas/api/database-ops personas/api/webhook-designer personas/api/oauth-integrator" ;;
-        content-ops)         echo "personas/engineering/composite-scorer personas/web/content-scrubber personas/web/web-content-writer personas/web/web-seo-optimizer" ;;
-        *)                   return 1 ;;
-    esac
+    python3 "$BUNDLE_RESOLVER" --skills "$1" 2>/dev/null
+}
+
+bundle_hooks() {
+    python3 "$BUNDLE_RESOLVER" --hooks "$1" 2>/dev/null
+}
+
+bundle_list() {
+    python3 "$BUNDLE_RESOLVER" --list 2>/dev/null
+}
+
+bundle_preview() {
+    python3 "$BUNDLE_RESOLVER" --preview "$1" 2>/dev/null
+}
+
+bundle_exists() {
+    python3 "$BUNDLE_RESOLVER" --skills "$1" >/dev/null 2>&1
 }
 
 # ─────────────────────────────────────────────
@@ -105,6 +111,8 @@ while [[ $# -gt 0 ]]; do
         --list)      ACTION="list"; shift ;;
         --uninstall) ACTION="uninstall"; shift ;;
         --symlink)   SYMLINK=true; shift ;;
+        --dry-run)   DRY_RUN=true; shift ;;
+        --preview)   PREVIEW=true; shift ;;
         --dir)       SKILLS_DIR="$2"; shift 2 ;;
         --help)      usage ;;
         *) echo -e "${RED}Unknown option: $1${NC}"; usage ;;
@@ -127,6 +135,11 @@ install_skill() {
     if [ ! -d "$REPO_ROOT/$src" ]; then
         echo -e "  ${RED}✗${NC} $src — not found"
         return 1
+    fi
+
+    if $DRY_RUN; then
+        echo -e "  ${BLUE}∼${NC} $skill_name → would install to $dest"
+        return 0
     fi
 
     # Remove existing
@@ -234,12 +247,12 @@ case $ACTION in
 
         echo ""
         echo -e "${BOLD}Available Bundles:${NC}"
-        for bundle_name in $BUNDLE_NAMES; do
+        while IFS= read -r bundle_name; do
             skills="$(bundle_skills "$bundle_name")"
             count=$(echo "$skills" | wc -w)
             skill_names=$(echo "$skills" | tr ' ' '\n' | xargs -I{} basename {} | tr '\n' ', ' | sed 's/,$//')
             printf "  ${YELLOW}%-25s${NC} %d skills: %s\n" "$bundle_name" "$count" "$skill_names"
-        done | sort
+        done <<<"$(bundle_list)" | sort
         ;;
 
     persona)
@@ -282,21 +295,47 @@ case $ACTION in
         ;;
 
     bundle)
-        if ! bundle_skills "$TARGET" >/dev/null 2>&1; then
+        if ! bundle_exists "$TARGET"; then
             echo -e "${RED}Unknown bundle: $TARGET${NC}"
-            echo "Available bundles: $BUNDLE_NAMES"
+            echo "Available bundles:"
+            bundle_list | sed 's/^/  /'
             exit 1
+        fi
+
+        if $PREVIEW; then
+            echo -e "${BOLD}Previewing bundle: $TARGET${NC}"
+            bundle_preview "$TARGET"
+            exit 0
         fi
 
         echo -e "${BOLD}Installing bundle: $TARGET${NC}"
         mkdir -p "$SKILLS_DIR"
 
-        for skill_path in $(bundle_skills "$TARGET"); do
+        skills="$(bundle_skills "$TARGET")"
+        if [ -z "$skills" ]; then
+            echo -e "  ${RED}✗${NC} Bundle '$TARGET' has no skills defined"
+            exit 1
+        fi
+
+        for skill_path in $skills; do
             install_skill "$skill_path"
         done
 
+        hooks="$(bundle_hooks "$TARGET")"
+        if [ -n "$hooks" ]; then
+            echo ""
+            echo -e "${YELLOW}Hooks referenced (not auto-installed):${NC}"
+            for hook in $hooks; do
+                echo "  - $hook"
+            done
+        fi
+
         echo ""
-        echo -e "${GREEN}Bundle '$TARGET' installed to $SKILLS_DIR${NC}"
+        if $DRY_RUN; then
+            echo -e "${BLUE}Dry run complete — no files were modified${NC}"
+        else
+            echo -e "${GREEN}Bundle '$TARGET' installed to $SKILLS_DIR${NC}"
+        fi
         ;;
 
     hooks)
