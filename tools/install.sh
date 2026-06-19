@@ -44,6 +44,8 @@ ACTIONS:
     --bundle <name>             Install a curated bundle
     --hooks                     Install all hook scripts
     --list                      List available skills and bundles
+    --search <query>            Search skills by keyword, tag, or facet
+    --info <name>               Show detailed info for a skill
     --uninstall [<bundle>]        Remove installed skills (all, or specific bundle)
 
 OPTIONS:
@@ -110,6 +112,8 @@ while [[ $# -gt 0 ]]; do
         --bundle)    ACTION="bundle"; TARGET="$2"; shift 2 ;;
         --hooks)     ACTION="hooks"; shift ;;
         --list)      ACTION="list"; shift ;;
+        --search)    ACTION="search"; TARGET="$2"; shift 2 ;;
+        --info)      ACTION="info"; TARGET="$2"; shift 2 ;;
         --uninstall) ACTION="uninstall"; TARGET="$2"; shift 2 ;;
         --symlink)   SYMLINK=true; shift ;;
         --dry-run)   DRY_RUN=true; shift ;;
@@ -296,6 +300,18 @@ uninstall_bundle() {
 # Actions
 # ─────────────────────────────────────────────
 case $ACTION in
+    search)
+        echo -e "${BOLD}Searching skills: $TARGET${NC}"
+        python3 "$REPO_ROOT/scripts/skill-search.py" "$TARGET"
+        echo ""
+        echo -e "${BLUE}Install with:${NC} ./tools/install.sh --persona|--agent|--workflow <name>"
+        ;;
+
+    info)
+        echo -e "${BOLD}Skill info: $TARGET${NC}"
+        python3 "$REPO_ROOT/scripts/skill-search.py" --info "$TARGET"
+        ;;
+
     list)
         echo -e "${BOLD}Available Personas:${NC}"
         for base_dir in personas/engineering personas/data personas/devops personas/claude-code personas/security personas/domain personas/api personas/web; do
