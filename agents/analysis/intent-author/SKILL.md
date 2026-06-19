@@ -1,6 +1,7 @@
 ---
 name: intent-author
 version: "2.0.0"
+lifecycle: experimental
 description: "Teaches agents how to publish well-structured intents for Convergent's intent graph — schema, quality criteria, and authoring patterns"
 metadata: {"openclaw": {"emoji": "🔬", "os": ["darwin", "linux", "win32"]}}
 type: agent

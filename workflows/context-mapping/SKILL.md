@@ -1,6 +1,7 @@
 ---
 name: context-mapper
 version: "2.0.0"
+lifecycle: experimental
 type: workflow
 category: analysis
 risk_level: medium

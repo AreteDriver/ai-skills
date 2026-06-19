@@ -1,6 +1,7 @@
 ---
 name: security-sweep
 version: "1.0.0"
+lifecycle: experimental
 description: Fleet-wide security audit — runs /security-auditor across multiple repos, aggregates findings to FLEET-SECURITY.md, surfaces NEW findings since last sweep. Use for periodic fleet hardening, post-Dependabot-sweep verification, or before security-sensitive releases.
 metadata: {"openclaw": {"emoji": "🛡️", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

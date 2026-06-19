@@ -1,6 +1,7 @@
 ---
 name: github-operations
 version: "2.0.0"
+lifecycle: experimental
 description: "Repository management through Git CLI and GitHub API with branch protection, commit conventions, and security controls"
 metadata: {"openclaw": {"emoji": "🔗", "os": ["darwin", "linux", "win32"]}}
 type: agent

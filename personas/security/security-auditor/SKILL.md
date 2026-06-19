@@ -1,6 +1,7 @@
 ---
 name: security-auditor
 version: "3.0.0"
+lifecycle: stable
 description: SAST + OWASP audit with LLM-triaged findings. Runs semgrep/bandit/gitleaks/pip-audit, filters false-positives, drafts remediation patches, persists SECURITY_FINDINGS.md with --diff for regression tracking. Use for security reviews, vuln scans, hardening, pre-pen-test prep.
 metadata: {"openclaw": {"emoji": "🛡️", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

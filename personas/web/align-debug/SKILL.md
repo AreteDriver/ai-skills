@@ -1,6 +1,7 @@
 ---
 name: align-debug
 description: Overlay coordinate grid on screenshots for visual debugging. Helps align UI elements by showing pixel coordinates. Invoke with /align-debug <image-path>.
+lifecycle: experimental
 ---
 
 # Align Debug Skill

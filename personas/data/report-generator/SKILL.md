@@ -1,6 +1,7 @@
 ---
 name: report-generator
 version: "2.0.0"
+lifecycle: experimental
 description: Creates executive summaries, reports, and documentation of findings
 metadata: {"openclaw": {"emoji": "📊", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

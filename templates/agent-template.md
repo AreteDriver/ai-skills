@@ -1,5 +1,7 @@
 ---
 name: agent-name
+version: "1.0.0"
+lifecycle: experimental
 description: One-line description of what this agent does
 ---
 

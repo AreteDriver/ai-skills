@@ -1,6 +1,7 @@
 ---
 name: profile
 description: Performance Profiling Guide
+lifecycle: experimental
 ---
 
 # /profile - Performance Profiling Guide

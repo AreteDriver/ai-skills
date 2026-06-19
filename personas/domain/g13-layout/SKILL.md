@@ -1,6 +1,7 @@
 ---
 name: g13-layout
 description: Interactive G13 button position editor. Click on device image to set button coordinates. Invoke with /g13-layout.
+lifecycle: experimental
 ---
 
 # G13 Layout Skill

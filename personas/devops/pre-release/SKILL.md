@@ -1,6 +1,7 @@
 ---
 name: pre-release
 description: Pre-Release Checklist
+lifecycle: experimental
 ---
 
 # /pre-release - Pre-Release Checklist

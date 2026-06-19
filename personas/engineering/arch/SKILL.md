@@ -1,6 +1,7 @@
 ---
 name: arch
 description: Architecture Diagram Generator
+lifecycle: experimental
 ---
 
 # /arch - Architecture Diagram Generator

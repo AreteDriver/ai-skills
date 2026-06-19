@@ -1,6 +1,7 @@
 ---
 name: api-docs
 description: API Documentation Generator
+lifecycle: experimental
 ---
 
 # /api-docs - API Documentation Generator

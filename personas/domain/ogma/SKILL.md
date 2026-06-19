@@ -1,6 +1,7 @@
 ---
 name: ogma
 description: Reverse-Engineering Synthesis Persona
+lifecycle: experimental
 ---
 
 # /ogma - Reverse-Engineering Synthesis Persona

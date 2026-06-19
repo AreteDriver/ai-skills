@@ -1,6 +1,7 @@
 ---
 name: spec
 description: Technical Specification Writer
+lifecycle: experimental
 ---
 
 # /spec - Technical Specification Writer

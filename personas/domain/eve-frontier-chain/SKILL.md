@@ -1,6 +1,7 @@
 ---
 name: eve-frontier-chain
 version: "1.0.0"
+lifecycle: experimental
 type: persona
 category: domain
 description: EVE Frontier on-chain patterns — MUD v2 smart contracts, Sui SDK integration, smart assembly gating, and on-chain reputation systems. Invoke with /eve-frontier-chain.

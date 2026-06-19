@@ -1,6 +1,7 @@
 ---
 name: test
 description: Run pytest with coverage summary. Provides quick feedback on test status and coverage. Invoke with /test or /test <path>.
+lifecycle: experimental
 ---
 
 # Test Skill

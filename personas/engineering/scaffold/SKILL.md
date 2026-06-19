@@ -1,6 +1,7 @@
 ---
 name: scaffold
 description: Project Scaffolding
+lifecycle: experimental
 ---
 
 # /scaffold - Project Scaffolding

@@ -1,6 +1,7 @@
 ---
 name: session-memory-manager
 version: "2.0.0"
+lifecycle: experimental
 description: Manages Claude Code's persistent memory system — auto-memory files, cross-session context, project memory directories, and task handoff protocols. Use when organizing session memory, creating handoff documents, managing MEMORY.md files, or establishing continuity between Claude Code sessions.
 metadata: {"openclaw": {"emoji": "🤖", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

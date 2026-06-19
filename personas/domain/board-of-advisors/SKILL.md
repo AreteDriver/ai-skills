@@ -1,6 +1,7 @@
 ---
 name: board-of-advisors
 description: USE WHEN the user is making a non-trivial decision (architecture, scope, positioning, hiring, kill-or-continue) and wants multi-perspective consultation rather than a single answer. Convenes four named advisors — Senior SE, Ops Sensei (TPS), Skeptic, Domain Expert — each speaks in turn, then a synthesis names where they agree, where they diverge, and the recommended call with the dissenting case preserved. Do NOT use for execution tasks, code changes, or yes/no questions with one right answer. Invoke with /board-of-advisors.
+lifecycle: experimental
 ---
 
 # Board of Advisors

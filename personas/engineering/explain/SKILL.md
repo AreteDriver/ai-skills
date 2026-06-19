@@ -1,6 +1,7 @@
 ---
 name: explain
 description: Deep Code Explanation
+lifecycle: experimental
 ---
 
 # /explain - Deep Code Explanation

@@ -1,6 +1,7 @@
 ---
 name: document-forensics
 version: "2.0.0"
+lifecycle: experimental
 description: "Investigative methodology for analyzing document collections — provenance analysis, anomaly detection, redaction detection, and cross-document validation"
 metadata: {"openclaw": {"emoji": "🔬", "os": ["darwin", "linux", "win32"]}}
 type: agent

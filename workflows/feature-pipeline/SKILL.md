@@ -1,6 +1,7 @@
 ---
 name: feature-pipeline
 version: "1.0.0"
+lifecycle: experimental
 description: "Multi-phase feature development with checkpoint gates, parallel agent streams, and phased artifact output"
 metadata: {"openclaw": {"emoji": "🚀", "os": ["darwin", "linux", "win32"]}}
 type: workflow

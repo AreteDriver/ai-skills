@@ -1,6 +1,7 @@
 ---
 name: accessibility-checker
 version: "2.0.0"
+lifecycle: experimental
 description: Audits web applications for accessibility compliance — WCAG 2.2 AA/AAA conformance, ARIA patterns, keyboard navigation, screen reader support, color contrast, and semantic HTML. Use when reviewing UI code for accessibility, fixing a11y issues, or ensuring compliance with ADA/Section 508 requirements.
 metadata: {"openclaw": {"emoji": "🛡️", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

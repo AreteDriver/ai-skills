@@ -1,6 +1,7 @@
 ---
 name: brand-voice-architect
 version: "1.0.0"
+lifecycle: experimental
 description: "Defines and maintains brand voice context files that drive all content generation across channels"
 metadata: {"openclaw": {"emoji": "🎨", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

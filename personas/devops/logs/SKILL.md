@@ -1,6 +1,7 @@
 ---
 name: logs
 description: Logging Setup & Analysis
+lifecycle: experimental
 ---
 
 # /logs - Logging Setup & Analysis

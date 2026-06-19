@@ -1,6 +1,7 @@
 ---
 name: systemd
 version: "2.0.0"
+lifecycle: experimental
 description: Systemd service management, unit files, timers, journalctl, and troubleshooting. Invoke with /systemd.
 metadata: {"openclaw": {"emoji": "⚙️", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

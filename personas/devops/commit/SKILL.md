@@ -1,6 +1,7 @@
 ---
 name: commit
 description: Create well-formatted git commits with conventional commit style. Analyzes staged changes and generates appropriate commit messages. Invoke with /commit or after completing a task.
+lifecycle: experimental
 ---
 
 # Commit Skill

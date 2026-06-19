@@ -1,6 +1,7 @@
 ---
 name: e2e
 description: End-to-End Test Setup
+lifecycle: experimental
 ---
 
 # /e2e - End-to-End Test Setup

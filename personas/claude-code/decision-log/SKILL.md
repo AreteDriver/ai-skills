@@ -1,6 +1,7 @@
 ---
 name: decision-log
 description: Log high-leverage decisions from the current work session to the Arete Decision Log. Extracts architecture, UX, scope, tooling, and philosophy decisions. Invoke with /decision-log or /adl.
+lifecycle: experimental
 ---
 
 # Decision Log Skill

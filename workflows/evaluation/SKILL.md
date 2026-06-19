@@ -1,6 +1,7 @@
 ---
 name: evaluation
 description: Evaluation-mode prompt scaffold. Use when you have candidates (options, outputs, PRs, copy variants, vendors) and need a scored comparison with a verdict — not opinions. Always produces a decision plus evidence. "It depends" is not an acceptable output. Invoke with /evaluation.
+lifecycle: experimental
 ---
 
 # Evaluation Mode

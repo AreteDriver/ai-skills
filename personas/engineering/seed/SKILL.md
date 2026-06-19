@@ -1,6 +1,7 @@
 ---
 name: seed
 description: Test Data Generation
+lifecycle: experimental
 ---
 
 # /seed - Test Data Generation

@@ -1,6 +1,7 @@
 ---
 name: eve-esi
 version: "2.0.0"
+lifecycle: experimental
 type: persona
 category: domain
 risk_level: low

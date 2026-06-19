@@ -1,6 +1,7 @@
 ---
 name: web-cms-manager
 version: "1.0.0"
+lifecycle: experimental
 type: persona
 category: web
 risk_level: low

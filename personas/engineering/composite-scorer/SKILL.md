@@ -1,6 +1,7 @@
 ---
 name: composite-scorer
 version: "1.0.0"
+lifecycle: experimental
 description: "Weighted 0-100 composite scoring with category breakdowns, grade bands, and priority actions"
 metadata: {"openclaw": {"emoji": "📊", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

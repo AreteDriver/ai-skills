@@ -1,6 +1,7 @@
 ---
 name: data-visualizer
 version: "2.0.0"
+lifecycle: experimental
 description: Creates charts, dashboards, and visual representations of data
 metadata: {"openclaw": {"emoji": "📊", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

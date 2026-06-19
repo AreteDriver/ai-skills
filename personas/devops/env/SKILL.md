@@ -1,6 +1,7 @@
 ---
 name: env
 description: Environment Management
+lifecycle: experimental
 ---
 
 # /env - Environment Management

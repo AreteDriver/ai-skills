@@ -1,6 +1,7 @@
 ---
 name: eve-frontier-api
 version: "1.0.0"
+lifecycle: experimental
 type: persona
 category: domain
 description: EVE Frontier World API integration — endpoints, auth (FusionAuth + Sui zkLogin), pagination, data normalization, and resilience patterns. Invoke with /eve-frontier-api.

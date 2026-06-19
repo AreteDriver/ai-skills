@@ -1,6 +1,7 @@
 ---
 name: changelog
 description: Generate Changelog from Commits
+lifecycle: experimental
 ---
 
 # /changelog - Generate Changelog from Commits

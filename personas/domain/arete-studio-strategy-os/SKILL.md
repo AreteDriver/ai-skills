@@ -1,6 +1,7 @@
 ---
 name: arete-studio-strategy-os
 version: "2.0.0"
+lifecycle: experimental
 type: persona
 category: domain
 risk_level: low

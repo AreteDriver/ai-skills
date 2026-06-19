@@ -1,6 +1,7 @@
 ---
 name: seo-content-pipeline
 version: "1.0.0"
+lifecycle: experimental
 description: "Orchestrates the full SEO content pipeline: research, write, optimize, scrub, publish with staged directories"
 metadata: {"openclaw": {"emoji": "🔗", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

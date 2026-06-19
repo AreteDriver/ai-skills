@@ -1,6 +1,7 @@
 ---
 name: headline-hook-generator
 version: "1.0.0"
+lifecycle: experimental
 description: "Generates scored headline variations, meta elements, and video hooks using proven conversion formulas"
 metadata: {"openclaw": {"emoji": "🎯", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

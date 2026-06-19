@@ -1,6 +1,7 @@
 ---
 name: postmortem
 description: Incident Postmortem Template
+lifecycle: experimental
 ---
 
 # /postmortem - Incident Postmortem Template

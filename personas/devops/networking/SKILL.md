@@ -1,6 +1,7 @@
 ---
 name: networking
 version: "2.0.0"
+lifecycle: experimental
 description: Linux networking troubleshooting — DNS, firewalls, ports, routing, and connectivity diagnostics. Invoke with /networking.
 metadata: {"openclaw": {"emoji": "⚙️", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

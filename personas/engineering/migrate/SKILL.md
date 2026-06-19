@@ -1,6 +1,7 @@
 ---
 name: migrate
 description: Code Migration Helper
+lifecycle: experimental
 ---
 
 # /migrate - Code Migration Helper

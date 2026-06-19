@@ -1,6 +1,7 @@
 ---
 name: production
 description: Production-mode prompt scaffold. Use when the decision is made and spec is clear — produce the final deliverable with no exploratory sprawl, no meta-commentary, no preamble. Output is the artifact itself, nothing else. Invoke with /production.
+lifecycle: experimental
 ---
 
 # Production Mode

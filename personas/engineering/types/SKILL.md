@@ -1,6 +1,7 @@
 ---
 name: types
 description: Python Type Hint Generator
+lifecycle: experimental
 ---
 
 # /types - Python Type Hint Generator

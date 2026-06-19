@@ -1,6 +1,7 @@
 ---
 name: monitor
 version: "2.0.0"
+lifecycle: experimental
 description: Observability patterns for logging, metrics, alerting, and health checks in production systems. Invoke with /monitor.
 metadata: {"openclaw": {"emoji": "⚙️", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

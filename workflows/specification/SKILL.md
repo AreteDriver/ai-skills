@@ -1,6 +1,7 @@
 ---
 name: specification
 description: Specification-mode prompt scaffold. Use when the decision is made and you need a buildable, testable, reviewable spec. Output is fixed-structure with measurable acceptance criteria. Never re-argues the premise. Invoke with /specification.
+lifecycle: experimental
 ---
 
 # Specification Mode

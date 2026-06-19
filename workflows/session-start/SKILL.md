@@ -1,6 +1,7 @@
 ---
 name: session-start
 version: "1.0.0"
+lifecycle: stable
 type: workflow
 category: session-management
 risk_level: low

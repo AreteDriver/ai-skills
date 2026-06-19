@@ -1,6 +1,7 @@
 ---
 name: sql
 description: SQL Query Optimization
+lifecycle: experimental
 ---
 
 # /sql - SQL Query Optimization

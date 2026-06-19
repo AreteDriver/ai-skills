@@ -1,6 +1,7 @@
 ---
 name: context-mapper
 version: "2.0.0"
+lifecycle: experimental
 description: "Pre-execution mapping of codebases, document collections, or problem spaces. Runs BEFORE any Gorgon workflow to give all agents shared situational awareness"
 metadata: {"openclaw": {"emoji": "🔬", "os": ["darwin", "linux", "win32"]}}
 type: agent

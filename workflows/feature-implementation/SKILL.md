@@ -1,6 +1,7 @@
 ---
 name: feature-implementation
 version: "2.0.0"
+lifecycle: experimental
 type: workflow
 category: engineering
 risk_level: medium

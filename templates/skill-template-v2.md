@@ -20,6 +20,7 @@ and Antigravity. See `intel/` for full pattern analysis.
 ---
 name: skill-name
 version: "1.0.0"
+lifecycle: experimental | beta | stable | deprecated
 description: "One-line description under 300 characters"
 # --- Type & Classification ---
 type: persona | agent | workflow

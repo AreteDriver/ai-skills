@@ -1,6 +1,7 @@
 ---
 name: security-hooks
 version: "1.0.0"
+lifecycle: experimental
 description: Sets up Claude Code security hooks — protective PreToolUse guards that block sensitive file access, dangerous commands, destructive git ops, system path writes, network calls, and permission changes. Includes 7 ready-to-deploy hook scripts.
 metadata: {"openclaw": {"emoji": "🤖", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

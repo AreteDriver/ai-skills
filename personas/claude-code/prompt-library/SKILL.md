@@ -1,6 +1,7 @@
 ---
 name: prompt-library
 description: Extract effective prompts from the current session and save them to a reusable library. Captures prompts that worked well for future reference. Invoke with /prompt-library or /prompts.
+lifecycle: experimental
 ---
 
 # Prompt Library Skill

@@ -1,6 +1,7 @@
 ---
 name: plugin-builder
 version: "2.0.0"
+lifecycle: experimental
 description: Builds Claude Code plugins — shareable packages that bundle skills, hooks, MCP server configs, and agent definitions into a single distributable unit with plugin.json manifest. Use when creating, scaffolding, packaging, or publishing Claude Code plugins.
 metadata: {"openclaw": {"emoji": "🤖", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

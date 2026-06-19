@@ -1,6 +1,7 @@
 ---
 name: data-engineer
 version: "2.0.0"
+lifecycle: experimental
 description: Handles data collection, ingestion, cleaning, and pipeline design
 metadata: {"openclaw": {"emoji": "📊", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

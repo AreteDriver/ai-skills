@@ -1,6 +1,7 @@
 ---
 name: review
 description: Code Review Checklist
+lifecycle: experimental
 ---
 
 # /review - Code Review Checklist

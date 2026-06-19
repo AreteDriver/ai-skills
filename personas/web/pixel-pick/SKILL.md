@@ -1,6 +1,7 @@
 ---
 name: pixel-pick
 description: Interactive coordinate picker - click on an image to get exact pixel coordinates. Useful for mapping UI element positions. Invoke with /pixel-pick <image-path>.
+lifecycle: experimental
 ---
 
 # Pixel Pick Skill

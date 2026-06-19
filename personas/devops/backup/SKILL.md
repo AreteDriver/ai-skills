@@ -1,6 +1,7 @@
 ---
 name: backup
 version: "2.0.0"
+lifecycle: experimental
 description: Backup strategy design, data integrity verification, and disaster recovery planning. Invoke with /backup.
 metadata: {"openclaw": {"emoji": "⚙️", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

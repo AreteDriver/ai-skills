@@ -1,6 +1,7 @@
 ---
 name: cro-analyst
 version: "1.0.0"
+lifecycle: experimental
 description: "Conversion rate optimization analysis with above-fold, CTA, trust signal, and cognitive load scoring"
 metadata: {"openclaw": {"emoji": "📈", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

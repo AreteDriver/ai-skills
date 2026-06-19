@@ -1,6 +1,7 @@
 ---
 name: senior-software-analyst
 version: "2.0.0"
+lifecycle: experimental
 description: Senior software analyst persona for codebase auditing, architecture mapping, documentation review, technical debt assessment, and system understanding. Use when you need to understand an unfamiliar codebase, evaluate architecture decisions, create documentation, or assess project health before making changes.
 metadata: {"openclaw": {"emoji": "🔧", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

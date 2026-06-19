@@ -1,6 +1,7 @@
 ---
 name: readme
 description: README Generator
+lifecycle: experimental
 ---
 
 # /readme - README Generator

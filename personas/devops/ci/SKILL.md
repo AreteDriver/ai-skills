@@ -1,6 +1,7 @@
 ---
 name: ci
 description: GitHub Actions Workflow Generator
+lifecycle: experimental
 ---
 
 # /ci - GitHub Actions Workflow Generator

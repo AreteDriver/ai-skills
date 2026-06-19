@@ -1,6 +1,7 @@
 ---
 name: learn
 description: Learning Resources & Path
+lifecycle: experimental
 ---
 
 # /learn - Learning Resources & Path

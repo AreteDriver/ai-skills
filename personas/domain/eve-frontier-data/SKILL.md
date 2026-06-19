@@ -1,6 +1,7 @@
 ---
 name: eve-frontier-data
 version: "1.0.0"
+lifecycle: experimental
 type: persona
 category: domain
 description: EVE Frontier data pipelines — killmail ingestion, smart assembly tracking, entity normalization, polling architecture, and SQLite/PostgreSQL storage patterns. Invoke with /eve-frontier-data.

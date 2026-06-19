@@ -1,6 +1,7 @@
 ---
 name: refactor
 description: Code Refactoring Analysis
+lifecycle: experimental
 ---
 
 # /refactor - Code Refactoring Analysis

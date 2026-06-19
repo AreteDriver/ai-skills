@@ -1,6 +1,7 @@
 ---
 name: deps
 description: Check for outdated dependencies and security vulnerabilities. Invoke with /deps.
+lifecycle: experimental
 ---
 
 # Deps Skill

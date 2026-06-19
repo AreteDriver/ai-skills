@@ -1,6 +1,7 @@
 ---
 name: release-engineer
 version: "2.0.0"
+lifecycle: experimental
 description: "Automates the last mile of shipping software — verifies release readiness, generates changelogs, tags versions, and pushes releases"
 metadata: {"openclaw": {"emoji": "🔬", "os": ["darwin", "linux", "win32"]}}
 type: agent

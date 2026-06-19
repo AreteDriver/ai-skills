@@ -1,6 +1,7 @@
 ---
 name: health
 description: Project Health Audit
+lifecycle: experimental
 ---
 
 # /health - Project Health Audit

@@ -1,6 +1,7 @@
 ---
 name: code-reviewer
 version: "2.0.0"
+lifecycle: stable
 description: Reviews code for quality, security, and best practices
 metadata: {"openclaw": {"emoji": "🔧", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

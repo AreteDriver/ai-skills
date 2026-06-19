@@ -1,6 +1,7 @@
 ---
 name: agent-pipeline
 version: "1.0.0"
+lifecycle: experimental
 description: "Automated Issue-to-PR-to-Merge pipeline using GitHub Actions and AI agents with review loops"
 metadata: {"openclaw": {"emoji": "🔄", "os": ["darwin", "linux", "win32"]}}
 type: workflow

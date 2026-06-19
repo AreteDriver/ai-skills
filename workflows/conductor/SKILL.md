@@ -1,6 +1,7 @@
 ---
 name: conductor
 version: "1.0.0"
+lifecycle: experimental
 description: "Context-driven development workflow — interactive setup, spec generation, TDD implementation with checkpoints and revert"
 metadata: {"openclaw": {"emoji": "🎼", "os": ["darwin", "linux", "win32"]}}
 type: workflow

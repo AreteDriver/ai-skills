@@ -1,6 +1,7 @@
 ---
 name: goal
 description: Manage the build-mode goal-loop — set, inspect, pause, resume, extend, or clear a durable build objective with a budget ceiling. Drives the goal-loop + goal-gate hooks via a repo-root .goal-active sentinel. Invoke with /goal.
+lifecycle: experimental
 ---
 
 # Goal — build-mode goal-loop control

@@ -1,6 +1,7 @@
 ---
 name: code-builder
 version: "2.0.0"
+lifecycle: experimental
 description: Writes clean, production-ready code based on plans
 metadata: {"openclaw": {"emoji": "🔧", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

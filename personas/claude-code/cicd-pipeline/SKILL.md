@@ -1,6 +1,7 @@
 ---
 name: cicd-pipeline
 version: "2.0.0"
+lifecycle: experimental
 description: Designs CI/CD pipelines that integrate Claude Code in headless mode for automated code review, test analysis, deployment gating, and PR triage. Use when building GitHub Actions workflows, GitLab CI pipelines, or any automation that uses Claude Code non-interactively via `claude -p` or the Agent SDK.
 metadata: {"openclaw": {"emoji": "🤖", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

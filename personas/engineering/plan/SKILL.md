@@ -1,6 +1,7 @@
 ---
 name: plan
 description: Implementation Planning
+lifecycle: experimental
 ---
 
 # /plan - Implementation Planning

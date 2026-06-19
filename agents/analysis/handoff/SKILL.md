@@ -1,6 +1,7 @@
 ---
 name: handoff
 version: "1.0.0"
+lifecycle: stable
 description: "Packages project state into structured context documents for agent sessions, human pickup, or Quorum IntentNodes"
 metadata: {"openclaw": {"emoji": "📋", "os": ["darwin", "linux", "win32"]}}
 type: agent

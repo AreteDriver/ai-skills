@@ -1,6 +1,7 @@
 ---
 name: exploration
 description: Exploration-mode prompt scaffold. Use when the option space isn't mapped yet — generate distinct alternatives, surface unknowns, challenge assumptions. The output is a list of options with evidence, not a recommendation. Invoke with /exploration.
+lifecycle: experimental
 ---
 
 # Exploration Mode

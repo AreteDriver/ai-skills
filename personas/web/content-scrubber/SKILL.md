@@ -1,6 +1,7 @@
 ---
 name: content-scrubber
 version: "1.0.0"
+lifecycle: experimental
 description: "Detects and removes AI-generated patterns from content — em-dashes, filler phrases, robotic rhythm"
 metadata: {"openclaw": {"emoji": "🧹", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

@@ -1,6 +1,7 @@
 ---
 name: session-manager
 version: "1.0.0"
+lifecycle: experimental
 description: "Cross-session continuity for Claude Code — resume context, structured handoffs, session history tracking"
 metadata: {"openclaw": {"emoji": "🔗", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

@@ -1,6 +1,7 @@
 ---
 name: hooks-designer
 version: "2.0.0"
+lifecycle: experimental
 description: Designs Claude Code hooks — lifecycle event handlers (PreToolUse, PostToolUse) that enforce quality gates, block dangerous operations, auto-lint, run tests before commits, and log tool usage. Use when creating, debugging, or configuring Claude Code hooks for automated enforcement and workflow automation.
 metadata: {"openclaw": {"emoji": "🤖", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

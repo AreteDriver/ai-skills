@@ -1,6 +1,7 @@
 ---
 name: session-end
 version: "1.0.0"
+lifecycle: experimental
 type: workflow
 category: session-management
 risk_level: low

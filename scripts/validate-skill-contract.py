@@ -25,9 +25,9 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 REQUIRED_FRONTMATTER = {
-    "persona": ["name", "description"],
-    "agent": ["name", "version", "description", "type", "category"],
-    "workflow": ["name", "version", "description", "type", "category"],
+    "persona": ["name", "description", "lifecycle"],
+    "agent": ["name", "version", "description", "type", "category", "lifecycle"],
+    "workflow": ["name", "version", "description", "type", "category", "lifecycle"],
 }
 
 REQUIRED_SECTIONS = [
@@ -80,6 +80,10 @@ def validate_skill(path: Path) -> dict[str, Any]:
     for key in required:
         if key not in frontmatter:
             errors.append(f"Missing frontmatter key: {key}")
+
+    lifecycle = frontmatter.get("lifecycle", "")
+    if lifecycle and lifecycle not in ("experimental", "beta", "stable", "deprecated"):
+        errors.append(f"Invalid lifecycle: '{lifecycle}' (must be experimental, beta, stable, deprecated)")
 
     for section_group in REQUIRED_SECTIONS:
         section_name = section_group[0].lstrip("# ")

@@ -1,6 +1,7 @@
 ---
 name: crud
 description: CRUD Boilerplate Generator
+lifecycle: experimental
 ---
 
 # /crud - CRUD Boilerplate Generator

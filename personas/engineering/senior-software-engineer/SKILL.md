@@ -1,6 +1,7 @@
 ---
 name: senior-software-engineer
 version: "2.0.0"
+lifecycle: stable
 description: Expert code reviewer, architect, and engineering mentor
 metadata: {"openclaw": {"emoji": "🔧", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

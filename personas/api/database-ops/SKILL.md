@@ -1,6 +1,7 @@
 ---
 name: database-ops
 version: "1.0.0"
+lifecycle: experimental
 type: persona
 category: api
 risk_level: low

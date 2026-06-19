@@ -1,6 +1,7 @@
 ---
 name: a11y
 description: Accessibility Checklist
+lifecycle: experimental
 ---
 
 # /a11y - Accessibility Checklist

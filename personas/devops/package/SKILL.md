@@ -1,6 +1,7 @@
 ---
 name: package
 description: Release Packaging Checklist
+lifecycle: experimental
 ---
 
 # /package - Release Packaging Checklist

@@ -1,6 +1,7 @@
 ---
 name: compare
 description: Side-by-side image comparison with difference highlighting. Useful for visual regression testing and UI changes. Invoke with /compare <image1> <image2>.
+lifecycle: experimental
 ---
 
 # Compare Skill

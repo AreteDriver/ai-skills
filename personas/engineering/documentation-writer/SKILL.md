@@ -1,6 +1,7 @@
 ---
 name: documentation-writer
 version: "2.0.0"
+lifecycle: experimental
 description: Creates comprehensive documentation for code and systems
 metadata: {"openclaw": {"emoji": "🔧", "os": ["darwin", "linux", "win32"]}}
 user-invocable: true

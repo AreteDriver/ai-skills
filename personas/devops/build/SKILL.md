@@ -1,6 +1,7 @@
 ---
 name: build
 description: Build and install the project in development mode. Handles venv creation and editable installs. Invoke with /build.
+lifecycle: experimental
 ---
 
 # Build Skill

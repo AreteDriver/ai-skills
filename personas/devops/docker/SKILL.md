@@ -1,6 +1,7 @@
 ---
 name: docker
 description: Dockerfile Generator
+lifecycle: experimental
 ---
 
 # /docker - Dockerfile Generator

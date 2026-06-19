@@ -1,6 +1,7 @@
 ---
 name: deploy
 description: Deployment Checklist & Setup
+lifecycle: experimental
 ---
 
 # /deploy - Deployment Checklist & Setup

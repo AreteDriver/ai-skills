@@ -1,6 +1,7 @@
 ---
 name: api-client
 version: "2.0.0"
+lifecycle: experimental
 description: "Authenticated HTTP API client with retry logic, rate limiting, response parsing, and structured error handling. Supports OAuth2, API key, and bearer token auth."
 metadata: {"openclaw": {"emoji": "🔗", "os": ["darwin", "linux", "win32"]}}
 type: agent

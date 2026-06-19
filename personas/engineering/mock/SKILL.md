@@ -1,6 +1,7 @@
 ---
 name: mock
 description: Test Mock & Fixture Generator
+lifecycle: experimental
 ---
 
 # /mock - Test Mock & Fixture Generator

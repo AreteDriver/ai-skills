@@ -1,6 +1,7 @@
 ---
 name: file-operations
 version: "2.0.0"
+lifecycle: experimental
 description: "Safe filesystem operations with path protection, backup enforcement, and audit logging"
 metadata: {"openclaw": {"emoji": "📁", "os": ["darwin", "linux", "win32"]}}
 type: agent

@@ -1,6 +1,7 @@
 ---
 name: lint
 description: Run ruff linter and formatter. Checks code quality and auto-fixes issues. Invoke with /lint or /lint <path>.
+lifecycle: experimental
 ---
 
 # Lint Skill

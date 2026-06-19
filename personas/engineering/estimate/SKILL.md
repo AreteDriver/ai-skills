@@ -1,6 +1,7 @@
 ---
 name: estimate
 description: Task Estimation Techniques
+lifecycle: experimental
 ---
 
 # /estimate - Task Estimation Techniques

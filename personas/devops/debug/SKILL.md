@@ -1,6 +1,7 @@
 ---
 name: debug
 description: Systematic Debugging Workflow
+lifecycle: experimental
 ---
 
 # /debug - Systematic Debugging Workflow

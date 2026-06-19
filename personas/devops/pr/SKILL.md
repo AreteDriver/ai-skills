@@ -1,6 +1,7 @@
 ---
 name: pr
 description: Pull Request Creator
+lifecycle: experimental
 ---
 
 # /pr - Pull Request Creator

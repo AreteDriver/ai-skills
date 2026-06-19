@@ -1,6 +1,7 @@
 ---
 name: release
 description: Create a new version release with proper tagging and changelog. Handles version bumping, tagging, and GitHub release creation. Invoke with /release [patch|minor|major] or just /release for patch.
+lifecycle: experimental
 ---
 
 # Release Skill

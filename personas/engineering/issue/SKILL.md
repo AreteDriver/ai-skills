@@ -1,6 +1,7 @@
 ---
 name: issue
 description: GitHub Issue Creator
+lifecycle: experimental
 ---
 
 # /issue - GitHub Issue Creator
