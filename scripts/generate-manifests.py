@@ -94,7 +94,14 @@ def _walk_personas() -> list:
                 "has_schema": _has_schema(skill_dir),
                 "has_references": frontmatter.get("has_references", False),
                 "version": frontmatter.get("version", "1.0.0"),
+                "lifecycle": frontmatter.get("lifecycle", "experimental"),
             })
+            if frontmatter.get("deprecated_by"):
+                results[-1]["deprecated_by"] = frontmatter["deprecated_by"]
+            if frontmatter.get("replaces"):
+                results[-1]["replaces"] = frontmatter["replaces"]
+            if frontmatter.get("sunset_date"):
+                results[-1]["sunset_date"] = frontmatter["sunset_date"]
     return results
 
 
@@ -122,7 +129,14 @@ def _walk_agents() -> list:
                 "version": frontmatter.get("version", "1.0.0"),
                 "risk_level": frontmatter.get("risk_level", "low"),
                 "consensus": frontmatter.get("consensus", "none"),
+                "lifecycle": frontmatter.get("lifecycle", "experimental"),
             })
+            if frontmatter.get("deprecated_by"):
+                results[-1]["deprecated_by"] = frontmatter["deprecated_by"]
+            if frontmatter.get("replaces"):
+                results[-1]["replaces"] = frontmatter["replaces"]
+            if frontmatter.get("sunset_date"):
+                results[-1]["sunset_date"] = frontmatter["sunset_date"]
     return results
 
 
@@ -144,7 +158,14 @@ def _walk_workflows() -> list:
             "has_references": frontmatter.get("has_references", False),
             "version": frontmatter.get("version", "1.0.0"),
             "phase": frontmatter.get("phase", "full-lifecycle"),
+            "lifecycle": frontmatter.get("lifecycle", "experimental"),
         })
+        if frontmatter.get("deprecated_by"):
+            results[-1]["deprecated_by"] = frontmatter["deprecated_by"]
+        if frontmatter.get("replaces"):
+            results[-1]["replaces"] = frontmatter["replaces"]
+        if frontmatter.get("sunset_date"):
+            results[-1]["sunset_date"] = frontmatter["sunset_date"]
     return results
 
 

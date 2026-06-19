@@ -10,6 +10,7 @@
   "version": "2.0.0",
   "risk_level": "medium",
   "consensus": "adaptive",
+  "lifecycle": "experimental",
   "tags": [
     "agent",
     "content",

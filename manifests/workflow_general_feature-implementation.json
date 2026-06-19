@@ -9,6 +9,7 @@
   "has_references": false,
   "version": "2.0.0",
   "phase": "full-lifecycle",
+  "lifecycle": "experimental",
   "tags": [
     "engineering",
     "medium",

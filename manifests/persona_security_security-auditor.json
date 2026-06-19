@@ -8,6 +8,7 @@
   "has_schema": true,
   "has_references": false,
   "version": "3.0.0",
+  "lifecycle": "stable",
   "tags": [
     "api",
     "bash",

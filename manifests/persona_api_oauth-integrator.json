@@ -8,6 +8,7 @@
   "has_schema": false,
   "has_references": false,
   "version": "1.0.0",
+  "lifecycle": "experimental",
   "tags": [
     "api",
     "architecture",

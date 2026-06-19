@@ -10,6 +10,7 @@
   "version": "1.0.0",
   "risk_level": "low",
   "consensus": "any",
+  "lifecycle": "stable",
   "tags": [
     "agent",
     "analysis",

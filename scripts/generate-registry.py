@@ -52,6 +52,14 @@ def _build_registry(manifests):
                 entry["tags"] = m["tags"]
             if m.get("triggers"):
                 entry["triggers"] = m["triggers"]
+            if m.get("lifecycle"):
+                entry["lifecycle"] = m["lifecycle"]
+            if m.get("deprecated_by"):
+                entry["deprecated_by"] = m["deprecated_by"]
+            if m.get("replaces"):
+                entry["replaces"] = m["replaces"]
+            if m.get("sunset_date"):
+                entry["sunset_date"] = m["sunset_date"]
             personas.setdefault(cat, []).append(entry)
 
         elif m["type"] == "agent":
@@ -79,6 +87,14 @@ def _build_registry(manifests):
                 entry["tags"] = m["tags"]
             if m.get("triggers"):
                 entry["triggers"] = m["triggers"]
+            if m.get("lifecycle"):
+                entry["lifecycle"] = m["lifecycle"]
+            if m.get("deprecated_by"):
+                entry["deprecated_by"] = m["deprecated_by"]
+            if m.get("replaces"):
+                entry["replaces"] = m["replaces"]
+            if m.get("sunset_date"):
+                entry["sunset_date"] = m["sunset_date"]
             agents.setdefault(cat, []).append(entry)
 
         elif m["type"] == "workflow":
@@ -95,6 +111,14 @@ def _build_registry(manifests):
                 entry["tags"] = m["tags"]
             if m.get("triggers"):
                 entry["triggers"] = m["triggers"]
+            if m.get("lifecycle"):
+                entry["lifecycle"] = m["lifecycle"]
+            if m.get("deprecated_by"):
+                entry["deprecated_by"] = m["deprecated_by"]
+            if m.get("replaces"):
+                entry["replaces"] = m["replaces"]
+            if m.get("sunset_date"):
+                entry["sunset_date"] = m["sunset_date"]
             workflows.append(entry)
 
     # Sort categories and entries for stability

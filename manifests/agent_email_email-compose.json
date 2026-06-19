@@ -10,6 +10,7 @@
   "version": "2.0.0",
   "risk_level": "high",
   "consensus": "unanimous+user",
+  "lifecycle": "experimental",
   "tags": [
     "agent",
     "content",

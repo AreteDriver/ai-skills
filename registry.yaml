@@ -42,6 +42,7 @@ personas:
     - reviewing api test coverage gaps
     - setting up load/stress testing with k6 or artillery
     - use tools like schemathesis, dredd, or pact for automated validation
+    lifecycle: experimental
   - name: database-ops
     path: personas/api/database-ops
     description: Database operations — schema design, migration authoring, query optimization,
@@ -80,6 +81,7 @@ personas:
     - planning data model changes for existing production databases
     - propose column types with explicit sizing (varchar(255), not text unless needed)
     - recommend covering indexes for frequent query patterns
+    lifecycle: experimental
   - name: oauth-integrator
     path: personas/api/oauth-integrator
     description: OAuth and API authentication — OAuth 2.0 flows, PKCE, token lifecycle,
@@ -120,6 +122,7 @@ personas:
       sso
     - migrating between authentication systems
     - plan migration with zero-downtime token transition
+    lifecycle: experimental
   - name: webhook-designer
     path: personas/api/webhook-designer
     description: Webhook architecture — payload design, retry strategies, HMAC signature
@@ -157,6 +160,7 @@ personas:
     - include timestamp in signature to prevent replay attacks (5-minute window)
     - plan schema versioning strategy (url path vs header vs envelope field)
     - provide verification code in python, node.js, and go
+    lifecycle: experimental
   claude-code:
   - name: plugin-builder
     path: personas/claude-code/plugin-builder
@@ -192,6 +196,7 @@ personas:
     - set `user-invocable` and `disable-model-invocation` correctly
     - tag the release with semantic version
     - test hooks don't interfere with normal claude operation
+    lifecycle: experimental
   - name: cicd-pipeline
     path: personas/claude-code/cicd-pipeline
     description: Designs CI/CD pipelines that integrate Claude Code in headless mode
@@ -232,6 +237,7 @@ personas:
     - 'name: post review comment'
     - 'name: review pr'
     - 'uses: actions/checkout@v4'
+    lifecycle: experimental
   - name: session-memory-manager
     path: personas/claude-code/session-memory-manager
     description: Manages Claude Code's persistent memory system — auto-memory files,
@@ -255,16 +261,19 @@ personas:
     - ensure memory.md stays under 200 lines
     - pruning stale memory entries or consolidating duplicate knowledge
     - setting up or reorganizing project memory files (memory.md, topic files)
+    lifecycle: experimental
   - name: decision-log
     path: personas/claude-code/decision-log
     description: Log high-leverage decisions from the current work session to the
       Arete Decision Log. Extracts architecture, UX, scope, tooling, and philosophy
       decisions. Invoke with /decision-log or /adl.
+    lifecycle: experimental
   - name: prompt-library
     path: personas/claude-code/prompt-library
     description: Extract effective prompts from the current session and save them
       to a reusable library. Captures prompts that worked well for future reference.
       Invoke with /prompt-library or /prompts.
+    lifecycle: experimental
   - name: security-hooks
     path: personas/claude-code/security-hooks
     description: Sets up Claude Code security hooks — protective PreToolUse guards
@@ -286,6 +295,7 @@ personas:
     - preventing destructive git operations (force-push, reset --hard, branch -d)
     - setting up security guardrails for a new project's `.claude/settings.json`
     - writing hook scripts that block access to secrets, credentials, and env files
+    lifecycle: experimental
   - name: hooks-designer
     path: personas/claude-code/hooks-designer
     description: Designs Claude Code hooks — lifecycle event handlers (PreToolUse,
@@ -316,6 +326,7 @@ personas:
     - require confirmation patterns for destructive operations
     - run linters on changed files only (not entire codebase)
     - track file modifications for audit trails
+    lifecycle: experimental
   - name: mcp-server-builder
     path: personas/claude-code/mcp-server-builder
     description: Builds and configures Model Context Protocol (MCP) servers — tools
@@ -360,6 +371,7 @@ personas:
     - npx slack-mcp-server
     - review server logs
     - scaffold project structure with proper dependencies
+    lifecycle: experimental
   - name: session-manager
     path: personas/claude-code/session-manager
     description: Cross-session continuity for Claude Code — resume context, structured
@@ -376,6 +388,7 @@ personas:
     - managing swing shift workflows where sessions start and end at predictable times
     - running parallel agent sessions that need to stay synchronized
     - starting a new claude code session and need to resume prior work
+    lifecycle: experimental
   data:
   - name: data-engineer
     path: personas/data/data-engineer
@@ -399,6 +412,7 @@ personas:
     - designing data ingestion, transformation, or etl/elt pipelines
     - handle schema evolution gracefully
     - planning for schema evolution, data growth, or pipeline monitoring
+    lifecycle: experimental
   - name: report-generator
     path: personas/data/report-generator
     description: Creates executive summaries, reports, and documentation of findings
@@ -416,6 +430,7 @@ personas:
     - quantify impact where possible
     - structuring incident reports, status reports, or recommendation reports
     - writing executive summaries that distill findings for leadership
+    lifecycle: experimental
   - name: data-analyst
     path: personas/data/data-analyst
     description: Performs statistical analysis, finds patterns, and generates insights
@@ -438,6 +453,7 @@ personas:
     - performing exploratory data analysis on a new or unfamiliar dataset
     - running statistical hypothesis tests or calculating significance
     - understand data shape, types, and distributions
+    lifecycle: experimental
   - name: data-visualizer
     path: personas/data/data-visualizer
     description: Creates charts, dashboards, and visual representations of data
@@ -459,6 +475,7 @@ personas:
     - designing dashboard layouts with multiple coordinated views
     - optimize for the key message
     - select the right chart type for the data
+    lifecycle: experimental
   devops:
   - name: release
     path: personas/devops/release
@@ -467,6 +484,7 @@ personas:
       [patch|minor|major] or just /release for patch.
     tags:
     - bash
+    lifecycle: experimental
   - name: commit
     path: personas/devops/commit
     description: Create well-formatted git commits with conventional commit style.
@@ -474,6 +492,7 @@ personas:
       /commit or after completing a task.
     tags:
     - bash
+    lifecycle: experimental
   - name: backup
     path: personas/devops/backup
     description: Backup strategy design, data integrity verification, and disaster
@@ -492,6 +511,7 @@ personas:
     - designing backup strategies for new projects or migrating existing ones
     - investigating backup integrity failures or restore issues
     - setting up automated backup schedules with verification
+    lifecycle: experimental
   - name: networking
     path: personas/devops/networking
     description: Linux networking troubleshooting — DNS, firewalls, ports, routing,
@@ -509,17 +529,20 @@ personas:
     - debugging connectivity issues between services or hosts
     - diagnosing dns resolution failures or routing problems
     - troubleshooting docker or container networking
+    lifecycle: experimental
   - name: changelog
     path: personas/devops/changelog
     description: Generate Changelog from Commits
     tags:
     - bash
+    lifecycle: experimental
   - name: debug
     path: personas/devops/debug
     description: Systematic Debugging Workflow
     tags:
     - bash
     - python
+    lifecycle: experimental
   - name: deploy
     path: personas/devops/deploy
     description: Deployment Checklist & Setup
@@ -527,6 +550,7 @@ personas:
     - bash
     - ini
     - python
+    lifecycle: experimental
   - name: monitor
     path: personas/devops/monitor
     description: Observability patterns for logging, metrics, alerting, and health
@@ -545,12 +569,14 @@ personas:
     - building operational dashboards for service visibility
     - designing alerting rules or health check endpoints
     - investigating production issues through log analysis
+    lifecycle: experimental
   - name: pre-release
     path: personas/devops/pre-release
     description: Pre-Release Checklist
     tags:
     - python
     - toml
+    lifecycle: experimental
   - name: process-management
     path: personas/devops/process-management
     description: Monitor and control system processes with safety protections. Invoke
@@ -580,12 +606,15 @@ personas:
     - verify process exists and identity
     - verify service health after changes
     - wait for confirmation
+    lifecycle: experimental
   - name: ci
     path: personas/devops/ci
     description: GitHub Actions Workflow Generator
+    lifecycle: experimental
   - name: postmortem
     path: personas/devops/postmortem
     description: Incident Postmortem Template
+    lifecycle: experimental
   - name: systemd
     path: personas/devops/systemd
     description: Systemd service management, unit files, timers, journalctl, and troubleshooting.
@@ -603,6 +632,7 @@ personas:
     - debugging failed services using journalctl and systemd-analyze
     - hardening service security with systemd sandboxing directives
     - setting up scheduled tasks with systemd timers (cron replacement)
+    lifecycle: experimental
   - name: lint
     path: personas/devops/lint
     description: Run ruff linter and formatter. Checks code quality and auto-fixes
@@ -610,18 +640,21 @@ personas:
     tags:
     - bash
     - toml
+    lifecycle: experimental
   - name: profile
     path: personas/devops/profile
     description: Performance Profiling Guide
     tags:
     - bash
     - python
+    lifecycle: experimental
   - name: test
     path: personas/devops/test
     description: Run pytest with coverage summary. Provides quick feedback on test
       status and coverage. Invoke with /test or /test <path>.
     tags:
     - bash
+    lifecycle: experimental
   - name: perf
     path: personas/devops/perf
     description: Performance profiling and optimization for Python, Rust, and web
@@ -642,22 +675,26 @@ personas:
     - establishing performance baselines before optimization
     - investigating memory leaks or excessive resource consumption
     - optimizing database queries or hot code paths
+    lifecycle: experimental
   - name: pr
     path: personas/devops/pr
     description: Pull Request Creator
     tags:
     - bash
+    lifecycle: experimental
   - name: docker
     path: personas/devops/docker
     description: Dockerfile Generator
     tags:
     - dockerfile
+    lifecycle: experimental
   - name: deps
     path: personas/devops/deps
     description: Check for outdated dependencies and security vulnerabilities. Invoke
       with /deps.
     tags:
     - bash
+    lifecycle: experimental
   - name: logs
     path: personas/devops/logs
     description: Logging Setup & Analysis
@@ -665,28 +702,33 @@ personas:
     - bash
     - python
     - rust
+    lifecycle: experimental
   - name: health
     path: personas/devops/health
     description: Project Health Audit
     tags:
     - bash
+    lifecycle: experimental
   - name: build
     path: personas/devops/build
     description: Build and install the project in development mode. Handles venv creation
       and editable installs. Invoke with /build.
     tags:
     - bash
+    lifecycle: experimental
   - name: package
     path: personas/devops/package
     description: Release Packaging Checklist
     tags:
     - bash
+    lifecycle: experimental
   - name: env
     path: personas/devops/env
     description: Environment Management
     tags:
     - bash
     - python
+    lifecycle: experimental
   domain:
   - name: hauling-job-scheduler
     path: personas/domain/hauling-job-scheduler
@@ -707,6 +749,7 @@ personas:
     - optimizing truck routing, dump runs, and geographic clustering
     - planning or reviewing a day's job schedule and route order
     - planning the upcoming week's capacity and identifying open slots
+    lifecycle: experimental
   - name: board-of-advisors
     path: personas/domain/board-of-advisors
     description: USE WHEN the user is making a non-trivial decision (architecture,
@@ -716,6 +759,7 @@ personas:
       where they agree, where they diverge, and the recommended call with the dissenting
       case preserved. Do NOT use for execution tasks, code changes, or yes/no questions
       with one right answer. Invoke with /board-of-advisors.
+    lifecycle: experimental
   - name: arete-research-command-center
     path: personas/domain/arete-research-command-center
     description: Multi-source intelligence workflow for Arete. Converts podcast/video/research
@@ -731,6 +775,7 @@ personas:
     - extracting harvestable ideas, skills, workflows, and risks
     - reviewing episode batches (moonshots, ai daily brief, all-in, a16z, dwarkesh,
       se
+    lifecycle: experimental
   - name: eve-frontier-api
     path: personas/domain/eve-frontier-api
     description: EVE Frontier World API integration — endpoints, auth (FusionAuth
@@ -748,6 +793,7 @@ personas:
     - implements fusionauth oauth2 / sui zklogin authentication
     - needs to handle world api pagination or response format quirks
     - works with smart characters, tribes, smart assemblies, killmails, or types
+    lifecycle: experimental
   - name: apple-dev-best-practices
     path: personas/domain/apple-dev-best-practices
     description: Apple platform development best practices for Swift 6, SwiftUI, SwiftData,
@@ -769,6 +815,7 @@ personas:
     - designing navigation, state management, or concurrency patterns for apple platfo
     - reviewing swift code or planning apple platform architecture
     - working with swiftdata, core data, storekit, cloudkit, or other apple frameworks
+    lifecycle: experimental
   - name: mentor-linux
     path: personas/domain/mentor-linux
     description: Linux certification preparation mentor for RHCSA, Linux+, and LPIC-1
@@ -791,6 +838,7 @@ personas:
     - provide a hands-on exercise to reinforce learning
     - quiz the learner on what they just practiced
     - show practical examples with real commands
+    lifecycle: experimental
   - name: eve-frontier-chain
     path: personas/domain/eve-frontier-chain
     description: EVE Frontier on-chain patterns — MUD v2 smart contracts, Sui SDK
@@ -809,6 +857,7 @@ personas:
     - implements on-chain gating for smart assemblies
     - integrates sui sdk for token operations or zklogin
     - works with eve frontier's on-chain entity ids or wallet addresses
+    lifecycle: experimental
   - name: arete-funding-value-brief
     path: personas/domain/arete-funding-value-brief
     description: Converts Arete execution signals into investor-grade funding narratives,
@@ -824,6 +873,7 @@ personas:
     - preparing investor updates, memos, or raise narratives
     - prioritizing use-of-funds decisions
     - translating workflow outcomes into business value
+    lifecycle: experimental
   - name: strategic-planner
     path: personas/domain/strategic-planner
     description: Breaks down features into actionable implementation plans
@@ -842,6 +892,7 @@ personas:
     - identify all components that need to be created or modified
     - needing a structured plan before starting complex multi-file work
     - prioritizing a backlog of tasks by urgency, impact, and dependencies
+    lifecycle: experimental
   - name: gamedev
     path: personas/domain/gamedev
     description: Game development patterns for Bevy/Rust ECS, game loops, state machines,
@@ -859,6 +910,7 @@ personas:
     - implementing game state machines, physics, collision, or spawning systems
     - needing reference patterns for bevy components, systems, events, or resources
     - optimizing game loop performance or debugging frame budget issues
+    lifecycle: experimental
   - name: gameplay-tester
     path: personas/domain/gameplay-tester
     description: Professional gameplay tester and QA analyst persona for playtesting,
@@ -875,6 +927,7 @@ personas:
     - when creating qa documentation
     - when preparing for external playtesters
     - when something "feels off" but you can't identify why
+    lifecycle: experimental
   - name: tie-dye-business-coach
     path: personas/domain/tie-dye-business-coach
     description: Socratic business coaching for handmade tie-dye businesses—diagnoses
@@ -911,6 +964,7 @@ personas:
     - '"where does your current traffic come from—etsy search, social, word of mouth?"'
     - analyzing pricing, costs, and margins for handmade products
     - ask 1-2 targeted diagnostic questions
+    lifecycle: experimental
   - name: hauling-business-advisor
     path: personas/domain/hauling-business-advisor
     description: Provides data-driven operational insights and recommendations for
@@ -933,6 +987,7 @@ personas:
     - identify trends and patterns
     - planning capacity expansion, seasonal staffing, or fleet decisions
     - reviewing business performance metrics (revenue, margins, utilization)
+    lifecycle: experimental
   - name: g13-layout
     path: personas/domain/g13-layout
     description: Interactive G13 button position editor. Click on device image to
@@ -940,6 +995,7 @@ personas:
     tags:
     - bash
     - python
+    lifecycle: experimental
   - name: streamlit
     path: personas/domain/streamlit
     description: Streamlit app patterns for layout, state management, data display,
@@ -957,6 +1013,7 @@ personas:
     - deploying streamlit apps in docker or creating kiosk/tv display interfaces
     - managing session state across reruns or optimizing with caching
     - needing reference patterns for forms, layouts, sidebar filters, or auto-refresh
+    lifecycle: experimental
   - name: arete-studio-strategy-os
     path: personas/domain/arete-studio-strategy-os
     description: Strategy and operating system persona for Arete. Converts intelligence
@@ -972,6 +1029,7 @@ personas:
     - converting research into workflow and process upgrades
     - defining ai strategy and operating priorities
     - selecting what to keep, kill, or pivot
+    lifecycle: experimental
   - name: hauling-lead-qualifier
     path: personas/domain/hauling-lead-qualifier
     description: Qualifies and prioritizes incoming leads for junk removal businesses
@@ -992,11 +1050,13 @@ personas:
     - recommend response approach
     - score lead value and urgency
     - triaging a batch of leads to determine response priority order
+    lifecycle: experimental
   - name: ogma
     path: personas/domain/ogma
     description: Reverse-Engineering Synthesis Persona
     tags:
     - bash
+    lifecycle: experimental
   - name: hauling-quote-generator
     path: personas/domain/hauling-quote-generator
     description: Converts load estimates into professional customer-facing quotes
@@ -1016,6 +1076,7 @@ personas:
     - generating quick text/sms quotes for fast customer response
     - include travel/fuel if applicable
     - pricing special disposal items (mattresses, appliances, hazmat, e-waste)
+    lifecycle: experimental
   - name: eve-esi
     path: personas/domain/eve-esi
     description: EVE Online ESI API integration patterns, authentication flows, rate
@@ -1033,6 +1094,7 @@ personas:
     - integrating esi api endpoints or implementing eve sso authentication
     - optimizing api call patterns with etag caching and pagination
     - working with sde (static data export) data models
+    lifecycle: experimental
   - name: hauling-image-estimator
     path: personas/domain/hauling-image-estimator
     description: Analyzes photos of junk, debris, or estate contents to estimate volume,
@@ -1054,6 +1116,7 @@ personas:
     - note access challenges (stairs, narrow paths, distance to truck)
     - providing quick ballpark estimates for phone/text quoting from photos
     - scan for item categories systematically
+    lifecycle: experimental
   - name: eve-frontier-data
     path: personas/domain/eve-frontier-data
     description: EVE Frontier data pipelines — killmail ingestion, smart assembly
@@ -1073,17 +1136,20 @@ personas:
     - designs database schemas for frontier data
     - implements killmail, smart assembly, or entity tracking systems
     - works on polling architecture or incremental sync patterns
+    lifecycle: experimental
   engineering:
   - name: issue
     path: personas/engineering/issue
     description: GitHub Issue Creator
     tags:
     - bash
+    lifecycle: experimental
   - name: review
     path: personas/engineering/review
     description: Code Review Checklist
     tags:
     - python
+    lifecycle: experimental
   - name: senior-software-analyst
     path: personas/engineering/senior-software-analyst
     description: Senior software analyst persona for codebase auditing, architecture
@@ -1102,6 +1168,7 @@ personas:
     - coordinating multi-agent parallel analysis of large codebases
     - exploring an unfamiliar codebase before starting development work
     - mapping system architecture, component boundaries, and data flows
+    lifecycle: experimental
   - name: code-builder
     path: personas/engineering/code-builder
     description: Writes clean, production-ready code based on plans
@@ -1124,6 +1191,7 @@ personas:
     - review the plan thoroughly before starting
     - write the interface/api first, then implement
     - writing production code that needs to be testable and maintainable
+    lifecycle: experimental
   - name: software-architect
     path: personas/engineering/software-architect
     description: Designs system architecture and makes technical decisions
@@ -1149,16 +1217,19 @@ personas:
     - gather requirements and constraints first
     - identify system boundaries and integrations
     - planning mcp server architecture or claude code plugin structure
+    lifecycle: stable
   - name: refactor
     path: personas/engineering/refactor
     description: Code Refactoring Analysis
     tags:
     - python
+    lifecycle: experimental
   - name: spec
     path: personas/engineering/spec
     description: Technical Specification Writer
     tags:
     - python
+    lifecycle: experimental
   - name: senior-software-engineer
     path: personas/engineering/senior-software-engineer
     description: Expert code reviewer, architect, and engineering mentor
@@ -1183,41 +1254,50 @@ personas:
     - provide concrete fix suggestions, not just complaints
     - reviewing code for quality, security, and maintainability across any language
       or
+    lifecycle: stable
   - name: types
     path: personas/engineering/types
     description: Python Type Hint Generator
     tags:
     - python
+    lifecycle: experimental
   - name: plan
     path: personas/engineering/plan
     description: Implementation Planning
+    lifecycle: experimental
   - name: arch
     path: personas/engineering/arch
     description: Architecture Diagram Generator
+    lifecycle: experimental
   - name: sql
     path: personas/engineering/sql
     description: SQL Query Optimization
     tags:
     - sql
+    lifecycle: experimental
   - name: learn
     path: personas/engineering/learn
     description: Learning Resources & Path
+    lifecycle: experimental
   - name: explain
     path: personas/engineering/explain
     description: Deep Code Explanation
     tags:
     - python
+    lifecycle: experimental
   - name: crud
     path: personas/engineering/crud
     description: CRUD Boilerplate Generator
     tags:
     - python
+    lifecycle: experimental
   - name: migrate
     path: personas/engineering/migrate
     description: Code Migration Helper
     tags:
     - bash
     - python
+    lifecycle: experimental
   - name: code-reviewer
     path: personas/engineering/code-reviewer
     description: Reviews code for quality, security, and best practices
@@ -1241,6 +1321,7 @@ personas:
     - reviewing a pr, diff, or code snippet for bugs, quality, and best practices
     - running multi-reviewer parallel analysis on large or critical prs
     - verify tests cover the changes
+    lifecycle: stable
   - name: documentation-writer
     path: personas/engineering/documentation-writer
     description: Creates comprehensive documentation for code and systems
@@ -1261,20 +1342,24 @@ personas:
     - note any side effects or preconditions
     - producing audience-appropriate technical writing (executive, developer, end-user
     - writing api reference documentation, user guides, or readme files
+    lifecycle: experimental
   - name: estimate
     path: personas/engineering/estimate
     description: Task Estimation Techniques
+    lifecycle: experimental
   - name: readme
     path: personas/engineering/readme
     description: README Generator
     tags:
     - bash
     - python
+    lifecycle: experimental
   - name: mock
     path: personas/engineering/mock
     description: Test Mock & Fixture Generator
     tags:
     - python
+    lifecycle: experimental
   - name: seed
     path: personas/engineering/seed
     description: Test Data Generation
@@ -1282,6 +1367,7 @@ personas:
     - csv
     - python
     - sql
+    lifecycle: experimental
   - name: testing-specialist
     path: personas/engineering/testing-specialist
     description: Creates comprehensive test suites for implementations
@@ -1301,6 +1387,7 @@ personas:
     - test boundary values and edge cases
     - test each function in isolation
     - writing a comprehensive test suite for new or existing code
+    lifecycle: stable
   - name: scaffold
     path: personas/engineering/scaffold
     description: Project Scaffolding
@@ -1308,11 +1395,13 @@ personas:
     - python
     - rust
     - toml
+    lifecycle: experimental
   - name: api-docs
     path: personas/engineering/api-docs
     description: API Documentation Generator
     tags:
     - python
+    lifecycle: experimental
   - name: e2e
     path: personas/engineering/e2e
     description: End-to-End Test Setup
@@ -1320,6 +1409,7 @@ personas:
     - bash
     - ini
     - python
+    lifecycle: experimental
   - name: composite-scorer
     path: personas/engineering/composite-scorer
     description: Weighted 0-100 composite scoring with category breakdowns, grade
@@ -1350,6 +1440,7 @@ personas:
     - evaluating content, code, infrastructure, or any artifact against quality criter
     - generating readiness assessments (publish-ready, deploy-ready, ship-ready)
     - validate weights sum to 1.0 (warn and normalize if not)
+    lifecycle: experimental
   security:
   - name: accessibility-checker
     path: personas/security/accessibility-checker
@@ -1379,6 +1470,7 @@ personas:
     - test keyboard interaction pattern against wai-aria apg
     - validate focus management
     - verify aria roles, states, and properties
+    lifecycle: experimental
   - name: security-sweep
     path: personas/security/security-sweep
     description: Fleet-wide security audit — runs /security-auditor across multiple
@@ -1396,6 +1488,7 @@ personas:
       re
     - preparing the portfolio for an external audit (tiaid assessment, job application
     - verifying no security regressions after a fleet-wide dependabot sweep
+    lifecycle: experimental
   - name: security-auditor
     path: personas/security/security-auditor
     description: SAST + OWASP audit with LLM-triaged findings. Runs semgrep/bandit/gitleaks/pip-audit,
@@ -1419,6 +1512,7 @@ personas:
     - performing threat modeling (stride) or preparing for penetration testing
     - reviewing authentication, authorization, and cryptographic implementations
     - scanning for hardcoded secrets, credentials, and api keys in a codebase
+    lifecycle: stable
   web:
   - name: a11y
     path: personas/web/a11y
@@ -1427,6 +1521,7 @@ personas:
     - bash
     - css
     - tsx
+    lifecycle: experimental
   - name: headline-hook-generator
     path: personas/web/headline-hook-generator
     description: Generates scored headline variations, meta elements, and video hooks
@@ -1445,6 +1540,7 @@ personas:
     - producing email subject line variations for a/b testing
     - selecting the strongest headline from a set of options
     - writing first-3-second video hooks for retention
+    lifecycle: experimental
   - name: web-performance
     path: personas/web/web-performance
     description: Optimizes website performance — Core Web Vitals, bundle analysis,
@@ -1476,6 +1572,7 @@ personas:
     - reducing third-party script impact
     - review third-party script impact
     - run lighthouse audit (performance, accessibility, best practices, seo)
+    lifecycle: experimental
   - name: web-designer
     path: personas/web/web-designer
     description: Designs website layouts, color systems, typography, and visual hierarchy.
@@ -1511,6 +1608,7 @@ personas:
     - ensure focus indicators are visible for keyboard navigation
     - extract primary, secondary, and accent colors from brand assets
     - 'foreground: 210 40% 98%;'
+    lifecycle: experimental
   - name: pixel-pick
     path: personas/web/pixel-pick
     description: Interactive coordinate picker - click on an image to get exact pixel
@@ -1519,6 +1617,7 @@ personas:
     tags:
     - bash
     - python
+    lifecycle: experimental
   - name: seo-content-pipeline
     path: personas/web/seo-content-pipeline
     description: 'Orchestrates the full SEO content pipeline: research, write, optimize,
@@ -1537,6 +1636,7 @@ personas:
     - producing content that needs research briefs, drafts, seo scoring, and optimizat
     - running a multi-stage content workflow with staged directories (topics/ through
     - writing long-form articles optimized for both readers and search engines
+    lifecycle: experimental
   - name: web-analytics
     path: personas/web/web-analytics
     description: Implements and interprets web analytics — GA4 setup, event tracking,
@@ -1563,6 +1663,7 @@ personas:
     - setting up google analytics 4 on a new website
     - setting up google search console integration
     - verify data is flowing
+    lifecycle: experimental
   - name: web-content-writer
     path: personas/web/web-content-writer
     description: Writes website copy, blog posts, landing pages, and email content
@@ -1586,6 +1687,7 @@ personas:
     - writing about pages, team bios, or company narratives
     - writing email content (newsletters, drip campaigns, transactional)
     - writing landing page copy (hero sections, feature blocks, ctas)
+    lifecycle: experimental
   - name: web-frontend-builder
     path: personas/web/web-frontend-builder
     description: Builds production-grade frontend interfaces with React, Next.js,
@@ -1616,6 +1718,7 @@ personas:
     - set up base layout with responsive navigation
     - set up typescript, eslint, prettier, tailwind css
     - setting up state management (hooks, context, zustand)
+    lifecycle: experimental
   - name: web-merchant
     path: personas/web/web-merchant
     description: Builds e-commerce functionality — product catalogs, shopping carts,
@@ -1644,6 +1747,7 @@ personas:
     - managing order lifecycle (pending, paid, fulfilled, refunded)
     - set up server-side payment intent creation
     - setting up shopify storefront (liquid templates, storefront api)
+    lifecycle: experimental
   - name: web-seo-optimizer
     path: personas/web/web-seo-optimizer
     description: Optimizes websites for search engines — technical SEO, structured
@@ -1674,12 +1778,14 @@ personas:
     - optimizing meta tags, titles, and open graph tags
     - review http status codes (404s, redirect loops)
     - verify canonical urls and hreflang tags
+    lifecycle: experimental
   - name: align-debug
     path: personas/web/align-debug
     description: Overlay coordinate grid on screenshots for visual debugging. Helps
       align UI elements by showing pixel coordinates. Invoke with /align-debug <image-path>.
     tags:
     - python
+    lifecycle: experimental
   - name: content-scrubber
     path: personas/web/content-scrubber
     description: Detects and removes AI-generated patterns from content — em-dashes,
@@ -1696,6 +1802,7 @@ personas:
     - preparing ai-assisted content for publication (articles, scripts, landing pages)
     - reviewing content that needs to pass ai detection tools
     - scrubbing video scripts before tts rendering
+    lifecycle: experimental
   - name: web-backend-builder
     path: personas/web/web-backend-builder
     description: Builds backend APIs and server logic with FastAPI, Flask, Express,
@@ -1724,6 +1831,7 @@ personas:
     - integrating with third-party apis and webhooks
     - plan pagination, filtering, and sorting
     - setting up middleware pipelines (cors, rate limiting, logging)
+    lifecycle: experimental
   - name: cro-analyst
     path: personas/web/cro-analyst
     description: Conversion rate optimization analysis with above-fold, CTA, trust
@@ -1756,6 +1864,7 @@ personas:
     - 'mid-page: [n] ctas'
     - producing a conversion readiness score before a launch or campaign
     - 'recommended: primary cta above fold + repeated every 2-3 scroll depths'
+    lifecycle: experimental
   - name: brand-voice-architect
     path: personas/web/brand-voice-architect
     description: Defines and maintains brand voice context files that drive all content
@@ -1773,6 +1882,7 @@ personas:
     - establishing brand voice for a new project, product, or channel
     - onboarding a new content channel that needs voice adaptation (blog, social,
       vide
+    lifecycle: experimental
   - name: web-deployer
     path: personas/web/web-deployer
     description: Deploys websites to Vercel, Fly.io, Netlify, Cloudflare, or VPS.
@@ -1801,6 +1911,7 @@ personas:
     - set up project linking and configuration
     - setting up ssl/tls certificates
     - troubleshooting deployment failures or dns issues
+    lifecycle: experimental
   - name: web-security-hardener
     path: personas/web/web-security-hardener
     description: Hardens websites against common attacks — security headers, CSP policies,
@@ -1826,6 +1937,7 @@ personas:
     - securing file uploads
     - test headers don't break functionality
     - verify with mozilla observatory
+    lifecycle: experimental
   - name: web-cms-manager
     path: personas/web/web-cms-manager
     description: Manages content management systems — WordPress themes/plugins, Ghost
@@ -1873,6 +1985,7 @@ personas:
     - set up api access (rest or graphql)
     - set up content scheduling and editorial workflow
     - set up membership and newsletter features
+    lifecycle: experimental
   - name: compare
     path: personas/web/compare
     description: Side-by-side image comparison with difference highlighting. Useful
@@ -1880,6 +1993,7 @@ personas:
       <image2>.
     tags:
     - python
+    lifecycle: experimental
 agents:
   analysis:
   - name: entity-resolver
@@ -1905,6 +2019,7 @@ agents:
     - during convergent intent resolution when agents reference the same entity differ
     - finding and reviewing suspected duplicates in an entity database
     - manually merging entities the user has identified as the same real-world entity
+    lifecycle: experimental
   - name: handoff
     path: agents/analysis/handoff
     description: Packages project state into structured context documents for agent
@@ -1924,6 +2039,7 @@ agents:
     - handing off work to another developer or ai agent
     - packaging context for an agent-pipeline automated run
     - switching between projects and need to capture current state
+    lifecycle: stable
   - name: document-forensics
     path: agents/analysis/document-forensics
     description: Investigative methodology for analyzing document collections — provenance
@@ -1946,6 +2062,7 @@ agents:
     - investigating what is suspicious, inconsistent, or hidden within documents
     - performing the full investigative workflow (inventory, provenance, timeline,
       ent
+    lifecycle: experimental
   - name: release-engineer
     path: agents/analysis/release-engineer
     description: Automates the last mile of shipping software — verifies release readiness,
@@ -1969,6 +2086,7 @@ agents:
     - running portfolio-wide release readiness checks across multiple repositories
     - the user says "ship it", "release this", "tag a new version", or "make this
       publ
+    lifecycle: experimental
   - name: context-mapper
     path: agents/analysis/context-mapper
     description: Pre-execution mapping of codebases, document collections, or problem
@@ -1993,6 +2111,7 @@ agents:
     - starting any gorgon workflow that involves multiple agents operating on the
       same
     - switching between projects in a multi-repo workflow and agents need fresh contex
+    lifecycle: experimental
   - name: technical-debt-auditor
     path: agents/analysis/technical-debt-auditor
     description: Systematic technical debt assessment — scans for security issues,
@@ -2018,6 +2137,7 @@ agents:
     - comparing debt levels across multiple repositories to prioritize effort
     - preparing a project for release (run this before release-engineer)
     - tracking debt improvement over time by comparing current results against a previ
+    lifecycle: experimental
   - name: workflow-debugger
     path: agents/analysis/workflow-debugger
     description: Diagnoses why Gorgon workflows fail — reads checkpoint state, agent
@@ -2039,6 +2159,7 @@ agents:
     - a workflow ran out of budget before completing
     - an agent produced unexpected or garbage output within a workflow
     - post-mortem analysis is needed after a successful workflow to find optimization
+    lifecycle: experimental
   - name: intent-author
     path: agents/analysis/intent-author
     description: Teaches agents how to publish well-structured intents for Convergent's
@@ -2060,6 +2181,7 @@ agents:
     - during intent validation before publishing to the graph
     - reviewing whether existing intents are well-formed and machine-comparable
     - updating an existing intent because stability changed or scope was refined
+    lifecycle: experimental
   browser:
   - name: web-scrape
     path: agents/browser/web-scrape
@@ -2082,6 +2204,7 @@ agents:
     - extracting structured data from a specific known url (tables, text, metadata)
     - harvesting and categorizing links from a page
     - parsing page metadata (title, description, og tags) for indexing or preview
+    lifecycle: experimental
   - name: web-search
     path: agents/browser/web-search
     description: Search the web for information with rate limiting, caching, and structured
@@ -2105,6 +2228,7 @@ agents:
       vers
     - monitoring news or current events relevant to a task
     - verifying claims or facts against current sources
+    lifecycle: experimental
   email:
   - name: email-compose
     path: agents/email/email-compose
@@ -2126,6 +2250,7 @@ agents:
     - generating email drafts from templates with variable substitution
     - managing a draft-review-approve workflow before delivery
     - sending notifications, reports, or alerts via email
+    lifecycle: experimental
   integrations:
   - name: github-operations
     path: agents/integrations/github-operations
@@ -2149,6 +2274,7 @@ agents:
     - managing github issues (creating, labeling, closing)
     - performing any operation that touches git history or remote state
     - publishing claude code plugins or skills as github repos
+    lifecycle: experimental
   - name: api-client
     path: agents/integrations/api-client
     description: Authenticated HTTP API client with retry logic, rate limiting, response
@@ -2172,6 +2298,7 @@ agents:
     - integrating with third-party services (slack, jira, stripe, etc.) via their
       rest
     - making authenticated http requests to external rest apis
+    lifecycle: experimental
   orchestration:
   - name: multi-agent-supervisor
     path: agents/orchestration/multi-agent-supervisor
@@ -2194,6 +2321,7 @@ agents:
     - managing multi-step workflows where steps have dependencies and ordering constra
     - orchestrating task pipelines that need safety controls, consensus, and state
       tra
+    lifecycle: experimental
   - name: agent-teams-orchestrator
     path: agents/orchestration/agent-teams-orchestrator
     description: Designs and coordinates Claude Code Agent Teams — multi-agent collaboration
@@ -2215,6 +2343,7 @@ agents:
       sc
     - task scope exceeds what fits comfortably in one context window
     - you need true parallel execution with independent context windows
+    lifecycle: experimental
   system:
   - name: process-runner
     path: agents/system/process-runner
@@ -2238,6 +2367,7 @@ agents:
       logg
     - starting long-running background processes that need pid tracking and graceful
       s
+    lifecycle: experimental
   - name: file-operations
     path: agents/system/file-operations
     description: Safe filesystem operations with path protection, backup enforcement,
@@ -2259,6 +2389,7 @@ agents:
     - operations that need structured output (success/failure, backup paths, byte
       coun
     - performing filesystem operations that need safety controls (backup, validation,
+    lifecycle: experimental
 workflows:
 - name: agent-pipeline
   path: workflows/agent-pipeline
@@ -2275,6 +2406,7 @@ workflows:
   - configuring the issue → pr → review → merge pipeline
   - repos with well-defined issue templates and coding conventions (claude.md)
   - setting up automated agent implementation in a github repository
+  lifecycle: experimental
 - name: conductor
   path: workflows/conductor
   description: Context-driven development workflow — interactive setup, spec generation,
@@ -2290,6 +2422,7 @@ workflows:
   - starting a new project and need to establish foundational artifacts (product.md,
   - you need the ability to revert by logical unit (track, phase, or task)
   - you want tdd-driven implementation with explicit user approval between phases
+  lifecycle: experimental
 - name: context-mapping
   path: workflows/context-mapping
   description: Pre-execution context mapping phase inspired by Blitzy — maps codebase
@@ -2311,6 +2444,7 @@ workflows:
   - planning multi-file changes that touch shared dependencies
   - starting a complex task in an unfamiliar or large codebase
   - you need to validate assumptions about codebase conventions before execution
+  lifecycle: experimental
 - name: evaluation
   path: workflows/evaluation
   description: Evaluation-mode prompt scaffold. Use when you have candidates (options,
@@ -2320,6 +2454,7 @@ workflows:
   phase: full-lifecycle
   tags:
   - bash
+  lifecycle: experimental
 - name: exploration
   path: workflows/exploration
   description: Exploration-mode prompt scaffold. Use when the option space isn't mapped
@@ -2329,6 +2464,7 @@ workflows:
   phase: full-lifecycle
   tags:
   - bash
+  lifecycle: experimental
 - name: feature-implementation
   path: workflows/feature-implementation
   description: End-to-end feature implementation workflow using WHY/WHAT/HOW framework
@@ -2345,6 +2481,7 @@ workflows:
   - implementing a complete feature that spans multiple files
   - the work requires context mapping, design, implementation, testing, and pr deliv
   - you need quality gates between phases to catch issues early
+  lifecycle: experimental
 - name: feature-pipeline
   path: workflows/feature-pipeline
   description: Multi-phase feature development with checkpoint gates, parallel agent
@@ -2361,12 +2498,14 @@ workflows:
   - the feature needs a security and performance review before delivery
   - you need numbered output artifacts for traceability
   - you want parallel agent execution for backend, frontend, and test writing
+  lifecycle: experimental
 - name: goal
   path: workflows/goal
   description: Manage the build-mode goal-loop — set, inspect, pause, resume, extend,
     or clear a durable build objective with a budget ceiling. Drives the goal-loop
     + goal-gate hooks via a repo-root .goal-active sentinel. Invoke with /goal.
   phase: full-lifecycle
+  lifecycle: experimental
 - name: production
   path: workflows/production
   description: Production-mode prompt scaffold. Use when the decision is made and
@@ -2375,6 +2514,7 @@ workflows:
   phase: full-lifecycle
   tags:
   - bash
+  lifecycle: experimental
 - name: release-engineering
   path: workflows/release-engineering
   description: End-to-end release workflow — preflight checks, code review, changelog
@@ -2383,6 +2523,7 @@ workflows:
     framework.
   has_schema: true
   phase: full-lifecycle
+  lifecycle: experimental
 - name: session-end
   path: workflows/session-end
   description: Session wrap-up workflow — captures decisions, syncs memory, reports
@@ -2405,6 +2546,7 @@ workflows:
   - completing a multi-step task that produced decisions or learnings
   - finishing a claude code session where meaningful work was done
   - switching away from a project mid-day
+  lifecycle: experimental
 - name: session-start
   path: workflows/session-start
   description: Session bootstrap workflow — audits project context, suggests session
@@ -2423,6 +2565,7 @@ workflows:
   - returning to a project after days or weeks away
   - starting a new claude code session on any project
   - switching to a different project mid-session
+  lifecycle: stable
 - name: specification
   path: workflows/specification
   description: Specification-mode prompt scaffold. Use when the decision is made and
@@ -2431,6 +2574,7 @@ workflows:
   phase: full-lifecycle
   tags:
   - bash
+  lifecycle: experimental
 stats:
   total_personas: 114
   total_agents: 17
