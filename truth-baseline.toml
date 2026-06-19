@@ -1,0 +1,70 @@
+[metadata]
+name = "ai-skills"
+
+[[checks]]
+type = "count"
+name = "personas_on_disk"
+glob = "personas/**/SKILL.md"
+
+[[checks]]
+type = "count"
+name = "agents_on_disk"
+glob = "agents/**/SKILL.md"
+
+[[checks]]
+type = "count"
+name = "workflows_on_disk"
+glob = "workflows/**/SKILL.md"
+
+[[checks]]
+type = "regex_match"
+name = "readme_skill_count"
+file = "README.md"
+pattern = '(\d+) skills'
+
+[[checks]]
+type = "command_output"
+name = "bundles_yaml_count"
+command = "grep -c '^  [a-z-]*:$' bundles.yaml || echo 0"
+pattern = '(\d+)'
+
+[[checks]]
+type = "regex_match"
+name = "installer_bundle_count"
+file = "tools/install.sh"
+pattern = 'BUNDLE_NAMES="(.*?)"'
+
+[[checks]]
+type = "file_exists"
+name = "agent_schema_files"
+paths = [
+    "agents/analysis/technical-debt-auditor/schema.yaml",
+    "agents/analysis/release-engineer/schema.yaml",
+    "agents/analysis/entity-resolver/schema.yaml",
+    "agents/analysis/context-mapper/schema.yaml",
+    "agents/analysis/workflow-debugger/schema.yaml",
+    "agents/analysis/document-forensics/schema.yaml",
+    "agents/analysis/intent-author/schema.yaml",
+]
+should_exist = true
+
+[[checks]]
+type = "command_output"
+name = "registry_has_schema_false_flags"
+command = "grep -c 'has_schema: false' registry.yaml || echo 0"
+pattern = '(\d+)'
+
+[[checks]]
+type = "file_exists"
+name = "contributor_templates"
+paths = [
+    "templates/agent-template.md",
+    "templates/workflow-template.md",
+]
+should_exist = true
+
+[[checks]]
+type = "regex_match"
+name = "changelog_latest_version"
+file = "CHANGELOG.md"
+pattern = '## \[(\d+\.\d+\.\d+)\]'

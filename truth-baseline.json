@@ -1,0 +1,119 @@
+{
+  "project": "ai-skills",
+  "timestamp": "2026-06-19T10:29:08.796035+00:00",
+  "summary": {
+    "pass": 10,
+    "fail": 0,
+    "skip": 0,
+    "error": 0
+  },
+  "checks": [
+    {
+      "name": "personas_on_disk",
+      "check_type": "count",
+      "status": "PASS",
+      "expected": null,
+      "actual": 114,
+      "claim_source": "",
+      "message": "Found 114 files matching ['personas/**/SKILL.md']"
+    },
+    {
+      "name": "agents_on_disk",
+      "check_type": "count",
+      "status": "PASS",
+      "expected": null,
+      "actual": 17,
+      "claim_source": "",
+      "message": "Found 17 files matching ['agents/**/SKILL.md']"
+    },
+    {
+      "name": "workflows_on_disk",
+      "check_type": "count",
+      "status": "PASS",
+      "expected": null,
+      "actual": 13,
+      "claim_source": "",
+      "message": "Found 13 files matching ['workflows/**/SKILL.md']"
+    },
+    {
+      "name": "readme_skill_count",
+      "check_type": "regex_match",
+      "status": "PASS",
+      "expected": null,
+      "actual": "114",
+      "claim_source": "",
+      "message": "Extracted '114' from README.md"
+    },
+    {
+      "name": "bundles_yaml_count",
+      "check_type": "command_output",
+      "status": "PASS",
+      "expected": null,
+      "actual": "14",
+      "claim_source": "",
+      "message": "Command returned 0; output: '14'"
+    },
+    {
+      "name": "installer_bundle_count",
+      "check_type": "regex_match",
+      "status": "PASS",
+      "expected": null,
+      "actual": "webapp-security release-engineering data-pipeline full-stack-dev claude-code-dev website-builder website-ecommerce website-content api-integration content-ops",
+      "claim_source": "",
+      "message": "Extracted 'webapp-security release-engineering data-pipeline full-stack-dev claude-code-dev website-builder website-ecommerce website-content api-integration content-ops' from tools/install.sh"
+    },
+    {
+      "name": "agent_schema_files",
+      "check_type": "file_exists",
+      "status": "PASS",
+      "expected": [
+        "agents/analysis/technical-debt-auditor/schema.yaml",
+        "agents/analysis/release-engineer/schema.yaml",
+        "agents/analysis/entity-resolver/schema.yaml",
+        "agents/analysis/context-mapper/schema.yaml",
+        "agents/analysis/workflow-debugger/schema.yaml",
+        "agents/analysis/document-forensics/schema.yaml",
+        "agents/analysis/intent-author/schema.yaml"
+      ],
+      "actual": {
+        "missing": [],
+        "unexpected": []
+      },
+      "claim_source": "",
+      "message": "All paths match expectation"
+    },
+    {
+      "name": "registry_has_schema_false_flags",
+      "check_type": "command_output",
+      "status": "PASS",
+      "expected": null,
+      "actual": "7",
+      "claim_source": "",
+      "message": "Command returned 0; output: '7'"
+    },
+    {
+      "name": "contributor_templates",
+      "check_type": "file_exists",
+      "status": "PASS",
+      "expected": [
+        "templates/agent-template.md",
+        "templates/workflow-template.md"
+      ],
+      "actual": {
+        "missing": [],
+        "unexpected": []
+      },
+      "claim_source": "",
+      "message": "All paths match expectation"
+    },
+    {
+      "name": "changelog_latest_version",
+      "check_type": "regex_match",
+      "status": "PASS",
+      "expected": null,
+      "actual": "1.0.0",
+      "claim_source": "",
+      "message": "Extracted '1.0.0' from CHANGELOG.md"
+    }
+  ]
+}
