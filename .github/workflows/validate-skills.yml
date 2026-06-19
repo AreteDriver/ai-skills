@@ -97,5 +97,8 @@ jobs:
           name: eval-quality-card
           path: evals/reports/quality-card-golden.md
 
+      - name: Run lifecycle audit
+        run: python3 scripts/lifecycle-manager.py audit
+
       - name: Run installer integration tests
         run: python3 -m pytest tests/test_installer.py -v --tb=short

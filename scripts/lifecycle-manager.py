@@ -142,8 +142,8 @@ def update_lifecycle(skill_path: str, new_state: str) -> None:
                 break
     skill_md.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
 
-def audit() -> None:
-    """Audit all skills and report promotion/demotion eligibility."""
+def audit() -> int:
+    """Audit all skills and report promotion/demotion eligibility. Returns exit code."""
     skills = get_all_skills()
     promotions = []
     demotions = []
@@ -182,6 +182,10 @@ def audit() -> None:
         print("  None")
     print(f"  Total: {len(demotions)}")
 
+    if demotions:
+        return 1
+    return 0
+
 def promote(skill: str) -> int:
     passes, reasons = check_gates(skill)
     if not passes:
@@ -210,8 +214,7 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.cmd == "audit":
-        audit()
-        return 0
+        return audit()
     elif args.cmd == "promote":
         return promote(args.skill)
     elif args.cmd == "demote":
