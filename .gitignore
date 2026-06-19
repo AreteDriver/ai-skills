@@ -12,3 +12,8 @@ Thumbs.db
 # Environment
 .env
 .env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo

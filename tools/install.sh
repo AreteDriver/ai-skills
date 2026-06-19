@@ -5,7 +5,7 @@
 #   ./tools/install.sh --persona code-reviewer  Install one persona
 #   ./tools/install.sh --bundle webapp-security Install a curated bundle
 #   ./tools/install.sh --list                   List available skills and bundles
-#   ./tools/install.sh --uninstall              Remove installed skills
+#   ./tools/install.sh --uninstall [<bundle>]    Remove installed skills (all, or specific bundle)
 #
 # Installs to ~/.claude/skills/ by default (override with CLAUDE_SKILLS_DIR).
 
@@ -14,6 +14,7 @@ set -uo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SKILLS_DIR="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
 HOOKS_DIR="${CLAUDE_HOOKS_DIR:-$HOME/.claude/hooks}"
+MANIFESTS_DIR="${AI_SKILLS_MANIFESTS_DIR:-$HOME/.ai-skills/manifests}"
 SYMLINK=false
 DRY_RUN=false
 PREVIEW=false
@@ -43,7 +44,7 @@ ACTIONS:
     --bundle <name>             Install a curated bundle
     --hooks                     Install all hook scripts
     --list                      List available skills and bundles
-    --uninstall                 Remove all installed skills
+    --uninstall [<bundle>]        Remove installed skills (all, or specific bundle)
 
 OPTIONS:
     --symlink                   Symlink instead of copy (for development)
@@ -109,7 +110,7 @@ while [[ $# -gt 0 ]]; do
         --bundle)    ACTION="bundle"; TARGET="$2"; shift 2 ;;
         --hooks)     ACTION="hooks"; shift ;;
         --list)      ACTION="list"; shift ;;
-        --uninstall) ACTION="uninstall"; shift ;;
+        --uninstall) ACTION="uninstall"; TARGET="$2"; shift 2 ;;
         --symlink)   SYMLINK=true; shift ;;
         --dry-run)   DRY_RUN=true; shift ;;
         --preview)   PREVIEW=true; shift ;;
@@ -195,6 +196,100 @@ find_skill() {
     done < <(find "$REPO_ROOT/$type" -name "SKILL.md" -print0 2>/dev/null)
 
     echo "$found"
+}
+
+write_manifest() {
+    local bundle_name="$1"
+    local skills="$2"
+    local hooks="$3"
+    local timestamp
+    timestamp="$(date -u +%Y%m%d-%H%M%S)"
+    local manifest_file="$MANIFESTS_DIR/${bundle_name}-${timestamp}.json"
+
+    mkdir -p "$MANIFESTS_DIR"
+
+    # Build JSON manifest
+    {
+        echo "{"
+        echo "  \"bundle\": \"$bundle_name\","
+        echo "  \"installed_at\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\","
+        echo "  \"skills_dir\": \"$SKILLS_DIR\","
+        echo "  \"skills\": ["
+        local first=true
+        for skill_path in $skills; do
+            local skill_name
+            skill_name="$(basename "$skill_path")"
+            if [ "$first" = true ]; then
+                first=false
+            else
+                echo ","
+            fi
+            echo -n "    {\"source\": \"$REPO_ROOT/$skill_path\", \"dest\": \"$SKILLS_DIR/$skill_name\"}"
+        done
+        echo ""
+        echo "  ],"
+        echo "  \"hooks\": ["
+        first=true
+        for hook in $hooks; do
+            if [ "$first" = true ]; then
+                first=false
+            else
+                echo ","
+            fi
+            echo -n "    \"$hook\""
+        done
+        echo ""
+        echo "  ]"
+        echo "}"
+    } > "$manifest_file"
+
+    echo -e "  ${BLUE}ℹ${NC} Manifest written to $manifest_file"
+}
+
+uninstall_bundle() {
+    local bundle_name="$1"
+    local manifest_pattern="$MANIFESTS_DIR/${bundle_name}-*.json"
+    local manifests
+    manifests="$(ls -1 $manifest_pattern 2>/dev/null | sort -r)"
+
+    if [ -z "$manifests" ]; then
+        echo -e "${RED}No manifest found for bundle: $bundle_name${NC}"
+        echo "  Installed bundles with manifests:"
+        for mf in "$MANIFESTS_DIR"/*-*.json; do
+            if [ -f "$mf" ]; then
+                local bn
+                bn="$(basename "$mf" | sed 's/-[0-9]\{8\}-[0-9]\{6\}\.json$//')"
+                echo "    - $bn"
+            fi
+        done 2>/dev/null
+        exit 1
+    fi
+
+    # Use the most recent manifest
+    local manifest_file
+    manifest_file="$(echo "$manifests" | head -1)"
+
+    echo -e "${BOLD}Uninstalling bundle: $bundle_name${NC}"
+    echo -e "  Using manifest: $(basename "$manifest_file")"
+
+    # Parse and remove files (naive JSON parsing — skill dest paths contain "dest":)
+    local removed=0
+    local dest_paths
+    dest_paths="$(grep '"dest":' "$manifest_file" | sed 's/.*"dest": *"\([^"]*\)".*/\1/')"
+
+    for dest in $dest_paths; do
+        if [ -e "$dest" ] || [ -L "$dest" ]; then
+            rm -rf "$dest"
+            echo -e "  ${GREEN}✓${NC} Removed $(basename "$dest")"
+            removed=$((removed + 1))
+        fi
+    done
+
+    # Remove the manifest itself
+    rm -f "$manifest_file"
+
+    echo ""
+    echo -e "${GREEN}Uninstalled $removed skills from bundle '$bundle_name'${NC}"
 }
 
 # ─────────────────────────────────────────────
@@ -334,6 +429,7 @@ case $ACTION in
         if $DRY_RUN; then
             echo -e "${BLUE}Dry run complete — no files were modified${NC}"
         else
+            write_manifest "$TARGET" "$skills" "$hooks"
             echo -e "${GREEN}Bundle '$TARGET' installed to $SKILLS_DIR${NC}"
         fi
         ;;
@@ -383,13 +479,17 @@ case $ACTION in
         ;;
 
     uninstall)
-        echo -e "${BOLD}Removing installed skills${NC}"
-        if [ -d "$SKILLS_DIR" ]; then
-            count=$(find "$SKILLS_DIR" -maxdepth 1 -mindepth 1 | wc -l)
-            rm -rf "${SKILLS_DIR:?}"/*
-            echo -e "  ${GREEN}✓${NC} Removed $count skills from $SKILLS_DIR"
+        if [ -n "$TARGET" ]; then
+            uninstall_bundle "$TARGET"
         else
-            echo "  Nothing to remove — $SKILLS_DIR does not exist"
+            echo -e "${BOLD}Removing all installed skills${NC}"
+            if [ -d "$SKILLS_DIR" ]; then
+                count=$(find "$SKILLS_DIR" -maxdepth 1 -mindepth 1 | wc -l)
+                rm -rf "${SKILLS_DIR:?}"/*
+                echo -e "  ${GREEN}✓${NC} Removed $count skills from $SKILLS_DIR"
+            else
+                echo "  Nothing to remove — $SKILLS_DIR does not exist"
+            fi
         fi
         ;;
 esac
