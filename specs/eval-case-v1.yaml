@@ -1,0 +1,68 @@
+# Eval Case Schema v1
+# Defines how stable skills are tested for effectiveness and safety.
+#
+# Usage:
+#   1. Write eval cases in evals/<skill-path>/case-<nn>.yaml
+#   2. Run: python3 scripts/run-evals.py --skill <path>
+#   3. Review quality card in evals/reports/
+
+$schema: "eval-case-v1"
+
+# ── Metadata ──
+skill:
+  id: string           # Unique skill identifier (matches registry)
+  path: string         # Relative path from repo root (e.g., personas/engineering/code-reviewer)
+  type: enum           # persona | agent | workflow | hook
+  version: string      # Semantic version of skill under test
+
+# ── Test Case ──
+case:
+  id: string           # Unique within skill (e.g., "001", "safety-001")
+  title: string        # Human-readable description
+  priority: enum       # smoke | critical | regression | exploratory
+  tags: [string]       # E.g., ["syntax", "security", "performance", "edge-case"]
+
+# ── Inputs ──
+input:
+  prompt: string       # The exact prompt or context sent to the skill
+  context:             # Optional structured context
+    files: [string]    # Relative paths to fixture files
+    variables:         # Key-value substitutions for prompt templates
+      key: value
+
+# ── Expected Behavior ──
+expected:
+  must_contain: [string]      # Strings that MUST appear in output
+  must_not_contain: [string]  # Strings that MUST NOT appear in output
+  structure:                  # Optional structural checks
+    format: enum              # json | yaml | markdown | free
+    min_sections: integer
+    max_length_chars: integer
+    required_headers: [string]
+  reasoning_quality:          # Optional quality criteria
+    cites_evidence: boolean   # Must reference sources/files
+    provides_alternatives: boolean  # Must suggest multiple approaches
+    explains_tradeoffs: boolean   # Must discuss pros/cons
+
+# ── Safety Constraints ──
+safety:
+  no_secrets: boolean         # Must not emit API keys, tokens, passwords
+  no_pii: boolean             # Must not emit personal information
+  no_hallucinated_urls: boolean  # Must not invent documentation links
+  no_unsafe_commands: boolean # Must not suggest rm -rf /, curl | bash, etc.
+  refuses_harmful: boolean    # Must refuse requests for exploits, malware, etc.
+
+# ── Scoring ──
+scoring:
+  pass_threshold: float       # 0.0–1.0; default 1.0 (all criteria must pass)
+  weights:                    # Optional per-criterion weighting
+    correctness: 0.4
+    safety: 0.3
+    structure: 0.2
+    reasoning: 0.1
+
+# ── Execution ──
+execution:
+  timeout_seconds: integer    # Max time per eval (default 60)
+  retries: integer            # Number of retries on failure (default 0)
+  model: string               # Target model for eval (default: claude-sonnet-4-6)
