@@ -129,7 +129,11 @@ Now open Claude Code — your pirate engineer is ready. See the full [Quickstart
 
 ## Personas — User Behavior Skills
 
-### Engineering (7)
+> **Full catalog:** See [docs/generated/catalog-personas.md](docs/generated/catalog-personas.md) for the complete, auto-generated list of all 114 personas.
+> **Full catalog:** See [docs/generated/catalog-agents.md](docs/generated/catalog-agents.md) for all 17 agents.
+> **Full catalog:** See [docs/generated/catalog-workflows.md](docs/generated/catalog-workflows.md) for all 13 workflows.
+
+### Featured Engineering (7)
 
 | Skill | Purpose | Path |
 |-------|---------|------|
@@ -286,8 +290,15 @@ cd ai-skills
 # List all available skills and bundles
 ./tools/install.sh --list
 
-# Remove installed skills
+# Preview a bundle without installing
+./tools/install.sh --bundle full-stack-dev --preview
+
+# Dry-run to see what would be installed
+./tools/install.sh --bundle full-stack-dev --dry-run
+
+# Remove installed skills (all or specific bundle)
 ./tools/install.sh --uninstall
+./tools/install.sh --uninstall webapp-security
 ```
 
 ### Manual Installation
