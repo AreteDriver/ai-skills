@@ -66,6 +66,49 @@ def _generate_workflow_table(registry):
 
 def _generate_counts(registry):
     stats = registry.get("stats", {})
+def _generate_search_index(registry):
+    lines = ["# Search Index\n", "Alphabetical, faceted index of all skills with tags and triggers.\n"]
+    all_items = []
+    for cat, items in registry.get("personas", {}).items():
+        for item in items:
+            item["_type"] = "persona"
+            item["_category"] = cat
+            all_items.append(item)
+    for cat, items in registry.get("agents", {}).items():
+        for item in items:
+            item["_type"] = "agent"
+            item["_category"] = cat
+            all_items.append(item)
+    for item in registry.get("workflows", []):
+        item["_type"] = "workflow"
+        item["_category"] = item.get("phase", "general")
+        all_items.append(item)
+
+    all_items.sort(key=lambda x: x["name"])
+
+    lines.append("| Name | Type | Category | Tags |")
+    lines.append("|------|------|----------|------|")
+    for item in all_items:
+        name = item["name"]
+        path = item.get("path", "")
+        link = f"[{name}](../../{path}/SKILL.md)"
+        stype = item["_type"]
+        cat = item["_category"]
+        tags = ", ".join(item.get("tags", [])[:8])
+        lines.append(f"| {link} | {stype} | {cat} | {tags} |")
+
+    lines.append("")
+    lines.append("## Jump to Type")
+    lines.append("")
+    lines.append("- [Personas](#personas)")
+    lines.append("- [Agents](#agents)")
+    lines.append("- [Workflows](#workflows)")
+    lines.append("")
+    return "\n".join(lines) + "\n"
+
+
+def _generate_counts(registry):
+    stats = registry.get("stats", {})
     lines = [
         "# Skill Counts\n",
         f"- **Total skills**: {stats.get('total_skills', 0)}",
@@ -97,6 +140,7 @@ def generate_docs():
         "catalog-agents.md": _generate_agent_table(registry),
         "catalog-workflows.md": _generate_workflow_table(registry),
         "counts.md": _generate_counts(registry),
+        "search-index.md": _generate_search_index(registry),
     }
 
     for filename, content in artifacts.items():
