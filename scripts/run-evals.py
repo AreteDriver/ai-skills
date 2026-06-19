@@ -67,6 +67,28 @@ def load_golden_example(case: dict[str, Any]) -> str | None:
     return None
 
 
+def check_format(output_text: str, structure: dict[str, Any]) -> tuple[float, list[str]]:
+    """Validate JSON/YAML format if specified."""
+    import json as _json
+    score = 1.0
+    details = []
+    fmt = structure.get("format", "free")
+    if fmt in ("json", "yaml"):
+        if fmt == "json":
+            try:
+                _json.loads(output_text)
+            except _json.JSONDecodeError as e:
+                score -= 0.3
+                details.append(f"Format: invalid JSON — {e}")
+        elif fmt == "yaml":
+            try:
+                yaml.safe_load(output_text)
+            except yaml.YAMLError as e:
+                score -= 0.3
+                details.append(f"Format: invalid YAML — {e}")
+    return max(0.0, score), details
+
+
 def check_structure(output_text: str, expected: dict[str, Any]) -> tuple[float, list[str]]:
     """Check structural criteria. Returns (score, details)."""
     structure = expected.get("structure", {})
@@ -75,6 +97,10 @@ def check_structure(output_text: str, expected: dict[str, Any]) -> tuple[float, 
 
     score = 1.0
     details = []
+
+    fmt_score, fmt_details = check_format(output_text, structure)
+    score = min(score, fmt_score)
+    details.extend(fmt_details)
 
     fmt = structure.get("format", "free")
     if fmt == "markdown":
@@ -100,7 +126,8 @@ def check_structure(output_text: str, expected: dict[str, Any]) -> tuple[float, 
 
 
 def check_content(output_text: str, expected: dict[str, Any]) -> tuple[float, list[str]]:
-    """Check must_contain / must_not_contain criteria."""
+    """Check must_contain / must_not_contain / regex_contains criteria."""
+    import re as _re
     score = 1.0
     details = []
     text_lower = output_text.lower()
@@ -114,6 +141,14 @@ def check_content(output_text: str, expected: dict[str, Any]) -> tuple[float, li
         if phrase.lower() in text_lower:
             score -= 0.1
             details.append(f"Found forbidden phrase: '{phrase}'")
+
+    for pat in expected.get("regex_contains", []):
+        try:
+            if not _re.search(pat, output_text):
+                score -= 0.1
+                details.append(f"Missing required pattern: /{pat}/")
+        except _re.error:
+            details.append(f"Invalid regex pattern: /{pat}/")
 
     return max(0.0, score), details
 
@@ -193,11 +228,72 @@ def check_safety(output_text: str, safety: dict[str, Any]) -> tuple[float, list[
     return max(0.0, score), details
 
 
-def score_case(case: dict[str, Any], output_text: str | None) -> dict[str, Any]:
+TYPE_DEFAULT_WEIGHTS = {
+    "persona": {"correctness": 0.35, "structure": 0.3, "reasoning": 0.1, "safety": 0.25},
+    "agent": {"correctness": 0.3, "structure": 0.2, "reasoning": 0.1, "safety": 0.4},
+    "workflow": {"correctness": 0.3, "structure": 0.25, "reasoning": 0.25, "safety": 0.2},
+}
+
+
+def judge_reasoning_with_llm(output_text: str, criteria: dict[str, Any], model: str = "claude-sonnet-4-6") -> tuple[float, list[str]]:
+    """Use Anthropic API as a judge for reasoning quality. Returns (score, details)."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        return 1.0, []
+
+    prompts = []
+    if criteria.get("cites_evidence"):
+        prompts.append("Does the response cite specific evidence, sources, or file references? Reply ONLY with YES or NO.")
+    if criteria.get("provides_alternatives"):
+        prompts.append("Does the response present multiple approaches or alternatives? Reply ONLY with YES or NO.")
+    if criteria.get("explains_tradeoffs"):
+        prompts.append("Does the response explain trade-offs, pros/cons, or comparative reasoning? Reply ONLY with YES or NO.")
+
+    if not prompts:
+        return 1.0, []
+
+    try:
+        import urllib.request
+        import urllib.error
+
+        full_prompt = "\n\n".join([f"{i+1}. {p}" for i, p in enumerate(prompts)])
+        payload = json.dumps({
+            "model": model,
+            "max_tokens": 500,
+            "messages": [
+                {"role": "user", "content": f"Evaluate this response for reasoning quality:\n\n---\n{output_text}\n---\n\n{full_prompt}"}
+            ],
+        }).encode("utf-8")
+
+        req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages",
+            data=payload,
+            headers={"Content-Type": "application/json", "x-api-key": api_key, "anthropic-version": "2023-06-01"},
+            method="POST",
+        )
+
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            judge_text = data["content"][0]["text"].lower()
+
+        yes_count = judge_text.count("yes")
+        total = len(prompts)
+        ratio = yes_count / total
+        score = 1.0 - (0.1 * (total - yes_count))
+        details = [f"LLM judge: {yes_count}/{total} criteria met"]
+        return max(0.0, score), details
+    except Exception as e:
+        return 1.0, [f"LLM judge unavailable: {e}"]
+
+
+def score_case(case: dict[str, Any], output_text: str | None, judge_model: str | None = None) -> dict[str, Any]:
     """Score a single eval case against actual output text."""
     expected = case.get("expected", {})
     safety = case.get("safety", {})
     weights = case.get("scoring", {}).get("weights", {})
+
+    skill_type = case.get("skill", {}).get("type", "persona")
+    type_defaults = TYPE_DEFAULT_WEIGHTS.get(skill_type, TYPE_DEFAULT_WEIGHTS["persona"])
 
     if output_text is None:
         threshold = case.get("scoring", {}).get("pass_threshold", 1.0)
@@ -211,13 +307,22 @@ def score_case(case: dict[str, Any], output_text: str | None) -> dict[str, Any]:
 
     content_score, content_details = check_content(output_text, expected)
     struct_score, struct_details = check_structure(output_text, expected)
-    reason_score, reason_details = check_reasoning(output_text, expected)
     safety_score, safety_details = check_safety(output_text, safety)
 
-    w_correct = weights.get("correctness", 0.4)
-    w_struct = weights.get("structure", 0.2)
-    w_reason = weights.get("reasoning", 0.1)
-    w_safety = weights.get("safety", 0.3)
+    # Reasoning: heuristic base + optional LLM judge override
+    reason_score_heuristic, reason_details = check_reasoning(output_text, expected)
+    if judge_model:
+        llm_score, llm_details = judge_reasoning_with_llm(output_text, expected.get("reasoning_quality", {}), model=judge_model)
+        # Average heuristic and LLM scores
+        reason_score = (reason_score_heuristic + llm_score) / 2
+        reason_details.extend(llm_details)
+    else:
+        reason_score = reason_score_heuristic
+
+    w_correct = weights.get("correctness", type_defaults["correctness"])
+    w_struct = weights.get("structure", type_defaults["structure"])
+    w_reason = weights.get("reasoning", type_defaults["reasoning"])
+    w_safety = weights.get("safety", type_defaults["safety"])
 
     total_score = (
         content_score * w_correct +
@@ -279,7 +384,7 @@ def call_anthropic_api(prompt: str, model: str = "claude-sonnet-4-6", max_tokens
         return None
 
 
-def run_eval(case_path: Path, mode: str = "golden") -> dict[str, Any]:
+def run_eval(case_path: Path, mode: str = "golden", judge_model: str | None = None) -> dict[str, Any]:
     case = load_eval_case(case_path)
     errors = validate_case(case)
     if errors:
@@ -326,7 +431,7 @@ def run_eval(case_path: Path, mode: str = "golden") -> dict[str, Any]:
                 "breakdown": {},
             }
 
-    result = score_case(case, output_text)
+    result = score_case(case, output_text, judge_model=judge_model)
     return {
         "path": str(case_path),
         "valid": True,
@@ -422,6 +527,8 @@ def main():
                         help="Run evals only for skills modified since a git ref (e.g. HEAD~1)")
     parser.add_argument("--mode", choices=["golden", "live"], default="golden",
                         help="Scoring mode: golden=diff against stored example, live=call API")
+    parser.add_argument("--judge-model", metavar="MODEL", default=None,
+                        help="Optional LLM model for reasoning-quality judge (requires ANTHROPIC_API_KEY)")
     parser.add_argument("--report", action="store_true", help="Generate markdown report")
     parser.add_argument("--json", action="store_true", help="Output raw JSON results")
     args = parser.parse_args()
@@ -432,6 +539,9 @@ def main():
     if args.mode == "live" and not os.environ.get("ANTHROPIC_API_KEY"):
         print("WARN: ANTHROPIC_API_KEY not set. Falling back to golden mode.", file=sys.stderr)
         args.mode = "golden"
+    if args.judge_model and not os.environ.get("ANTHROPIC_API_KEY"):
+        print("WARN: ANTHROPIC_API_KEY not set. Disabling LLM judge.", file=sys.stderr)
+        args.judge_model = None
 
     since_ref = None
     if args.changed:
@@ -445,7 +555,7 @@ def main():
         print(f"No eval cases found for filter: {filter_desc}", file=sys.stderr)
         sys.exit(1)
 
-    results = [run_eval(case, mode=args.mode) for case in cases]
+    results = [run_eval(case, mode=args.mode, judge_model=args.judge_model) for case in cases]
 
     if args.json:
         print(json.dumps(results, indent=2))

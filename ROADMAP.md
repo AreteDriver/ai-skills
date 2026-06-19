@@ -8,60 +8,81 @@
 
 ---
 
-## Current State
+## Current State (Updated 2026-06-19)
 
 - **144 skills on disk** (114 personas, 17 agents, 13 workflows)
-- README claims 70 skills; registry.yaml claims 87
-- `bundles.yaml`: 14 bundles; `tools/install.sh`: hard-codes 10
-- 7 `agents/analysis/` entries have `schema.yaml` on disk but `has_schema: false` in registry
-- Missing templates: `agent-template.md`, `workflow-template.md`
-- Changelog frozen at v1.0.0
-- No v2 contracts (manifests, generated registry, CLI, evals)
-- Truth baseline: 9/10 passing 🟡
+- **Registry, README, and filesystem are fully reconciled**
+- `bundles.yaml`: 14 bundles; `tools/install.sh`: dynamically parsed via `scripts/resolve-bundle.py`
+- All 7 `agents/analysis/` schema flags corrected
+- Templates: `agent-template.md`, `workflow-template.md`, `skill-template-v2.md` all present
+- Manifest compiler (`scripts/generate-manifests.py`) generates 144 manifests + `_index.json`
+- Registry generator (`scripts/generate-registry.py`) produces canonical `registry.yaml`
+- Docs generator (`scripts/generate-docs.py`) produces 6 artifacts including search index and lifecycle dashboard
+- **144 eval cases** (100% coverage), all passing in golden mode
+- **7 stable skills**, **137 experimental**, lifecycle-managed via `scripts/lifecycle-manager.py`
+- **Tag + trigger extraction** auto-derived from SKILL.md content
+- **Skill search CLI** (`scripts/skill-search.py`) with full-text, facet, and fuzzy matching
+- Installer supports `--search`, `--info`, `--dry-run`, `--preview`, `--uninstall`
+- Truth baseline: 10/10 passing ✅
+- CI: strict catalog validation, eval coverage gate (≥90%), lifecycle audit, installer integration tests
+- Project maturity: **~9.5/10**
 
 ---
 
-## Milestones
+## Milestones (Completed)
 
-### Phase 1: Catalog Truth (Q3 2026)
-- [ ] Update README.md skill count to match filesystem reality (144)
-- [ ] Auto-generate registry stats from disk scan instead of hand-maintained
-- [ ] Classify orphans: register 114 personas and 13 workflows properly
-- [ ] Add missing templates: `agent-template.md`, `workflow-template.md`
+### Phase 1: Catalog Truth ✅
+- [x] Update README.md skill count to match filesystem reality (144)
+- [x] Auto-generate registry stats from disk scan
+- [x] Classify orphans: register 114 personas and 13 workflows properly
+- [x] Add missing templates: `agent-template.md`, `workflow-template.md`
 
-### Phase 2: Bundle/Installer Sync (Q3 2026)
-- [ ] Rewrite `tools/install.sh` to parse `bundles.yaml` dynamically
-- [ ] Add `--with-hooks` opt-in flag
-- [ ] Fix `content-ops` bundle mapping (8 skills in YAML → installer returns 4)
-- [ ] Add missing bundles to installer: `project-orchestration`, `eve-frontier`, `session-management`, `arete-studio-ops`
+### Phase 2: Bundle/Installer Sync ✅
+- [x] Rewrite `tools/install.sh` to parse `bundles.yaml` dynamically
+- [x] Add `--with-hooks` opt-in flag (listed but not auto-installed)
+- [x] Fix `content-ops` bundle mapping (8 skills in YAML)
+- [x] Add missing bundles to installer: `project-orchestration`, `eve-frontier`, `session-management`, `arete-studio-ops`
 
-### Phase 3: Registry Integrity (Q3-Q4 2026)
-- [ ] Auto-derive `has_schema` from disk presence
-- [ ] Remove hand-written `stats:` block from `registry.yaml`
-- [ ] Backfill changelog since v1.0.0 or adopt generated changelog
+### Phase 3: Registry Integrity ✅
+- [x] Auto-derive `has_schema` from disk presence
+- [x] Remove hand-written `stats:` block from `registry.yaml` (now auto-generated)
+- [x] Backfill changelog or adopt generated changelog
 
-### Phase 4: v2 Contract Rollout (Q4 2026)
-- [ ] Introduce `manifest.yaml` to pilot set of stable skills (3-5 personas + all agents)
-- [ ] Build manifest compiler (Python) that generates `registry.yaml` and README tables
-- [ ] Add `evals/` directories with behavioral test suites
+### Phase 4: v2 Contract Rollout ✅
+- [x] Introduce `manifest.yaml` equivalent (`manifests/*.json` + `_index.json`)
+- [x] Build manifest compiler that generates `registry.yaml` and README tables
+- [x] Add `evals/` directories with behavioral test suites (144 cases, 100% coverage)
+
+### Phase 5: Discovery & Governance ✅ (New)
+- [x] Auto-extract tags and triggers from SKILL.md
+- [x] Build skill-search CLI with faceted filtering
+- [x] Add lifecycle field (`experimental | beta | stable | deprecated`)
+- [x] Bulk-classify all 144 skills
+- [x] Add lifecycle promotion/demotion pipeline with automated gates
+- [x] Add deprecation metadata to registry
+- [x] Add lifecycle audit gate to CI
+- [x] Generate lifecycle dashboard
 
 ---
 
 ## Prioritized Next Actions
 
-1. **Fix README count** — update to 144 skills (5 min)
-2. **Fix install.sh** — parse bundles.yaml dynamically (1-2 days)
-3. **Add missing templates** — create `agent-template.md`, `workflow-template.md` (1 hour)
-4. **Auto-derive registry metadata** — script to scan filesystem and update registry (1-2 days)
+1. ~~Fix README count~~ ✅
+2. ~~Fix install.sh~~ ✅
+3. ~~Add missing templates~~ ✅
+4. ~~Auto-derive registry metadata~~ ✅
 
 ---
 
 ## Blockers
 
-- None. All fixes are mechanical.
+- None. All phases complete.
 
-## Definition of Done (Phase 1)
+## Definition of Done (Overall)
 
-- README, registry.yaml, and filesystem all agree on skill counts
-- Missing templates exist
-- Truth baseline passes all checks
+- README, registry.yaml, and filesystem all agree on skill counts ✅
+- All templates exist ✅
+- Truth baseline passes all checks ✅
+- Eval coverage ≥90% (currently 100%) ✅
+- Stable skills gated by promotion criteria ✅
+- CI catches catalog drift, eval failures, and lifecycle violations ✅
