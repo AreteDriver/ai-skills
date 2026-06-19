@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: eval-quality-card
-          path: evals/reports/quality-card.md
+          path: evals/reports/quality-card-golden.md
 
       - name: Run installer integration tests
         run: python3 -m pytest tests/test_installer.py -v --tb=short
