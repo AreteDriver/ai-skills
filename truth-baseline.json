@@ -1,6 +1,6 @@
 {
   "project": "ai-skills",
-  "timestamp": "2026-06-19T10:29:08.796035+00:00",
+  "timestamp": "2026-06-19T17:51:08.820853+00:00",
   "summary": {
     "pass": 10,
     "fail": 0,
@@ -54,13 +54,13 @@
       "message": "Command returned 0; output: '14'"
     },
     {
-      "name": "installer_bundle_count",
+      "name": "installer_bundle_resolver",
       "check_type": "regex_match",
       "status": "PASS",
       "expected": null,
-      "actual": "webapp-security release-engineering data-pipeline full-stack-dev claude-code-dev website-builder website-ecommerce website-content api-integration content-ops",
+      "actual": "$REPO_ROOT/scripts/resolve-bundle.py",
       "claim_source": "",
-      "message": "Extracted 'webapp-security release-engineering data-pipeline full-stack-dev claude-code-dev website-builder website-ecommerce website-content api-integration content-ops' from tools/install.sh"
+      "message": "Extracted '$REPO_ROOT/scripts/resolve-bundle.py' from tools/install.sh"
     },
     {
       "name": "agent_schema_files",
@@ -87,9 +87,9 @@
       "check_type": "command_output",
       "status": "PASS",
       "expected": null,
-      "actual": "7",
+      "actual": "0",
       "claim_source": "",
-      "message": "Command returned 0; output: '7'"
+      "message": "Command returned 0; output: '0'"
     },
     {
       "name": "contributor_templates",

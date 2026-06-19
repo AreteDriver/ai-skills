@@ -30,9 +30,9 @@ pattern = '(\d+)'
 
 [[checks]]
 type = "regex_match"
-name = "installer_bundle_count"
+name = "installer_bundle_resolver"
 file = "tools/install.sh"
-pattern = 'BUNDLE_NAMES="(.*?)"'
+pattern = 'BUNDLE_RESOLVER="(.*?)"'
 
 [[checks]]
 type = "file_exists"
