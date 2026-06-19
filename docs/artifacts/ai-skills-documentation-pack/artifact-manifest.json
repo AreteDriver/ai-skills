@@ -1,0 +1,114 @@
+{
+  "name": "ai-skills-documentation-pack",
+  "created": "2026-06-18",
+  "files": [
+    {
+      "path": "CLAUDE_CODE_EXECUTION_BRIEF.md",
+      "bytes": 3000
+    },
+    {
+      "path": "README.md",
+      "bytes": 2919
+    },
+    {
+      "path": "docs/00-executive-assessment.md",
+      "bytes": 4125
+    },
+    {
+      "path": "docs/01-product-and-user-model.md",
+      "bytes": 3477
+    },
+    {
+      "path": "docs/02-system-architecture.md",
+      "bytes": 4154
+    },
+    {
+      "path": "docs/03-skill-authoring-guide.md",
+      "bytes": 3269
+    },
+    {
+      "path": "docs/04-security-and-trust-model.md",
+      "bytes": 3742
+    },
+    {
+      "path": "docs/05-testing-and-evaluation-strategy.md",
+      "bytes": 3805
+    },
+    {
+      "path": "docs/06-installation-operations-and-support.md",
+      "bytes": 2341
+    },
+    {
+      "path": "docs/07-governance-versioning-and-release.md",
+      "bytes": 2368
+    },
+    {
+      "path": "docs/DOCUMENTATION_INDEX.md",
+      "bytes": 705
+    },
+    {
+      "path": "plans/10-out-of-10-roadmap.md",
+      "bytes": 3399
+    },
+    {
+      "path": "plans/migration-plan.md",
+      "bytes": 2582
+    },
+    {
+      "path": "plans/prioritized-backlog.md",
+      "bytes": 2869
+    },
+    {
+      "path": "plans/release-readiness-checklist.md",
+      "bytes": 1550
+    },
+    {
+      "path": "sources/decisions/unresolved-decisions.md",
+      "bytes": 1915
+    },
+    {
+      "path": "sources/operations/known-incidents.md",
+      "bytes": 4422
+    },
+    {
+      "path": "sources/product/original-project-brief.md",
+      "bytes": 2515
+    },
+    {
+      "path": "sources/repository/dependency-snapshot.md",
+      "bytes": 2050
+    },
+    {
+      "path": "sources/repository/directory-tree.md",
+      "bytes": 2572
+    },
+    {
+      "path": "sources/repository/repository-inventory.md",
+      "bytes": 5901
+    },
+    {
+      "path": "sources/source-register.md",
+      "bytes": 4039
+    },
+    {
+      "path": "sources/technical/existing-architecture.md",
+      "bytes": 3012
+    },
+    {
+      "path": "specs/bundle-and-installer-contract-v2.md",
+      "bytes": 2930
+    },
+    {
+      "path": "specs/evaluation-contract-v1.md",
+      "bytes": 1966
+    },
+    {
+      "path": "specs/registry-contract-v2.md",
+      "bytes": 2231
+    },
+    {
+      "path": "specs/skill-contract-v2.md",
+      "bytes": 3683
+    }
+  ]
+}
