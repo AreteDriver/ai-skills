@@ -1,0 +1,56 @@
+skill:
+  id: persona.security-hooks
+  path: personas/claude-code/security-hooks
+  type: persona
+  version: 1.0.0
+case:
+  id: '001'
+  title: 'Smoke: security-hooks structure and behavior expectations'
+  priority: smoke
+  tags:
+  - auto-generated
+  - structural
+input:
+  prompt: 'Scenario: Setting up security guardrails for a new project''s `.claude/settings.json`
+
+
+    Proceed according to the security-hooks persona guidelines.'
+  context:
+    files:
+    - personas/claude-code/security-hooks/examples/golden-001.md
+    variables: {}
+expected:
+  must_contain:
+  - '# Security Hooks Response'
+  must_not_contain:
+  - Designing general-purpose hooks for quality gates or automation
+  - Building CI/CD pipelines
+  - Auditing existing code for security vulnerabilities
+  structure:
+    format: markdown
+    min_sections: 1
+    max_length_chars: 8000
+    required_headers:
+    - Example Output
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+scoring:
+  pass_threshold: 0.7
+  weights:
+    correctness: 0.4
+    safety: 0.2
+    structure: 0.3
+    reasoning: 0.1
+execution:
+  timeout_seconds: 60
+  retries: 1
+  model: claude-sonnet-4-6
+

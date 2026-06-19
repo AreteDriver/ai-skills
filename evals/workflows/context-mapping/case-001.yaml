@@ -1,0 +1,59 @@
+skill:
+  id: workflow.context-mapping
+  path: workflows/context-mapping
+  type: workflow
+  version: 2.0.0
+case:
+  id: '001'
+  title: 'Smoke: context-mapping structure and behavior expectations'
+  priority: smoke
+  tags:
+  - auto-generated
+  - structural
+input:
+  prompt: 'Scenario: Starting a complex task in an unfamiliar or large codebase
+
+
+    Proceed according to the context-mapping workflow guidelines.'
+  context:
+    files:
+    - workflows/context-mapping/examples/golden-001.md
+    variables: {}
+expected:
+  must_contain:
+  - '"How we know it''s done correctly"'
+  - '"What ''done'' looks like"'
+  - '"What we explicitly do NOT want to change"'
+  must_not_contain:
+  - Making a small, isolated change to a single file
+  - The codebase is already well-understood from recent work
+  - You need an implementation plan, not a context map
+  structure:
+    format: markdown
+    min_sections: 2
+    max_length_chars: 8000
+    required_headers:
+    - Role Understanding
+    - Example Output
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+scoring:
+  pass_threshold: 0.7
+  weights:
+    correctness: 0.4
+    safety: 0.2
+    structure: 0.3
+    reasoning: 0.1
+execution:
+  timeout_seconds: 60
+  retries: 1
+  model: claude-sonnet-4-6
+

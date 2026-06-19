@@ -1,0 +1,58 @@
+skill:
+  id: persona.data-visualizer
+  path: personas/data/data-visualizer
+  type: persona
+  version: 2.0.0
+case:
+  id: '001'
+  title: 'Smoke: data-visualizer structure and behavior expectations'
+  priority: smoke
+  tags:
+  - auto-generated
+  - structural
+input:
+  prompt: 'Scenario: Creating charts, plots, or visual representations of analyzed data
+
+
+    Proceed according to the data-visualizer persona guidelines.'
+  context:
+    files:
+    - personas/data/data-visualizer/examples/golden-001.md
+    variables: {}
+expected:
+  must_contain:
+  - '# Data Visualizer Response'
+  must_not_contain:
+  - suggests data-analyst
+  - recommends data-analyst
+  - Performing the underlying statistical analysis
+  structure:
+    format: markdown
+    min_sections: 3
+    max_length_chars: 8000
+    required_headers:
+    - Role Understanding
+    - Example Output
+    - 'Visualization: [Chart Title]'
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+scoring:
+  pass_threshold: 0.7
+  weights:
+    correctness: 0.4
+    safety: 0.2
+    structure: 0.3
+    reasoning: 0.1
+execution:
+  timeout_seconds: 60
+  retries: 1
+  model: claude-sonnet-4-6
+

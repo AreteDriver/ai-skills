@@ -1,0 +1,57 @@
+skill:
+  id: persona.accessibility-checker
+  path: personas/security/accessibility-checker
+  type: persona
+  version: 2.0.0
+case:
+  id: '001'
+  title: 'Smoke: accessibility-checker structure and behavior expectations'
+  priority: smoke
+  tags:
+  - auto-generated
+  - structural
+input:
+  prompt: 'Scenario: Auditing a UI component or page for WCAG 2.2 AA/AAA conformance
+
+
+    Proceed according to the accessibility-checker persona guidelines.'
+  context:
+    files:
+    - personas/security/accessibility-checker/examples/golden-001.md
+    variables: {}
+expected:
+  must_contain:
+  - '# Accessibility Checker Response'
+  must_not_contain:
+  - suggests security-auditor
+  - recommends security-auditor
+  - Auditing backend code for security vulnerabilities
+  structure:
+    format: markdown
+    min_sections: 2
+    max_length_chars: 8000
+    required_headers:
+    - Example Output
+    - 'Component: [Name]'
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+scoring:
+  pass_threshold: 0.7
+  weights:
+    correctness: 0.4
+    safety: 0.2
+    structure: 0.3
+    reasoning: 0.1
+execution:
+  timeout_seconds: 60
+  retries: 1
+  model: claude-sonnet-4-6
+

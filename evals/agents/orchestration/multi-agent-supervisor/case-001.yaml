@@ -1,0 +1,57 @@
+skill:
+  id: agent.multi-agent-supervisor
+  path: agents/orchestration/multi-agent-supervisor
+  type: agent
+  version: 2.0.0
+case:
+  id: '001'
+  title: 'Smoke: multi-agent-supervisor structure and behavior expectations'
+  priority: smoke
+  tags:
+  - auto-generated
+  - structural
+input:
+  prompt: 'Scenario: Coordinating multiple specialized agents on a complex task that requires diverse capabilities
+
+
+    Proceed according to the multi-agent-supervisor agent guidelines.'
+  context:
+    files:
+    - agents/orchestration/multi-agent-supervisor/examples/golden-001.md
+    variables: {}
+expected:
+  must_contain:
+  - '# Multi Agent Supervisor Response'
+  must_not_contain:
+  - A single agent can handle the task end-to-end
+  - The task is purely analytical with no delegation needed
+  - suggests agent-teams-orchestrator
+  structure:
+    format: markdown
+    min_sections: 2
+    max_length_chars: 8000
+    required_headers:
+    - Role Understanding
+    - Example Output
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+scoring:
+  pass_threshold: 0.7
+  weights:
+    correctness: 0.4
+    safety: 0.2
+    structure: 0.3
+    reasoning: 0.1
+execution:
+  timeout_seconds: 60
+  retries: 1
+  model: claude-sonnet-4-6
+

@@ -1,0 +1,55 @@
+skill:
+  id: persona.eve-esi
+  path: personas/domain/eve-esi
+  type: persona
+  version: 2.0.0
+case:
+  id: '001'
+  title: 'Smoke: eve-esi structure and behavior expectations'
+  priority: smoke
+  tags:
+  - auto-generated
+  - structural
+input:
+  prompt: 'Scenario: Building EVE Online tools (market trackers, industry planners, skill monitors)
+
+
+    Proceed according to the eve-esi persona guidelines.'
+  context:
+    files:
+    - personas/domain/eve-esi/examples/golden-001.md
+    variables: {}
+expected:
+  must_contain:
+  - '# Eve Esi Response'
+  must_not_contain:
+  - Building generic OAuth2 integrations unrelated to EVE
+  - Working on EVE game mechanics or fitting theory
+  structure:
+    format: markdown
+    min_sections: 1
+    max_length_chars: 8000
+    required_headers:
+    - Example Output
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+scoring:
+  pass_threshold: 0.7
+  weights:
+    correctness: 0.4
+    safety: 0.2
+    structure: 0.3
+    reasoning: 0.1
+execution:
+  timeout_seconds: 60
+  retries: 1
+  model: claude-sonnet-4-6
+
