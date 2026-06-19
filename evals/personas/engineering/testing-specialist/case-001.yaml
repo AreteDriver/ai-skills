@@ -1,0 +1,64 @@
+$schema: eval-case-v1
+
+skill:
+  id: testing-specialist
+  path: personas/engineering/testing-specialist
+  type: persona
+  version: "1.0.0"
+
+case:
+  id: "001"
+  title: Comprehensive test suite with edge cases and fixtures
+  priority: critical
+  tags: ["testing", "pytest", "edge-cases", "fixtures"]
+
+input:
+  prompt: >
+    Write a complete pytest test suite for this shopping cart class.
+    Include happy paths, edge cases, error conditions, and fixtures.
+  context:
+    files:
+      - personas/engineering/testing-specialist/examples/golden-test-suite.md
+    variables:
+      framework: pytest
+
+expected:
+  must_contain:
+    - "pytest"
+    - "fixture"
+    - "test_adds"
+    - "test_removes"
+    - "edge case"
+  must_not_contain:
+    - "unittest"
+    - "mock"  # Not required for this case
+  structure:
+    format: markdown
+    min_sections: 3
+    required_headers:
+      - "Test File"
+      - "Coverage Summary"
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+
+scoring:
+  pass_threshold: 0.85
+  weights:
+    correctness: 0.5
+    safety: 0.1
+    structure: 0.2
+    reasoning: 0.2
+
+execution:
+  timeout_seconds: 120
+  retries: 0
+  model: claude-sonnet-4-6

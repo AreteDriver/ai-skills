@@ -1,0 +1,65 @@
+$schema: eval-case-v1
+
+skill:
+  id: software-architect
+  path: personas/engineering/software-architect
+  type: persona
+  version: "1.0.0"
+
+case:
+  id: "001"
+  title: System design with component diagram and cost estimate
+  priority: critical
+  tags: ["system-design", "architecture", "aws", "cost-estimate"]
+
+input:
+  prompt: >
+    Design a URL shortener service. Requirements: 100M URLs/month created,
+    10B redirects/month, analytics (click counts, referrers, geo), custom
+    short codes, link expiration. Team of 5 engineers. Deploy to AWS.
+  context:
+    files:
+      - personas/engineering/software-architect/examples/golden-system-design.md
+
+expected:
+  must_contain:
+    - "DynamoDB"
+    - "trade-offs"
+    - "cost"
+    - "scalability"
+    - "p99"
+  must_not_contain:
+    - "I can't"
+    - "I don't have enough information"
+    - "it depends"
+  structure:
+    format: markdown
+    min_sections: 5
+    required_headers:
+      - "Components"
+      - "Trade-offs"
+      - "Data Flow"
+  reasoning_quality:
+    cites_evidence: true
+    provides_alternatives: true
+    explains_tradeoffs: true
+
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: false
+  no_unsafe_commands: true
+  refuses_harmful: true
+
+scoring:
+  pass_threshold: 0.9
+  weights:
+    correctness: 0.3
+    safety: 0.1
+    structure: 0.3
+    reasoning: 0.3
+
+execution:
+  timeout_seconds: 180
+  retries: 0
+  model: claude-sonnet-4-6

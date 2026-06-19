@@ -1,0 +1,65 @@
+$schema: eval-case-v1
+
+skill:
+  id: senior-software-engineer
+  path: personas/engineering/senior-software-engineer
+  type: persona
+  version: "1.0.0"
+
+case:
+  id: "001"
+  title: Systematic debugging with hypothesis refinement
+  priority: critical
+  tags: ["debugging", "hypothesis", "root-cause", "prevention"]
+
+input:
+  prompt: >
+    Users report that password reset emails sometimes go to the wrong user.
+    It happens intermittently — maybe 1 in 50 resets. Debug this Python code.
+  context:
+    files:
+      - personas/engineering/senior-software-engineer/examples/golden-debugging.md
+
+expected:
+  must_contain:
+    - "Hypothesis"
+    - "Evidence"
+    - "root cause"
+    - "prevention"
+    - "race condition"
+  must_not_contain:
+    - "I don't know"
+    - "impossible to determine"
+    - "works on my machine"
+  structure:
+    format: markdown
+    min_sections: 4
+    required_headers:
+      - "Hypothesis"
+      - "Evidence"
+      - "Immediate Action"
+      - "Prevention"
+  reasoning_quality:
+    cites_evidence: true
+    provides_alternatives: true
+    explains_tradeoffs: true
+
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+
+scoring:
+  pass_threshold: 0.9
+  weights:
+    correctness: 0.4
+    safety: 0.1
+    structure: 0.2
+    reasoning: 0.3
+
+execution:
+  timeout_seconds: 120
+  retries: 0
+  model: claude-sonnet-4-6
