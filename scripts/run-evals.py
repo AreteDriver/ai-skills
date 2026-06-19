@@ -337,11 +337,34 @@ def run_eval(case_path: Path, mode: str = "golden") -> dict[str, Any]:
     }
 
 
-def discover_cases(skill_filter: str | None = None) -> list[Path]:
+def discover_cases(skill_filter: str | None = None, changed_since: str | None = None) -> list[Path]:
     cases = []
     for case_file in EVALS_DIR.rglob("case-*.yaml"):
         if skill_filter is None or skill_filter in str(case_file):
             cases.append(case_file)
+    if changed_since:
+        import subprocess
+        try:
+            result = subprocess.run(
+                ["git", "diff", "--name-only", changed_since, "--", "personas/", "agents/", "workflows/", "evals/"],
+                capture_output=True, text=True, cwd=REPO_ROOT, check=True
+            )
+            changed_paths = set(result.stdout.strip().splitlines())
+            # Map changed paths to eval case directories
+            changed_cases = []
+            for case in cases:
+                # case path: evals/personas/.../case-001.yaml
+                # skill path: personas/...
+                rel = case.relative_to(EVALS_DIR)
+                skill_dir = rel.with_suffix("").parent  # e.g. personas/engineering/code-reviewer
+                skill_md = str(skill_dir / "SKILL.md")
+                eval_path = str((EVALS_DIR / rel).relative_to(REPO_ROOT))
+                # Run eval if either the skill file or the eval case changed
+                if skill_md in changed_paths or eval_path in changed_paths:
+                    changed_cases.append(case)
+            cases = changed_cases
+        except subprocess.CalledProcessError:
+            print(f"WARN: git diff failed for {changed_since}, running all cases", file=sys.stderr)
     return sorted(cases)
 
 
@@ -393,22 +416,33 @@ def main():
     parser = argparse.ArgumentParser(description="Run behavioral evals for ai-skills")
     parser.add_argument("--skill", help="Filter to a specific skill path or ID")
     parser.add_argument("--all", action="store_true", help="Run all eval cases")
+    parser.add_argument("--changed", action="store_true",
+                        help="Run evals only for skills modified since origin/main")
+    parser.add_argument("--since", metavar="REF",
+                        help="Run evals only for skills modified since a git ref (e.g. HEAD~1)")
     parser.add_argument("--mode", choices=["golden", "live"], default="golden",
                         help="Scoring mode: golden=diff against stored example, live=call API")
     parser.add_argument("--report", action="store_true", help="Generate markdown report")
     parser.add_argument("--json", action="store_true", help="Output raw JSON results")
     args = parser.parse_args()
 
-    if not args.skill and not args.all:
-        parser.error("Specify --skill <filter> or --all")
+    if not args.skill and not args.all and not args.changed and not args.since:
+        parser.error("Specify --skill, --all, --changed, or --since")
 
     if args.mode == "live" and not os.environ.get("ANTHROPIC_API_KEY"):
         print("WARN: ANTHROPIC_API_KEY not set. Falling back to golden mode.", file=sys.stderr)
         args.mode = "golden"
 
-    cases = discover_cases(args.skill)
+    since_ref = None
+    if args.changed:
+        since_ref = "origin/main"
+    elif args.since:
+        since_ref = args.since
+
+    cases = discover_cases(args.skill, changed_since=since_ref)
     if not cases:
-        print(f"No eval cases found for filter: {args.skill}", file=sys.stderr)
+        filter_desc = args.skill or since_ref or "all"
+        print(f"No eval cases found for filter: {filter_desc}", file=sys.stderr)
         sys.exit(1)
 
     results = [run_eval(case, mode=args.mode) for case in cases]
