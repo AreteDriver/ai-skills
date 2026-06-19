@@ -244,6 +244,41 @@ def score_case(case: dict[str, Any], output_text: str | None) -> dict[str, Any]:
     }
 
 
+def call_anthropic_api(prompt: str, model: str = "claude-sonnet-4-6", max_tokens: int = 4000) -> str | None:
+    """Call Anthropic Messages API. Returns response text or None on failure."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        return None
+
+    try:
+        import urllib.request
+        import urllib.error
+
+        payload = json.dumps({
+            "model": model,
+            "max_tokens": max_tokens,
+            "messages": [{"role": "user", "content": prompt}],
+        }).encode("utf-8")
+
+        req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages",
+            data=payload,
+            headers={
+                "Content-Type": "application/json",
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+            },
+            method="POST",
+        )
+
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            return data["content"][0]["text"]
+    except Exception as e:
+        print(f"API call failed: {e}", file=sys.stderr)
+        return None
+
+
 def run_eval(case_path: Path, mode: str = "golden") -> dict[str, Any]:
     case = load_eval_case(case_path)
     errors = validate_case(case)
@@ -270,6 +305,24 @@ def run_eval(case_path: Path, mode: str = "golden") -> dict[str, Any]:
                 "threshold": case.get("scoring", {}).get("pass_threshold", 1.0),
                 "passed": False,
                 "details": ["Golden example file not found — cannot score"],
+                "breakdown": {},
+            }
+    elif mode == "live":
+        prompt = case.get("input", {}).get("prompt", "")
+        model = case.get("execution", {}).get("model", "claude-sonnet-4-6")
+        max_tokens = case.get("execution", {}).get("max_tokens", 4000)
+        output_text = call_anthropic_api(prompt, model=model, max_tokens=max_tokens)
+        if output_text is None:
+            return {
+                "path": str(case_path),
+                "valid": True,
+                "skill_id": case["skill"]["id"],
+                "case_id": case["case"]["id"],
+                "title": case["case"]["title"],
+                "score": 0.0,
+                "threshold": case.get("scoring", {}).get("pass_threshold", 1.0),
+                "passed": False,
+                "details": ["Live API call failed or returned no output"],
                 "breakdown": {},
             }
 
