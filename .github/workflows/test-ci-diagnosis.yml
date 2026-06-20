@@ -1,0 +1,31 @@
+name: Test CI Diagnosis Trigger
+
+on:
+  push:
+    branches:
+      - test/ci-diagnosis-trigger
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deliberately-fail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Simulate a test failure
+        run: |
+          echo "This workflow is intentionally failing for CI Diagnostician testing."
+          echo "=================================== FAILURES ==================================="
+          echo "_________________________ test_user_login _________________________"
+          echo "tests/auth/test_login.py:42: in test_user_login"
+          echo "    assert response.status_code == 200"
+          echo "E   AssertionError: assert 401 == 200"
+          exit 1
+      - name: Another failing step
+        run: |
+          echo "Lint errors found:"
+          echo "src/models.py:12: error: cannot import name 'BaseModel' from 'pydantic'"
+          echo "src/models.py:12: note: did you mean 'BaseModelV1'?"
+          exit 1
+        if: failure()
