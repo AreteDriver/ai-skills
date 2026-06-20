@@ -1,0 +1,61 @@
+workflow:
+  name: ci_diagnosis
+  version: "1.0.0"
+  description: "Intelligent CI failure diagnosis via Animus Forge"
+
+  config:
+    checkpoint_enabled: true
+    max_budget_per_run: 10000  # tokens
+    log_retention: "7d"
+
+  agents:
+    - role: ingest_logs
+      task: "Fetch and normalize failed CI logs"
+      budget: { max_tokens: 500 }
+      timeout: 120
+      output: raw_logs
+
+    - role: parse_failures
+      task: "Extract failure signatures from logs"
+      depends_on: [ingest_logs]
+      budget: { max_tokens: 8000 }
+      timeout: 60
+      output: failure_signatures
+
+    - role: classify_failure
+      task: "Classify failure with taxonomy"
+      depends_on: [parse_failures]
+      budget: { max_tokens: 3000 }
+      timeout: 60
+      output: taxonomy
+
+    - role: diagnose
+      task: "Synthesize root cause and recommend fix"
+      depends_on: [classify_failure]
+      budget: { max_tokens: 5000 }
+      timeout: 120
+      output: diagnosis, recommended_fix
+
+    - role: comment
+      task: "Post diagnosis to PR or issue"
+      depends_on: [diagnose]
+      budget: { max_tokens: 500 }
+      timeout: 30
+      output: pr_comment_url
+      on_failure: continue
+
+    - role: propose_fix
+      task: "Generate patch"
+      depends_on: [diagnose]
+      condition: "remediate == true AND approved == true"
+      budget: { max_tokens: 8000 }
+      timeout: 120
+      output: patch
+
+    - role: verify_fix
+      task: "Apply patch and run tests"
+      depends_on: [propose_fix]
+      budget: { max_tokens: 500 }
+      timeout: 300
+      output: test_results, verified
+      on_failure: abort

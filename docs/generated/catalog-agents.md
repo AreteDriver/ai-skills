@@ -6,6 +6,7 @@
 | Name | Category | Description | Risk | Consensus | Schema |
 |------|----------|-------------|------|-----------|--------|
 | [entity-resolver](../../agents/analysis/entity-resolver/SKILL.md) | analysis | Resolves entity ambiguity across document corpora — fuzzy name matching, alias detection, identity consolidation, and confidence-scored entity merging | medium | majority | ✓ |
+| [ci-diagnostician](../../agents/analysis/ci-diagnostician/SKILL.md) | analysis | Intelligent CI failure diagnosis and guided remediation for GitHub Actions, GitLab CI, and local builds | medium | majority |  |
 | [handoff](../../agents/analysis/handoff/SKILL.md) | analysis | Packages project state into structured context documents for agent sessions, human pickup, or Quorum IntentNodes | low | any | ✓ |
 | [document-forensics](../../agents/analysis/document-forensics/SKILL.md) | analysis | Investigative methodology for analyzing document collections — provenance analysis, anomaly detection, redaction detection, and cross-document validation | medium | majority | ✓ |
 | [release-engineer](../../agents/analysis/release-engineer/SKILL.md) | analysis | Automates the last mile of shipping software — verifies release readiness, generates changelogs, tags versions, and pushes releases | high | majority | ✓ |

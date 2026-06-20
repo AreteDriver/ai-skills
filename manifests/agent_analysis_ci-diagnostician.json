@@ -1,0 +1,35 @@
+{
+  "skill_id": "agent.analysis.ci-diagnostician",
+  "type": "agent",
+  "category": "analysis",
+  "name": "ci-diagnostician",
+  "path": "agents/analysis/ci-diagnostician",
+  "description": "Intelligent CI failure diagnosis and guided remediation for GitHub Actions, GitLab CI, and local builds",
+  "has_schema": false,
+  "has_references": false,
+  "version": "1.0.0",
+  "risk_level": "medium",
+  "consensus": "majority",
+  "lifecycle": "experimental",
+  "tags": [
+    "agent",
+    "analysis",
+    "api",
+    "content",
+    "github actions",
+    "gitlab",
+    "infrastructure",
+    "jest",
+    "medium",
+    "pytest",
+    "review",
+    "security"
+  ],
+  "triggers": [
+    "a ci failure repeats intermittently (flaky test, infra timeout, race condition)",
+    "a github actions, gitlab ci, or local build has failed and the cause is unclear",
+    "a pr's ci checks are red and the author needs a rapid diagnosis before review",
+    "evaluating whether a ci failure is legitimate or an infra/tooling false positive",
+    "post-mortem analysis of a critical ci outage or widespread build breakage"
+  ]
+}

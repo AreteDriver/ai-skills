@@ -24,6 +24,7 @@
 | [build](../../personas/devops/build/SKILL.md) | persona | devops | experimental |  | ✓ | bash |
 | [changelog](../../personas/devops/changelog/SKILL.md) | persona | devops | experimental |  | ✓ | bash |
 | [ci](../../personas/devops/ci/SKILL.md) | persona | devops | experimental |  | ✓ |  |
+| [ci-diagnostician](../../agents/analysis/ci-diagnostician/SKILL.md) | agent | analysis | experimental |  | ✓ | agent, analysis, api, content, github actions |
 | [cicd-pipeline](../../personas/claude-code/cicd-pipeline/SKILL.md) | persona | claude-code | experimental |  | ✓ | api, bash, claude-code, data, deployment |
 | [code-builder](../../personas/engineering/code-builder/SKILL.md) | persona | engineering | experimental |  | ✓ | api, data, documentation, engineering, low |
 | [commit](../../personas/devops/commit/SKILL.md) | persona | devops | experimental |  | ✓ | bash |

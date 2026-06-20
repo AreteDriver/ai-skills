@@ -1,12 +1,13 @@
 {
   "generated_at": "auto",
-  "total": 144,
+  "total": 145,
   "by_type": {
     "persona": 114,
-    "agent": 17,
+    "agent": 18,
     "workflow": 13
   },
   "skill_ids": [
+    "agent.analysis.ci-diagnostician",
     "agent.analysis.context-mapper",
     "agent.analysis.document-forensics",
     "agent.analysis.entity-resolver",

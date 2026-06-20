@@ -1,0 +1,29 @@
+id: case-001
+description: Verify CI diagnostician can classify a pytest failure and produce a structured diagnosis
+skill: ci-diagnostician
+criteria:
+  - type: regex_contains
+    pattern: (?i)failure.{0,30}taxonomy
+    weight: 0.2
+  - type: regex_contains
+    pattern: (?i)severity\s*:\s*(critical|high|medium|low)
+    weight: 0.2
+  - type: regex_contains
+    pattern: (?i)human approval|approval required|explicitly obtained
+    weight: 0.2
+  - type: regex_contains
+    pattern: (?i)propose_fix|verify_fix|patch|diff|recommended fix
+    weight: 0.2
+  - type: regex_contains
+    pattern: (?i)likely culprit|culprit|commit|root cause
+    weight: 0.2
+inputs:
+  prompt: |
+    Given this CI log:
+    =================================== FAILURES ===================================
+    _________________________ test_user_login _________________________
+    tests/auth/test_login.py:42: in test_user_login
+        assert response.status_code == 200
+    E   AssertionError: assert 401 == 200
+
+    Run the ci-diagnostician skill. Return the classification, diagnosis, and recommended fix.

@@ -2020,6 +2020,32 @@ agents:
     - finding and reviewing suspected duplicates in an entity database
     - manually merging entities the user has identified as the same real-world entity
     lifecycle: experimental
+  - name: ci-diagnostician
+    path: agents/analysis/ci-diagnostician
+    description: Intelligent CI failure diagnosis and guided remediation for GitHub
+      Actions, GitLab CI, and local builds
+    risk_level: medium
+    consensus: majority
+    tags:
+    - agent
+    - analysis
+    - api
+    - content
+    - github actions
+    - gitlab
+    - infrastructure
+    - jest
+    - medium
+    - pytest
+    - review
+    - security
+    triggers:
+    - a ci failure repeats intermittently (flaky test, infra timeout, race condition)
+    - a github actions, gitlab ci, or local build has failed and the cause is unclear
+    - a pr's ci checks are red and the author needs a rapid diagnosis before review
+    - evaluating whether a ci failure is legitimate or an infra/tooling false positive
+    - post-mortem analysis of a critical ci outage or widespread build breakage
+    lifecycle: experimental
   - name: handoff
     path: agents/analysis/handoff
     description: Packages project state into structured context documents for agent
@@ -2577,9 +2603,9 @@ workflows:
   lifecycle: experimental
 stats:
   total_personas: 114
-  total_agents: 17
+  total_agents: 18
   total_workflows: 13
-  total_skills: 144
+  total_skills: 145
   categories:
     persona:
       api: 4
@@ -2591,7 +2617,7 @@ stats:
       security: 3
       web: 20
     agent:
-      analysis: 8
+      analysis: 9
       browser: 2
       email: 1
       integrations: 2

@@ -26,6 +26,7 @@ Alphabetical, faceted index of all skills with tags and triggers.
 | [build](../../personas/devops/build/SKILL.md) | persona | devops | bash |
 | [changelog](../../personas/devops/changelog/SKILL.md) | persona | devops | bash |
 | [ci](../../personas/devops/ci/SKILL.md) | persona | devops |  |
+| [ci-diagnostician](../../agents/analysis/ci-diagnostician/SKILL.md) | agent | analysis | agent, analysis, api, content, github actions, gitlab, infrastructure, jest |
 | [cicd-pipeline](../../personas/claude-code/cicd-pipeline/SKILL.md) | persona | claude-code | api, bash, claude-code, data, deployment, github actions, low, monitoring |
 | [code-builder](../../personas/engineering/code-builder/SKILL.md) | persona | engineering | api, data, documentation, engineering, low, persona, review |
 | [code-reviewer](../../personas/engineering/code-reviewer/SKILL.md) | persona | engineering | bash, data, engineering, low, performance, persona, review, security |

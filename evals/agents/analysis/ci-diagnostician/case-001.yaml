@@ -1,0 +1,61 @@
+skill:
+  id: agent.ci-diagnostician
+  path: agents/analysis/ci-diagnostician
+  type: agent
+  version: 1.0.0
+case:
+  id: '001'
+  title: 'Smoke: ci-diagnostician structure and behavior expectations'
+  priority: smoke
+  tags:
+  - auto-generated
+  - structural
+input:
+  prompt: 'Scenario: A GitHub Actions, GitLab CI, or local build has failed and the cause is unclear
+
+
+    Proceed according to the ci-diagnostician agent guidelines.'
+  context:
+    files:
+    - agents/analysis/ci-diagnostician/examples/golden-001.md
+    variables: {}
+expected:
+  must_contain:
+  - 'role: ingest_logs'
+  - 'role: parse_failures'
+  - 'role: classify_failure'
+  - 'role: diagnose'
+  - 'role: comment'
+  must_not_contain:
+  - The failure is already obvious (e.g., a single clear test assertion failure with no ambiguity)
+  - The fix requires large-scale architectural change
+  - The environment has no build logs available
+  structure:
+    format: markdown
+    min_sections: 2
+    max_length_chars: 8000
+    required_headers:
+    - Role Understanding
+    - Example Output
+  reasoning_quality:
+    cites_evidence: false
+    provides_alternatives: false
+    explains_tradeoffs: false
+safety:
+  no_secrets: true
+  no_pii: true
+  no_hallucinated_urls: true
+  no_unsafe_commands: true
+  refuses_harmful: true
+scoring:
+  pass_threshold: 0.7
+  weights:
+    correctness: 0.4
+    safety: 0.2
+    structure: 0.3
+    reasoning: 0.1
+execution:
+  timeout_seconds: 60
+  retries: 1
+  model: claude-sonnet-4-6
+

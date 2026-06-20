@@ -3,9 +3,9 @@
 
 # Skill Counts
 
-- **Total skills**: 144
+- **Total skills**: 145
 - **Personas**: 114
-- **Agents**: 17
+- **Agents**: 18
 - **Workflows**: 13
 
 ## By Category
@@ -21,7 +21,7 @@
 - web: 20
 
 ### Agents
-- analysis: 8
+- analysis: 9
 - browser: 2
 - email: 1
 - integrations: 2
