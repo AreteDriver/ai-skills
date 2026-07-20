@@ -1,3 +1,6 @@
+> **Part of the Arete Stack**  
+> These skills operationalize [The Human Stack](https://github.com/AreteDriver/the-human-stack) methodology — evidence-graded engineering practices for AI systems. For the broader ecosystem (cost observability, orchestration, governance), see [github.com/AreteDriver](https://github.com/AreteDriver).
+
 # AI Skills
 
 [![Validate Skills](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/AreteDriver/ai-skills/actions/workflows/validate-skills.yml)
@@ -5,7 +8,21 @@
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai/code)
 [![Skills](https://img.shields.io/badge/Skills-144-blue)]()
 
-**Production-ready skills for Claude Code personas, Gorgon agent capabilities, and orchestrated workflows.**
+**Production-ready skills for Claude Code personas, agent orchestration, and orchestrated workflows.**
+
+---
+
+## What Is the Arete Stack?
+
+The Arete Stack is a set of interoperable tools for building, deploying, and operating AI systems with discipline:
+
+- **ai-skills** (this repo) — Operationalized engineering practices as Claude Code skills and agent capabilities
+- **[ai-spend](https://github.com/AreteDriver/ai-spend)** — Cost observability across providers (`htop` for AI spend)
+- **[agent-lint](https://github.com/AreteDriver/agent-lint)** — Workflow YAML cost estimation + anti-pattern detection
+- **[animus](https://github.com/AreteDriver/animus)** — Sovereign AI operating environment with evidence-graded maturity
+- **[the-human-stack](https://github.com/AreteDriver/the-human-stack)** — The methodology reference itself
+
+Skills are the fastest way to start. Install a bundle, open Claude Code, and the methodology is active in your session.
 
 ---
 
@@ -13,7 +30,9 @@
 
 Claude is powerful but generic. For specialized work you end up re-explaining context, missing domain best practices, and getting responses that don't match your workflow.
 
-**Skills fix this.** Each skill transforms Claude into a specialized persona with defined behaviors, constraints, and output formats. Agent skills give Gorgon agents typed interfaces with risk levels and consensus requirements. Workflows coordinate them with the WHY/WHAT/HOW framework.
+**Skills fix this.** Each skill transforms Claude into a specialized persona with defined behaviors, constraints, and output formats. Agent skills give agents typed interfaces with risk levels and consensus requirements. Workflows coordinate them with the WHY/WHAT/HOW framework.
+
+---
 
 ## Quickstart
 
@@ -117,7 +136,7 @@ Now open Claude Code — your pirate engineer is ready. See the full [Quickstart
 │                   ai-skills                      │
 ├─────────────────┬───────────────┬───────────────┤
 │    Personas     │    Agents     │   Workflows   │
-│  (how Claude    │ (what Gorgon  │ (multi-step   │
+│  (how Claude    │ (what agents  │ (multi-step   │
 │   behaves)      │  agents do)   │  execution)   │
 ├─────────────────┼───────────────┼───────────────┤
 │ 114 skills      │ 17 skills     │ 13 workflows  │
@@ -224,9 +243,9 @@ Now open Claude Code — your pirate engineer is ready. See the full [Quickstart
 | [webhook-designer](personas/api/webhook-designer/SKILL.md) | Webhook payload, retry, HMAC security | `personas/api/` |
 | [oauth-integrator](personas/api/oauth-integrator/SKILL.md) | OAuth 2.0, PKCE, JWT, provider integration | `personas/api/` |
 
-## Agents — Gorgon Capabilities
+## Agents — Agent Capabilities
 
-Agent skills define typed interfaces with inputs, outputs, risk levels, and Triumvirate consensus requirements.
+Agent skills define typed interfaces with inputs, outputs, risk levels, and consensus requirements.
 
 | Agent | Category | Risk | Consensus | Description |
 |-------|----------|------|-----------|-------------|
@@ -237,13 +256,13 @@ Agent skills define typed interfaces with inputs, outputs, risk levels, and Triu
 | [email-compose](agents/email/email-compose/SKILL.md) | email | high | send ops | Draft-review-send email workflow |
 | [github-operations](agents/integrations/github-operations/SKILL.md) | integrations | medium | push ops | Git CLI and GitHub API |
 | [api-client](agents/integrations/api-client/SKILL.md) | integrations | low | none | Authenticated HTTP API client |
-| [multi-agent-supervisor](agents/orchestration/multi-agent-supervisor/SKILL.md) | orchestration | medium | adaptive | Gorgon supervisor with Triumvirate |
+| [multi-agent-supervisor](agents/orchestration/multi-agent-supervisor/SKILL.md) | orchestration | medium | adaptive | Multi-agent supervisor with consensus |
 | [agent-teams-orchestrator](agents/orchestration/agent-teams-orchestrator/SKILL.md) | orchestration | medium | none | Claude Code Agent Teams |
 | [technical-debt-auditor](agents/analysis/technical-debt-auditor/SKILL.md) | analysis | low | none | Repo health scoring (5 sub-agents) |
 | [release-engineer](agents/analysis/release-engineer/SKILL.md) | analysis | medium | publish | Last-mile shipping automation |
 | [entity-resolver](agents/analysis/entity-resolver/SKILL.md) | analysis | low | none | Fuzzy entity matching + dedup |
 | [context-mapper](agents/analysis/context-mapper/SKILL.md) | analysis | low | none | Pre-execution project mapping |
-| [workflow-debugger](agents/analysis/workflow-debugger/SKILL.md) | analysis | low | none | Gorgon failure diagnosis |
+| [workflow-debugger](agents/analysis/workflow-debugger/SKILL.md) | analysis | low | none | Failure diagnosis |
 | [document-forensics](agents/analysis/document-forensics/SKILL.md) | analysis | low | none | Investigative document analysis |
 | [intent-author](agents/analysis/intent-author/SKILL.md) | analysis | low | none | Convergent intent authoring |
 
@@ -362,7 +381,7 @@ Both validators run in CI on every push and PR. See `.github/workflows/validate-
 
 ## Registry
 
-`registry.yaml` is the central catalog of all skills. Gorgon's `SkillLibrary` loader uses it to discover, validate, and load skills at runtime.
+`registry.yaml` is the central catalog of all skills. Runtime loaders use it to discover, validate, and load skills.
 
 ```yaml
 # Query the registry
@@ -417,7 +436,7 @@ Agent skills additionally require:
 
 ## Credits
 
-Skills adapted from [Gorgon](https://github.com/AreteDriver/Gorgon) multi-agent orchestration system and the original ClaudeSkills repository.
+Skills adapted from multi-agent orchestration patterns and the original ClaudeSkills repository.
 
 ## Author
 
