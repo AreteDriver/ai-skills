@@ -426,7 +426,7 @@ Agent skills additionally require:
 |-----------|---------|
 | `bundles.yaml` | Curated skill bundles for common use cases |
 | `examples/` | Quickstart guide with before/after demos |
-| `hooks/` | 4 executable hook scripts (tdd-guard, no-force-push, protected-paths, tool-logger) |
+| `hooks/` | 10 executable hook scripts (4 baseline + 6 advanced-security) |
 | `plugins/` | Example quality-gate plugin bundling skills + hooks |
 | `playbooks/` | Multi-step workflow guides (full-feature, debug-and-fix) |
 | `prompts/` | 7 legacy prompt templates |
