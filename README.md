@@ -19,7 +19,7 @@ The Arete Stack is a set of interoperable tools for building, deploying, and ope
 - **ai-skills** (this repo) — Operationalized engineering practices as Claude Code skills and agent capabilities
 - **[ai-spend](https://github.com/AreteDriver/ai-spend)** — Cost observability across providers (`htop` for AI spend)
 - **[agent-lint](https://github.com/AreteDriver/agent-lint)** — Workflow YAML cost estimation + anti-pattern detection
-- **[animus](https://github.com/AreteDriver/animus)** — Sovereign AI operating environment with evidence-graded maturity
+- **[animus](https://github.com/AreteDriver/animus)** — Personal AI operating environment with evidence-graded maturity
 - **[the-human-stack](https://github.com/AreteDriver/the-human-stack)** — The methodology reference itself
 
 Skills are the fastest way to start. Install a bundle, open Claude Code, and the methodology is active in your session.
