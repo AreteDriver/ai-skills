@@ -15,6 +15,10 @@ Hooks are shell scripts that run automatically during Claude Code's tool executi
 | `protected-paths.sh` | PreToolUse | Write,Edit | Blocks writes to sensitive directories |
 | `tool-logger.sh` | PostToolUse | * | Logs all tool invocations for audit |
 
+### Advanced Security Hooks
+
+For deeper security coverage — comprehensive bash auditing, multi-surface secret detection, file write validation, session logging, and TDD marker companions — see [`advanced-security/`](advanced-security/).
+
 ## Installation
 
 1. Copy the hooks you want to your project or personal Claude config:
