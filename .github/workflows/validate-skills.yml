@@ -92,7 +92,7 @@ jobs:
         run: python3 scripts/check-eval-coverage.py --threshold 0.90
 
       - name: Upload golden quality card
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: eval-quality-card-golden
           path: evals/reports/quality-card-golden.md
@@ -128,7 +128,7 @@ jobs:
         if: env.ANTHROPIC_API_KEY != ''
 
       - name: Upload live quality card
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: env.ANTHROPIC_API_KEY != ''
         with:
           name: eval-quality-card-live
